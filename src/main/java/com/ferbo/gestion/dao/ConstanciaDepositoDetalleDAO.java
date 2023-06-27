@@ -22,7 +22,7 @@ public class ConstanciaDepositoDetalleDAO extends DAO implements IDAO<Constancia
 		bean.setIdConstanciaDepositoDetalle(getInteger(rs, "CONSTANCIA_DEPOSITO_DETALLE_CVE"));
 		bean.setIdServicio(getInteger(rs, "SERVICIO_CVE"));
 		bean.setFolio(getInteger(rs, "FOLIO"));
-		bean.setIdServicio(getInteger(rs, "servicio_cantidad"));
+		bean.setCantidad(rs.getBigDecimal("servicio_cantidad"));
 		return bean;
 	}
 
