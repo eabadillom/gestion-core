@@ -96,6 +96,32 @@ public class ClienteDAO extends DAO implements IDAO<Cliente> {
 		
 		return bean;
 	}
+	
+	public Cliente getByNumero(Connection conn, String numeroCliente) throws SQLException {
+		Cliente bean = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = null;
+		int idx = 1;
+		
+		try {
+			sql = SELECT + "WHERE numero_cte = ? ";
+			ps = conn.prepareStatement(sql);
+			ps.setString(idx++, getTrim(numeroCliente));
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				bean = this.getBean(rs);
+			}
+			
+		} finally {
+			close(rs);
+			close(ps);
+		}
+		
+		return bean;
+	}
 
 	@Override
 	public int insert(Connection conn, Cliente bean) throws SQLException {
@@ -114,5 +140,4 @@ public class ClienteDAO extends DAO implements IDAO<Cliente> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }
