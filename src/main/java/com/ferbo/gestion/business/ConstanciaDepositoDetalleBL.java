@@ -20,6 +20,7 @@ public class ConstanciaDepositoDetalleBL {
 	public ConstanciaDepositoDetalleBL() {
 		this.cddDAO = new ConstanciaDepositoDetalleDAO();
 		this.servicioDAO = new ServicioDAO();
+		this.tipoCobroDAO = new TipoCobroDAO();
 	}
 
 	public List<ConstanciaDepositoDetalle> getByFolio(Connection conn, Integer folio) throws SQLException {
