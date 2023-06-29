@@ -101,10 +101,15 @@ public class ContactosBL {
 		contacto = contactoDAO.get(conn, idContacto);
 		mediosContacto = medioContactoDAO.get(conn, idContacto);
 		for(MedioContacto medio : mediosContacto) {
-			Mail mail = mailDAO.get(conn, medio.getIdMail());
-			Telefono telefono = telefonoDAO.get(conn, medio.getIdTelefono());
-			medio.setMail(mail);
-			medio.setTelefono(telefono);
+			
+			if(medio.getIdMail() != null) {
+				Mail mail = mailDAO.get(conn, medio.getIdMail());
+				medio.setMail(mail);
+			}
+			if(medio.getIdTelefono() != null) {
+				Telefono telefono = telefonoDAO.get(conn, medio.getIdTelefono());
+				medio.setTelefono(telefono);
+			}
 		}
 		contacto.setMediosContacto(mediosContacto);
 		return contacto;
