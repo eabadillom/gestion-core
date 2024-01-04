@@ -12,7 +12,7 @@ public class ServicioDAO extends DAO implements IDAO<Servicio> {
 	
 	private static final String SELECT = "SELECT "
 			+ "	SERVICIO_CVE, SERVICIO_DS, COBRO, SERVICIO_COD, cd_unidad, SERVICIO_NOM, uuid, ST_DEFAULT "
-			+ "FROM SERVICIO ";
+			+ "FROM servicio ";
 
 	@Override
 	public Servicio getBean(ResultSet rs) throws SQLException {

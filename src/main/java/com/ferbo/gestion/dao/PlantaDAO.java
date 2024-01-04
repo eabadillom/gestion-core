@@ -10,7 +10,7 @@ import com.ferbo.gestion.model.Planta;
 
 public class PlantaDAO extends DAO implements IDAO<Planta> {
 	
-	private static final String SELECT = "select PLANTA_CVE, PLANTA_DS, planta_abrev, planta_sufijo, PLANTA_COD, id_usuario, uuid, nb_cp, id_pais, id_estado, id_municipio, id_ciudad, id_asentamiento, tp_asentamiento, nb_calle, nu_exterior, nu_interior, cd_emisor, nb_ubicacion from PLANTA ";
+	private static final String SELECT = "select PLANTA_CVE, PLANTA_DS, planta_abrev, planta_sufijo, PLANTA_COD, id_usuario, uuid, nb_cp, id_pais, id_estado, id_municipio, id_ciudad, id_asentamiento, tp_asentamiento, nb_calle, nu_exterior, nu_interior, cd_emisor, nb_ubicacion from planta ";
 
 	@Override
 	public Planta getBean(ResultSet rs) throws SQLException {

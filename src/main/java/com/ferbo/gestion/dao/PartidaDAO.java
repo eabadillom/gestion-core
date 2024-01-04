@@ -13,7 +13,7 @@ public class PartidaDAO extends DAO implements IDAO<Partida> {
 	
 	private static final String SELECT = "select "
 			+ "PARTIDA_CVE, CAMARA_CVE, FOLIO, PESO_TOTAL, CANTIDAD_TOTAL, UNIDAD_DE_PRODUCTO_CVE, cantidad_de_cobro, unidad_de_cobro, partida_seq, valorMercancia, rendimiento, no_tarimas "
-			+ "from PARTIDA ";
+			+ "from partida ";
 
 	@Override
 	public Partida getBean(ResultSet rs) throws SQLException {

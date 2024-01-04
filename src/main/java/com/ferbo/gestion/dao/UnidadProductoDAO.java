@@ -15,7 +15,7 @@ public class UnidadProductoDAO extends DAO implements IDAO<UnidadProducto> {
 			+ "	PRODUCTO_CVE, "
 			+ "	UNIDAD_DE_MANEJO_CVE "
 			+ "from "
-			+ "	UNIDAD_DE_PRODUCTO ";
+			+ "	unidad_de_producto ";
 
 	@Override
 	public UnidadProducto getBean(ResultSet rs) throws SQLException {

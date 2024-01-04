@@ -13,7 +13,7 @@ public class ClienteDAO extends DAO implements IDAO<Cliente> {
 	
 	private static final String SELECT = "SELECT "
 			+ "	CTE_CVE, CTE_NOMBRE, CTE_RFC, numero_cte, cte_mail, habilitado, COD_UNICO, tp_persona, cd_regimen, cd_uso_cfdi, cd_metodo_pago, cd_forma_pago, nb_regimen_capital, uuid "
-			+ "FROM CLIENTE ";	
+			+ "FROM cliente ";	
 
 	@Override
 	public Cliente getBean(ResultSet rs) throws SQLException {

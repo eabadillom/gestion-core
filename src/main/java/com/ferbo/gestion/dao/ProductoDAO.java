@@ -10,7 +10,7 @@ import com.ferbo.gestion.model.Producto;
 
 public class ProductoDAO extends DAO implements IDAO<Producto> {
 	
-	private static final String SELECT = "select PRODUCTO_CVE, PRODUCTO_DS, NUMERO_PROD, categoria from PRODUCTO ";
+	private static final String SELECT = "select PRODUCTO_CVE, PRODUCTO_DS, NUMERO_PROD, categoria from producto ";
 
 	@Override
 	public Producto getBean(ResultSet rs) throws SQLException {

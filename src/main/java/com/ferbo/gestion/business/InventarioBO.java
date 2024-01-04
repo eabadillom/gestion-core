@@ -5,11 +5,15 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.ferbo.gestion.dao.ConstanciaDepositoDAO;
 import com.ferbo.gestion.model.ConstanciaDeposito;
+import com.ferbo.gestion.tools.GestionException;
 
 public class InventarioBO {
-	
+	private static Logger log = LogManager.getLogger(InventarioBO.class);
 	private Connection conn = null;
 	private ConstanciaDepositoDAO constanciaDepositoDAO = null;
 	
@@ -34,5 +38,14 @@ public class InventarioBO {
 		}
 		
 		return constancias;
+	}
+	
+	public boolean tieneInventario(Integer idCliente, Date fechaCorte) throws SQLException, GestionException {
+		boolean tieneInventario = false;
+		
+		tieneInventario = constanciaDepositoDAO.tieneInventario(conn, idCliente, fechaCorte);
+		log.info("El cliente {} tiene inventario: {}", idCliente, tieneInventario);
+		
+		return tieneInventario;
 	}
 }

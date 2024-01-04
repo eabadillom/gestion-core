@@ -10,7 +10,7 @@ import com.ferbo.gestion.model.Camara;
 
 public class CamaraDAO extends DAO implements IDAO<Camara> {
 	
-	private static final String SELECT = "select CAMARA_CVE, PLANTA_CVE, CAMARA_DS, CAMARA_ABREV from CAMARA ";
+	private static final String SELECT = "select CAMARA_CVE, PLANTA_CVE, CAMARA_DS, CAMARA_ABREV from camara ";
 	
 	@Override
 	public Camara getBean(ResultSet rs) throws SQLException {

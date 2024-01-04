@@ -11,7 +11,7 @@ import com.ferbo.gestion.model.DetallePartida;
 
 public class DetallePartidaDAO extends DAO implements IDAO<DetallePartida> {
 	
-	private static final String SELECT = "select DET_PART_CVE, PARTIDA_CVE, tipo_mov_cve, edo_inv_cve, det_anterior, det_part_anterior, det_padre, det_part_padre, cantidad_u_manejo, u_medida_cve, cantidad_u_medida, dtp_codigo, dtp_lote, dtp_caducidad, dtp_PO, dtp_MP, dtp_pedimento, dtp_SAP, dtp_tarimas from DETALLE_PARTIDA ";
+	private static final String SELECT = "select DET_PART_CVE, PARTIDA_CVE, tipo_mov_cve, edo_inv_cve, det_anterior, det_part_anterior, det_padre, det_part_padre, cantidad_u_manejo, u_medida_cve, cantidad_u_medida, dtp_codigo, dtp_lote, dtp_caducidad, dtp_PO, dtp_MP, dtp_pedimento, dtp_SAP, dtp_tarimas from detalle_partida ";
 
 	@Override
 	public DetallePartida getBean(ResultSet rs) throws SQLException {

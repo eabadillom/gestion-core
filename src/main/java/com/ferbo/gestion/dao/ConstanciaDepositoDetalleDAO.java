@@ -13,7 +13,7 @@ public class ConstanciaDepositoDetalleDAO extends DAO implements IDAO<Constancia
 	
 	private static final String SELECT = "select "
 			+ "	CONSTANCIA_DEPOSITO_DETALLE_CVE, SERVICIO_CVE, FOLIO, servicio_cantidad "
-			+ "from CONSTANCIA_DEPOSITO_DETALLE "
+			+ "from constancia_deposito_detalle "
 			;
 
 	@Override

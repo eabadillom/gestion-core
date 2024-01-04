@@ -10,7 +10,7 @@ import com.ferbo.gestion.model.UnidadManejo;
 
 public class UnidadManejoDAO extends DAO implements IDAO<UnidadManejo> {
 	
-	private static final String SELECT = "select UNIDAD_DE_MANEJO_CVE, UNIDAD_DE_MANEJO_DS from UNIDAD_DE_MANEJO ";
+	private static final String SELECT = "select UNIDAD_DE_MANEJO_CVE, UNIDAD_DE_MANEJO_DS from unidad_de_manejo ";
 
 	@Override
 	public UnidadManejo getBean(ResultSet rs) throws SQLException {
