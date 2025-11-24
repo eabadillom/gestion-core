@@ -68,26 +68,22 @@ public class ConstanciaDepositoDAO extends DAO implements IDAO<ConstanciaDeposit
 
 	@Override
 	public List<ConstanciaDeposito> get(Connection conn) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException("Búsqueda no implementada.");
 	}
 
 	@Override
 	public int insert(Connection conn, ConstanciaDeposito bean) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException("Operación no implementada.");
 	}
 
 	@Override
 	public int update(Connection conn, ConstanciaDeposito bean) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException("Operación no implementada.");
 	}
 
 	@Override
 	public int delete(Connection conn, ConstanciaDeposito bean) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException("Operación no implementada.");
 	}
 
 	public List<ConstanciaDeposito> getConstanciasConSaldo(Connection conn, Integer idCliente, Date fechaCorte)
@@ -203,99 +199,45 @@ public class ConstanciaDepositoDAO extends DAO implements IDAO<ConstanciaDeposit
 	public boolean tieneInventario(Connection conn, Integer idCliente, Date fechaCorte)
 	throws SQLException, GestionException {
 		boolean tieneInventario = false;
-		PreparedStatement             psSelect      = null;
-		ResultSet                     rsSelect      = null;
-		String                        sqlSelect     = null;
+		PreparedStatement             ps      = null;
+		ResultSet                     rs      = null;
+		String                        sql     = null;
 		int idx = 1;
 		
 		Integer ctaRows = null;
 		
 		try {
-			sqlSelect = "select count(*) as cta_inventario\n"
+			sql = "select count(*) as cta_inventario\n"
 					+ "from (\n"
-					+ "	select * from (\n"
+					+ "	select\n"
+					+ "		p.PARTIDA_CVE,\n"
+					+ "		(p.CANTIDAD_TOTAL - COALESCE(s.cantidad, 0)) as cantidad,\n"
+					+ "		(p.PESO_TOTAL - COALESCE(s.peso, 0)) as peso\n"
+					+ "	from constancia_de_deposito cdd\n"
+					+ "	inner join partida p on cdd.FOLIO = p.FOLIO\n"
+					+ "	left outer join (\n"
 					+ "		select\n"
-					+ "		    cddEnt.folio            as folio,\n"
-					+ "		    cli.cte_nombre          as cliente,\n"
-					+ "		    cli.numero_cte          as numero_cte,\n"
-					+ "		    cddEnt.folio_cliente    as folio_cliente,\n"
-					+ "		    cddEnt.fecha_ingreso    as ingreso,\n"
-					+ "		    parEnt.PARTIDA_CVE,\n"
-					+ "		    (parEnt.cantidad_total - COALESCE(salidas.cantidad, 0)) as cantidad,\n"
-					+ "		    udm.unidad_de_manejo_ds as unidad_cobro,\n"
-					+ "		    CEILING((parEnt.cantidad_total - COALESCE(salidas.cantidad, 0)) * parEnt.no_tarimas / parEnt.CANTIDAD_TOTAL ) as tarima,\n"
-					+ "		    (parEnt.peso_total - COALESCE(salidas.peso, 0)) as peso,\n"
-					+ "		    prd.producto_cve        as producto_cve,\n"
-					+ "		    prd.producto_ds         as producto, \n"
-					+ "		    detPart.dtp_caducidad   as caducidad,\n"
-					+ "		    prd.numero_prod         as codigo,\n"
-					+ "		    detPart.dtp_sap         as sap,\n"
-					+ "		    detPart.dtp_po          as po,\n"
-					+ "		    cam.camara_cve          as cam_cve,\n"
-					+ "		    cam.camara_abrev        as camara,\n"
-					+ "		    plt.planta_cve          as plt_cve,\n"
-					+ "		    plt.planta_abrev        as planta,\n"
-					+ "		    detPart.dtp_lote        as lote,\n"
-					+ "			COALESCE(parEnt.valorMercancia,0) as valor,\n"
-					+ "			(parEnt.valorMercancia / parEnt.CANTIDAD_TOTAL) as base_cargo,\n"
-					+ "			( cantidad * parEnt.valorMercancia / parEnt.CANTIDAD_TOTAL)  as resultado,\n"
-					+ "		    pos.cod_posicion\n"
-					+ "		from partida parEnt\n"
-					+ "		inner join (\n"
-					+ "			select *\n"
-					+ "			from constancia_de_deposito cdd\n"
-					+ "			WHERE (cdd.cte_cve = ? )\n"
-					+ "				AND cdd.fecha_ingreso <= ?\n"
-					+ "		) cddEnt on parEnt.folio = cddEnt.folio\n"
-					+ "		inner join unidad_de_producto udp on udp.unidad_de_producto_cve = parEnt.unidad_de_producto_cve\n"
-					+ "		inner join producto prd on prd.producto_cve = udp.producto_cve\n"
-					+ "		inner join unidad_de_manejo udm on udm.unidad_de_manejo_cve = udp.unidad_de_manejo_cve\n"
-					+ "		inner join camara cam on cam.camara_cve = parEnt.camara_cve\n"
-					+ "		inner join planta plt on plt.planta_cve = cam.planta_cve\n"
-					+ "		inner join cliente cli on cli.cte_cve = cddEnt.cte_cve\n"
-					+ "		inner join \n"
-					+ "		(\n"
-					+ "		    select tdp.* from detalle_partida tdp\n"
-					+ "		    inner join (\n"
-					+ "				select\n"
-					+ "					dp.partida_cve,\n"
-					+ "		            max(dp.det_part_cve) as det_part_cve\n"
-					+ "				from detalle_partida dp\n"
-					+ "				\n"
-					+ "				group by dp.partida_cve\n"
-					+ "		    ) tmdp on tdp.partida_cve = tmdp.partida_cve and tdp.det_part_cve = tmdp.det_part_cve\n"
-					+ "		) detPart on detPart.partida_cve = parEnt.partida_cve\n"
-					+ "		left outer join posicion_partida pp on parEnt.partida_cve = pp.ID_PARTIDA\n"
-					+ "		left outer join posicion pos on pp.ID_POSICION = pos.id_posicion\n"
-					+ "		left outer join (\n"
-					+ "			select \n"
-					+ "		    	dcs.partida_cve,\n"
-					+ "		    	sum(COALESCE(dcs.peso,0)) as peso,\n"
-					+ "		    	sum(COALESCE(dcs.cantidad,0)) as cantidad\n"
-					+ "		    from constancia_salida cSal\n"
-					+ "		    inner join detalle_constancia_salida dcs on dcs.constancia_cve = cSal.id\n"
-					+ "		    WHERE cSal.status = 1 \n"
-					+ "		    	AND cSal.fecha <= ?\n"
-					+ "		    group by\n"
-					+ "				dcs.PARTIDA_CVE\n"
-					+ "		) salidas ON parEnt.partida_cve = salidas.partida_cve\n"
-					+ "		where\n"
-					+ "			cddEnt.status <> 4\n"
-					+ "	) I\n"
-					+ "	WHERE I.cantidad > 0\n"
-					+ "	ORDER BY cliente,numero_cte, producto\n"
-					+ ") a";
+					+ "			dcs.PARTIDA_CVE,\n"
+					+ "			sum(dcs.CANTIDAD) as cantidad,\n"
+					+ "			sum(dcs.peso) as peso\n"
+					+ "		from constancia_salida cs \n"
+					+ "		inner join detalle_constancia_salida dcs on cs.ID = dcs.CONSTANCIA_CVE\n"
+					+ "		where cs.STATUS = 1 and cs.fecha <= ?\n"
+					+ "		group by dcs.PARTIDA_CVE\n"
+					+ "	) s on p.PARTIDA_CVE = s.partida_cve\n"
+					+ "	where cdd.status = 1 and cdd.CTE_CVE = ? and cdd.fecha_ingreso <= ?\n"
+					+ ") i where i.cantidad > 0"
+					;
 			
-			psSelect = conn.prepareStatement(sqlSelect);
-			psSelect.setInt(idx++, idCliente);
-			psSelect.setDate(idx++, getSqlDate(fechaCorte));
-//			psSelect.setInt(idx++, idCliente);
-			psSelect.setDate(idx++, getSqlDate(fechaCorte));
-			rsSelect = psSelect.executeQuery();
+			ps = conn.prepareStatement(sql);
+			setSqlDate(ps, idx++, fechaCorte);
+			setInteger(ps, idx++, idCliente);
+			setSqlDate(ps, idx++, fechaCorte);
 			
+			rs = ps.executeQuery();
 			
-			if(rsSelect.next())
-				ctaRows = getInteger(rsSelect, "cta_inventario");
+			if(rs.next())
+				ctaRows = getInteger(rs, "cta_inventario");
 			
 			if(ctaRows == null) {
 				tieneInventario = false;
@@ -309,8 +251,8 @@ public class ConstanciaDepositoDAO extends DAO implements IDAO<ConstanciaDeposit
 			
 			log.info("Registros en el inventario: idCliente = {}, fecha = {}, rows = {}", idCliente, fechaCorte, ctaRows);
 		} finally {
-			close(rsSelect);
-			close(psSelect);
+			close(rs);
+			close(ps);
 		}
 		
 		return tieneInventario;

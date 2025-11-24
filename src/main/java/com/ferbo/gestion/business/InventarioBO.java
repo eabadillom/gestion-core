@@ -44,7 +44,10 @@ public class InventarioBO {
 		boolean tieneInventario = false;
 		
 		tieneInventario = constanciaDepositoDAO.tieneInventario(conn, idCliente, fechaCorte);
-		log.info("El cliente {} tiene inventario: {}", idCliente, tieneInventario);
+		if(tieneInventario)
+			log.info("El cliente {} tiene inventario", idCliente);
+		else
+			log.info("El cliente {} NO tiene inventario. Pasando al siguiente cliente...", idCliente);
 		
 		return tieneInventario;
 	}
