@@ -1,235 +1,456 @@
 package com.ferbo.gestion.core.model;
 
-public class Cliente {
-	private Integer idCliente = null;
-	private String nombre = null;
-	private String alias = null;
-	private String rfc = null;
-	private String numero = null;
-	private String mail = null;
-	private boolean habilitado = false;
-	private String codigoUnico = null;
-	private String tipoPersona = null;
-	private String idRegimenFiscal = null;
-	private String idUsoCFDI = null;
-	private String idMetodoPago = null;
-	private String idFormaPago = null;
-	private String regimenCapital = null;
-	@Deprecated
-	private String uuid = null;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-	private Cliente(Builder builder) {
-		this.idCliente = builder.idCliente;
-		this.nombre = builder.nombre;
-		this.alias = builder.alias;
-		this.rfc = builder.rfc;
-		this.numero = builder.numero;
-		this.mail = builder.mail;
-		this.habilitado = builder.habilitado;
-		this.codigoUnico = builder.codigoUnico;
-		this.tipoPersona = builder.tipoPersona;
-		this.idRegimenFiscal = builder.idRegimenFiscal;
-		this.idUsoCFDI = builder.idUsoCFDI;
-		this.idMetodoPago = builder.idMetodoPago;
-		this.idFormaPago = builder.idFormaPago;
-		this.regimenCapital = builder.regimenCapital;
-		this.uuid = builder.uuid;
-	}
-	
-	public Integer getIdCliente() {
-		return idCliente;
-	}
-	public void setIdCliente(Integer idCliente) {
-		this.idCliente = idCliente;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getAlias() {
-		return alias;
-	}
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
-	public String getRfc() {
-		return rfc;
-	}
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
-	public String getNumero() {
-		return numero;
-	}
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-	public String getMail() {
-		return mail;
-	}
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-	public boolean isHabilitado() {
-		return habilitado;
-	}
-	public void setHabilitado(boolean habilitado) {
-		this.habilitado = habilitado;
-	}
-	public String getCodigoUnico() {
-		return codigoUnico;
-	}
-	public void setCodigoUnico(String codigoUnico) {
-		this.codigoUnico = codigoUnico;
-	}
-	public String getTipoPersona() {
-		return tipoPersona;
-	}
-	public void setTipoPersona(String tipoPersona) {
-		this.tipoPersona = tipoPersona;
-	}
-	public String getIdRegimenFiscal() {
-		return idRegimenFiscal;
-	}
-	public void setIdRegimenFiscal(String idRegimenFiscal) {
-		this.idRegimenFiscal = idRegimenFiscal;
-	}
-	public String getIdUsoCFDI() {
-		return idUsoCFDI;
-	}
-	public void setIdUsoCFDI(String idUsoCFDI) {
-		this.idUsoCFDI = idUsoCFDI;
-	}
-	public String getIdMetodoPago() {
-		return idMetodoPago;
-	}
-	public void setIdMetodoPago(String idMetodoPago) {
-		this.idMetodoPago = idMetodoPago;
-	}
-	public String getIdFormaPago() {
-		return idFormaPago;
-	}
-	public void setIdFormaPago(String idFormaPago) {
-		this.idFormaPago = idFormaPago;
-	}
-	public String getRegimenCapital() {
-		return regimenCapital;
-	}
-	public void setRegimenCapital(String regimenCapital) {
-		this.regimenCapital = regimenCapital;
-	}
-	@Deprecated
-	public String getUuid() {
-		return uuid;
-	}
-	@Deprecated
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-	public static Builder builder() {
-		return new Builder();
-	}
-	public static final class Builder {
-		private Integer idCliente = null;
-		private String nombre = null;
-		private String alias = null;
-		private String rfc = null;
-		private String numero = null;
-		private String mail = null;
-		private boolean habilitado = false;
-		private String codigoUnico = null;
-		private String tipoPersona = null;
-		private String idRegimenFiscal = null;
-		private String idUsoCFDI = null;
-		private String idMetodoPago = null;
-		private String idFormaPago = null;
-		private String regimenCapital = null;
-		@Deprecated
-		private String uuid = null;
+@Entity
+@Table(name = "cliente")
+@NamedQueries({
+    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c ORDER BY c.nombre"),
+    @NamedQuery(name = "Cliente.findByCteCve", query = "SELECT c FROM Cliente c WHERE c.id = :idCliente"),
+    @NamedQuery(name = "Cliente.findByCteNombre", query = "SELECT c FROM Cliente c WHERE c.nombre = :cteNombre"),
+    @NamedQuery(name = "Cliente.findByCteRfc", query = "SELECT c FROM Cliente c  WHERE c.rfc = :rfcCliente"),
+    @NamedQuery(name = "Cliente.findByNumeroCte", query = "SELECT c FROM Cliente c  WHERE c.numeroCte = :numeroCte"),
+    @NamedQuery(name = "Cliente.findByCteMail", query = "SELECT c FROM Cliente c WHERE c.cteMail = :cteMail"),
+    @NamedQuery(name = "Cliente.findByHabilitado", query = "SELECT c FROM Cliente c  WHERE c.habilitado = :habilitado ORDER BY c.nombre"),
+    @NamedQuery(name = "Cliente.findByCodUnico", query = "SELECT c FROM Cliente c WHERE c.codUnico = :codUnico")
+})
+public class Cliente implements Serializable 
+{
+    private static final long serialVersionUID = 1L;
 
-		private Builder() {
-		}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "CTE_CVE")
+    private Integer id;
 
-		public Builder IdCliente(Integer idCliente) {
-			this.idCliente = idCliente;
-			return this;
-		}
+    @Size(max = 150)
+    @Column(name = "CTE_NOMBRE")
+    private String nombre;
 
-		public Builder Nombre(String nombre) {
-			this.nombre = nombre;
-			return this;
-		}
-		
-		public Builder Alias(String alias) {
-			this.alias = alias;
-			return this;
-		}
+    @Size(max = 150)
+    @Column(name = "nb_alias")
+    private String alias;
 
-		public Builder Rfc(String rfc) {
-			this.rfc = rfc;
-			return this;
-		}
+    @Size(max = 20)
+    @Column(name = "CTE_RFC")
+    private String rfc;
 
-		public Builder Numero(String numero) {
-			this.numero = numero;
-			return this;
-		}
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 15)
+    @Column(name = "numero_cte")
+    private String numeroCte;
 
-		public Builder Mail(String mail) {
-			this.mail = mail;
-			return this;
-		}
+    @Size(max = 255)
+    @Column(name = "cte_mail")
+    private String cteMail;
 
-		public Builder Habilitado(boolean habilitado) {
-			this.habilitado = habilitado;
-			return this;
-		}
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "habilitado")
+    private boolean habilitado;
 
-		public Builder CodigoUnico(String codigoUnico) {
-			this.codigoUnico = codigoUnico;
-			return this;
-		}
+    @Size(max = 3)
+    @Column(name = "COD_UNICO")
+    private String codUnico;
 
-		public Builder TipoPersona(String tipoPersona) {
-			this.tipoPersona = tipoPersona;
-			return this;
-		}
+    @Size(min = 1, max = 1)
+    @Column(name = "tp_persona")
+    private String tipoPersona;
 
-		public Builder IdRegimenFiscal(String idRegimenFiscal) {
-			this.idRegimenFiscal = idRegimenFiscal;
-			return this;
-		}
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, optional = false)
+    @JoinColumn(name = "cd_regimen", referencedColumnName = "cd_regimen")
+    private RegimenFiscal regimenFiscal;
 
-		public Builder IdUsoCFDI(String idUsoCFDI) {
-			this.idUsoCFDI = idUsoCFDI;
-			return this;
-		}
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, optional = false)
+    @JoinColumn(name = "cd_uso_cfdi", referencedColumnName = "cd_uso_cfdi")
+    private UsoCfdi usoCfdi;
 
-		public Builder IdMetodoPago(String idMetodoPago) {
-			this.idMetodoPago = idMetodoPago;
-			return this;
-		}
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "cd_metodo_pago", referencedColumnName = "cd_metodo_pago")
+    private MetodoPago metodoPago;
 
-		public Builder IdFormaPago(String idFormaPago) {
-			this.idFormaPago = idFormaPago;
-			return this;
-		}
+    @Column(name = "cd_forma_pago")
+    private String formaPago;
 
-		public Builder RegimenCapital(String regimenCapital) {
-			this.regimenCapital = regimenCapital;
-			return this;
-		}
+    @Size(max = 150)
+    @Column(name = "nb_regimen_capital")
+    private String regimenCapital;
 
-		@Deprecated
-		public Builder Uuid(String uuid) {
-			this.uuid = uuid;
-			return this;
-		}
+    @Size(max = 50)
+    @Column(name = "uuid")
+    private String uuid;
 
-		public Cliente build() {
-			return new Cliente(this);
-		}
-	}
+    @OneToMany(mappedBy = "clienteCve", fetch = FetchType.LAZY)
+    private List<ConstanciaDeServicio> constanciaDeServicioList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cteCve", fetch = FetchType.LAZY)
+    private List<ProductoPorCliente> productoPorClienteList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<ClienteDomicilio> clienteDomiciliosList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
+    private List<DetalleFacturacion> detalleFacturacionList;
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "cteCve", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Aviso> avisoList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private List<PrecioServicio> precioServicioList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente", orphanRemoval = true)
+    private List<ClienteContacto> clienteContactoList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cteCve", fetch = FetchType.LAZY)
+    private List<ConstanciaServicios> constanciaServiciosList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienteCve", fetch = FetchType.LAZY)
+    private List<ConstanciaSalida> constanciaSalidaList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
+    private List<CuotaMinima> cuotaMinimaList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
+    private List<ConstanciaTraspaso> constanciaTraspasoList;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
+    private CandadoSalida candadoSalida;
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "serieConstanciaPK.cliente", orphanRemoval = true)
+    private List<SerieConstancia> serieConstanciaList;
+
+    @Override
+    public int hashCode() {
+        if (this.id == null) {
+            return System.identityHashCode(this);
+        }
+        return Objects.hash(this.id);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Cliente)) {
+            return false;
+        }
+        Cliente other = (Cliente) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "mx.com.ferbo.model.Cliente[ id=" + id + " ]";
+    }
+
+    public Cliente() {
+    }
+
+    public Cliente(Integer id) {
+        this.id = id;
+    }
+
+    public Cliente(Integer id, String numeroCte, boolean habilitado) {
+        this.id = id;
+        this.numeroCte = numeroCte;
+        this.habilitado = habilitado;
+    }
+
+    public void add(ClienteContacto clienteContacto) {
+        if (this.clienteContactoList == null) {
+            this.clienteContactoList = new ArrayList<ClienteContacto>();
+        }
+        clienteContacto.setCliente(this);
+        this.clienteContactoList.add(clienteContacto);
+    }
+
+    public void remove(ClienteContacto clienteContacto) {
+        if (this.clienteContactoList == null) {
+            return;
+        }
+        clienteContacto.setCliente(null);
+        this.clienteContactoList.remove(clienteContacto);
+    }
+
+    public void remove(CandadoSalida candadoSalida) {
+        candadoSalida.setCliente(null);
+        this.candadoSalida = null;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String cteNombre) {
+        if (cteNombre != null) {
+            cteNombre = cteNombre.trim();
+        }
+        this.nombre = cteNombre;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        if (alias != null) {
+            alias = alias.trim();
+        }
+        this.alias = alias;
+    }
+
+    public String getRfc() {
+        return rfc;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
+    public String getNumeroCte() {
+        return numeroCte;
+    }
+
+    public void setNumeroCte(String numeroCte) {
+        if (numeroCte != null) {
+            numeroCte = numeroCte.trim();
+        }
+        this.numeroCte = numeroCte;
+    }
+
+    public String getCteMail() {
+        return cteMail;
+    }
+
+    public void setCteMail(String cteMail) {
+        if (cteMail != null) {
+            cteMail = cteMail.trim();
+        }
+        this.cteMail = cteMail;
+    }
+
+    public boolean getHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(boolean habilitado) {
+        this.habilitado = habilitado;
+    }
+
+    public String getCodUnico() {
+        return codUnico;
+    }
+
+    public void setCodUnico(String codUnico) {
+        if (codUnico != null) {
+            codUnico = codUnico.trim();
+        }
+        this.codUnico = codUnico;
+    }
+
+    public List<ConstanciaDeServicio> getConstanciaDeServiciosList() {
+        return constanciaDeServicioList;
+    }
+
+    public void setConstanciaDeServiciosList(List<ConstanciaDeServicio> constanciaDeServiciosList) {
+        this.constanciaDeServicioList = constanciaDeServiciosList;
+    }
+
+    public List<ProductoPorCliente> getProductoPorClienteList() {
+        return productoPorClienteList;
+    }
+
+    public void setProductoPorClienteList(List<ProductoPorCliente> productoPorClienteList) {
+        this.productoPorClienteList = productoPorClienteList;
+    }
+
+    public List<ClienteDomicilio> getClienteDomiciliosList() {
+        return clienteDomiciliosList;
+    }
+
+    public void setClienteDomiciliosList(List<ClienteDomicilio> clienteDomiciliosList) {
+        this.clienteDomiciliosList = clienteDomiciliosList;
+    }
+
+    public List<DetalleFacturacion> getDetalleFacturacionList() {
+        return detalleFacturacionList;
+    }
+
+    public void setDetalleFacturacionList(List<DetalleFacturacion> detalleFacturacionList) {
+        this.detalleFacturacionList = detalleFacturacionList;
+    }
+
+    public List<Aviso> getAvisoList() {
+        return avisoList;
+    }
+
+    public void setAvisoList(List<Aviso> avisoList) {
+        this.avisoList = avisoList;
+    }
+
+    public List<PrecioServicio> getPrecioServicioList() {
+        return precioServicioList;
+    }
+
+    public void setPrecioServicioList(List<PrecioServicio> precioServicioList) {
+        this.precioServicioList = precioServicioList;
+    }
+
+    public List<ClienteContacto> getClienteContactoList() {
+        return clienteContactoList;
+    }
+
+    public void setClienteContactoList(List<ClienteContacto> clienteContactoList) {
+        this.clienteContactoList = clienteContactoList;
+    }
+
+    public List<ConstanciaServicios> getConstanciaServiciosList() {
+        return constanciaServiciosList;
+    }
+
+    public void setConstanciaServiciosList(List<ConstanciaServicios> constanciaServiciosList) {
+        this.constanciaServiciosList = constanciaServiciosList;
+    }
+
+    public List<ConstanciaSalida> getConstanciaSalidaList() {
+        return constanciaSalidaList;
+    }
+
+    public void setConstanciaSalidaList(List<ConstanciaSalida> constanciaSalidaList) {
+        this.constanciaSalidaList = constanciaSalidaList;
+    }
+
+    public List<CuotaMinima> getCuotaMinimaList() {
+        return cuotaMinimaList;
+    }
+
+    public void setCuotaMinimaList(List<CuotaMinima> cuotaMinimaList) {
+        this.cuotaMinimaList = cuotaMinimaList;
+    }
+
+    public List<ConstanciaTraspaso> getConstanciaTraspasoList() {
+        return constanciaTraspasoList;
+    }
+
+    public void setConstanciaTraspasoList(List<ConstanciaTraspaso> constanciaTraspasoList) {
+        this.constanciaTraspasoList = constanciaTraspasoList;
+    }
+
+    public String getRegimenCapital() {
+        return regimenCapital;
+    }
+
+    public void setRegimenCapital(String regimenCapital) {
+        this.regimenCapital = regimenCapital;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getTipoPersona() {
+        return tipoPersona;
+    }
+
+    public void setTipoPersona(String tipoPersona) {
+        this.tipoPersona = tipoPersona;
+    }
+
+    public RegimenFiscal getRegimenFiscal() {
+        return regimenFiscal;
+    }
+
+    public void setRegimenFiscal(RegimenFiscal regimenFiscal) {
+        this.regimenFiscal = regimenFiscal;
+    }
+
+    public UsoCfdi getUsoCfdi() {
+        return usoCfdi;
+    }
+
+    public void setUsoCfdi(UsoCfdi usoCfdi) {
+        this.usoCfdi = usoCfdi;
+    }
+
+    public MetodoPago getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(MetodoPago metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
+    public String getFormaPago() {
+        return formaPago;
+    }
+
+    public void setFormaPago(String formaPago) {
+        this.formaPago = formaPago;
+    }
+
+    public CandadoSalida getCandadoSalida() {
+        return candadoSalida;
+    }
+
+    public void setCandadoSalida(CandadoSalida candadoSalida) {
+        this.candadoSalida = candadoSalida;
+    }
+
+    public List<SerieConstancia> getSerieConstanciaList() {
+        return serieConstanciaList;
+    }
+
+    public void setSerieConstanciaList(List<SerieConstancia> serieConstanciaList) {
+        this.serieConstanciaList = serieConstanciaList;
+    }
+
+    public void addSerieConstancia(SerieConstancia serie) {
+        if (this.serieConstanciaList == null) {
+            this.serieConstanciaList = new ArrayList<SerieConstancia>();
+        }
+
+        if (serie.getSerieConstanciaPK() == null) {
+            serie.setSerieConstanciaPK(new SerieConstanciaPK());
+        }
+
+        serie.getSerieConstanciaPK().setCliente(this);
+
+        this.serieConstanciaList.add(serie);
+    }
+
 }

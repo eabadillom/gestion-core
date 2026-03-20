@@ -1,19 +1,102 @@
 package com.ferbo.gestion.core.model;
 
-public class UnidadManejo {
-	private Integer idUnidadManejo = null;
-	private String nombre = null;
-	
-	public Integer getIdUnidadManejo() {
-		return idUnidadManejo;
-	}
-	public void setIdUnidadManejo(Integer idUnidadManejo) {
-		this.idUnidadManejo = idUnidadManejo;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
+
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@Entity
+@Table(name = "unidad_de_manejo")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "UnidadManejo.findAll", query = "SELECT u FROM UnidadManejo u ORDER BY u.descripcion ASC"),
+    @NamedQuery(name = "UnidadManejo.findById", query = "SELECT u FROM UnidadManejo u WHERE u.id = :IdUnidadManejo"),
+    @NamedQuery(name = "UnidadManejo.findByDescripcion", query = "SELECT u FROM UnidadManejo u WHERE u.descripcion = :descripcion ORDER BY u.descripcion ASC")
+})
+public class UnidadManejo implements Serializable 
+{
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "UNIDAD_DE_MANEJO_CVE")
+    private Integer id;
+    
+    @Size(max = 100)
+    @Column(name = "UNIDAD_DE_MANEJO_DS")
+    private String descripcion;
+    
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "unidadDeManejo", fetch = FetchType.LAZY)
+    private List<ServiciosSalida> listServiciosSalida;
+    
+    @Override
+    public int hashCode() {
+        if(this.id == null)
+        	return System.identityHashCode(this);
+        return Objects.hash(this.id);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof UnidadManejo)) {
+            return false;
+        }
+        UnidadManejo other = (UnidadManejo) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "mx.com.ferbo.model.UnidadManejo[ id=" + id + " ]";
+    }
+    
+    public UnidadManejo() {
+    }
+
+    public UnidadManejo(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    public List<ServiciosSalida> getListServiciosSalida() {
+        return listServiciosSalida;
+    }
+
+    public void setListServiciosSalida(List<ServiciosSalida> listServiciosSalida) {
+        this.listServiciosSalida = listServiciosSalida;
+    }
+    
 }

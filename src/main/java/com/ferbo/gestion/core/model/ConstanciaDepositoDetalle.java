@@ -1,49 +1,121 @@
 package com.ferbo.gestion.core.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
-public class ConstanciaDepositoDetalle {
-	
-	private Integer idConstanciaDepositoDetalle = null;
-	private Integer idServicio = null;
-	private Servicio servicio = null;
-	private Integer folio = null;
-	private BigDecimal cantidad = null;
-	
-	public Integer getIdConstanciaDepositoDetalle() {
-		return idConstanciaDepositoDetalle;
-	}
-	public void setIdConstanciaDepositoDetalle(Integer idConstanciaDepositoDetalle) {
-		this.idConstanciaDepositoDetalle = idConstanciaDepositoDetalle;
-	}
-	public Integer getIdServicio() {
-		return idServicio;
-	}
-	public void setIdServicio(Integer idServicio) {
-		this.idServicio = idServicio;
-	}
-	public Servicio getServicio() {
-		return servicio;
-	}
-	public void setServicio(Servicio servicio) {
-		this.servicio = servicio;
-	}
-	public Integer getFolio() {
-		return folio;
-	}
-	public void setFolio(Integer folio) {
-		this.folio = folio;
-	}
-	public BigDecimal getCantidad() {
-		return cantidad;
-	}
-	public void setCantidad(BigDecimal cantidad) {
-		this.cantidad = cantidad;
-	}
-	@Override
-	public String toString() {
-		return "{\"idConstanciaDepositoDetalle\":\"" + idConstanciaDepositoDetalle + "\", \"idServicio\":\""
-				+ idServicio + "\", \"servicio\":\"" + servicio + "\", \"folio\":\"" + folio + "\", \"cantidad\":\""
-				+ cantidad + "\"}";
-	}
+@Entity
+@Table(name = "constancia_deposito_detalle")
+@NamedQueries({
+    @NamedQuery(name = "ConstanciaDepositoDetalle.findAll", query = "SELECT c FROM ConstanciaDepositoDetalle c"),
+    @NamedQuery(name = "ConstanciaDepositoDetalle.findByConstanciaDepositoDetalleCve", query = "SELECT c FROM ConstanciaDepositoDetalle c WHERE c.constanciaDepositoDetalleCve = :constanciaDepositoDetalleCve"),
+    @NamedQuery(name = "ConstanciaDepositoDetalle.findFolio", query = "SELECT c FROM ConstanciaDepositoDetalle c WHERE c.folio.folio = :folio"),
+    @NamedQuery(name = "ConstanciaDepositoDetalle.findByServicioCantidad", query = "SELECT c FROM ConstanciaDepositoDetalle c WHERE c.servicioCantidad = :servicioCantidad")
+})
+public class ConstanciaDepositoDetalle implements Serializable 
+{
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "CONSTANCIA_DEPOSITO_DETALLE_CVE")
+    private Integer constanciaDepositoDetalleCve;
+
+    @Column(name = "servicio_cantidad")
+    @Basic(optional = false)
+    private BigDecimal servicioCantidad;
+
+    @JoinColumn(name = "FOLIO", referencedColumnName = "FOLIO", nullable = false)
+    @ManyToOne(optional = false)
+    private ConstanciaDeposito folio;
+
+    @JoinColumn(name = "SERVICIO_CVE", referencedColumnName = "SERVICIO_CVE", nullable = false)
+    @ManyToOne
+    private Servicio servicio;
+
+    @Override
+    public int hashCode() {
+        if (this.constanciaDepositoDetalleCve == null) {
+            return System.identityHashCode(this);
+        }
+        return Objects.hash(this.constanciaDepositoDetalleCve);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof ConstanciaDepositoDetalle)) {
+            return false;
+        }
+        ConstanciaDepositoDetalle other = (ConstanciaDepositoDetalle) object;
+        if (this.hashCode() != other.hashCode()) {
+            return false;
+        }
+
+        if ((this.constanciaDepositoDetalleCve == null && other.constanciaDepositoDetalleCve != null) || (this.constanciaDepositoDetalleCve != null && !this.constanciaDepositoDetalleCve.equals(other.constanciaDepositoDetalleCve))) {
+            return false;
+        }
+
+        if (this.servicio != other.servicio) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "mx.com.ferbo.model.ConstanciaDepositoDetalle[ constanciaDepositoDetalleCve=" + constanciaDepositoDetalleCve + " ]";
+    }
+
+    public ConstanciaDepositoDetalle() {
+    }
+
+    public ConstanciaDepositoDetalle(Integer constanciaDepositoDetalleCve) {
+        this.constanciaDepositoDetalleCve = constanciaDepositoDetalleCve;
+    }
+
+    public Integer getConstanciaDepositoDetalleCve() {
+        return constanciaDepositoDetalleCve;
+    }
+
+    public void setConstanciaDepositoDetalleCve(Integer constanciaDepositoDetalleCve) {
+        this.constanciaDepositoDetalleCve = constanciaDepositoDetalleCve;
+    }
+
+    public BigDecimal getServicioCantidad() {
+        return servicioCantidad;
+    }
+
+    public void setServicioCantidad(BigDecimal servicioCantidad) {
+        this.servicioCantidad = servicioCantidad;
+    }
+
+    public ConstanciaDeposito getFolio() {
+        return folio;
+    }
+
+    public void setFolio(ConstanciaDeposito folio) {
+        this.folio = folio;
+    }
+
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicioCve(Servicio servicio) {
+        this.servicio = servicio;
+    }
+    
 }

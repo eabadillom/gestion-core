@@ -1,142 +1,310 @@
 package com.ferbo.gestion.core.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class DetallePartida {
-	private Integer idDetallePartida = null;
-	private Integer idPartida = null;
-	private Integer idTipoMovimiento = null;
-	private Integer IdEstadoMovimiento = null;
-	private Integer idDetalleAnterior = null;
-	private Integer idPartidaAnterior = null;
-	private Integer idDetallePadre = null;
-	private Integer idPartidaPadre = null;
-	private Integer cantidad = null;
-	private Integer idUnidadMedida = null;
-	private BigDecimal peso = null;
-	private String codigo = null;
-	private String lote = null;
-	private Date caducidad = null;
-	private String po = null;
-	private String mp = null;
-	private String pedimento = null;
-	private String sap = null;
-	private String tarimas = null;
-	
-	public Integer getIdDetallePartida() {
-		return idDetallePartida;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(name = "detalle_partida")
+@NamedQueries({
+    @NamedQuery(name = "DetallePartida.findAll", query = "SELECT d FROM DetallePartida d"),
+    @NamedQuery(name = "DetallePartida.findByDetPartCve", query = "SELECT d FROM DetallePartida d WHERE d.detallePartidaPK.id = :idDetPartCve"),
+    @NamedQuery(name = "DetallePartida.findByPartidaCve", query = "SELECT d FROM DetallePartida d WHERE d.detallePartidaPK.partida.id = :idPartida"),
+    @NamedQuery(name = "DetallePartida.findByDetPadre", query = "SELECT d FROM DetallePartida d WHERE d.detPadre = :detPadre"),
+    @NamedQuery(name = "DetallePartida.findByDetPartPadre", query = "SELECT d FROM DetallePartida d WHERE d.detPartPadre = :detPartPadre"),
+    @NamedQuery(name = "DetallePartida.findByCantidadUManejo", query = "SELECT d FROM DetallePartida d WHERE d.cantidadUManejo = :cantidadUManejo"),
+    @NamedQuery(name = "DetallePartida.findByCantidadUMedida", query = "SELECT d FROM DetallePartida d WHERE d.cantidadUMedida = :cantidadUMedida"),
+    @NamedQuery(name = "DetallePartida.findByDtpCodigo", query = "SELECT d FROM DetallePartida d WHERE d.dtpCodigo = :dtpCodigo"),
+    @NamedQuery(name = "DetallePartida.findByDtpLote", query = "SELECT d FROM DetallePartida d WHERE d.dtpLote = :dtpLote"),
+    @NamedQuery(name = "DetallePartida.findByDtpCaducidad", query = "SELECT d FROM DetallePartida d WHERE d.dtpCaducidad = :dtpCaducidad"),
+    @NamedQuery(name = "DetallePartida.findByDtpPO", query = "SELECT d FROM DetallePartida d WHERE d.dtpPO = :dtpPO"),
+    @NamedQuery(name = "DetallePartida.findByDtpMP", query = "SELECT d FROM DetallePartida d WHERE d.dtpMP = :dtpMP"),
+    @NamedQuery(name = "DetallePartida.findByDtpPedimento", query = "SELECT d FROM DetallePartida d WHERE d.dtpPedimento = :dtpPedimento"),
+    @NamedQuery(name = "DetallePartida.findByDtpSAP", query = "SELECT d FROM DetallePartida d WHERE d.dtpSAP = :dtpSAP"),
+    @NamedQuery(name = "DetallePartida.findByDtpTarimas", query = "SELECT d FROM DetallePartida d WHERE d.dtpTarimas = :dtpTarimas")
+})
+public class DetallePartida implements Serializable, Cloneable 
+{
+    private static final long serialVersionUID = 1L;
+    
+    @EmbeddedId
+    private DetallePartidaPK detallePartidaPK;
+    
+    @Column(name = "det_padre")
+    private Integer detPadre;
+    
+    @Column(name = "det_part_padre")
+    private Integer detPartPadre;
+    
+    @Column(name = "cantidad_u_manejo")
+    private Integer cantidadUManejo;
+    
+    @Column(name = "cantidad_u_medida")
+    private BigDecimal cantidadUMedida;
+    
+    @Size(max = 12)
+    @Column(name = "dtp_codigo")
+    private String dtpCodigo;
+    
+    @Size(max = 20)
+    @Column(name = "dtp_lote")
+    private String dtpLote;
+    
+    @Column(name = "dtp_caducidad")
+    @Temporal(TemporalType.DATE)
+    private Date dtpCaducidad;
+    
+    @Size(max = 12)
+    @Column(name = "dtp_PO")
+    private String dtpPO;
+    
+    @Size(max = 20)
+    @Column(name = "dtp_MP")
+    private String dtpMP;
+    
+    @Size(max = 13)
+    @Column(name = "dtp_pedimento")
+    private String dtpPedimento;
+    
+    @Size(max = 20)
+    @Column(name = "dtp_SAP")
+    private String dtpSAP;
+    
+    @Size(max = 15)
+    @Column(name = "dtp_tarimas")
+    private String dtpTarimas;
+    
+    @JoinColumns({
+        @JoinColumn(name = "det_anterior", referencedColumnName = "DET_PART_CVE"),
+        @JoinColumn(name = "det_part_anterior", referencedColumnName = "PARTIDA_CVE")})
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private DetallePartida detallePartida;
+    
+    @JoinColumn(name = "tipo_mov_cve", referencedColumnName = "CLAVE")
+    @ManyToOne(cascade = CascadeType.DETACH)
+    private TipoMovimiento tipoMovimiento;
+    
+    @JoinColumn(name = "u_medida_cve", referencedColumnName = "UNIDAD_DE_MANEJO_CVE")
+    @ManyToOne
+    private UnidadManejo unidadMedida;
+    
+    @JoinColumn(name = "edo_inv_cve", referencedColumnName = "edo_inv_cve")
+    @ManyToOne(cascade = CascadeType.DETACH)
+    private EstadoInventario edoInventario;
+    
+    public DetallePartida() {
+    }
+
+    public DetallePartida(DetallePartidaPK detallePartidaPK) {
+        this.detallePartidaPK = detallePartidaPK;
+    }
+
+    public DetallePartida(int detPartCve, Partida partidaCve) {
+        this.detallePartidaPK = new DetallePartidaPK(detPartCve, partidaCve);
+    }
+
+    public DetallePartidaPK getDetallePartidaPK() {
+        return detallePartidaPK;
+    }
+
+    public void setDetallePartidaPK(DetallePartidaPK detallePartidaPK) {
+        this.detallePartidaPK = detallePartidaPK;
+    }
+
+    public Integer getDetPadre() {
+        return detPadre;
+    }
+
+    public void setDetPadre(Integer detPadre) {
+        this.detPadre = detPadre;
+    }
+
+    public Integer getDetPartPadre() {
+        return detPartPadre;
+    }
+
+    public void setDetPartPadre(Integer detPartPadre) {
+        this.detPartPadre = detPartPadre;
+    }
+
+    public Integer getCantidadUManejo() {
+        return cantidadUManejo;
+    }
+
+    public void setCantidadUManejo(Integer cantidadUManejo) {
+        this.cantidadUManejo = cantidadUManejo;
+    }
+
+    public BigDecimal getCantidadUMedida() {
+        return cantidadUMedida;
+    }
+
+    public void setCantidadUMedida(BigDecimal cantidadUMedida) {
+        this.cantidadUMedida = cantidadUMedida;
+    }
+
+    public String getDtpCodigo() {
+        return dtpCodigo;
+    }
+
+    public void setDtpCodigo(String dtpCodigo) {
+        this.dtpCodigo = dtpCodigo;
+    }
+
+    public String getDtpLote() {
+        return dtpLote;
+    }
+
+    public void setDtpLote(String dtpLote) {
+        this.dtpLote = dtpLote;
+    }
+
+    public Date getDtpCaducidad() {
+        return dtpCaducidad;
+    }
+
+    public void setDtpCaducidad(Date dtpCaducidad) {
+        this.dtpCaducidad = dtpCaducidad;
+    }
+
+    public String getDtpPO() {
+        return dtpPO;
+    }
+
+    public void setDtpPO(String dtpPO) {
+        this.dtpPO = dtpPO;
+    }
+
+    public String getDtpMP() {
+        return dtpMP;
+    }
+
+    public void setDtpMP(String dtpMP) {
+        this.dtpMP = dtpMP;
+    }
+
+    public String getDtpPedimento() {
+        return dtpPedimento;
+    }
+
+    public void setDtpPedimento(String dtpPedimento) {
+        this.dtpPedimento = dtpPedimento;
+    }
+
+    public String getDtpSAP() {
+        return dtpSAP;
+    }
+
+    public void setDtpSAP(String dtpSAP) {
+        this.dtpSAP = dtpSAP;
+    }
+
+    public String getDtpTarimas() {
+        return dtpTarimas;
+    }
+
+    public void setDtpTarimas(String dtpTarimas) {
+        this.dtpTarimas = dtpTarimas;
+    }
+
+    public DetallePartida getDetallePartida() {
+        return detallePartida;
+    }
+
+    public void setDetallePartida(DetallePartida detallePartida) {
+        this.detallePartida = detallePartida;
+    }
+
+    public TipoMovimiento getTipoMovimiento() {
+        return tipoMovimiento;
+    }
+
+    public void setTipoMovimiento(TipoMovimiento tipoMovimiento) {
+        this.tipoMovimiento = tipoMovimiento;
+    }
+
+    public UnidadManejo getUnidadMedida() {
+        return unidadMedida;
+    }
+
+    public void setUnidadMedida(UnidadManejo unidadMedida) {
+        this.unidadMedida = unidadMedida;
+    }
+
+    public EstadoInventario getEdoInventario() {
+        return edoInventario;
+    }
+
+    public void setEdoInventario(EstadoInventario edoInventario) {
+        this.edoInventario = edoInventario;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (detallePartidaPK != null ? detallePartidaPK.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof DetallePartida)) {
+            return false;
+        }
+        DetallePartida other = (DetallePartida) object;
+        if ((this.detallePartidaPK == null && other.detallePartidaPK != null) || (this.detallePartidaPK != null && !this.detallePartidaPK.equals(other.detallePartidaPK))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "mx.com.ferbo.model.DetallePartida[ detallePartidaPK=" + detallePartidaPK + " ]";
+    }
+
+	@Override
+	public DetallePartida clone() throws CloneNotSupportedException {
+		DetallePartida dp = null;
+		
+		dp = new DetallePartida();
+		dp.setDetallePartidaPK(new DetallePartidaPK());
+		dp.setDetPadre(this.detPadre == null ? null : new Integer(this.detPadre));
+		dp.setDetPartPadre(this.detPartPadre == null ? null : new Integer(this.detPartPadre));
+		dp.setCantidadUManejo(this.cantidadUManejo == null ? null : new Integer(this.cantidadUManejo));
+		dp.setCantidadUMedida(this.cantidadUMedida);
+		dp.setDtpCodigo(this.dtpCodigo);
+		dp.setDtpLote(this.dtpLote);
+		dp.setDtpCaducidad(this.dtpCaducidad == null ? null : new Date(this.dtpCaducidad.getTime()));
+		dp.setDtpPO(this.getDtpPO());
+		dp.setDtpMP(this.dtpMP);
+		dp.setDtpPedimento(this.dtpPedimento);
+		dp.setDtpSAP(this.dtpSAP);
+		dp.setDtpTarimas(this.dtpTarimas);
+		dp.setDetallePartida(this.detallePartida);
+		if(this.getTipoMovimiento() != null)
+			dp.setTipoMovimiento(this.tipoMovimiento);
+		
+		if(this.unidadMedida != null)
+			dp.setUnidadMedida(this.unidadMedida );
+		
+		if(this.edoInventario != null)
+			dp.setEdoInventario(this.edoInventario);
+		
+		return dp;
 	}
-	public void setIdDetallePartida(Integer idDetallePartida) {
-		this.idDetallePartida = idDetallePartida;
-	}
-	public Integer getIdPartida() {
-		return idPartida;
-	}
-	public void setIdPartida(Integer idPartida) {
-		this.idPartida = idPartida;
-	}
-	public Integer getIdTipoMovimiento() {
-		return idTipoMovimiento;
-	}
-	public void setIdTipoMovimiento(Integer idTipoMovimiento) {
-		this.idTipoMovimiento = idTipoMovimiento;
-	}
-	public Integer getIdEstadoMovimiento() {
-		return IdEstadoMovimiento;
-	}
-	public void setIdEstadoMovimiento(Integer idEstadoMovimiento) {
-		IdEstadoMovimiento = idEstadoMovimiento;
-	}
-	public Integer getIdDetalleAnterior() {
-		return idDetalleAnterior;
-	}
-	public void setIdDetalleAnterior(Integer idDetalleAnterior) {
-		this.idDetalleAnterior = idDetalleAnterior;
-	}
-	public Integer getIdPartidaAnterior() {
-		return idPartidaAnterior;
-	}
-	public void setIdPartidaAnterior(Integer idPartidaAnterior) {
-		this.idPartidaAnterior = idPartidaAnterior;
-	}
-	public Integer getIdDetallePadre() {
-		return idDetallePadre;
-	}
-	public void setIdDetallePadre(Integer idDetallePadre) {
-		this.idDetallePadre = idDetallePadre;
-	}
-	public Integer getIdPartidaPadre() {
-		return idPartidaPadre;
-	}
-	public void setIdPartidaPadre(Integer idPartidaPadre) {
-		this.idPartidaPadre = idPartidaPadre;
-	}
-	public Integer getCantidad() {
-		return cantidad;
-	}
-	public void setCantidad(Integer cantidad) {
-		this.cantidad = cantidad;
-	}
-	public Integer getIdUnidadMedida() {
-		return idUnidadMedida;
-	}
-	public void setIdUnidadMedida(Integer idUnidadMedida) {
-		this.idUnidadMedida = idUnidadMedida;
-	}
-	public BigDecimal getPeso() {
-		return peso;
-	}
-	public void setPeso(BigDecimal peso) {
-		this.peso = peso;
-	}
-	public String getCodigo() {
-		return codigo;
-	}
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-	public String getLote() {
-		return lote;
-	}
-	public void setLote(String lote) {
-		this.lote = lote;
-	}
-	public Date getCaducidad() {
-		return caducidad;
-	}
-	public void setCaducidad(Date caducidad) {
-		this.caducidad = caducidad;
-	}
-	public String getPo() {
-		return po;
-	}
-	public void setPo(String po) {
-		this.po = po;
-	}
-	public String getMp() {
-		return mp;
-	}
-	public void setMp(String mp) {
-		this.mp = mp;
-	}
-	public String getPedimento() {
-		return pedimento;
-	}
-	public void setPedimento(String pedimento) {
-		this.pedimento = pedimento;
-	}
-	public String getSap() {
-		return sap;
-	}
-	public void setSap(String sap) {
-		this.sap = sap;
-	}
-	public String getTarimas() {
-		return tarimas;
-	}
-	public void setTarimas(String tarimas) {
-		this.tarimas = tarimas;
-	}
-	
 }
