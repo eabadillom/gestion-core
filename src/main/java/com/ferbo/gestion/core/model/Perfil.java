@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package mx.com.ferbo.model;
+package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -23,9 +18,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Perfil.findById", query = "SELECT p FROM Perfil p WHERE p.id = :id"),
     @NamedQuery(name = "Perfil.findByNombre", query = "SELECT p FROM Perfil p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Perfil.findByDescripcion", query = "SELECT p FROM Perfil p WHERE p.descripcion = :descripcion")})
-public class Perfil implements Serializable {
-
+public class Perfil implements Serializable 
+{
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @NotNull

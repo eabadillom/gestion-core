@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,22 +27,22 @@ import javax.validation.constraints.Size;
 @Table(name = "aviso")
 @NamedQueries({
         @NamedQuery(name = "Aviso.findAll", query = "SELECT a FROM Aviso a"),
-        @NamedQuery(name = "Aviso.findByAvisoCve", query = "SELECT a FROM Aviso a WHERE a.id = :idAviso"),
-        @NamedQuery(name = "Aviso.findByAvisoPo", query = "SELECT a FROM Aviso a WHERE a.avisoPo = :avisoPo"),
-        @NamedQuery(name = "Aviso.findByAvisoPedimento", query = "SELECT a FROM Aviso a WHERE a.avisoPedimento = :avisoPedimento"),
-        @NamedQuery(name = "Aviso.findByAvisoSap", query = "SELECT a FROM Aviso a WHERE a.avisoSap = :avisoSap"),
-        @NamedQuery(name = "Aviso.findByAvisoLote", query = "SELECT a FROM Aviso a WHERE a.avisoLote = :avisoLote"),
-        @NamedQuery(name = "Aviso.findByAvisoCaducidad", query = "SELECT a FROM Aviso a WHERE a.avisoCaducidad = :avisoCaducidad"),
-        @NamedQuery(name = "Aviso.findByAvisoTarima", query = "SELECT a FROM Aviso a WHERE a.avisoTarima = :avisoTarima"),
-        @NamedQuery(name = "Aviso.findByAvisoOtro", query = "SELECT a FROM Aviso a WHERE a.avisoOtro = :avisoOtro"),
-        @NamedQuery(name = "Aviso.findByAvisoTemp", query = "SELECT a FROM Aviso a WHERE a.avisoTemp = :avisoTemp"),
-        @NamedQuery(name = "Aviso.findByAvisoFecha", query = "SELECT a FROM Aviso a WHERE a.avisoFecha = :avisoFecha"),
-        @NamedQuery(name = "Aviso.findByAvisoObservaciones", query = "SELECT a FROM Aviso a WHERE a.avisoObservaciones = :avisoObservaciones"),
-        @NamedQuery(name = "Aviso.findByAvisoVigencia", query = "SELECT a FROM Aviso a WHERE a.avisoVigencia = :avisoVigencia"),
-        @NamedQuery(name = "Aviso.findByAvisoValSeg", query = "SELECT a FROM Aviso a WHERE a.avisoValSeg = :avisoValSeg"),
-        @NamedQuery(name = "Aviso.findByAvisoPlazo", query = "SELECT a FROM Aviso a WHERE a.avisoPlazo = :avisoPlazo"),
-        @NamedQuery(name = "Aviso.findByAvisoTpFacturacion", query = "SELECT a FROM Aviso a WHERE a.avisoTpFacturacion = :avisoTpFacturacion"),
-        @NamedQuery(name = "Aviso.findByAvisoCliente", query = "SELECT a FROM Aviso a WHERE a.cliente.id = :cteCve")
+        @NamedQuery(name = "Aviso.findById", query = "SELECT a FROM Aviso a WHERE a.id = :idAviso"),
+        @NamedQuery(name = "Aviso.findByPo", query = "SELECT a FROM Aviso a WHERE a.po = :po"),
+        @NamedQuery(name = "Aviso.findByPedimento", query = "SELECT a FROM Aviso a WHERE a.pedimento = :pedimento"),
+        @NamedQuery(name = "Aviso.findBySap", query = "SELECT a FROM Aviso a WHERE a.sap = :sap"),
+        @NamedQuery(name = "Aviso.findByLote", query = "SELECT a FROM Aviso a WHERE a.lote = :lote"),
+        @NamedQuery(name = "Aviso.findByCaducidad", query = "SELECT a FROM Aviso a WHERE a.caducidad = :caducidad"),
+        @NamedQuery(name = "Aviso.findByTarima", query = "SELECT a FROM Aviso a WHERE a.tarima = :tarima"),
+        @NamedQuery(name = "Aviso.findByOtro", query = "SELECT a FROM Aviso a WHERE a.otro = :otro"),
+        @NamedQuery(name = "Aviso.findByTemp", query = "SELECT a FROM Aviso a WHERE a.temp = :temp"),
+        @NamedQuery(name = "Aviso.findByoFecha", query = "SELECT a FROM Aviso a WHERE a.fecha = :fecha"),
+        @NamedQuery(name = "Aviso.findByObservaciones", query = "SELECT a FROM Aviso a WHERE a.observaciones = :observaciones"),
+        @NamedQuery(name = "Aviso.findByVigencia", query = "SELECT a FROM Aviso a WHERE a.vigencia = :vigencia"),
+        @NamedQuery(name = "Aviso.findByValSeg", query = "SELECT a FROM Aviso a WHERE a.valSeg = :valSeg"),
+        @NamedQuery(name = "Aviso.findByPlazo", query = "SELECT a FROM Aviso a WHERE a.plazo = :plazo"),
+        @NamedQuery(name = "Aviso.findByTpFacturacion", query = "SELECT a FROM Aviso a WHERE a.tpFacturacion = :tpFacturacion"),
+        @NamedQuery(name = "Aviso.findByCliente", query = "SELECT a FROM Aviso a WHERE a.cliente.id = :cteCve")
 })
 public class Aviso implements Serializable 
 {
@@ -58,76 +57,76 @@ public class Aviso implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "aviso_po")
-    private boolean avisoPo;
+    private boolean po;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "aviso_codigo")
-    private boolean avisoCodigo;
+    private boolean codigo;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "aviso_pedimento")
-    private boolean avisoPedimento;
+    private boolean pedimento;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "aviso_sap")
-    private boolean avisoSap;
+    private boolean sap;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "aviso_lote")
-    private boolean avisoLote;
+    private boolean lote;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "aviso_caducidad")
-    private boolean avisoCaducidad;
+    private boolean caducidad;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "aviso_tarima")
-    private boolean avisoTarima;
+    private boolean tarima;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "aviso_otro")
-    private boolean avisoOtro;
+    private boolean otro;
 
     @Size(max = 50)
     @Column(name = "aviso_temp")
-    private String avisoTemp;
+    private String temp;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "aviso_fecha")
     @Temporal(TemporalType.DATE)
-    private Date avisoFecha;
+    private Date fecha;
 
     @Size(max = 255)
     @Column(name = "aviso_observaciones")
-    private String avisoObservaciones;
+    private String observaciones;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "aviso_vigencia")
-    private int avisoVigencia;
+    private int vigencia;
 
     @Column(name = "aviso_val_seg")
     @Basic(optional = true)
-    private BigDecimal avisoValSeg;
+    private BigDecimal valSeg;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "aviso_plazo")
-    private int avisoPlazo;
+    private int plazo;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "aviso_tp_facturacion")
-    private String avisoTpFacturacion;
+    private String tpFacturacion;
 
     @JoinColumn(name = "cte_cve", referencedColumnName = "CTE_CVE")
     @ManyToOne
@@ -143,7 +142,7 @@ public class Aviso implements Serializable
     @Basic(optional = true)
     private Categoria categoria;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "avisoCve", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "aviso", orphanRemoval = true)
     private List<PrecioServicio> precioServicioList;
     
     @Override
@@ -180,21 +179,21 @@ public class Aviso implements Serializable
         this.id = id;
     }
 
-    public Aviso(Integer id, boolean avisoPo, boolean avisoPedimento, boolean avisoSap, boolean avisoLote,
-            boolean avisoCaducidad, boolean avisoTarima, boolean avisoOtro, Date avisoFecha, int avisoVigencia,
-            int avisoPlazo, String avisoTpFacturacion) {
+    public Aviso(Integer id, boolean po, boolean pedimento, boolean sap, boolean lote,
+            boolean caducidad, boolean tarima, boolean otro, Date fecha, int vigencia,
+            int plazo, String tpFacturacion) {
         this.id = id;
-        this.avisoPo = avisoPo;
-        this.avisoPedimento = avisoPedimento;
-        this.avisoSap = avisoSap;
-        this.avisoLote = avisoLote;
-        this.avisoCaducidad = avisoCaducidad;
-        this.avisoTarima = avisoTarima;
-        this.avisoOtro = avisoOtro;
-        this.avisoFecha = avisoFecha;
-        this.avisoVigencia = avisoVigencia;
-        this.avisoPlazo = avisoPlazo;
-        this.avisoTpFacturacion = avisoTpFacturacion;
+        this.po = po;
+        this.pedimento = pedimento;
+        this.sap = sap;
+        this.lote = lote;
+        this.caducidad = caducidad;
+        this.tarima = tarima;
+        this.otro = otro;
+        this.fecha = fecha;
+        this.vigencia = vigencia;
+        this.plazo = plazo;
+        this.tpFacturacion = tpFacturacion;
     }
 
     public Integer getId() {
@@ -205,124 +204,124 @@ public class Aviso implements Serializable
         this.id = id;
     }
 
-    public boolean getAvisoPo() {
-        return avisoPo;
+    public boolean isPo() {
+        return po;
     }
 
-    public void setAvisoPo(boolean avisoPo) {
-        this.avisoPo = avisoPo;
+    public void setPo(boolean po) {
+        this.po = po;
     }
 
-    public boolean getAvisoCodigo() {
-        return avisoCodigo;
+    public boolean isCodigo() {
+        return codigo;
     }
 
-    public void setAvisoCodigo(boolean avisoCodigo) {
-        this.avisoCodigo = avisoCodigo;
+    public void setCodigo(boolean codigo) {
+        this.codigo = codigo;
     }
 
-    public boolean getAvisoPedimento() {
-        return avisoPedimento;
+    public boolean isPedimento() {
+        return pedimento;
     }
 
-    public void setAvisoPedimento(boolean avisoPedimento) {
-        this.avisoPedimento = avisoPedimento;
+    public void setPedimento(boolean pedimento) {
+        this.pedimento = pedimento;
     }
 
-    public boolean getAvisoSap() {
-        return avisoSap;
+    public boolean isSap() {
+        return sap;
     }
 
-    public void setAvisoSap(boolean avisoSap) {
-        this.avisoSap = avisoSap;
+    public void setSap(boolean sap) {
+        this.sap = sap;
     }
 
-    public boolean getAvisoLote() {
-        return avisoLote;
+    public boolean isLote() {
+        return lote;
     }
 
-    public void setAvisoLote(boolean avisoLote) {
-        this.avisoLote = avisoLote;
+    public void setLote(boolean lote) {
+        this.lote = lote;
     }
 
-    public boolean getAvisoCaducidad() {
-        return avisoCaducidad;
+    public boolean isCaducidad() {
+        return caducidad;
     }
 
-    public void setAvisoCaducidad(boolean avisoCaducidad) {
-        this.avisoCaducidad = avisoCaducidad;
+    public void setCaducidad(boolean caducidad) {
+        this.caducidad = caducidad;
     }
 
-    public boolean getAvisoTarima() {
-        return avisoTarima;
+    public boolean isTarima() {
+        return tarima;
     }
 
-    public void setAvisoTarima(boolean avisoTarima) {
-        this.avisoTarima = avisoTarima;
+    public void setTarima(boolean tarima) {
+        this.tarima = tarima;
     }
 
-    public boolean getAvisoOtro() {
-        return avisoOtro;
+    public boolean isOtro() {
+        return otro;
     }
 
-    public void setAvisoOtro(boolean avisoOtro) {
-        this.avisoOtro = avisoOtro;
+    public void setOtro(boolean otro) {
+        this.otro = otro;
     }
 
-    public String getAvisoTemp() {
-        return avisoTemp;
+    public String getTemp() {
+        return temp;
     }
 
-    public void setAvisoTemp(String avisoTemp) {
-        this.avisoTemp = avisoTemp;
+    public void setTemp(String temp) {
+        this.temp = temp;
     }
 
-    public Date getAvisoFecha() {
-        return avisoFecha;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setAvisoFecha(Date avisoFecha) {
-        this.avisoFecha = avisoFecha;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
-    public String getAvisoObservaciones() {
-        return avisoObservaciones;
+    public String getObservaciones() {
+        return observaciones;
     }
 
-    public void setAvisoObservaciones(String avisoObservaciones) {
-        this.avisoObservaciones = avisoObservaciones;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 
-    public int getAvisoVigencia() {
-        return avisoVigencia;
+    public int getVigencia() {
+        return vigencia;
     }
 
-    public void setAvisoVigencia(int avisoVigencia) {
-        this.avisoVigencia = avisoVigencia;
+    public void setVigencia(int vigencia) {
+        this.vigencia = vigencia;
     }
 
-    public BigDecimal getAvisoValSeg() {
-        return avisoValSeg;
+    public BigDecimal getValSeg() {
+        return valSeg;
     }
 
-    public void setAvisoValSeg(BigDecimal avisoValSeg) {
-        this.avisoValSeg = avisoValSeg;
+    public void setValSeg(BigDecimal valSeg) {
+        this.valSeg = valSeg;
     }
 
-    public int getAvisoPlazo() {
-        return avisoPlazo;
+    public int getPlazo() {
+        return plazo;
     }
 
-    public void setAvisoPlazo(int avisoPlazo) {
-        this.avisoPlazo = avisoPlazo;
+    public void setPlazo(int plazo) {
+        this.plazo = plazo;
     }
 
-    public String getAvisoTpFacturacion() {
-        return avisoTpFacturacion;
+    public String getTpFacturacion() {
+        return tpFacturacion;
     }
 
-    public void setAvisoTpFacturacion(String avisoTpFacturacion) {
-        this.avisoTpFacturacion = avisoTpFacturacion;
+    public void setTpFacturacion(String tpFacturacion) {
+        this.tpFacturacion = tpFacturacion;
     }
 
     public Cliente getCliente() {

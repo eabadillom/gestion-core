@@ -19,9 +19,9 @@ import javax.validation.constraints.Size;
 @Table(name = "tipo_asentamiento")
 @NamedQueries({
     @NamedQuery(name = "TipoAsentamiento.findAll", query = "SELECT t FROM TipoAsentamiento t"),
-    @NamedQuery(name = "TipoAsentamiento.findByTipoasntmntoCve", query = "SELECT t FROM TipoAsentamiento t WHERE t.id = :idTipoAsentamiento"),
-    @NamedQuery(name = "TipoAsentamiento.findByTipoasntmntoDs", query = "SELECT t FROM TipoAsentamiento t WHERE t.tipoasntmntoDs = :tipoasntmntoDs"),
-    @NamedQuery(name = "TipoAsentamiento.findByTipoasntmntoDsCorta", query = "SELECT t FROM TipoAsentamiento t WHERE t.tipoasntmntoDsCorta = :tipoasntmntoDsCorta")
+    @NamedQuery(name = "TipoAsentamiento.findById", query = "SELECT t FROM TipoAsentamiento t WHERE t.id = :idTipoAsentamiento"),
+    @NamedQuery(name = "TipoAsentamiento.findByDescripcion", query = "SELECT t FROM TipoAsentamiento t WHERE t.descripcion = :descripcion"),
+    @NamedQuery(name = "TipoAsentamiento.findByClave", query = "SELECT t FROM TipoAsentamiento t WHERE t.clave = :clave")
 })
 public class TipoAsentamiento implements Serializable 
 {
@@ -35,11 +35,11 @@ public class TipoAsentamiento implements Serializable
     
     @Size(max = 100)
     @Column(name = "tipoasntmnto_ds")
-    private String tipoasntmntoDs;
+    private String descripcion;
     
     @Size(max = 4)
     @Column(name = "tipoasntmnto_ds_corta")
-    private String tipoasntmntoDsCorta;
+    private String clave;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoAsentamiento")
     private List<Asentamiento> asentamientoList;
@@ -59,20 +59,20 @@ public class TipoAsentamiento implements Serializable
         this.id = id;
     }
 
-    public String getTipoasntmntoDs() {
-        return tipoasntmntoDs;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setTipoasntmntoDs(String tipoasntmntoDs) {
-        this.tipoasntmntoDs = tipoasntmntoDs;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public String getTipoasntmntoDsCorta() {
-        return tipoasntmntoDsCorta;
+    public String getClave() {
+        return clave;
     }
 
-    public void setTipoasntmntoDsCorta(String tipoasntmntoDsCorta) {
-        this.tipoasntmntoDsCorta = tipoasntmntoDsCorta;
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
     public List<Asentamiento> getAsentamientoList() {

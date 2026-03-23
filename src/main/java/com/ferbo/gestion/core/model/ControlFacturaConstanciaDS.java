@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "control_factura_constancia_ds")
 @NamedQueries({
-    @NamedQuery(name = "ControlFacturaConstanciaDS.findByConstancia", query = "SELECT c FROM ControlFacturaConstanciaDS c WHERE c.constanciaServicio.folio = :constancia"),
+    @NamedQuery(name = "ControlFacturaConstanciaDS.findByConstancia", query = "SELECT c FROM ControlFacturaConstanciaDS c WHERE c.constanciaDeServicio.folio = :constancia"),
     @NamedQuery(name = "ControlFacturaConstanciaDS.findByFactura", query = "SELECT c FROM ControlFacturaConstanciaDS c WHERE c.factura = :factura")
 })
 public class ControlFacturaConstanciaDS implements Serializable 
@@ -25,7 +25,7 @@ public class ControlFacturaConstanciaDS implements Serializable
 
     @JoinColumn(name = "CONSTANCIA", referencedColumnName = "FOLIO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private ConstanciaDeServicio constanciaServicio;
+    private ConstanciaDeServicio constanciaDeServicio;
 
     @JoinColumn(name = "FACTURA", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
@@ -53,12 +53,12 @@ public class ControlFacturaConstanciaDS implements Serializable
         this.controlFactConstDsPK = controlFactConstDsPK;
     }
 
-    public ConstanciaDeServicio getConstanciaServicio() {
-        return constanciaServicio;
+    public ConstanciaDeServicio getConstanciaDeServicio() {
+        return constanciaDeServicio;
     }
 
-    public void setConstanciaServicio(ConstanciaDeServicio constanciaServicio) {
-        this.constanciaServicio = constanciaServicio;
+    public void setConstanciaDeServicio(ConstanciaDeServicio constanciaDeServicio) {
+        this.constanciaDeServicio = constanciaDeServicio;
     }
 
     public Factura getFactura() {
@@ -77,7 +77,7 @@ public class ControlFacturaConstanciaDS implements Serializable
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((constanciaServicio.getFolio() == null) ? 0 : constanciaServicio.getFolio().hashCode());
+        result = prime * result + ((constanciaDeServicio.getFolio() == null) ? 0 : constanciaDeServicio.getFolio().hashCode());
         result = prime * result + ((factura.getId() == null) ? 0 : factura.getId().hashCode());
         result = prime * result + ((status == null) ? 0 : status.hashCode());
         return result;
@@ -95,11 +95,11 @@ public class ControlFacturaConstanciaDS implements Serializable
             return false;
         }
         ControlFacturaConstanciaDS other = (ControlFacturaConstanciaDS) obj;
-        if (constanciaServicio.getFolio() == null) {
-            if (other.constanciaServicio.getFolio() != null) {
+        if (constanciaDeServicio.getFolio() == null) {
+            if (other.constanciaDeServicio.getFolio() != null) {
                 return false;
             }
-        } else if (!constanciaServicio.getFolio().equals(other.constanciaServicio.getFolio())) {
+        } else if (!constanciaDeServicio.getFolio().equals(other.constanciaDeServicio.getFolio())) {
             return false;
         }
         if (factura == null) {
@@ -122,7 +122,7 @@ public class ControlFacturaConstanciaDS implements Serializable
     @Override
     public String toString() {
         return "ControlFacturaConstanciaDS [controlFactConstDsPK=" + controlFactConstDsPK + ", constanciaServicio="
-                + constanciaServicio + ", factura=" + factura + ", status=" + status + "]";
+                + constanciaDeServicio + ", factura=" + factura + ", status=" + status + "]";
     }
 
 }

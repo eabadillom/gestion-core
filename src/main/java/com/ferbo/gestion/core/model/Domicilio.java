@@ -26,14 +26,14 @@ import javax.validation.constraints.Size;
 @Table(name = "domicilios")
 @NamedQueries({
     @NamedQuery(name = "Domicilio.findAll", query = "SELECT d FROM Domicilio d"),
-    @NamedQuery(name = "Domicilio.findByDomCve", query = "SELECT d FROM Domicilio d WHERE d.id = :idDomicilio"),
-    @NamedQuery(name = "Domicilio.findByDomicilioCalle", query = "SELECT d FROM Domicilio d WHERE d.calle = :calle"),
-    @NamedQuery(name = "Domicilio.findByDomicilioNumExt", query = "SELECT d FROM Domicilio d WHERE d.numExt = :numExt"),
-    @NamedQuery(name = "Domicilio.findByDomicilioNumInt", query = "SELECT d FROM Domicilio d WHERE d.numInt = :numInt"),
-    @NamedQuery(name = "Domicilio.findByDomicilioCp", query = "SELECT d FROM Domicilio d WHERE d.asentamiento.cp = :domicilioCp"),
-    @NamedQuery(name = "Domicilio.findByDomicilioTel1", query = "SELECT d FROM Domicilio d WHERE d.telefono1 = :telefono1"),
-    @NamedQuery(name = "Domicilio.findByDomicilioTel2", query = "SELECT d FROM Domicilio d WHERE d.telefono2 = :telefono2"),
-    @NamedQuery(name = "Domicilio.findByDomicilioFax", query = "SELECT d FROM Domicilio d WHERE d.fax = :fax"),
+    @NamedQuery(name = "Domicilio.findById", query = "SELECT d FROM Domicilio d WHERE d.id = :idDomicilio"),
+    @NamedQuery(name = "Domicilio.findByCalle", query = "SELECT d FROM Domicilio d WHERE d.calle = :calle"),
+    @NamedQuery(name = "Domicilio.findByNumExt", query = "SELECT d FROM Domicilio d WHERE d.numExt = :numExt"),
+    @NamedQuery(name = "Domicilio.findByNumInt", query = "SELECT d FROM Domicilio d WHERE d.numInt = :numInt"),
+    @NamedQuery(name = "Domicilio.findByCp", query = "SELECT d FROM Domicilio d WHERE d.asentamiento.cp = :domicilioCp"),
+    @NamedQuery(name = "Domicilio.findByTel1", query = "SELECT d FROM Domicilio d WHERE d.telefono1 = :telefono1"),
+    @NamedQuery(name = "Domicilio.findByTel2", query = "SELECT d FROM Domicilio d WHERE d.telefono2 = :telefono2"),
+    @NamedQuery(name = "Domicilio.findByFax", query = "SELECT d FROM Domicilio d WHERE d.fax = :fax"),
     @NamedQuery(name = "Domicilio.findByAsentamiento", query = "SELECT d FROM Domicilio d WHERE d.asentamiento.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.estado.estadoPK.pais.id = :idPais AND d.asentamiento.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.estado.estadoPK.id = :idEstado AND d.asentamiento.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.id = :idMunicipio AND d.asentamiento.asentamientoPK.ciudad.ciudadPK.id = :idCiudad AND d.asentamiento.asentamientoPK.id = :idAsentamiento" )
 })
 public class Domicilio implements Serializable 
@@ -70,7 +70,7 @@ public class Domicilio implements Serializable
     @Column(name = "domicilio_fax")
     private String fax;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "domicilios")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "domicilio")
     private List<ClienteDomicilio> clienteDomicilioList;
     
     @Null

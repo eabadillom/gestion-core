@@ -3,7 +3,6 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -22,8 +21,8 @@ import javax.validation.constraints.Size;
 @Table(name = "detalle_partida")
 @NamedQueries({
     @NamedQuery(name = "DetallePartida.findAll", query = "SELECT d FROM DetallePartida d"),
-    @NamedQuery(name = "DetallePartida.findByDetPartCve", query = "SELECT d FROM DetallePartida d WHERE d.detallePartidaPK.id = :idDetPartCve"),
-    @NamedQuery(name = "DetallePartida.findByPartidaCve", query = "SELECT d FROM DetallePartida d WHERE d.detallePartidaPK.partida.id = :idPartida"),
+    @NamedQuery(name = "DetallePartida.findByIdDetPartida", query = "SELECT d FROM DetallePartida d WHERE d.detallePartidaPK.id = :idDetPartCve"),
+    @NamedQuery(name = "DetallePartida.findByIdPartida", query = "SELECT d FROM DetallePartida d WHERE d.detallePartidaPK.partida.id = :idPartida"),
     @NamedQuery(name = "DetallePartida.findByDetPadre", query = "SELECT d FROM DetallePartida d WHERE d.detPadre = :detPadre"),
     @NamedQuery(name = "DetallePartida.findByDetPartPadre", query = "SELECT d FROM DetallePartida d WHERE d.detPartPadre = :detPartPadre"),
     @NamedQuery(name = "DetallePartida.findByCantidadUManejo", query = "SELECT d FROM DetallePartida d WHERE d.cantidadUManejo = :cantidadUManejo"),

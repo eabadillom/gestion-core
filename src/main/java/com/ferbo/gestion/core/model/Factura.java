@@ -266,7 +266,7 @@ public class Factura implements Serializable
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "factura")
     private List<Pago> pagoList;
 
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "facturaMedioPagoPK.facturaId")
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "facturaMedioPagoPK.factura")
     private List<FacturaMedioPago> facturaMedioPagoList;
 
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "factura")

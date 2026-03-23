@@ -19,8 +19,8 @@ import javax.persistence.Table;
 @Table(name = "salida_detalle")
 @NamedQueries({
     @NamedQuery(name = "SalidaDetalle.findAll", query = "SELECT sd FROM SalidaDetalle sd"),
-    @NamedQuery(name = "SalidaDetalle.findById", query = "SELECT sd FROM SalidaDetalle sd WHERE sd.idSalidaDetalle = :idSalDetalle"),
-    @NamedQuery(name = "SalidaDetalle.findByPlanta", query = "SELECT sd FROM SalidaDetalle sd INNER JOIN sd.partida pr INNER JOIN pr.camaraCve cm INNER JOIN cm.plantaCve pl WHERE pl.plantaCve = :idPlanta")
+    @NamedQuery(name = "SalidaDetalle.findById", query = "SELECT sd FROM SalidaDetalle sd WHERE sd.id = :idSalDetalle"),
+    @NamedQuery(name = "SalidaDetalle.findByPlanta", query = "SELECT sd FROM SalidaDetalle sd INNER JOIN sd.partida pr INNER JOIN pr.camara cm INNER JOIN cm.planta pl WHERE pl.id = :idPlanta")
 })
 public class SalidaDetalle implements Serializable
 {
@@ -30,7 +30,7 @@ public class SalidaDetalle implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "cd_salida_det")
-    private Integer idSalidaDetalle;
+    private Integer id;
     
     @ManyToOne
     @JoinColumn(name = "cd_salida", referencedColumnName = "cd_salida")
@@ -49,12 +49,12 @@ public class SalidaDetalle implements Serializable
     public SalidaDetalle() {
     }
 
-    public Integer getIdSalidaDetalle() {
-        return idSalidaDetalle;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdSalidaDetalle(Integer idSalidaDetalle) {
-        this.idSalidaDetalle = idSalidaDetalle;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Salida getSalida() {
@@ -91,10 +91,10 @@ public class SalidaDetalle implements Serializable
 
     @Override
     public int hashCode() {
-        if (this.idSalidaDetalle == null) {
+        if (this.id == null) {
             return System.identityHashCode(this);
         }
-        return Objects.hash(this.idSalidaDetalle);
+        return Objects.hash(this.id);
     }
 
     @Override
@@ -109,14 +109,14 @@ public class SalidaDetalle implements Serializable
             return false;
         }
         final SalidaDetalle other = (SalidaDetalle) obj;
-        if(this.idSalidaDetalle == null || other.idSalidaDetalle == null)
+        if(this.id == null || other.id == null)
             return Objects.equals(System.identityHashCode(this), System.identityHashCode(other));
-        return Objects.equals(this.idSalidaDetalle, other.idSalidaDetalle);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
-        return "SalidaDetalle[" + "idSalidaDetalle=" + idSalidaDetalle + ", cantidad=" + cantidad + ", pesoAprox=" + pesoAprox + ']';
+        return "SalidaDetalle[" + "id=" + id + ", cantidad=" + cantidad + ", pesoAprox=" + pesoAprox + ']';
     }
     
 }

@@ -26,11 +26,11 @@ import javax.validation.constraints.Size;
 @Table(name = "cliente")
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c ORDER BY c.nombre"),
-    @NamedQuery(name = "Cliente.findByCteCve", query = "SELECT c FROM Cliente c WHERE c.id = :idCliente"),
-    @NamedQuery(name = "Cliente.findByCteNombre", query = "SELECT c FROM Cliente c WHERE c.nombre = :cteNombre"),
-    @NamedQuery(name = "Cliente.findByCteRfc", query = "SELECT c FROM Cliente c  WHERE c.rfc = :rfcCliente"),
+    @NamedQuery(name = "Cliente.findById", query = "SELECT c FROM Cliente c WHERE c.id = :idCliente"),
+    @NamedQuery(name = "Cliente.findByNombre", query = "SELECT c FROM Cliente c WHERE c.nombre = :cteNombre"),
+    @NamedQuery(name = "Cliente.findByRfc", query = "SELECT c FROM Cliente c  WHERE c.rfc = :rfcCliente"),
     @NamedQuery(name = "Cliente.findByNumeroCte", query = "SELECT c FROM Cliente c  WHERE c.numeroCte = :numeroCte"),
-    @NamedQuery(name = "Cliente.findByCteMail", query = "SELECT c FROM Cliente c WHERE c.cteMail = :cteMail"),
+    @NamedQuery(name = "Cliente.findByMail", query = "SELECT c FROM Cliente c WHERE c.mail = :mail"),
     @NamedQuery(name = "Cliente.findByHabilitado", query = "SELECT c FROM Cliente c  WHERE c.habilitado = :habilitado ORDER BY c.nombre"),
     @NamedQuery(name = "Cliente.findByCodUnico", query = "SELECT c FROM Cliente c WHERE c.codUnico = :codUnico")
 })
@@ -64,7 +64,7 @@ public class Cliente implements Serializable
 
     @Size(max = 255)
     @Column(name = "cte_mail")
-    private String cteMail;
+    private String mail;
 
     @Basic(optional = false)
     @NotNull
@@ -102,10 +102,10 @@ public class Cliente implements Serializable
     @Column(name = "uuid")
     private String uuid;
 
-    @OneToMany(mappedBy = "clienteCve", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<ConstanciaDeServicio> constanciaDeServicioList;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cteCve", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<ProductoPorCliente> productoPorClienteList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
@@ -114,19 +114,19 @@ public class Cliente implements Serializable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<DetalleFacturacion> detalleFacturacionList;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "cteCve", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Aviso> avisoList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<PrecioServicio> precioServicioList;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", orphanRemoval = true)
     private List<ClienteContacto> clienteContactoList;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cteCve", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<ConstanciaServicios> constanciaServiciosList;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienteCve", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<ConstanciaSalida> constanciaSalidaList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
@@ -140,31 +140,6 @@ public class Cliente implements Serializable
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "serieConstanciaPK.cliente", orphanRemoval = true)
     private List<SerieConstancia> serieConstanciaList;
-
-    @Override
-    public int hashCode() {
-        if (this.id == null) {
-            return System.identityHashCode(this);
-        }
-        return Objects.hash(this.id);
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof Cliente)) {
-            return false;
-        }
-        Cliente other = (Cliente) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "mx.com.ferbo.model.Cliente[ id=" + id + " ]";
-    }
 
     public Cliente() {
     }
@@ -249,15 +224,15 @@ public class Cliente implements Serializable
         this.numeroCte = numeroCte;
     }
 
-    public String getCteMail() {
-        return cteMail;
+    public String getMail() {
+        return mail;
     }
 
-    public void setCteMail(String cteMail) {
-        if (cteMail != null) {
-            cteMail = cteMail.trim();
+    public void setMail(String mail) {
+        if (mail != null) {
+            mail = mail.trim();
         }
-        this.cteMail = cteMail;
+        this.mail = mail;
     }
 
     public boolean getHabilitado() {
@@ -451,6 +426,31 @@ public class Cliente implements Serializable
         serie.getSerieConstanciaPK().setCliente(this);
 
         this.serieConstanciaList.add(serie);
+    }
+    
+    @Override
+    public int hashCode() {
+        if (this.id == null) {
+            return System.identityHashCode(this);
+        }
+        return Objects.hash(this.id);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Cliente)) {
+            return false;
+        }
+        Cliente other = (Cliente) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "mx.com.ferbo.model.Cliente[ id=" + id + " ]";
     }
 
 }

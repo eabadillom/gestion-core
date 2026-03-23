@@ -23,16 +23,16 @@ import javax.validation.constraints.Size;
 @Table(name = "emisor")
 @NamedQueries({
     @NamedQuery(name = "Emisor.findAll", query = "SELECT e FROM Emisor e ORDER BY e.emisor"),
-    @NamedQuery(name = "Emisor.findBycdEmisor", query = "SELECT e FROM Emisor e WHERE e.id = :idEmisor"),
-    @NamedQuery(name = "Emisor.findBynbEmisor", query = "SELECT e FROM Emisor e WHERE e.emisor = :emisor"),
-    @NamedQuery(name = "Emisor.findBytpPersona", query = "SELECT e FROM Emisor e WHERE e.tpPersona = :tpPersona"),
-    @NamedQuery(name = "Emisor.findByregimenCapital", query = "SELECT e FROM Emisor e WHERE e.regimenCapital = :regimenCapital"),
-    @NamedQuery(name = "Emisor.findByrRFC", query = "SELECT e FROM Emisor e WHERE e.rfc = :rfc"),
+    @NamedQuery(name = "Emisor.findById", query = "SELECT e FROM Emisor e WHERE e.id = :idEmisor"),
+    @NamedQuery(name = "Emisor.findByEmisor", query = "SELECT e FROM Emisor e WHERE e.emisor = :emisor"),
+    @NamedQuery(name = "Emisor.findByTpPersona", query = "SELECT e FROM Emisor e WHERE e.tpPersona = :tpPersona"),
+    @NamedQuery(name = "Emisor.findByRegimenCapital", query = "SELECT e FROM Emisor e WHERE e.regimenCapital = :regimenCapital"),
+    @NamedQuery(name = "Emisor.findByRFC", query = "SELECT e FROM Emisor e WHERE e.rfc = :rfc"),
     @NamedQuery(name = "Emisor.findByIniOperaciones", query = "SELECT e FROM Emisor e WHERE e.inicioOp = :inicioOp"),
-    @NamedQuery(name = "Emisor.findByultimoCambio", query = "SELECT e FROM Emisor e WHERE e.ultCambio = :ultCambio"),
+    @NamedQuery(name = "Emisor.findByUltimoCambio", query = "SELECT e FROM Emisor e WHERE e.ultCambio = :ultCambio"),
     @NamedQuery(name = "Emisor.findByPadron", query = "SELECT e FROM Emisor e WHERE e.padron = :padron"),
-    @NamedQuery(name = "Emisor.findByuuid", query = "SELECT e FROM Emisor e WHERE e.uuid = :uuid"),
-    @NamedQuery(name = "Emisor.findByregimenFiscal", query = "SELECT e FROM Emisor e WHERE e.regimen = :regimen")
+    @NamedQuery(name = "Emisor.findByUuid", query = "SELECT e FROM Emisor e WHERE e.uuid = :uuid"),
+    @NamedQuery(name = "Emisor.findByRegimenFiscal", query = "SELECT e FROM Emisor e WHERE e.regimen = :regimen")
 })
 public class Emisor implements Serializable 
 {

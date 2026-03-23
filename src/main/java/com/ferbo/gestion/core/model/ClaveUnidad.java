@@ -18,14 +18,14 @@ import javax.validation.constraints.Size;
 @Table(name = "clave_unidad")
 @NamedQueries({
     @NamedQuery(name = "ClaveUnidad.findAll", query = "SELECT c FROM ClaveUnidad c "),
-    @NamedQuery(name = "ClaveUnidad.findByCdUnidad", query = "SELECT c FROM ClaveUnidad c WHERE c.id = :idUnidad"),
-    @NamedQuery(name = "ClaveUnidad.findByNbUnidad", query = "SELECT c FROM ClaveUnidad c WHERE c.nbUnidad = :nbUnidad"),
-    @NamedQuery(name = "ClaveUnidad.findbyNbDescripcion", query = "SELECT c FROM ClaveUnidad c WHERE c.descripcion = :descripcion"),
-    @NamedQuery(name = "ClaveUnidad.findByNbNota", query = "SELECT c FROM ClaveUnidad c WHERE c.nbNota = :nbNota"),
+    @NamedQuery(name = "ClaveUnidad.findById", query = "SELECT c FROM ClaveUnidad c WHERE c.id = :idUnidad"),
+    @NamedQuery(name = "ClaveUnidad.findByNombre", query = "SELECT c FROM ClaveUnidad c WHERE c.nombre = :nombre"),
+    @NamedQuery(name = "ClaveUnidad.findbyDescripcion", query = "SELECT c FROM ClaveUnidad c WHERE c.descripcion = :descripcion"),
+    @NamedQuery(name = "ClaveUnidad.findByNota", query = "SELECT c FROM ClaveUnidad c WHERE c.nota = :nota"),
     @NamedQuery(name = "ClaveUnidad.findByFechaInicio", query = "SELECT c FROM ClaveUnidad c WHERE c.fechInicio = :fechInicio"),
     @NamedQuery(name = "ClaveUnidad.findByFechaFinal", query = "SELECT c FROM ClaveUnidad c WHERE c.fechFinal = :fechFinal"),
-    @NamedQuery(name = "ClaveUnidad.findByNbSimbolo", query = "SELECT c FROM ClaveUnidad c WHERE c.nbSimbolo = :nbSimbolo"),
-    @NamedQuery(name = "ClaveUnidad.likeClaveNombre", query = "SELECT c FROM ClaveUnidad c WHERE c.cdUnidad like :clave OR c.nbUnidad like :nombre")
+    @NamedQuery(name = "ClaveUnidad.findByNbSimbolo", query = "SELECT c FROM ClaveUnidad c WHERE c.simboloMedida = :simbolo"),
+    @NamedQuery(name = "ClaveUnidad.likeClaveNombre", query = "SELECT c FROM ClaveUnidad c WHERE c.id like :clave OR c.nombre like :nombre")
 })
 public class ClaveUnidad implements Serializable 
 {
@@ -41,7 +41,7 @@ public class ClaveUnidad implements Serializable
     @Basic(optional = false)
     @Size(max = 200)
     @Column(name = "nb_unidad")
-    private String nbUnidad;
+    private String nombre;
 
     @Size(max = 1000)
     @Column(name = "nb_descripcion")
@@ -49,7 +49,7 @@ public class ClaveUnidad implements Serializable
 
     @Size(max = 500)
     @Column(name = "nb_nota")
-    private String nbNota;
+    private String nota;
 
     @Basic(optional = false)
     @Temporal(TemporalType.DATE)//Devuelve fecha y descarta la hora
@@ -62,7 +62,7 @@ public class ClaveUnidad implements Serializable
 
     @Size(max = 50)
     @Column(name = "nb_simbolo")
-    private String nbSimbolo;
+    private String simboloMedida;
 
     public String getId() {
         return id;
@@ -72,12 +72,12 @@ public class ClaveUnidad implements Serializable
         this.id = id;
     }
 
-    public String getNbUnidad() {
-        return nbUnidad;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNbUnidad(String nbUnidad) {
-        this.nbUnidad = nbUnidad;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDescripcion() {
@@ -88,12 +88,12 @@ public class ClaveUnidad implements Serializable
         this.descripcion = descripcion;
     }
 
-    public String getNbNota() {
-        return nbNota;
+    public String getNota() {
+        return nota;
     }
 
-    public void setNbNota(String nbNOta) {
-        this.nbNota = nbNOta;
+    public void setNota(String nota) {
+        this.nota = nota;
     }
 
     public Date getFechInicio() {
@@ -112,12 +112,13 @@ public class ClaveUnidad implements Serializable
         this.fechFinal = fechFinal;
     }
 
-    public String getNbSimbolo() {
-        return nbSimbolo;
+    public String getSimboloMedida() {
+        return simboloMedida;
     }
 
-    public void setNbSimbolo(String nbSimbolo) {
-        this.nbSimbolo = nbSimbolo;
+    public void setSimboloMedida(String simboloMedida) {
+        this.simboloMedida = simboloMedida;
     }
+
 
 }

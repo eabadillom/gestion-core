@@ -22,8 +22,8 @@ import javax.validation.constraints.Size;
 @Table(name = "producto")
 @NamedQueries({
     @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p"),
-    @NamedQuery(name = "Producto.findByProductoCve", query = "SELECT p FROM Producto p WHERE p.id = :idProducto"),
-    @NamedQuery(name = "Producto.findByProductoDs", query = "SELECT p FROM Producto p WHERE p.descripcion = :descripcion"),
+    @NamedQuery(name = "Producto.findById", query = "SELECT p FROM Producto p WHERE p.id = :idProducto"),
+    @NamedQuery(name = "Producto.findByDescripcion", query = "SELECT p FROM Producto p WHERE p.descripcion = :descripcion"),
     @NamedQuery(name = "Producto.findByNumeroProd", query = "SELECT p FROM Producto p WHERE p.numeroProd = :numeroProd"),
     @NamedQuery(name = "Producto.findByCategoria", query = "SELECT p FROM Producto p WHERE p.categoria = :categoria"),
     @NamedQuery(name = "Producto.findByCliente", query = "SELECT p FROM Producto p JOIN p.productoPorClienteList ppc WHERE ppc.cliente.id = :idCliente ORDER BY p.descripcion ASC")

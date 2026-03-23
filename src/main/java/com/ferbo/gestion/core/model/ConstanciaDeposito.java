@@ -28,8 +28,8 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "ConstanciaDeposito.findAll", query = "SELECT c FROM ConstanciaDeposito c"),
     @NamedQuery(name = "ConstanciaDeposito.findByFolio", query = "SELECT c FROM ConstanciaDeposito c WHERE c.folio = :folio"),
-    @NamedQuery(name = "ConstanciaDeposito.findByCteCve", query = "SELECT c FROM ConstanciaDeposito c WHERE c.cliente.id = :idCliente"),
-    @NamedQuery(name = "ConstanciaDeposito.findByCteCveAndPlanta", query = "SELECT DISTINCT (c) FROM ConstanciaDeposito c INNER JOIN c.partidaList p WHERE c.cliente.id = :idCliente and p.camara.planta.id = :idPlanta"),
+    @NamedQuery(name = "ConstanciaDeposito.findById", query = "SELECT c FROM ConstanciaDeposito c WHERE c.cliente.id = :idCliente"),
+    @NamedQuery(name = "ConstanciaDeposito.findByIdAndPlanta", query = "SELECT DISTINCT (c) FROM ConstanciaDeposito c INNER JOIN c.partidaList p WHERE c.cliente.id = :idCliente and p.camara.planta.id = :idPlanta"),
     @NamedQuery(name = "ConstanciaDeposito.findByFechaIngreso", query = "SELECT c FROM ConstanciaDeposito c WHERE c.fechaIngreso = :fechaIngreso"),
     @NamedQuery(name = "ConstanciaDeposito.findByNombreTransportista", query = "SELECT c FROM ConstanciaDeposito c WHERE c.nombreTransportista = :nombreTransportista"),
     @NamedQuery(name = "ConstanciaDeposito.findByPlacasTransporte", query = "SELECT c FROM ConstanciaDeposito c WHERE c.placasTransporte = :placasTransporte"),
@@ -43,6 +43,7 @@ import javax.validation.constraints.Size;
 public class ConstanciaDeposito implements Serializable 
 {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -78,10 +79,10 @@ public class ConstanciaDeposito implements Serializable
     @Column(name = "temperatura")
     private String temperatura;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "folio")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "constanciaDeposito")
     private List<Partida> partidaList;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "folio")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "constanciaDeposito")
     private List<ConstanciaDepositoDetalle> constanciaDepositoDetalleList;
 
     @JoinColumn(name = "CTE_CVE", referencedColumnName = "CTE_CVE", nullable = false)
@@ -96,7 +97,7 @@ public class ConstanciaDeposito implements Serializable
     @ManyToOne
     private EstadoConstancia status;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "folio")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "constanciaDeposito")
     private List<ConstanciaFactura> constanciaFacturaList;
 
     public ConstanciaDeposito() {
@@ -193,7 +194,7 @@ public class ConstanciaDeposito implements Serializable
     public void setConstanciaDepositoDetalleList(List<ConstanciaDepositoDetalle> constanciaDepositoDetalleList) {
         this.constanciaDepositoDetalleList = constanciaDepositoDetalleList;
         for (ConstanciaDepositoDetalle c : constanciaDepositoDetalleList) {
-            c.setFolio(this);
+            c.setConstanciaDeposito(this);
         }
     }
 

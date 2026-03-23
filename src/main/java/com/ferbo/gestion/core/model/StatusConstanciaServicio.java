@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package mx.com.ferbo.model;
+package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -16,28 +11,28 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Gabriel Moreno <gabrielmos0309@gmail.com>
- */
 @Entity
 @Table(name = "status_constancia_servicio")
 @NamedQueries({
     @NamedQuery(name = "StatusConstanciaServicio.findAll", query = "SELECT s FROM StatusConstanciaServicio s"),
     @NamedQuery(name = "StatusConstanciaServicio.findById", query = "SELECT s FROM StatusConstanciaServicio s WHERE s.id = :id"),
     @NamedQuery(name = "StatusConstanciaServicio.findByNombre", query = "SELECT s FROM StatusConstanciaServicio s WHERE s.nombre = :nombre"),
-    @NamedQuery(name = "StatusConstanciaServicio.findByDescripcion", query = "SELECT s FROM StatusConstanciaServicio s WHERE s.descripcion = :descripcion")})
-public class StatusConstanciaServicio implements Serializable {
-
+    @NamedQuery(name = "StatusConstanciaServicio.findByDescripcion", query = "SELECT s FROM StatusConstanciaServicio s WHERE s.descripcion = :descripcion")
+})
+public class StatusConstanciaServicio implements Serializable 
+{
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID")
     private Integer id;
+    
     @Size(max = 20)
     @Column(name = "NOMBRE")
     private String nombre;
+    
     @Size(max = 50)
     @Column(name = "DESCRIPCION")
     private String descripcion;

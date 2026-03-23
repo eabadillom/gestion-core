@@ -17,10 +17,10 @@ import javax.validation.constraints.NotNull;
 @Table(name = "cuota_minima")
 @NamedQueries({
     @NamedQuery(name = "CuotaMinima.findAll", query = "SELECT c FROM CuotaMinima c"),
-    @NamedQuery(name = "CuotaMinima.findByCteCve", query = "SELECT c FROM CuotaMinima c WHERE c.cuotaMinimaPK.idCliente = :idCliente"),
-    @NamedQuery(name = "CuotaMinima.findByCuotaId", query = "SELECT c FROM CuotaMinima c WHERE c.cuotaMinimaPK.idCuota = :idCuota"),
-    @NamedQuery(name = "CuotaMinima.findByCuotaEnabled", query = "SELECT c FROM CuotaMinima c WHERE c.cuotaEnabled = :cuotaEnabled"),
-    @NamedQuery(name = "CuotaMinima.findByCuotaValue", query = "SELECT c FROM CuotaMinima c WHERE c.cuotaValue = :cuotaValue")
+    @NamedQuery(name = "CuotaMinima.findById", query = "SELECT c FROM CuotaMinima c WHERE c.cuotaMinimaPK.idCliente = :idCliente"),
+    @NamedQuery(name = "CuotaMinima.findByIdCuota", query = "SELECT c FROM CuotaMinima c WHERE c.cuotaMinimaPK.idCuota = :idCuota"),
+    @NamedQuery(name = "CuotaMinima.findByEnabled", query = "SELECT c FROM CuotaMinima c WHERE c.cuotaEnabled = :cuotaEnabled"),
+    @NamedQuery(name = "CuotaMinima.findByValue", query = "SELECT c FROM CuotaMinima c WHERE c.cuotaValue = :cuotaValue")
 })
 public class CuotaMinima implements Serializable 
 {
@@ -34,7 +34,6 @@ public class CuotaMinima implements Serializable
     @Column(name = "cuota_enabled")
     private boolean cuotaEnabled;
     
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "cuota_value")

@@ -19,12 +19,12 @@ import javax.validation.constraints.Size;
 @Table(name = "regimen_fiscal")
 @NamedQueries({
     @NamedQuery(name = "RegimenFiscal.findAll", query = "SELECT r FROM  RegimenFiscal r"),
-    @NamedQuery(name = "RegimenFiscal.findBycdRegimen", query = "SELECT r FROM RegimenFiscal r WHERE  r.id = :idRegimen"),
-    @NamedQuery(name = "RegimenFiscal.findBydescripcion", query = "SELECT r FROM RegimenFiscal r WHERE  r.descripcion = :descripcion"),
-    @NamedQuery(name = "RegimenFiscal.findByst_per_fisica", query = "SELECT r FROM RegimenFiscal r WHERE r.personaFisica = true ORDER BY r.descripcion"),
-    @NamedQuery(name = "RegimenFiscal.findByst_per_moral", query = "SELECT r FROM RegimenFiscal r WHERE r.personaMoral = true ORDER BY r.descripcion"),
-    @NamedQuery(name = "RegimenFiscal.findByfh_vigencia_ini", query = "SELECT r FROM RegimenFiscal r WHERE  r.vigenciaInicio = :fh_vigencia_ini"),
-    @NamedQuery(name = "RegimenFiscal.findByfh_vigencia_fin", query = "SELECT r FROM RegimenFiscal r WHERE r.vigenciaFin = :fh_vigencia_fin")
+    @NamedQuery(name = "RegimenFiscal.findById", query = "SELECT r FROM RegimenFiscal r WHERE  r.id = :idRegimen"),
+    @NamedQuery(name = "RegimenFiscal.findByDescripcion", query = "SELECT r FROM RegimenFiscal r WHERE  r.descripcion = :descripcion"),
+    @NamedQuery(name = "RegimenFiscal.findByPerFisica", query = "SELECT r FROM RegimenFiscal r WHERE r.personaFisica = true ORDER BY r.descripcion"),
+    @NamedQuery(name = "RegimenFiscal.findByPerMoral", query = "SELECT r FROM RegimenFiscal r WHERE r.personaMoral = true ORDER BY r.descripcion"),
+    @NamedQuery(name = "RegimenFiscal.findByFechaIni", query = "SELECT r FROM RegimenFiscal r WHERE  r.vigenciaInicio = :fh_vigencia_ini"),
+    @NamedQuery(name = "RegimenFiscal.findByFechaFin", query = "SELECT r FROM RegimenFiscal r WHERE r.vigenciaFin = :fh_vigencia_fin")
 })
 public class RegimenFiscal implements Serializable 
 {

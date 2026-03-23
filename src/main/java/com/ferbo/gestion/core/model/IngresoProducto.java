@@ -25,7 +25,8 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "IngresoProducto.findByAll", query = "SELECT ip FROM IngresoProducto ip")
 })
-public class IngresoProducto implements Serializable, Cloneable {
+public class IngresoProducto implements Serializable, Cloneable 
+{
     private static final long serialVersionUID = 1L;
 
     @Id

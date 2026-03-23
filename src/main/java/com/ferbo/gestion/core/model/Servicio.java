@@ -18,21 +18,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author alberto
- */
 @Entity
 @Table(name = "servicio")
 @NamedQueries({
     @NamedQuery(name = "Servicio.findAll", query = "SELECT s FROM Servicio s ORDER BY s.descripcion"),
-    @NamedQuery(name = "Servicio.findByServicioCve", query = "SELECT s FROM Servicio s WHERE s.id = :idServicio"),
-    @NamedQuery(name = "Servicio.findByServicioDs", query = "SELECT s FROM Servicio s WHERE s.descripcion = :descripcion"),
-    @NamedQuery(name = "Servicio.findByServicioCod", query = "SELECT s FROM Servicio s WHERE s.servicioCod = :servicioCod"),
-    @NamedQuery(name = "Servicio.findByCdUnidad", query = "SELECT s FROM Servicio s WHERE s.cdUnidad = :cdUnidad"),//cd unidad paso a ser clave foranea
+    @NamedQuery(name = "Servicio.findById", query = "SELECT s FROM Servicio s WHERE s.id = :idServicio"),
+    @NamedQuery(name = "Servicio.findByDescripcion", query = "SELECT s FROM Servicio s WHERE s.descripcion = :descripcion"),
+    @NamedQuery(name = "Servicio.findByCodigo", query = "SELECT s FROM Servicio s WHERE s.codigo = :codigo"),
+    @NamedQuery(name = "Servicio.findByUnidad", query = "SELECT s FROM Servicio s WHERE s.unidad = :unidad"),//cd unidad paso a ser clave foranea
     @NamedQuery(name = "Servicio.findByUuId", query = "SELECT s FROM Servicio s WHERE s.uuId = :uuId")
 })
-public class Servicio implements Serializable {
+public class Servicio implements Serializable 
+{
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -47,24 +44,24 @@ public class Servicio implements Serializable {
 
     @Size(max = 20)
     @Column(name = "SERVICIO_COD")
-    private String servicioCod;
+    private String codigo;
 
     @Size(max = 5)
     @Column(name = "cd_unidad")
-    private String cdUnidad;
+    private String unidad;
 
     @Size(max = 50)
     @Column(name = "SERVICIO_NOM")
-    private String servicioNombre;
+    private String nombre;
 
     @Size(max = 50)
     @Column(name = "uuid")
     private String uuId;
 
-    @OneToMany(mappedBy = "servicioCve")
+    @OneToMany(mappedBy = "servicio")
     private List<DetalleConstanciaServicio> detalleConstanciaServicioList;
 
-    @OneToMany(mappedBy = "servicioCve")
+    @OneToMany(mappedBy = "servicio")
     private List<ConstanciaSalidaServicio> constanciaSalidaServicioList;
 
     @JoinColumn(name = "COBRO", referencedColumnName = "id")
@@ -75,16 +72,16 @@ public class Servicio implements Serializable {
     @ManyToOne
     private ClaveUnidad claveUnit;
 
-    @OneToMany(mappedBy = "servicioCve")
+    @OneToMany(mappedBy = "servicio")
     private List<CuotaMensualServicio> cuotaMensualServicioList;
 
     @OneToMany(mappedBy = "servicio")
     private List<PrecioServicio> precioServicioList;
 
-    @OneToMany(mappedBy = "servicioCve")
+    @OneToMany(mappedBy = "servicio")
     private List<ConstanciaDepositoDetalle> constanciaDepositoDetalleList;
 
-    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "servicioCve")
+    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "servicio")
     private List<ConstanciaServicioDetalle> constanciaServicioDetalleList;
 
     public Servicio() {
@@ -110,28 +107,28 @@ public class Servicio implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getServicioCod() {
-        return servicioCod;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setServicioCod(String servicioCod) {
-        this.servicioCod = servicioCod;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public String getCdUnidad() {
-        return cdUnidad;
+    public String getUnidad() {
+        return unidad;
     }
 
-    public void setCdUnidad(String cdUnidad) {
-        this.cdUnidad = cdUnidad;
+    public void setUnidad(String unidad) {
+        this.unidad = unidad;
     }
 
-    public String getServicioNombre() {
-        return servicioNombre;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setServicioNombre(String servicioNombre) {
-        this.servicioNombre = servicioNombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getUuId() {

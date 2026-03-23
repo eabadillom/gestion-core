@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 @Table(name = "factura_medio_pago")
 @NamedQueries({
     @NamedQuery(name = "FacturaMedioPago.findAll", query = "SELECT f FROM FacturaMedioPago f"),
-    @NamedQuery(name = "FacturaMedioPago.findByFacturaId", query = "SELECT f FROM FacturaMedioPago f WHERE f.facturaMedioPagoPK.factura = :factura"),
+    @NamedQuery(name = "FacturaMedioPago.findByIdFactura", query = "SELECT f FROM FacturaMedioPago f WHERE f.facturaMedioPagoPK.factura.id = :idFactura"),
     @NamedQuery(name = "FacturaMedioPago.findByMedioPago", query = "SELECT f FROM FacturaMedioPago f WHERE f.medioPago.id = :idMedioPago"),
     @NamedQuery(name = "FacturaMedioPago.findByDescripcion", query = "SELECT f FROM FacturaMedioPago f WHERE f.descripcion = :descripcion"),
     @NamedQuery(name = "FacturaMedioPago.findByPorcentaje", query = "SELECT f FROM FacturaMedioPago f WHERE f.porcentaje = :porcentaje"),

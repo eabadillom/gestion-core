@@ -3,7 +3,6 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,9 +19,9 @@ import javax.validation.constraints.Size;
 @Table(name = "metodo_pago")
 @NamedQueries({
     @NamedQuery(name = "MetodoPago.findAll", query = "SELECT mp FROM MetodoPago mp "),
-    @NamedQuery(name = "MetodoPago.buscarVigentes", query = "SELECT mp FROM MetodoPago mp WHERE mp.fechaInicio <= :fecha AND (mp.fechaFinal IS NULL OR mp.fechaFinal >= :fecha) ORDER BY mp.nbMetodoPago"),
-    @NamedQuery(name = "MetodoPago.findByCdMetodoPago", query = "SELECT mp FROM MetodoPago mp WHERE mp.cdMetodoPago =  :cdMetodoPago"),
-    @NamedQuery(name = "MetodoPago.findByNbMetodoPago", query = "SELECT mp FROM MetodoPago mp WHERE mp.nbMetodoPago = :nbMetodoPago")
+    @NamedQuery(name = "MetodoPago.findByVigentes", query = "SELECT mp FROM MetodoPago mp WHERE mp.fechaInicio <= :fecha AND (mp.fechaFinal IS NULL OR mp.fechaFinal >= :fecha) ORDER BY mp.descripcion"),
+    @NamedQuery(name = "MetodoPago.findByClave", query = "SELECT mp FROM MetodoPago mp WHERE mp.clave = :clave"),
+    @NamedQuery(name = "MetodoPago.findByDescripcion", query = "SELECT mp FROM MetodoPago mp WHERE mp.descripcion = :descripcion")
 })
 public class MetodoPago implements Serializable 
 {
@@ -33,12 +32,12 @@ public class MetodoPago implements Serializable
     @NotNull
     @Column(name = "cd_metodo_pago")
     @Size(max = 5)
-    private String cdMetodoPago;
+    private String clave;
 
     @NotNull
     @Column(name = "nb_metodo_pago")
     @Size(max = 100)
-    private String nbMetodoPago;
+    private String descripcion;
 
     @Column(name = "fh_vigencia_ini")
     @Temporal(TemporalType.DATE)
@@ -50,23 +49,22 @@ public class MetodoPago implements Serializable
     private Date fechaFinal;
 
     public MetodoPago() {
-
     }
 
-    public String getCdMetodoPago() {
-        return cdMetodoPago;
+    public String getClave() {
+        return clave;
     }
 
-    public void setCdMetodoPago(String cdMetodoPago) {
-        this.cdMetodoPago = cdMetodoPago;
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
-    public String getNbMetodoPago() {
-        return nbMetodoPago;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNbMetodoPago(String nbMetodoPago) {
-        this.nbMetodoPago = nbMetodoPago;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Date getFechaInicio() {
@@ -87,12 +85,12 @@ public class MetodoPago implements Serializable
 
     @Override
     public String toString() {
-        return "MetodoPago [cdMetodoPago=" + cdMetodoPago + "]";
+        return "MetodoPago [clave=" + clave + "]";
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cdMetodoPago);
+        return Objects.hash(clave);
     }
 
     @Override
@@ -107,7 +105,7 @@ public class MetodoPago implements Serializable
             return false;
         }
         MetodoPago other = (MetodoPago) obj;
-        return Objects.equals(cdMetodoPago, other.cdMetodoPago);
+        return Objects.equals(clave, other.clave);
     }
 
 }

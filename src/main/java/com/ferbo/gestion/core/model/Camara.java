@@ -22,10 +22,10 @@ import javax.validation.constraints.Size;
 @Table(name = "camara")
 @NamedQueries({
     @NamedQuery(name = "Camara.findAll", query = "SELECT c FROM Camara c"),
-    @NamedQuery(name = "Camara.findByCamaraCve", query = "SELECT c FROM Camara c WHERE c.id = :idCamara"),
-    @NamedQuery(name = "Camara.findByPlantaCve", query = "SELECT c FROM Camara c WHERE c.planta.id = :idPlanta"),
-    @NamedQuery(name = "Camara.findByCamaraDs", query = "SELECT c FROM Camara c WHERE c.descripcion = :descripcion"),
-    @NamedQuery(name = "Camara.findByCamaraAbrev", query = "SELECT c FROM Camara c WHERE c.clave = :clave")
+    @NamedQuery(name = "Camara.findByIdCamara", query = "SELECT c FROM Camara c WHERE c.id = :idCamara"),
+    @NamedQuery(name = "Camara.findByIdPlanta", query = "SELECT c FROM Camara c WHERE c.planta.id = :idPlanta"),
+    @NamedQuery(name = "Camara.findByDescripcion", query = "SELECT c FROM Camara c WHERE c.descripcion = :descripcion"),
+    @NamedQuery(name = "Camara.findByClave", query = "SELECT c FROM Camara c WHERE c.clave = :clave")
 })
 public class Camara implements Serializable 
 {
@@ -100,6 +100,14 @@ public class Camara implements Serializable
 
     public void setTotalPosicion(Integer totalPosicion) {
         this.totalPosicion = totalPosicion;
+    }
+
+    public List<Posicion> getPosicionList() {
+        return posicionList;
+    }
+
+    public void setPosicionList(List<Posicion> posicionList) {
+        this.posicionList = posicionList;
     }
 
     @Override

@@ -20,11 +20,11 @@ import javax.validation.constraints.Size;
 @Table(name = "certificado")
 @NamedQueries({
     @NamedQuery(name = "Certificado.findAll", query = "SELECT c FROM Certificado c"),
-    @NamedQuery(name = "Certificado.findByCd_Certificado", query = "SELECT c FROM Certificado c WHERE c.id = :idCertificado"),
+    @NamedQuery(name = "Certificado.findById", query = "SELECT c FROM Certificado c WHERE c.id = :idCertificado"),
     @NamedQuery(name = "Certificado.findByAlta", query = "SELECT c FROM Certificado c WHERE c.fechaAlta = :fh_alta"),
     @NamedQuery(name = "Certificado.findByNombreCertificado", query = "SELECT c FROM Certificado c WHERE c.nombreCertificado = :nb_certificado"),
-    @NamedQuery(name = "Certificado.findByFecha", query = "SELECT max(c.fechaAlta), c.dtCertificado FROM Certificado c GROUP BY c.dtCertificado"),
-    @NamedQuery(name = "Certificado.findByemisor", query = "SELECT c FROM Certificado c WHERE c.emisor.id = :idEmisor")
+    @NamedQuery(name = "Certificado.findByFecha", query = "SELECT max(c.fechaAlta), c.certificado FROM Certificado c GROUP BY c.certificado"),
+    @NamedQuery(name = "Certificado.findByEmisor", query = "SELECT c FROM Certificado c WHERE c.emisor.id = :idEmisor")
 })
 public class Certificado implements Serializable 
 {
@@ -45,7 +45,7 @@ public class Certificado implements Serializable
 
     @Size(min = 1, max = 1638)
     @Column(name = "dt_certificado")
-    private byte[] dtCertificado;
+    private byte[] certificado;
 
     @Size(min = 1, max = 256)
     @Column(name = "nb_llave_privada")
@@ -53,7 +53,7 @@ public class Certificado implements Serializable
 
     @Size(min = 1, max = 1638)
     @Column(name = "dt_llave_privada")
-    private byte[] Dt_llavePrivada;
+    private byte[] dtLlavePrivada;
 
     @Size(min = 1, max = 100)
     @Column(name = "nb_pass")
@@ -91,11 +91,11 @@ public class Certificado implements Serializable
     }
 
     public byte[] getCertificado() {
-        return dtCertificado;
+        return certificado;
     }
 
     public void setCertificado(byte[] certificado) {
-        dtCertificado = certificado;
+        this.certificado = certificado;
     }
 
     public String getLlavePrivada() {
@@ -106,12 +106,12 @@ public class Certificado implements Serializable
         this.llavePrivada = llavePrivada;
     }
 
-    public byte[] getDt_llavePrivada() {
-        return Dt_llavePrivada;
+    public byte[] getDtLlavePrivada() {
+        return dtLlavePrivada;
     }
 
-    public void setDt_llavePrivada(byte[] dt_llavePrivada) {
-        Dt_llavePrivada = dt_llavePrivada;
+    public void setDtLlavePrivada(byte[] dtLlavePrivada) {
+        this.dtLlavePrivada = dtLlavePrivada;
     }
 
     public String getPassword() {
@@ -131,20 +131,20 @@ public class Certificado implements Serializable
     }
 
     public Certificado(Integer id, Date fechaAlta, String nombreCertificado, byte[] certificado, String llavePrivada,
-            byte[] dt_llavePrivada, String password, Emisor emisor) {
+            byte[] dtLlavePrivada, String password, Emisor emisor) {
         this.id = id;
         this.fechaAlta = fechaAlta;
         this.nombreCertificado = nombreCertificado;
-        dtCertificado = certificado;
+        this.certificado = certificado;
         this.llavePrivada = llavePrivada;
-        Dt_llavePrivada = dt_llavePrivada;
+        this.dtLlavePrivada = dtLlavePrivada;
         this.password = password;
         this.emisor = emisor;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dtCertificado, Dt_llavePrivada, id, emisor, fechaAlta, llavePrivada,
+        return Objects.hash(certificado, dtLlavePrivada, id, emisor, fechaAlta, llavePrivada,
                 nombreCertificado, password);
     }
 
@@ -160,7 +160,7 @@ public class Certificado implements Serializable
             return false;
         }
         Certificado other = (Certificado) obj;
-        return Objects.equals(dtCertificado, other.dtCertificado) && Objects.equals(Dt_llavePrivada, other.Dt_llavePrivada)
+        return Objects.equals(certificado, other.certificado) && Objects.equals(dtLlavePrivada, other.dtLlavePrivada)
                 && Objects.equals(id, other.id) && Objects.equals(emisor, other.emisor)
                 && Objects.equals(fechaAlta, other.fechaAlta) && Objects.equals(llavePrivada, other.llavePrivada)
                 && Objects.equals(nombreCertificado, other.nombreCertificado)

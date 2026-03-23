@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,10 +25,10 @@ import javax.validation.constraints.NotNull;
 @Table(name = "partida")
 @NamedQueries({
     @NamedQuery(name = "Partida.findAll", query = "SELECT p FROM Partida p"),
-    @NamedQuery(name = "Partida.findByPartidaCve", query = "SELECT p FROM Partida p WHERE p.id = :id"),
+    @NamedQuery(name = "Partida.findByPartida", query = "SELECT p FROM Partida p WHERE p.id = :id"),
     @NamedQuery(name = "Partida.findByPesoTotal", query = "SELECT p FROM Partida p WHERE p.pesoTotal = :pesoTotal"),
     @NamedQuery(name = "Partida.findByCantidadTotal", query = "SELECT p FROM Partida p WHERE p.cantidadTotal = :cantidadTotal"),
-    @NamedQuery(name = "Partida.findByUnidadDeProductoCve", query = "SELECT p FROM Partida p WHERE p.unidadProducto = :unidadProducto"),
+    @NamedQuery(name = "Partida.findByUnidadProducto", query = "SELECT p FROM Partida p WHERE p.unidadProducto = :unidadProducto"),
     @NamedQuery(name = "Partida.findByCantidadDeCobro", query = "SELECT p FROM Partida p WHERE p.cantidadDeCobro = :cantidadDeCobro"),
     @NamedQuery(name = "Partida.findByPartidaSeq", query = "SELECT p FROM Partida p WHERE p.partidaSeq = :partidaSeq"),
     @NamedQuery(name = "Partida.findByValorMercancia", query = "SELECT p FROM Partida p WHERE p.valorMercancia = :valorMercancia"),
@@ -70,7 +69,7 @@ public class Partida implements Serializable, Cloneable
     @Column(name = "no_tarimas")
     private BigDecimal noTarimas;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "detallePartidaPK.id")//PENDIENTE NO MNODIFICA EL DETALLE PARTIDA DE LA PARTIDA SELECCIONADA detallePartidaPK.id
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "detallePartidaPK.partida")//PENDIENTE NO MNODIFICA EL DETALLE PARTIDA DE LA PARTIDA SELECCIONADA detallePartidaPK.id
     private List<DetallePartida> detallePartidaList;
 
     @JoinColumn(name = "CAMARA_CVE", referencedColumnName = "CAMARA_CVE")
@@ -85,7 +84,7 @@ public class Partida implements Serializable, Cloneable
     @ManyToOne(fetch = FetchType.LAZY)
     private UnidadManejo unidadCobro;
 
-    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "partida", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     private List<DetalleConstanciaSalida> detalleConstanciaSalidaList;
 
     @JoinColumn(name = "UNIDAD_DE_PRODUCTO_CVE", referencedColumnName = "UNIDAD_DE_PRODUCTO_CVE")

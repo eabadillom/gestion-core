@@ -1,5 +1,6 @@
 package com.ferbo.gestion.core.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -16,8 +17,10 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cfdi")
-public class Cfdi 
+public class Cfdi implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)

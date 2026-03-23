@@ -15,16 +15,12 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-/**
- *
- * @author alberto
- */
 @Entity
 @Table(name = "constancia_servicio_detalle")
 @NamedQueries({
     @NamedQuery(name = "ConstanciaServicioDetalle.findAll", query = "SELECT c FROM ConstanciaServicioDetalle c"),
     @NamedQuery(name = "ConstanciaServicioDetalle.findByConstanciaServicioDetalleCve", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.id = :idConstanciaSrvDet"),
-    @NamedQuery(name = "ConstanciaServicioDetalle.findByFolio", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.constanciaServicio = :constanciaServicio"),
+    @NamedQuery(name = "ConstanciaServicioDetalle.findByFolio", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.constanciaDeServicio.folio = :folio"),
     @NamedQuery(name = "ConstanciaServicioDetalle.findByServicioCantidad", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.servicioCantidad = :servicioCantidad")
 })
 public class ConstanciaServicioDetalle implements Serializable 
@@ -37,13 +33,12 @@ public class ConstanciaServicioDetalle implements Serializable
     @Column(name = "CONSTANCIA_SERVICIO_DETALLE_CVE")
     private Integer id;
     
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "SERVICIO_CANTIDAD")
     private BigDecimal servicioCantidad;
     
     @JoinColumn(name = "FOLIO", referencedColumnName = "FOLIO")
     @ManyToOne(fetch = FetchType.LAZY)
-    private ConstanciaDeServicio constanciaServicio;
+    private ConstanciaDeServicio constanciaDeServicio;
     
     @JoinColumn(name = "SERVICIO_CVE", referencedColumnName = "SERVICIO_CVE")
     @ManyToOne(optional = false)
@@ -72,12 +67,12 @@ public class ConstanciaServicioDetalle implements Serializable
         this.servicioCantidad = servicioCantidad;
     }
 
-    public ConstanciaDeServicio getConstanciaServicio() {
-        return constanciaServicio;
+    public ConstanciaDeServicio getConstanciaDeServicio() {
+        return constanciaDeServicio;
     }
 
-    public void setConstanciaServicio(ConstanciaDeServicio constanciaServicio) {
-        this.constanciaServicio = constanciaServicio;
+    public void setConstanciaDeServicio(ConstanciaDeServicio constanciaDeServicio) {
+        this.constanciaDeServicio = constanciaDeServicio;
     }
 
     public Servicio getServicio() {

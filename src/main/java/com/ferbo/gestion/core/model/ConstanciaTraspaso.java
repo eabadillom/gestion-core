@@ -21,10 +21,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author alberto
- */
 @Entity
 @Table(name = "constancia_traspaso")
 @NamedQueries({

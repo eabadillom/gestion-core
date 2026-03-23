@@ -21,11 +21,11 @@ import javax.validation.constraints.Size;
 @Table(name = "medio_pago")
 @NamedQueries({
     @NamedQuery(name = "MedioPago.findAll", query = "SELECT m FROM MedioPago m ORDER BY m.descripcion, m.vigenciaInicio, m.vigenciaFin"),
-    @NamedQuery(name = "MedioPago.findByMpId", query = "SELECT m FROM MedioPago m WHERE m.id = :idMedioPago"),
-    @NamedQuery(name = "MedioPago.findByMpDescripcion", query = "SELECT m FROM MedioPago m WHERE m.descripcion = :descripcion"),
-    @NamedQuery(name = "MedioPago.findVigentes", query = "SELECT m FROM MedioPago m WHERE m.vigenciaInicio <= :fecha AND (m.vigenciaFin IS NULL OR m.vigenciaFin >= :fecha) ORDER BY m.descripcion"),
-    @NamedQuery(name = "MedioPago.findByMpReqReferencia", query = "SELECT m FROM MedioPago m WHERE m.reqReferencia = :reqReferencia"),
-    @NamedQuery(name = "MedioPago.findBympformaPago", query = "SELECT m FROM MedioPago m WHERE m.formaPago = :mpformaPago")
+    @NamedQuery(name = "MedioPago.findById", query = "SELECT m FROM MedioPago m WHERE m.id = :idMedioPago"),
+    @NamedQuery(name = "MedioPago.findByDescripcion", query = "SELECT m FROM MedioPago m WHERE m.descripcion = :descripcion"),
+    @NamedQuery(name = "MedioPago.findByVigentes", query = "SELECT m FROM MedioPago m WHERE m.vigenciaInicio <= :fecha AND (m.vigenciaFin IS NULL OR m.vigenciaFin >= :fecha) ORDER BY m.descripcion"),
+    @NamedQuery(name = "MedioPago.findByReqReferencia", query = "SELECT m FROM MedioPago m WHERE m.reqReferencia = :reqReferencia"),
+    @NamedQuery(name = "MedioPago.findByFormaPago", query = "SELECT m FROM MedioPago m WHERE m.formaPago = :mpformaPago")
 })
 public class MedioPago implements Serializable 
 {

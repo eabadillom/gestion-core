@@ -19,18 +19,14 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author alberto
- */
 @Entity
 @Table(name = "contacto")
 @NamedQueries({
     @NamedQuery(name = "Contacto.findAll", query = "SELECT c FROM Contacto c"),
     @NamedQuery(name = "Contacto.findByIdContacto", query = "SELECT c FROM Contacto c WHERE c.id = :idContacto"),
-    @NamedQuery(name = "Contacto.findByNbNombre", query = "SELECT c FROM Contacto c WHERE c.nombre = :nombre"),
-    @NamedQuery(name = "Contacto.findByNbApellido1", query = "SELECT c FROM Contacto c WHERE c.apellido1 = :apellido1"),
-    @NamedQuery(name = "Contacto.findByNbApellido2", query = "SELECT c FROM Contacto c WHERE c.apellido2 = :apellido2")
+    @NamedQuery(name = "Contacto.findByNombre", query = "SELECT c FROM Contacto c WHERE c.nombre = :nombre"),
+    @NamedQuery(name = "Contacto.findByApellido1", query = "SELECT c FROM Contacto c WHERE c.apellido1 = :apellido1"),
+    @NamedQuery(name = "Contacto.findByApellido2", query = "SELECT c FROM Contacto c WHERE c.apellido2 = :apellido2")
 })
 public class Contacto implements Serializable 
 {
@@ -60,10 +56,10 @@ public class Contacto implements Serializable
     @Column(name = "nb_apellido_2")
     private String apellido2;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idContacto", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "contacto", orphanRemoval = true)
     private List<ClienteContacto> clienteContactoList;
     
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "idContacto", orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "contacto", orphanRemoval = true)
     private List<MedioCnt> medioCntList;
 
     public Contacto() {

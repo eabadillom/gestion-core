@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "CuotaMensualServicio.findAll", query = "SELECT c FROM CuotaMensualServicio c"),
     @NamedQuery(name = "CuotaMensualServicio.findById", query = "SELECT c FROM CuotaMensualServicio c WHERE c.id = :id"),
     @NamedQuery(name = "CuotaMensualServicio.findByCuota", query = "SELECT c FROM CuotaMensualServicio c WHERE c.cuota = :cuota"),
-    @NamedQuery(name = "CuotaMensualServicio.findByUnidadDeManejoCve", query = "SELECT c FROM CuotaMensualServicio c WHERE c.unidadDeManejoCve = :unidadDeManejoCve")
+    @NamedQuery(name = "CuotaMensualServicio.findByIdUnidadManejo", query = "SELECT c FROM CuotaMensualServicio c WHERE c.unidadDeManejoCve = :unidadDeManejoCve")
 })
 public class CuotaMensualServicio implements Serializable 
 {
@@ -36,7 +36,6 @@ public class CuotaMensualServicio implements Serializable
     @Column(name = "id")
     private Integer id;
     
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "cuota")
@@ -54,11 +53,11 @@ public class CuotaMensualServicio implements Serializable
     
     @JoinColumn(name = "servicio_cve", referencedColumnName = "SERVICIO_CVE")
     @ManyToOne(optional = false)
-    private Servicio servicioCve;
+    private Servicio servicio;
     
     @JoinColumn(name = "aviso_cve", referencedColumnName = "aviso_cve")
     @ManyToOne(optional = false)
-    private Aviso avisoCve;
+    private Aviso aviso;
 
     public CuotaMensualServicio() {
     }
@@ -112,20 +111,20 @@ public class CuotaMensualServicio implements Serializable
         this.cteCve = cteCve;
     }
 
-    public Servicio getServicioCve() {
-        return servicioCve;
+    public Servicio getServicio() {
+        return servicio;
     }
 
-    public void setServicioCve(Servicio servicioCve) {
-        this.servicioCve = servicioCve;
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
     }
 
-    public Aviso getAvisoCve() {
-        return avisoCve;
+    public Aviso getAviso() {
+        return aviso;
     }
 
-    public void setAvisoCve(Aviso avisoCve) {
-        this.avisoCve = avisoCve;
+    public void setAviso(Aviso aviso) {
+        this.aviso = aviso;
     }
 
     @Override

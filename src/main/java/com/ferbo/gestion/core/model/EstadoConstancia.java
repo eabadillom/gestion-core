@@ -17,10 +17,11 @@ import javax.validation.constraints.Size;
 @Table(name = "estado_constancia")
 @NamedQueries({
     @NamedQuery(name = "EstadoConstancia.findAll", query = "SELECT e FROM EstadoConstancia e"),
-    @NamedQuery(name = "EstadoConstancia.findByEdoCve", query = "SELECT e FROM EstadoConstancia e WHERE e.id = :idEdoConstancia"),
+    @NamedQuery(name = "EstadoConstancia.findById", query = "SELECT e FROM EstadoConstancia e WHERE e.id = :idEdoConstancia"),
     @NamedQuery(name = "EstadoConstancia.findByDescripcion", query = "SELECT e FROM EstadoConstancia e WHERE e.descripcion = :descripcion")
 })
-public class EstadoConstancia implements Serializable {
+public class EstadoConstancia implements Serializable 
+{
     private static final long serialVersionUID = 1L;
     
     @Id

@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 @Table(name = "formato")
 @NamedQueries({
     @NamedQuery(name = "Formato.findAll", query = "SELECT f FROM Formato f"),
-    @NamedQuery(name = "Formato.findByFormatoCve", query = "SELECT f FROM Formato f WHERE f.id = :idFormato"),
+    @NamedQuery(name = "Formato.findById", query = "SELECT f FROM Formato f WHERE f.id = :idFormato"),
     @NamedQuery(name = "Formato.findByNombre", query = "SELECT f FROM Formato f WHERE f.nombre = :nombre"),
     @NamedQuery(name = "Formato.findByLongitud", query = "SELECT f FROM Formato f WHERE f.longitud = :longitud"),
     @NamedQuery(name = "Formato.findByPrecision", query = "SELECT f FROM Formato f WHERE f.precision = :precision")

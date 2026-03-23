@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
         @NamedQuery(name = "TraspasoPartida.findAll", query = "SELECT t FROM TraspasoPartida t"),
         @NamedQuery(name = "TraspasoPartida.findById", query = "SELECT t FROM TraspasoPartida t WHERE t.id = :id"),
         @NamedQuery(name = "TraspasoPartida.findByConstancia", query = "SELECT t FROM TraspasoPartida t WHERE t.constancia = :constancia"),
-        @NamedQuery(name = "TraspasoPartida.findByPartida", query = "SELECT t FROM TraspasoPartida t WHERE t.partida.partidaCve = :partidaCve"),
+        @NamedQuery(name = "TraspasoPartida.findByPartida", query = "SELECT t FROM TraspasoPartida t WHERE t.partida.id = :idPartida"),
         @NamedQuery(name = "TraspasoPartida.findByDescripcion", query = "SELECT t FROM TraspasoPartida t WHERE t.descripcion = :descripcion"),
         @NamedQuery(name = "TraspasoPartida.findByCantidad", query = "SELECT t FROM TraspasoPartida t WHERE t.cantidad = :cantidad"),
         @NamedQuery(name = "TraspasoPartida.findByOrigen", query = "SELECT t FROM TraspasoPartida t WHERE t.origen = :origen"),

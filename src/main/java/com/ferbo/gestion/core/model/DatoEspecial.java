@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 @Table(name = "datos_especiales")
 @NamedQueries({
     @NamedQuery(name = "DatoEspecial.findAll", query = "SELECT d FROM DatoEspecial d"),
-    @NamedQuery(name = "DatoEspecial.findByDatoEspCve", query = "SELECT d FROM DatoEspecial d WHERE d.id = :idDatoEsp"),
+    @NamedQuery(name = "DatoEspecial.findByDatoEsp", query = "SELECT d FROM DatoEspecial d WHERE d.id = :idDatoEsp"),
     @NamedQuery(name = "DatoEspecial.findByNombre", query = "SELECT d FROM DatoEspecial d WHERE d.nombre = :nombre"),
     @NamedQuery(name = "DatoEspecial.findByLongitud", query = "SELECT d FROM DatoEspecial d WHERE d.longitud = :longitud"),
     @NamedQuery(name = "DatoEspecial.findByPrecision", query = "SELECT d FROM DatoEspecial d WHERE d.precision = :precision")
@@ -51,10 +51,10 @@ public class DatoEspecial implements Serializable
     @ManyToOne
     private Formato formatoCve;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "datoEspCve")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "datoEspecial")
     private List<DetalleFacturacion> detalleFacturacionList;
     
-    @OneToMany(mappedBy = "datoEspCve")
+    @OneToMany(mappedBy = "datoEspecial")
     private List<DetalleCteProd> detalleCteProdList;
 
     public DatoEspecial() {

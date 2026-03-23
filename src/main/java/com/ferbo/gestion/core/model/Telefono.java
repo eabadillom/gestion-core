@@ -3,7 +3,6 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,8 +22,8 @@ import javax.validation.constraints.Size;
 @Table(name = "telefono")
 @NamedQueries({
         @NamedQuery(name = "Telefono.findAll", query = "SELECT t FROM Telefono t"),
-        @NamedQuery(name = "Telefono.findByIdTelefono", query = "SELECT t FROM Telefono t WHERE t.id = :idTelefono"),
-        @NamedQuery(name = "Telefono.findByNbTelefono", query = "SELECT t FROM Telefono t WHERE t.telefono = :telefono"),
+        @NamedQuery(name = "Telefono.findById", query = "SELECT t FROM Telefono t WHERE t.id = :idTelefono"),
+        @NamedQuery(name = "Telefono.findByTelefono", query = "SELECT t FROM Telefono t WHERE t.telefono = :telefono"),
         @NamedQuery(name = "Telefono.findByStPrincipal", query = "SELECT t FROM Telefono t WHERE t.principal = :principal")
 })
 public class Telefono implements Serializable 
@@ -52,7 +51,7 @@ public class Telefono implements Serializable
     @ManyToOne(optional = false)
     private TipoTelefono tpTelefono;
     
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "telefono")
     private List<MedioCnt> medioCntList;
 
     public Telefono() {

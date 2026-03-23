@@ -40,62 +40,59 @@ import javax.validation.constraints.Size;
 public class DetalleConstanciaSalida implements Serializable, Cloneable 
 {
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "CAMARA_CVE")
     private int camaraCve;
-    
+
     @Column(name = "CANTIDAD")
     private Integer cantidad;
-    
-    // @Max(value=?) @Min(value=?)//if you know range of your decimal fields
-    // consider using these annotations to enforce field validation
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "PESO")
     private BigDecimal peso;
-    
+
     @Size(max = 10)
     @Column(name = "UNIDAD")
     private String unidad;
-    
+
     @Size(max = 150)
     @Column(name = "PRODUCTO")
     private String producto;
-    
+
     @Size(max = 10)
     @Column(name = "FOLIO_ENTRADA")
     private String folioEntrada;
-    
+
     @Size(max = 50)
     @Column(name = "CAMARA_CADENA")
     private String camaraCadena;
-    
+
     @Size(max = 6)
     @Column(name = "TEMPERATURA")
     private String temperatura;
-    
+
     @JoinColumn(name = "CONSTANCIA_CVE", referencedColumnName = "ID")
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    private ConstanciaSalida constanciaCve;
-    
+    private ConstanciaSalida constancia;
+
 //    @JoinColumns({
 //        @JoinColumn(name = "DET_PART_CVE", referencedColumnName = "DET_PART_CVE"),
 //        @JoinColumn(name = "PARTIDA_CVE", referencedColumnName = "PARTIDA_CVE")}
 //    )
 //    @OneToOne(optional = false, cascade = CascadeType.ALL)
 //    private DetallePartida detallePartida;
-    
     @Column(name = "DET_PART_CVE")
     private int detPart;
-    
+
     @JoinColumn(name = "PARTIDA_CVE", referencedColumnName = "PARTIDA_CVE")
     @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH})
     private Partida partida;
@@ -185,12 +182,12 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
         this.temperatura = temperatura;
     }
 
-    public ConstanciaSalida getConstanciaCve() {
-        return constanciaCve;
+    public ConstanciaSalida getConstancia() {
+        return constancia;
     }
 
-    public void setConstanciaCve(ConstanciaSalida constanciaCve) {
-        this.constanciaCve = constanciaCve;
+    public void setConstancia(ConstanciaSalida constancia) {
+        this.constancia = constancia;
     }
 
 //    public DetallePartida getDetallePartida() {
@@ -200,8 +197,6 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
 //    public void setDetallePartida(DetallePartida detallePartida) {
 //        this.detallePartida = detallePartida;
 //    }
-    
-
     public Partida getPartida() {
         return partida;
     }
@@ -212,8 +207,9 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
 
     @Override
     public int hashCode() {
-    	if(this.id == null)
-    		return System.identityHashCode(this);
+        if (this.id == null) {
+            return System.identityHashCode(this);
+        }
         return Objects.hash(this.id);
     }
 
@@ -235,13 +231,13 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
         return "mx.com.ferbo.model.DetalleConstanciaSalida[ id=" + id + " ]";
     }
 
-	public int getDetPart() {
-		return detPart;
-	}
+    public int getDetPart() {
+        return detPart;
+    }
 
-	public void setDetPart(int detPart) {
-		this.detPart = detPart;
-	}
+    public void setDetPart(int detPart) {
+        this.detPart = detPart;
+    }
 
 //	public DetallePartida getDetallePartida() {
 //		return detallePartida;
@@ -250,5 +246,4 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
 //	public void setDetallePartida(DetallePartida detallePartida) {
 //		this.detallePartida = detallePartida;
 //	}
-
 }

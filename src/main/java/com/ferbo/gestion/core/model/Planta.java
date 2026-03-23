@@ -23,11 +23,11 @@ import javax.validation.constraints.Size;
 @Table(name = "planta")
 @NamedQueries({
     @NamedQuery(name = "Planta.findAll", query = "SELECT p FROM Planta p"),
-    @NamedQuery(name = "Planta.findByPlantaCve", query = "SELECT p FROM Planta p WHERE p.id = :idPlanta"),
-    @NamedQuery(name = "Planta.findByPlantaDs", query = "SELECT p FROM Planta p WHERE p.descripcion = :descripcion"),
-    @NamedQuery(name = "Planta.findByPlantaAbrev", query = "SELECT p FROM Planta p WHERE p.plantaAbrev = :plantaAbrev"),
-    @NamedQuery(name = "Planta.findByPlantaSufijo", query = "SELECT p FROM Planta p WHERE p.plantaSufijo = :plantaSufijo"),
-    @NamedQuery(name = "Planta.findByPlantaCod", query = "SELECT p FROM Planta p WHERE p.plantaCod = :plantaCod")
+    @NamedQuery(name = "Planta.findById", query = "SELECT p FROM Planta p WHERE p.id = :idPlanta"),
+    @NamedQuery(name = "Planta.findByDescripcion", query = "SELECT p FROM Planta p WHERE p.descripcion = :descripcion"),
+    @NamedQuery(name = "Planta.findByAbrev", query = "SELECT p FROM Planta p WHERE p.abrev = :abrev"),
+    @NamedQuery(name = "Planta.findBySufijo", query = "SELECT p FROM Planta p WHERE p.sufijo = :sufijo"),
+    @NamedQuery(name = "Planta.findByCod", query = "SELECT p FROM Planta p WHERE p.codigo = :codigo")
 })
 public class Planta implements Serializable 
 {
@@ -45,21 +45,21 @@ public class Planta implements Serializable
 
     @Size(max = 6)
     @Column(name = "planta_abrev")
-    private String plantaAbrev;
+    private String abrev;
 
     @Size(max = 6)
     @Column(name = "planta_sufijo")
-    private String plantaSufijo;
+    private String sufijo;
 
     @Size(max = 10)
     @Column(name = "PLANTA_COD")
-    private String plantaCod;
+    private String codigo;
 
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
     @ManyToOne
-    private Usuario idUsuario;
+    private Usuario usuario;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "planta")
     private List<Camara> camaraList;
 
     @OneToMany(mappedBy = "serieConstanciaPK.planta", fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
@@ -84,20 +84,20 @@ public class Planta implements Serializable
     private Integer idAsentamiento;
 
     @Column(name = "tp_asentamiento")
-    private Integer tipoasentamiento;
+    private Integer tipoAsentamiento;
 
     @Column(name = "nb_cp")
-    private String codigopostal;
+    private String codigoPostal;
 
     @Size(max = 20)
     @Column(name = "nb_calle")
     private String calle;
 
     @Column(name = "nu_exterior")
-    private String numexterior;
+    private String numExterior;
 
     @Column(name = "nu_interior")
-    private String numinterior;
+    private String numInterior;
 
     @JoinColumn(name = "cd_emisor", referencedColumnName = "cd_emisor")
     @ManyToOne(optional = false)
@@ -153,20 +153,20 @@ public class Planta implements Serializable
         this.idEstado = idEstado;
     }
 
-    public String getNumexterior() {
-        return numexterior;
+    public String getNumExterior() {
+        return numExterior;
     }
 
-    public void setNumexterior(String numexterior) {
-        this.numexterior = numexterior;
+    public void setNumExterior(String numExterior) {
+        this.numExterior = numExterior;
     }
 
-    public String getNuminterior() {
-        return numinterior;
+    public String getNumInterior() {
+        return numInterior;
     }
 
-    public void setNuminterior(String numinterior) {
-        this.numinterior = numinterior;
+    public void setNumInterior(String numInterior) {
+        this.numInterior = numInterior;
     }
 
     public String getCalle() {
@@ -177,12 +177,12 @@ public class Planta implements Serializable
         this.calle = calle;
     }
 
-    public String getCodigopostal() {
-        return codigopostal;
+    public String getCodigoPostal() {
+        return codigoPostal;
     }
 
-    public void setCodigopostal(String codigopostal) {
-        this.codigopostal = codigopostal;
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
     }
 
     public Integer getIdAsentamiento() {
@@ -193,23 +193,23 @@ public class Planta implements Serializable
         this.idAsentamiento = idAsentamiento;
     }
 
-    public Integer getTipoasentamiento() {
-        return tipoasentamiento;
+    public Integer getTipoAsentamiento() {
+        return tipoAsentamiento;
     }
 
-    public void setTipoasentamiento(Integer tipoasentamiento) {
-        this.tipoasentamiento = tipoasentamiento;
+    public void setTipoAsentamiento(Integer tipoAsentamiento) {
+        this.tipoAsentamiento = tipoAsentamiento;
     }
 
     public Planta(Integer id) {
         this.id = id;
     }
 
-    public Integer getPlantaCve() {
+    public Integer getId() {
         return id;
     }
 
-    public void setPlantaCve(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -221,36 +221,36 @@ public class Planta implements Serializable
         this.descripcion = descripcion;
     }
 
-    public String getPlantaAbrev() {
-        return plantaAbrev;
+    public String getAbrev() {
+        return abrev;
     }
 
-    public void setPlantaAbrev(String plantaAbrev) {
-        this.plantaAbrev = plantaAbrev;
+    public void setAbrev(String abrev) {
+        this.abrev = abrev;
     }
 
-    public String getPlantaSufijo() {
-        return plantaSufijo;
+    public String getSufijo() {
+        return sufijo;
     }
 
-    public void setPlantaSufijo(String plantaSufijo) {
-        this.plantaSufijo = plantaSufijo;
+    public void setSufijo(String sufijo) {
+        this.sufijo = sufijo;
     }
 
-    public String getPlantaCod() {
-        return plantaCod;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setPlantaCod(String plantaCod) {
-        this.plantaCod = plantaCod;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public Usuario getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public List<Camara> getCamaraList() {

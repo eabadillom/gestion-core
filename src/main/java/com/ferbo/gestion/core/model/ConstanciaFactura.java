@@ -25,21 +25,22 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "ConstanciaFactura.findAll", query = "SELECT c FROM ConstanciaFactura c"),
     @NamedQuery(name = "ConstanciaFactura.findById", query = "SELECT c FROM ConstanciaFactura c WHERE c.id = :id"),
-    @NamedQuery(name = "ConstanciaFactura.findByFolioVigenciaInicioVigenciaFin", query = "SELECT c FROM ConstanciaFactura c WHERE c.folio.folio = :folio AND c.vigenciaInicio = :vigenciaInicio and c.vigenciaFin = :vigenciaFin"),
-    @NamedQuery(name = "ConstanciaFactura.findByFolio", query = "SELECT c FROM ConstanciaFactura c WHERE c.folio = :folio"),
+    @NamedQuery(name = "ConstanciaFactura.findByFolioVigenciaInicioVigenciaFin", query = "SELECT c FROM ConstanciaFactura c WHERE c.constanciaDeposito.folio = :folio AND c.vigenciaInicio = :vigenciaInicio and c.vigenciaFin = :vigenciaFin"),
+    @NamedQuery(name = "ConstanciaFactura.findByFolio", query = "SELECT c FROM ConstanciaFactura c WHERE c.constanciaDeposito.folio = :folio"),
     @NamedQuery(name = "ConstanciaFactura.findByFolioCliente", query = "SELECT c FROM ConstanciaFactura c WHERE c.folioCliente = :folioCliente"),
     @NamedQuery(name = "ConstanciaFactura.findByVigenciaInicio", query = "SELECT c FROM ConstanciaFactura c WHERE c.vigenciaInicio = :vigenciaInicio"),
     @NamedQuery(name = "ConstanciaFactura.findByVigenciaFin", query = "SELECT c FROM ConstanciaFactura c WHERE c.vigenciaFin = :vigenciaFin"),
-    @NamedQuery(name = "ConstanciaFactura.findByPlantaCve", query = "SELECT c FROM ConstanciaFactura c WHERE c.plantaCve = :plantaCve"),
+    @NamedQuery(name = "ConstanciaFactura.findByIdPlanta", query = "SELECT c FROM ConstanciaFactura c WHERE c.plantaCve = :plantaCve"),
     @NamedQuery(name = "ConstanciaFactura.findByPlantaDs", query = "SELECT c FROM ConstanciaFactura c WHERE c.plantaDs = :plantaDs"),
     @NamedQuery(name = "ConstanciaFactura.findByPlantaAbrev", query = "SELECT c FROM ConstanciaFactura c WHERE c.plantaAbrev = :plantaAbrev"),
-    @NamedQuery(name = "ConstanciaFactura.findByCamaraCve", query = "SELECT c FROM ConstanciaFactura c WHERE c.camaraCve = :camaraCve"),
+    @NamedQuery(name = "ConstanciaFactura.findByIdCamara", query = "SELECT c FROM ConstanciaFactura c WHERE c.camaraCve = :camaraCve"),
     @NamedQuery(name = "ConstanciaFactura.findByCamaraDs", query = "SELECT c FROM ConstanciaFactura c WHERE c.camaraDs = :camaraDs"),
     @NamedQuery(name = "ConstanciaFactura.findByCamaraAbrev", query = "SELECT c FROM ConstanciaFactura c WHERE c.camaraAbrev = :camaraAbrev")
 })
 public class ConstanciaFactura implements Serializable 
 {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -48,7 +49,7 @@ public class ConstanciaFactura implements Serializable
 
     @JoinColumn(name = "FOLIO", referencedColumnName = "FOLIO")
     @ManyToOne(optional = false)
-    private ConstanciaDeposito folio;
+    private ConstanciaDeposito constanciaDeposito;
 
     @Size(max = 30)
     @Column(name = "folio_cliente")
@@ -64,6 +65,7 @@ public class ConstanciaFactura implements Serializable
 
     @Column(name = "planta_cve")
     private Integer plantaCve;
+    
     @Size(max = 80)
     @Column(name = "planta_ds")
     private String plantaDs;
@@ -87,7 +89,7 @@ public class ConstanciaFactura implements Serializable
     @JoinColumn(name = "factura", referencedColumnName = "id")
     private Factura factura;
 
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "constancia")
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "constanciaFactura")
     private List<ServicioConstancia> servicioConstanciaList;
 
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "constanciaFactura")
@@ -204,12 +206,12 @@ public class ConstanciaFactura implements Serializable
         this.productoConstanciaList = productoConstanciaList;
     }
 
-    public ConstanciaDeposito getFolio() {
-        return folio;
+    public ConstanciaDeposito getConstanciaDeposito() {
+        return constanciaDeposito;
     }
 
-    public void setFolio(ConstanciaDeposito constanciaDeposito) {
-        this.folio = constanciaDeposito;
+    public void setConstanciaDeposito(ConstanciaDeposito constanciaDeposito) {
+        this.constanciaDeposito = constanciaDeposito;
     }
 
     @Override
@@ -234,7 +236,7 @@ public class ConstanciaFactura implements Serializable
 
     @Override
     public String toString() {
-        return "ConstanciaFactura [id=" + id + ", folio=" + folio + ", folioCliente="
+        return "ConstanciaFactura [id=" + id + ", folio=" + constanciaDeposito + ", folioCliente="
                 + folioCliente + ", vigenciaInicio=" + vigenciaInicio + ", vigenciaFin=" + vigenciaFin + ", plantaCve="
                 + plantaCve + ", plantaDs=" + plantaDs + ", plantaAbrev=" + plantaAbrev + ", camaraCve=" + camaraCve
                 + ", camaraDs=" + camaraDs + ", camaraAbrev=" + camaraAbrev + ", factura=" + factura

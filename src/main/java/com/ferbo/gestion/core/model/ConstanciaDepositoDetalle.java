@@ -19,8 +19,8 @@ import javax.persistence.Table;
 @Table(name = "constancia_deposito_detalle")
 @NamedQueries({
     @NamedQuery(name = "ConstanciaDepositoDetalle.findAll", query = "SELECT c FROM ConstanciaDepositoDetalle c"),
-    @NamedQuery(name = "ConstanciaDepositoDetalle.findByConstanciaDepositoDetalleCve", query = "SELECT c FROM ConstanciaDepositoDetalle c WHERE c.constanciaDepositoDetalleCve = :constanciaDepositoDetalleCve"),
-    @NamedQuery(name = "ConstanciaDepositoDetalle.findFolio", query = "SELECT c FROM ConstanciaDepositoDetalle c WHERE c.folio.folio = :folio"),
+    @NamedQuery(name = "ConstanciaDepositoDetalle.findByConstanciaDepositoDetalleCve", query = "SELECT c FROM ConstanciaDepositoDetalle c WHERE c.id = :idConstanciaDepositoDet"),
+    @NamedQuery(name = "ConstanciaDepositoDetalle.findFolio", query = "SELECT c FROM ConstanciaDepositoDetalle c WHERE c.constanciaDeposito.folio = :folio"),
     @NamedQuery(name = "ConstanciaDepositoDetalle.findByServicioCantidad", query = "SELECT c FROM ConstanciaDepositoDetalle c WHERE c.servicioCantidad = :servicioCantidad")
 })
 public class ConstanciaDepositoDetalle implements Serializable 
@@ -31,7 +31,7 @@ public class ConstanciaDepositoDetalle implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "CONSTANCIA_DEPOSITO_DETALLE_CVE")
-    private Integer constanciaDepositoDetalleCve;
+    private Integer id;
 
     @Column(name = "servicio_cantidad")
     @Basic(optional = false)
@@ -39,7 +39,7 @@ public class ConstanciaDepositoDetalle implements Serializable
 
     @JoinColumn(name = "FOLIO", referencedColumnName = "FOLIO", nullable = false)
     @ManyToOne(optional = false)
-    private ConstanciaDeposito folio;
+    private ConstanciaDeposito constanciaDeposito;
 
     @JoinColumn(name = "SERVICIO_CVE", referencedColumnName = "SERVICIO_CVE", nullable = false)
     @ManyToOne
@@ -47,10 +47,10 @@ public class ConstanciaDepositoDetalle implements Serializable
 
     @Override
     public int hashCode() {
-        if (this.constanciaDepositoDetalleCve == null) {
+        if (this.id == null) {
             return System.identityHashCode(this);
         }
-        return Objects.hash(this.constanciaDepositoDetalleCve);
+        return Objects.hash(this.id);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ConstanciaDepositoDetalle implements Serializable
             return false;
         }
 
-        if ((this.constanciaDepositoDetalleCve == null && other.constanciaDepositoDetalleCve != null) || (this.constanciaDepositoDetalleCve != null && !this.constanciaDepositoDetalleCve.equals(other.constanciaDepositoDetalleCve))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
 
@@ -76,22 +76,22 @@ public class ConstanciaDepositoDetalle implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.ConstanciaDepositoDetalle[ constanciaDepositoDetalleCve=" + constanciaDepositoDetalleCve + " ]";
+        return "mx.com.ferbo.model.ConstanciaDepositoDetalle[ constanciaDepositoDetalleCve=" + id + " ]";
     }
 
     public ConstanciaDepositoDetalle() {
     }
 
-    public ConstanciaDepositoDetalle(Integer constanciaDepositoDetalleCve) {
-        this.constanciaDepositoDetalleCve = constanciaDepositoDetalleCve;
+    public ConstanciaDepositoDetalle(Integer id) {
+        this.id = id;
     }
 
-    public Integer getConstanciaDepositoDetalleCve() {
-        return constanciaDepositoDetalleCve;
+    public Integer getId() {
+        return id;
     }
 
-    public void setConstanciaDepositoDetalleCve(Integer constanciaDepositoDetalleCve) {
-        this.constanciaDepositoDetalleCve = constanciaDepositoDetalleCve;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public BigDecimal getServicioCantidad() {
@@ -102,12 +102,12 @@ public class ConstanciaDepositoDetalle implements Serializable
         this.servicioCantidad = servicioCantidad;
     }
 
-    public ConstanciaDeposito getFolio() {
-        return folio;
+    public ConstanciaDeposito getConstanciaDeposito() {
+        return constanciaDeposito;
     }
 
-    public void setFolio(ConstanciaDeposito folio) {
-        this.folio = folio;
+    public void setConstanciaDeposito(ConstanciaDeposito constanciaDeposito) {
+        this.constanciaDeposito = constanciaDeposito;
     }
 
     public Servicio getServicio() {

@@ -70,7 +70,7 @@ public class ConstanciaDeServicio implements Serializable
     @Column(name = "VALOR_DECLARADO")
     private BigDecimal valorDeclarado;
     
-    @OneToMany(mappedBy = "folio", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "constanciaDeServicio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PartidaServicio> partidaServicioList;
     
     @JoinColumn(name = "CTE_CVE", referencedColumnName = "CTE_CVE")
@@ -81,7 +81,7 @@ public class ConstanciaDeServicio implements Serializable
     @ManyToOne
     private EstadoConstancia status;
     
-    @OneToMany(mappedBy = "folio", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "constanciaDeServicio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ConstanciaServicioDetalle> constanciaServicioDetalleList;
     
     @OneToMany(mappedBy = "constanciaDeServicio", orphanRemoval = true)

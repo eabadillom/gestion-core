@@ -27,12 +27,12 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ServicioConstancia.findByCosto", query = "SELECT s FROM ServicioConstancia s WHERE s.costo = :costo"),
     @NamedQuery(name = "ServicioConstancia.findByTarifa", query = "SELECT s FROM ServicioConstancia s WHERE s.tarifa = :tarifa"),
     @NamedQuery(name = "ServicioConstancia.findByBaseCargo", query = "SELECT s FROM ServicioConstancia s WHERE s.baseCargo = :baseCargo"),
-    @NamedQuery(name = "ServicioConstancia.findByPlantaCve", query = "SELECT s FROM ServicioConstancia s WHERE s.plantaCve = :plantaCve"),
-    @NamedQuery(name = "ServicioConstancia.findByPlantaDs", query = "SELECT s FROM ServicioConstancia s WHERE s.plantaDs = :plantaDs"),
-    @NamedQuery(name = "ServicioConstancia.findByPlantaAbrev", query = "SELECT s FROM ServicioConstancia s WHERE s.plantaAbrev = :plantaAbrev"),
-    @NamedQuery(name = "ServicioConstancia.findByCamaraCve", query = "SELECT s FROM ServicioConstancia s WHERE s.camaraCve = :camaraCve"),
-    @NamedQuery(name = "ServicioConstancia.findByCamaraDs", query = "SELECT s FROM ServicioConstancia s WHERE s.camaraDs = :camaraDs"),
-    @NamedQuery(name = "ServicioConstancia.findByCamaraAbrev", query = "SELECT s FROM ServicioConstancia s WHERE s.camaraAbrev = :camaraAbrev"),
+    @NamedQuery(name = "ServicioConstancia.findByIdPlanta", query = "SELECT s FROM ServicioConstancia s WHERE s.plantaCve = :plantaCve"),
+    @NamedQuery(name = "ServicioConstancia.findByDsPlanta", query = "SELECT s FROM ServicioConstancia s WHERE s.plantaDs = :plantaDs"),
+    @NamedQuery(name = "ServicioConstancia.findByAbrevPlanta", query = "SELECT s FROM ServicioConstancia s WHERE s.plantaAbrev = :plantaAbrev"),
+    @NamedQuery(name = "ServicioConstancia.findByIdCamara", query = "SELECT s FROM ServicioConstancia s WHERE s.camaraCve = :camaraCve"),
+    @NamedQuery(name = "ServicioConstancia.findByDsCamara", query = "SELECT s FROM ServicioConstancia s WHERE s.camaraDs = :camaraDs"),
+    @NamedQuery(name = "ServicioConstancia.findByAbrevCamara", query = "SELECT s FROM ServicioConstancia s WHERE s.camaraAbrev = :camaraAbrev"),
     @NamedQuery(name = "ServicioConstancia.findByUnidadMedida", query = "SELECT s FROM ServicioConstancia s WHERE s.unidadMedida = :unidadMedida"),
     @NamedQuery(name = "ServicioConstancia.findByCodigo", query = "SELECT s FROM ServicioConstancia s WHERE s.codigo = :codigo"),
     @NamedQuery(name = "ServicioConstancia.findByPlantaCod", query = "SELECT s FROM ServicioConstancia s WHERE s.plantaCod = :plantaCod")
@@ -104,7 +104,7 @@ public class ServicioConstancia implements Serializable
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "constancia", referencedColumnName = "id")
-    private ConstanciaFactura constancia;
+    private ConstanciaFactura constanciaFactura;
 
     public ServicioConstancia() {
     }
@@ -135,12 +135,12 @@ public class ServicioConstancia implements Serializable
         this.descripcion = descripcion;
     }
 
-    public ConstanciaFactura getConstancia() {
-        return constancia;
+    public ConstanciaFactura getConstanciaFactura() {
+        return constanciaFactura;
     }
 
-    public void setConstancia(ConstanciaFactura constancia) {
-        this.constancia = constancia;
+    public void setConstanciaFactura(ConstanciaFactura constanciaFactura) {
+        this.constanciaFactura = constanciaFactura;
     }
 
     public BigDecimal getCosto() {

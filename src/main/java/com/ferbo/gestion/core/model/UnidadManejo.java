@@ -1,20 +1,15 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -40,9 +35,6 @@ public class UnidadManejo implements Serializable
     @Size(max = 100)
     @Column(name = "UNIDAD_DE_MANEJO_DS")
     private String descripcion;
-    
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "unidadDeManejo", fetch = FetchType.LAZY)
-    private List<ServiciosSalida> listServiciosSalida;
     
     @Override
     public int hashCode() {
@@ -89,14 +81,6 @@ public class UnidadManejo implements Serializable
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-    
-    public List<ServiciosSalida> getListServiciosSalida() {
-        return listServiciosSalida;
-    }
-
-    public void setListServiciosSalida(List<ServiciosSalida> listServiciosSalida) {
-        this.listServiciosSalida = listServiciosSalida;
     }
     
 }

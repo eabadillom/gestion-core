@@ -6,10 +6,6 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-/**
- *
- * @author alberto
- */
 @Embeddable
 public class ConstanciaSalidaServicioPK implements Serializable 
 {
@@ -23,6 +19,30 @@ public class ConstanciaSalidaServicioPK implements Serializable
     @ManyToOne(optional = false)
     private Servicio servicio;
 
+    public ConstanciaSalidaServicioPK() {
+    }
+
+    public ConstanciaSalidaServicioPK(ConstanciaSalida constanciaSalida, Servicio servicio) {
+        this.constanciaSalida = constanciaSalida;
+        this.servicio = servicio;
+    }
+
+    public ConstanciaSalida getConstanciaSalida() {
+        return constanciaSalida;
+    }
+
+    public void setConstanciaSalida(ConstanciaSalida constanciaSalida) {
+        this.constanciaSalida = constanciaSalida;
+    }
+
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicioCve(Servicio servicio) {
+        this.servicio = servicio;
+    }
+    
     @Override
     public int hashCode() {
         if (constanciaSalida == null || servicio == null) {
@@ -52,29 +72,5 @@ public class ConstanciaSalidaServicioPK implements Serializable
         return "ConstanciaSalidaServicioPK [constanciaSalida=" + constanciaSalida + ", servicio="
                 + servicio + "]";
     }
-
-    public ConstanciaSalidaServicioPK() {
-
-    }
-
-    public ConstanciaSalidaServicioPK(ConstanciaSalida constanciaSalida, Servicio servicio) {
-        this.constanciaSalida = constanciaSalida;
-        this.servicio = servicio;
-    }
-
-    public ConstanciaSalida getConstanciaSalida() {
-        return constanciaSalida;
-    }
-
-    public void setConstanciaSalida(ConstanciaSalida constanciaSalida) {
-        this.constanciaSalida = constanciaSalida;
-    }
-
-    public Servicio getServicio() {
-        return servicio;
-    }
-
-    public void setServicioCve(Servicio servicio) {
-        this.servicio = servicio;
-    }
+    
 }

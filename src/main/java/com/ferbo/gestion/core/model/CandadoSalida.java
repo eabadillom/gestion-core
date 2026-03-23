@@ -61,43 +61,9 @@ public class CandadoSalida implements Serializable
     @Column(name = "salida_total")
     private boolean salidaTotal;
 
-    public boolean isSalidaTotal() {
-        return salidaTotal;
-    }
-
-    public void setSalidaTotal(boolean salidaTotal) {
-        this.salidaTotal = salidaTotal;
-    }
-
     @JoinColumn(name = "cte_cve", referencedColumnName = "CTE_CVE")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Cliente cliente;
-
-    @Override
-    public int hashCode() {
-        if (this.id == null) {
-            return System.identityHashCode(this);
-        }
-        return Objects.hash(this.id);
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CandadoSalida)) {
-            return false;
-        }
-        CandadoSalida other = (CandadoSalida) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "mx.com.ferbo.model.CandadoSalida[ id=" + id + " ]";
-    }
 
     public CandadoSalida() {
     }
@@ -142,6 +108,40 @@ public class CandadoSalida implements Serializable
 
     public void setNumSalidas(int numSalidas) {
         this.numSalidas = numSalidas;
+    }
+    
+    public boolean isSalidaTotal() {
+        return salidaTotal;
+    }
+
+    public void setSalidaTotal(boolean salidaTotal) {
+        this.salidaTotal = salidaTotal;
+    }
+    
+    @Override
+    public int hashCode() {
+        if (this.id == null) {
+            return System.identityHashCode(this);
+        }
+        return Objects.hash(this.id);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof CandadoSalida)) {
+            return false;
+        }
+        CandadoSalida other = (CandadoSalida) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "mx.com.ferbo.model.CandadoSalida[ id=" + id + " ]";
     }
     
 }

@@ -12,7 +12,8 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "ingreso_status")
-public class IngresoStatus implements Serializable {
+public class IngresoStatus implements Serializable 
+{
     private static final long serialVersionUID = 1L;
 
     @Id

@@ -77,7 +77,7 @@ public class NotaCredito implements Serializable
     @Size(max = 20)
     @Column(name = "RFC")
     private String rfc;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    
     @Column(name = "SUBTOTAL")
     private BigDecimal subtotal;
     

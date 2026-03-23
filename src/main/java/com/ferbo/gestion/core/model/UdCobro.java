@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package mx.com.ferbo.model;
+package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -16,31 +11,31 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Gabriel Moreno <gabrielmos0309@gmail.com>
- */
 @Entity
 @Table(name = "ud_cobro")
 @NamedQueries({
     @NamedQuery(name = "UdCobro.findAll", query = "SELECT u FROM UdCobro u"),
-    @NamedQuery(name = "UdCobro.findByIdUnidad", query = "SELECT u FROM UdCobro u WHERE u.idUnidad = :idUnidad"),
+    @NamedQuery(name = "UdCobro.findByIdUnidad", query = "SELECT u FROM UdCobro u WHERE u.id = :idUdCobro"),
     @NamedQuery(name = "UdCobro.findByNbUnidad", query = "SELECT u FROM UdCobro u WHERE u.nbUnidad = :nbUnidad"),
-    @NamedQuery(name = "UdCobro.findByCdUnidad", query = "SELECT u FROM UdCobro u WHERE u.cdUnidad = :cdUnidad")})
+    @NamedQuery(name = "UdCobro.findByCdUnidad", query = "SELECT u FROM UdCobro u WHERE u.cdUnidad = :cdUnidad")
+})
 public class UdCobro implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "id_unidad")
-    private String idUnidad;
+    private String id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "nb_unidad")
     private String nbUnidad;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -50,22 +45,22 @@ public class UdCobro implements Serializable {
     public UdCobro() {
     }
 
-    public UdCobro(String idUnidad) {
-        this.idUnidad = idUnidad;
+    public UdCobro(String id) {
+        this.id = id;
     }
 
-    public UdCobro(String idUnidad, String nbUnidad, String cdUnidad) {
-        this.idUnidad = idUnidad;
+    public UdCobro(String id, String nbUnidad, String cdUnidad) {
+        this.id = id;
         this.nbUnidad = nbUnidad;
         this.cdUnidad = cdUnidad;
     }
 
     public String getIdUnidad() {
-        return idUnidad;
+        return id;
     }
 
-    public void setIdUnidad(String idUnidad) {
-        this.idUnidad = idUnidad;
+    public void setIdUnidad(String id) {
+        this.id = id;
     }
 
     public String getNbUnidad() {
@@ -87,7 +82,7 @@ public class UdCobro implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idUnidad != null ? idUnidad.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -98,7 +93,7 @@ public class UdCobro implements Serializable {
             return false;
         }
         UdCobro other = (UdCobro) object;
-        if ((this.idUnidad == null && other.idUnidad != null) || (this.idUnidad != null && !this.idUnidad.equals(other.idUnidad))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -106,7 +101,7 @@ public class UdCobro implements Serializable {
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.UdCobro[ idUnidad=" + idUnidad + " ]";
+        return "mx.com.ferbo.model.UdCobro[ id=" + id + " ]";
     }
     
 }

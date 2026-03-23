@@ -25,7 +25,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Ingreso.findAll", query = "SELECT i FROM Ingreso i"),
     @NamedQuery(name = "Ingreso.findById", query = "SELECT i FROM Ingreso i WHERE i.id= :idIngreso")
 })
-public class Ingreso implements Serializable {
+public class Ingreso implements Serializable 
+{
     private static final long serialVersionUID = 1L;
 
     @Id

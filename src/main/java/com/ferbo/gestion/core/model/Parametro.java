@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package mx.com.ferbo.model;
+package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -16,30 +11,30 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Gabriel Moreno <gabrielmos0309@gmail.com>
- */
 @Entity
 @Table(name = "parametro")
 @NamedQueries({
     @NamedQuery(name = "Parametro.findAll", query = "SELECT p FROM Parametro p"),
     @NamedQuery(name = "Parametro.findById", query = "SELECT p FROM Parametro p WHERE p.id = :id"),
     @NamedQuery(name = "Parametro.findByNombre", query = "SELECT p FROM Parametro p WHERE p.nombre = :nombre"),
-    @NamedQuery(name = "Parametro.findByValor", query = "SELECT p FROM Parametro p WHERE p.valor = :valor")})
-public class Parametro implements Serializable {
-
+    @NamedQuery(name = "Parametro.findByValor", query = "SELECT p FROM Parametro p WHERE p.valor = :valor")
+})
+public class Parametro implements Serializable 
+{
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "nombre")
     private String nombre;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1000)

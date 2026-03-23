@@ -21,7 +21,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "IngresoServicio.findAll", query = "SELECT inS FROM IngresoServicio inS"),
     @NamedQuery(name = "IngresoServicio.findByIngreso", query = "SELECT inS FROM IngresoServicio inS WHERE inS.ingreso.id = :idIngreso")
 })
-public class IngresoServicio implements Serializable {
+public class IngresoServicio implements Serializable 
+{
     private static final long serialVersionUID = 1L;
 
     @Id

@@ -17,9 +17,9 @@ import javax.validation.constraints.Size;
 @Table(name = "detalle_cte_prod")
 @NamedQueries({
     @NamedQuery(name = "DetalleCteProd.findAll", query = "SELECT d FROM DetalleCteProd d"),
-    @NamedQuery(name = "DetalleCteProd.findByDetCteProdCve", query = "SELECT d FROM DetalleCteProd d WHERE d.detCteProdCve = :detCteProdCve"),
+    @NamedQuery(name = "DetalleCteProd.findByDetCteProdCve", query = "SELECT d FROM DetalleCteProd d WHERE d.id = :detCteProdCve"),
     @NamedQuery(name = "DetalleCteProd.findByValor", query = "SELECT d FROM DetalleCteProd d WHERE d.valor = :valor"),
-    @NamedQuery(name = "DetalleCteProd.findByDetPartCve", query = "SELECT d FROM DetalleCteProd d WHERE d.detPartCve = :detPartCve")
+    @NamedQuery(name = "DetalleCteProd.findByDetPartCve", query = "SELECT d FROM DetalleCteProd d WHERE d.detPartida = :detPartida")
 })
 public class DetalleCteProd implements Serializable 
 {
@@ -29,14 +29,14 @@ public class DetalleCteProd implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "DET_CTE_PROD_CVE")
-    private Integer detCteProdCve;
+    private Integer id;
     
     @Size(max = 30)
     @Column(name = "VALOR")
     private String valor;
     
     @Column(name = "DET_PART_CVE")
-    private Integer detPartCve;
+    private Integer detPartida;
     
     @JoinColumn(name = "DATO_ESP_CVE", referencedColumnName = "DATO_ESP_CVE")
     @ManyToOne
@@ -45,16 +45,16 @@ public class DetalleCteProd implements Serializable
     public DetalleCteProd() {
     }
 
-    public DetalleCteProd(Integer detCteProdCve) {
-        this.detCteProdCve = detCteProdCve;
+    public DetalleCteProd(Integer id) {
+        this.id = id;
     }
 
-    public Integer getDetCteProdCve() {
-        return detCteProdCve;
+    public Integer getId() {
+        return id;
     }
 
-    public void setDetCteProdCve(Integer detCteProdCve) {
-        this.detCteProdCve = detCteProdCve;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getValor() {
@@ -65,12 +65,12 @@ public class DetalleCteProd implements Serializable
         this.valor = valor;
     }
 
-    public Integer getDetPartCve() {
-        return detPartCve;
+    public Integer getDetPartida() {
+        return detPartida;
     }
 
-    public void setDetPartCve(Integer detPartCve) {
-        this.detPartCve = detPartCve;
+    public void setDetPartida(Integer detPartida) {
+        this.detPartida = detPartida;
     }
 
     public DatoEspecial getDatoEspecial() {
@@ -84,7 +84,7 @@ public class DetalleCteProd implements Serializable
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (detCteProdCve != null ? detCteProdCve.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -95,7 +95,7 @@ public class DetalleCteProd implements Serializable
             return false;
         }
         DetalleCteProd other = (DetalleCteProd) object;
-        if ((this.detCteProdCve == null && other.detCteProdCve != null) || (this.detCteProdCve != null && !this.detCteProdCve.equals(other.detCteProdCve))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -103,7 +103,7 @@ public class DetalleCteProd implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.DetalleCteProd[ detCteProdCve=" + detCteProdCve + " ]";
+        return "mx.com.ferbo.model.DetalleCteProd[ id=" + id + " ]";
     }
     
 }

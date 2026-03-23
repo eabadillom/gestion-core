@@ -21,8 +21,7 @@ import javax.validation.constraints.Size;
 @Table(name = "posicion")
 @NamedQueries({
     @NamedQuery(name = "Posicion.findAll", query = "SELECT p FROM Posicion p"),
-    @NamedQuery(name = "Posicion.findByIdPosicion", query = "SELECT p FROM Posicion p WHERE p.id = :idPosicion"),
-//    @NamedQuery(name = "Posicion.findByIdPlanta", query = "SELECT p FROM Posicion p WHERE p.idPlanta = :idPlanta"),
+    @NamedQuery(name = "Posicion.findByPosicion", query = "SELECT p FROM Posicion p WHERE p.id = :idPosicion"),
     @NamedQuery(name = "Posicion.findByCamara", query = "SELECT p FROM Posicion p WHERE p.camara.id = :idCamara"),
     @NamedQuery(name = "Posicion.findByPlantaCamara", query = "SELECT p FROM Posicion p WHERE p.planta.id = :idPlanta AND p.camara.id = :idCamara"),
     @NamedQuery(name = "Posicion.findByCodPosicion", query = "SELECT p FROM Posicion p WHERE p.codPosicion = :codPosicion"),
@@ -61,7 +60,6 @@ public class Posicion implements Serializable
     @Column(name = "desc_posicion")
     private String descPosicion;
     
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "temp_ini")

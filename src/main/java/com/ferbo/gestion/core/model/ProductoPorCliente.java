@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Table(name = "producto_por_cliente")
 @NamedQueries({
     @NamedQuery(name = "ProductoPorCliente.findAll", query = "SELECT p FROM ProductoPorCliente p"),
-    @NamedQuery(name = "ProductoPorCliente.findByProdXCte", query = "SELECT p FROM ProductoPorCliente p WHERE p.id = :idProducto AND p.cliente.id = :idCliente"),
+    @NamedQuery(name = "ProductoPorCliente.findByProdXId", query = "SELECT p FROM ProductoPorCliente p WHERE p.id = :idProducto AND p.cliente.id = :idCliente"),
     @NamedQuery(name = "ProductoPorCliente.findByProducto", query = "SELECT p FROM ProductoPorCliente p WHERE p.producto.id = :idProducto"),
     @NamedQuery(name = "ProductoPorCliente.findByCliente", query = "SELECT p FROM ProductoPorCliente p WHERE p.cliente.id = :idCliente"),
     @NamedQuery(name = "ProductoPorCliente.findByClienteOrderByProducto", query = "SELECT p FROM ProductoPorCliente p WHERE p.cliente.id = :idCliente ORDER BY p.producto.descripcion")

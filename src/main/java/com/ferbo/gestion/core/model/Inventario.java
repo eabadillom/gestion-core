@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
-public class Inventario {
-
+public class Inventario 
+{
     protected Integer partidaCve;
     protected Integer folio;
     protected Date fechaIngreso;

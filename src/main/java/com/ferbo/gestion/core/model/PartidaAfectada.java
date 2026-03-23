@@ -20,7 +20,7 @@ import javax.validation.constraints.Null;
 @Table(name = "partidas_afectadas")
 @NamedQueries({
     @NamedQuery(name = "PartidaAfectada.findAll", query = "SELECT pa FROM PartidaAfectada pa"),
-    @NamedQuery(name = "PartidaAfectada.findByID", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.id= :idPartidaAfectada"),
+    @NamedQuery(name = "PartidaAfectada.findById", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.id= :idPartidaAfectada"),
     @NamedQuery(name = "PartidaAfectada.findByTraspaso", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.traspaso = :traspaso"),
     @NamedQuery(name = "PartidaAfectada.findByPartida", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.partida = :partida"),
     @NamedQuery(name = "PartidaAfectada.findByPartidaTraspaso", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.partidaTraspaso = :partidaTraspaso")
@@ -49,7 +49,6 @@ public class PartidaAfectada implements Serializable
     private TraspasoPartida partidaTraspaso;
 
     public PartidaAfectada() {
-
     }
 
     public PartidaAfectada(String traspaso, Partida partida, TraspasoPartida partidaTraspaso) {

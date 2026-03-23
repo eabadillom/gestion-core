@@ -43,7 +43,7 @@ public class Estado implements Serializable
     @Column(name = "estado_desc")
     private String descripcion;
     
-    @OneToMany(mappedBy = "municipiosPK.estado")
+    @OneToMany(mappedBy = "municipioPK.estado")
     private List<Municipio> municipioList;
 
     public Estado() {

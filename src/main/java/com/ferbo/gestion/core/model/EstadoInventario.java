@@ -17,8 +17,8 @@ import javax.validation.constraints.Size;
 @Table(name = "estado_inventario")
 @NamedQueries({
     @NamedQuery(name = "EstadoInventario.findAll", query = "SELECT e FROM EstadoInventario e"),
-    @NamedQuery(name = "EstadoInventario.findByEdoInvCve", query = "SELECT e FROM EstadoInventario e WHERE e.id = :idEstadoInventario"),
-    @NamedQuery(name = "EstadoInventario.findByEdoDescripcion", query = "SELECT e FROM EstadoInventario e WHERE e.descripcion = :descripcion")
+    @NamedQuery(name = "EstadoInventario.findById", query = "SELECT e FROM EstadoInventario e WHERE e.id = :idEstadoInventario"),
+    @NamedQuery(name = "EstadoInventario.findByDescripcion", query = "SELECT e FROM EstadoInventario e WHERE e.descripcion = :descripcion")
 })
 public class EstadoInventario implements Serializable 
 {

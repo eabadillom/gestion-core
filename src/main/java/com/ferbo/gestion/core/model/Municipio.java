@@ -38,7 +38,7 @@ public class Municipio implements Serializable
     @Column(name = "municipio_ds")
     private String descripcion;
     
-    @OneToMany(mappedBy = "ciudadesPK.municipio")
+    @OneToMany(mappedBy = "ciudadPK.municipio")
     private List<Ciudad> ciudadList;
 
     public Municipio() {

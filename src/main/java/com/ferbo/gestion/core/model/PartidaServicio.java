@@ -19,10 +19,10 @@ import javax.persistence.Table;
 @Table(name = "partida_servicio")
 @NamedQueries({
     @NamedQuery(name = "PartidaServicio.findAll", query = "SELECT p FROM PartidaServicio p"),
-    @NamedQuery(name = "PartidaServicio.findByPartidaCve", query = "SELECT p FROM PartidaServicio p WHERE p.id = :idPartida"),
+    @NamedQuery(name = "PartidaServicio.findById", query = "SELECT p FROM PartidaServicio p WHERE p.id = :idPartida"),
     @NamedQuery(name = "PartidaServicio.findByCantidadDeCobro", query = "SELECT p FROM PartidaServicio p WHERE p.cantidadDeCobro = :cantidadDeCobro"),
     @NamedQuery(name = "PartidaServicio.findByCantidadTotal", query = "SELECT p FROM PartidaServicio p WHERE p.cantidadTotal = :cantidadTotal"),
-    @NamedQuery(name = "PartidaServicio.findByFolio", query = "SELECT p FROM PartidaServicio p WHERE p.folio = :folio")
+    @NamedQuery(name = "PartidaServicio.findByFolio", query = "SELECT p FROM PartidaServicio p WHERE p.constanciaDeServicio.folio = :folio")
 })
 public class PartidaServicio implements Serializable 
 {
@@ -34,7 +34,6 @@ public class PartidaServicio implements Serializable
     @Column(name = "PARTIDA_CVE")
     private Integer id;
     
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "CANTIDAD_DE_COBRO")
     private BigDecimal cantidadDeCobro;
     
@@ -43,7 +42,7 @@ public class PartidaServicio implements Serializable
     
     @JoinColumn(name = "FOLIO", referencedColumnName = "FOLIO")
     @ManyToOne(fetch = FetchType.LAZY)
-    private ConstanciaDeServicio folio;
+    private ConstanciaDeServicio constanciaDeServicio;
     
     @JoinColumn(name = "PRODUCTO_CVE", referencedColumnName = "PRODUCTO_CVE")
     @ManyToOne
@@ -88,12 +87,12 @@ public class PartidaServicio implements Serializable
         this.cantidadTotal = cantidadTotal;
     }
 
-    public ConstanciaDeServicio getFolio() {
-        return folio;
+    public ConstanciaDeServicio getConstanciaDeServicio() {
+        return constanciaDeServicio;
     }
 
-    public void setFolio(ConstanciaDeServicio folio) {
-        this.folio = folio;
+    public void setConstanciaDeServicio(ConstanciaDeServicio constanciaDeServicio) {
+        this.constanciaDeServicio = constanciaDeServicio;
     }
 
     public Producto getProducto() {

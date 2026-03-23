@@ -50,7 +50,7 @@ public class ConstanciaFacturaDs implements Serializable
     
     @JoinColumn(name = "FOLIO", referencedColumnName = "FOLIO")
     @ManyToOne
-    private ConstanciaDeServicio constanciaServicio;
+    private ConstanciaDeServicio constanciaDeServicio;
 
     public ConstanciaFacturaDs() {
     }
@@ -67,12 +67,12 @@ public class ConstanciaFacturaDs implements Serializable
         this.id = id;
     }
 
-    public ConstanciaDeServicio getConstanciaServicio() {
-        return constanciaServicio;
+    public ConstanciaDeServicio getConstanciaDeServicio() {
+        return constanciaDeServicio;
     }
 
-    public void setConstanciaServicio(ConstanciaDeServicio constanciaServicio) {
-        this.constanciaServicio = constanciaServicio;
+    public void setConstanciaDeServicio(ConstanciaDeServicio constanciaDeServicio) {
+        this.constanciaDeServicio = constanciaDeServicio;
     }
 
     public String getFolioCliente() {

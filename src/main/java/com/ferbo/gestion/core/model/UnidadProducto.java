@@ -2,7 +2,6 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,18 +14,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-/**
- *
- * @author alberto
- */
 @Entity
 @Table(name = "unidad_de_producto")
 @NamedQueries({
     @NamedQuery(name = "UnidadProducto.findAll", query = "SELECT u FROM UnidadProducto u"),
-    @NamedQuery(name = "UnidadProducto.findByUnidadProductoCve", query = "SELECT u FROM UnidadProducto u WHERE u.id = :idUP"),
-    @NamedQuery(name = "UnidadProducto.findByProductoCveUnidadProductoCve", query = "SELECT u FROM UnidadProducto u WHERE u.productoCve.productoCve = :productoCve AND u.unidadDeManejoCve.unidadDeManejoCve = :unidadDeManejoCve"),
-    @NamedQuery(name = "UnidadProducto.findByProductoCve", query = "SELECT u FROM UnidadProducto u WHERE u.productoCve = :productoCve"),
-    @NamedQuery(name = "UnidadProducto.findByCliente", query = "SELECT udp FROM UnidadProducto udp JOIN udp.productoCve p JOIN udp.unidadDeManejoCve udm JOIN p.productoPorClienteList ppc WHERE ppc.cteCve.cteCve = :idCliente ")
+    @NamedQuery(name = "UnidadProducto.findById", query = "SELECT u FROM UnidadProducto u WHERE u.id = :idUP"),
+    @NamedQuery(name = "UnidadProducto.findByIdUnidadProducto", query = "SELECT u FROM UnidadProducto u WHERE u.producto.id = :idProducto AND u.unidadManejo.id = :idUnidadManejo"),
+    @NamedQuery(name = "UnidadProducto.findByIdProducto", query = "SELECT u FROM UnidadProducto u WHERE u.id = :idProducto"),
+    @NamedQuery(name = "UnidadProducto.findByCliente", query = "SELECT udp FROM UnidadProducto udp JOIN udp.producto p JOIN udp.unidadManejo udm JOIN p.productoPorClienteList ppc WHERE ppc.cliente.id = :idCliente ")
 })
 public class UnidadProducto implements Serializable {
     private static final long serialVersionUID = 1L;

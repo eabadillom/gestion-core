@@ -25,19 +25,14 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "constancia_salida")
 @NamedQueries({
-        @NamedQuery(name = "ConstanciaSalida.findAll", query = "SELECT c FROM ConstanciaSalida c"),
-        @NamedQuery(name = "ConstanciaSalida.findById", query = "SELECT c FROM ConstanciaSalida c WHERE c.id = :id"),
-        @NamedQuery(name = "ConstanciaSalida.findByFecha", query = "SELECT c FROM ConstanciaSalida c WHERE c.fecha = :fecha"),
-        @NamedQuery(name = "ConstanciaSalida.findByNumero", query = "SELECT c FROM ConstanciaSalida c WHERE c.numero = :numero"),
-        @NamedQuery(name = "ConstanciaSalida.findByNombreCte", query = "SELECT c FROM ConstanciaSalida c WHERE c.nombreCte = :nombreCte"),
-        @NamedQuery(name = "ConstanciaSalida.findByStatus", query = "SELECT c FROM ConstanciaSalida c WHERE c.status = :status"),
-        @NamedQuery(name = "ConstanciaSalida.findByObservaciones", query = "SELECT c FROM ConstanciaSalida c WHERE c.observaciones = :observaciones"),
-        @NamedQuery(name = "ConstanciaSalida.findByFolioDeposito", query = "SELECT cs " +
-                "FROM ConstanciaDeposito cdd " +
-                "INNER JOIN cdd.partidaList p " +
-                "INNER JOIN p.detalleConstanciaSalidaList dcs " +
-                "INNER JOIN dcs.constanciaCve cs " +
-                "WHERE cdd.folio = :folio")
+    @NamedQuery(name = "ConstanciaSalida.findAll", query = "SELECT c FROM ConstanciaSalida c"),
+    @NamedQuery(name = "ConstanciaSalida.findById", query = "SELECT c FROM ConstanciaSalida c WHERE c.id = :id"),
+    @NamedQuery(name = "ConstanciaSalida.findByFecha", query = "SELECT c FROM ConstanciaSalida c WHERE c.fecha = :fecha"),
+    @NamedQuery(name = "ConstanciaSalida.findByNumero", query = "SELECT c FROM ConstanciaSalida c WHERE c.numero = :numero"),
+    @NamedQuery(name = "ConstanciaSalida.findByNombreCte", query = "SELECT c FROM ConstanciaSalida c WHERE c.nombreCte = :nombreCte"),
+    @NamedQuery(name = "ConstanciaSalida.findByStatus", query = "SELECT c FROM ConstanciaSalida c WHERE c.status = :status"),
+    @NamedQuery(name = "ConstanciaSalida.findByObservaciones", query = "SELECT c FROM ConstanciaSalida c WHERE c.observaciones = :observaciones"),
+    @NamedQuery(name = "ConstanciaSalida.findByFolioDeposito", query = "SELECT cs FROM ConstanciaDeposito cdd INNER JOIN cdd.partidaList p INNER JOIN p.detalleConstanciaSalidaList dcs INNER JOIN dcs.constancia cs WHERE cdd.folio = :folio")
 })
 public class ConstanciaSalida implements Serializable 
 {
@@ -91,7 +86,7 @@ public class ConstanciaSalida implements Serializable
     @Column(name = "temp_transporte")
     private BigDecimal temperaturaTransporte;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "constanciaCve")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "constancia")
     private List<DetalleConstanciaSalida> detalleConstanciaSalidaList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "constanciaSalida")

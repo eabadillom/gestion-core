@@ -20,10 +20,10 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name = "CuotaMensualServicioDet.findAll", query = "SELECT c FROM CuotaMensualServicioDet c"),
     @NamedQuery(name = "CuotaMensualServicioDet.findById", query = "SELECT c FROM CuotaMensualServicioDet c WHERE c.id = :id"),
-    @NamedQuery(name = "CuotaMensualServicioDet.findByAvisoCve", query = "SELECT c FROM CuotaMensualServicioDet c WHERE c.avisoCve = :avisoCve"),
-    @NamedQuery(name = "CuotaMensualServicioDet.findByCteCve", query = "SELECT c FROM CuotaMensualServicioDet c WHERE c.cteCve = :cteCve"),
-    @NamedQuery(name = "CuotaMensualServicioDet.findByServicioCve", query = "SELECT c FROM CuotaMensualServicioDet c WHERE c.servicioCve = :servicioCve"),
-    @NamedQuery(name = "CuotaMensualServicioDet.findByCuotaDetCve", query = "SELECT c FROM CuotaMensualServicioDet c WHERE c.cuotaDetCve = :cuotaDetCve"),
+    @NamedQuery(name = "CuotaMensualServicioDet.findByAviso", query = "SELECT c FROM CuotaMensualServicioDet c WHERE c.idAviso = :idAviso"),
+    @NamedQuery(name = "CuotaMensualServicioDet.findByCliente", query = "SELECT c FROM CuotaMensualServicioDet c WHERE c.idCliente = :idCliente"),
+    @NamedQuery(name = "CuotaMensualServicioDet.findByServicio", query = "SELECT c FROM CuotaMensualServicioDet c WHERE c.idServicio = :idServicio"),
+    @NamedQuery(name = "CuotaMensualServicioDet.findByCuotaDet", query = "SELECT c FROM CuotaMensualServicioDet c WHERE c.id = :idCuotaMenSrv"),
     @NamedQuery(name = "CuotaMensualServicioDet.findByCuota", query = "SELECT c FROM CuotaMensualServicioDet c WHERE c.cuota = :cuota")
 })
 public class CuotaMensualServicioDet implements Serializable 
@@ -39,24 +39,23 @@ public class CuotaMensualServicioDet implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "aviso_cve")
-    private int avisoCve;
+    private int idAviso;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "cte_cve")
-    private int cteCve;
+    private int idCliente;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "servicio_cve")
-    private int servicioCve;
+    private int idServicio;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "cuota_det_cve")
-    private int cuotaDetCve;
+    private int cuotaDetalle;
     
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "cuota")
@@ -73,12 +72,12 @@ public class CuotaMensualServicioDet implements Serializable
         this.id = id;
     }
 
-    public CuotaMensualServicioDet(Integer id, int avisoCve, int cteCve, int servicioCve, int cuotaDetCve, BigDecimal cuota) {
+    public CuotaMensualServicioDet(Integer id, int idAviso, int idCliente, int idServicio, int cuotaDetalle, BigDecimal cuota) {
         this.id = id;
-        this.avisoCve = avisoCve;
-        this.cteCve = cteCve;
-        this.servicioCve = servicioCve;
-        this.cuotaDetCve = cuotaDetCve;
+        this.idAviso = idAviso;
+        this.idCliente = idCliente;
+        this.idServicio = idServicio;
+        this.cuotaDetalle = cuotaDetalle;
         this.cuota = cuota;
     }
 
@@ -90,36 +89,36 @@ public class CuotaMensualServicioDet implements Serializable
         this.id = id;
     }
 
-    public int getAvisoCve() {
-        return avisoCve;
+    public int getIdAviso() {
+        return idAviso;
     }
 
-    public void setAvisoCve(int avisoCve) {
-        this.avisoCve = avisoCve;
+    public void setIdAviso(int idAviso) {
+        this.idAviso = idAviso;
     }
 
-    public int getCteCve() {
-        return cteCve;
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public void setCteCve(int cteCve) {
-        this.cteCve = cteCve;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public int getServicioCve() {
-        return servicioCve;
+    public int getIdServicio() {
+        return idServicio;
     }
 
-    public void setServicioCve(int servicioCve) {
-        this.servicioCve = servicioCve;
+    public void setIdServicio(int idServicio) {
+        this.idServicio = idServicio;
     }
 
-    public int getCuotaDetCve() {
-        return cuotaDetCve;
+    public int getCuotaDetalle() {
+        return cuotaDetalle;
     }
 
-    public void setCuotaDetCve(int cuotaDetCve) {
-        this.cuotaDetCve = cuotaDetCve;
+    public void setCuotaDetalle(int cuotaDetalle) {
+        this.cuotaDetalle = cuotaDetalle;
     }
 
     public BigDecimal getCuota() {

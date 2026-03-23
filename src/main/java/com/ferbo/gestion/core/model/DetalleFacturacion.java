@@ -13,8 +13,8 @@ import javax.persistence.Table;
 @Table(name = "detalle_facturacion")
 @NamedQueries({
     @NamedQuery(name = "DetalleFacturacion.findAll", query = "SELECT d FROM DetalleFacturacion d"),
-    @NamedQuery(name = "DetalleFacturacion.findByDetalleCve", query = "SELECT d FROM DetalleFacturacion d WHERE d.detalleFacturacionPK.id = :idDetalle"),
-    @NamedQuery(name = "DetalleFacturacion.findByCteCve", query = "SELECT d FROM DetalleFacturacion d WHERE d.detalleFacturacionPK.cteCve = :cteCve"),
+    @NamedQuery(name = "DetalleFacturacion.findById", query = "SELECT d FROM DetalleFacturacion d WHERE d.detalleFacturacionPK.idDetalleFact = :idDetalleFact"),
+    @NamedQuery(name = "DetalleFacturacion.findByCteCve", query = "SELECT d FROM DetalleFacturacion d WHERE d.detalleFacturacionPK.idCliente = :idCliente"),
     @NamedQuery(name = "DetalleFacturacion.findByDetFacSecuencia", query = "SELECT d FROM DetalleFacturacion d WHERE d.detalleFacturacionPK.detFacSecuencia = :detFacSecuencia")
 })
 public class DetalleFacturacion implements Serializable 

@@ -2,7 +2,6 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,10 +13,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author alberto
- */
 @Entity
 @Table(name = "usuario")
 @NamedQueries({
@@ -34,8 +29,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Usuario.findByIdPlanta", query = "SELECT u FROM Usuario u WHERE u.idPlanta = :idPlanta"),
     @NamedQuery(name = "Usuario.findByStNtfSrvExt", query = "SELECT u FROM Usuario u WHERE u.stNtfSrvExt = :stNtfSrvExt"),
     @NamedQuery(name = "Usuario.findByStUsuario", query = "SELECT u FROM Usuario u WHERE u.stUsuario = :stUsuario"),
-    @NamedQuery(name = "Usuario.findBynumEmpleado", query = "SELECT u FROM Usuario u WHERE u.numEmpleado = :numEmpleado")})
-public class Usuario implements Serializable {
+    @NamedQuery(name = "Usuario.findBynumEmpleado", query = "SELECT u FROM Usuario u WHERE u.numEmpleado = :numEmpleado")
+})
+public class Usuario implements Serializable 
+{
     private static final long serialVersionUID = 1L;
     
     @Id

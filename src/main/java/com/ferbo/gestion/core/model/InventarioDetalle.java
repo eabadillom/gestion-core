@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-public class InventarioDetalle extends Inventario {
-
+public class InventarioDetalle extends Inventario 
+{
     private List<Planta> listaplanta;
     private List<Camara> listacamara;
     private List<Posicion> listaposicion;

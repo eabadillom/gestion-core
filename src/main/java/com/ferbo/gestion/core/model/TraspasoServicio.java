@@ -43,7 +43,6 @@ public class TraspasoServicio implements Serializable
     @Column(name = "servicio")
     private String servicio;
     
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "cantidad")

@@ -23,8 +23,8 @@ import javax.validation.constraints.Size;
 @Table(name = "mail")
 @NamedQueries({
         @NamedQuery(name = "Mail.findAll", query = "SELECT m FROM Mail m"),
-        @NamedQuery(name = "Mail.findByIdMail", query = "SELECT m FROM Mail m WHERE m.id = :id"),
-        @NamedQuery(name = "Mail.findByNbMail", query = "SELECT m FROM Mail m WHERE m.mail = :mail"),
+        @NamedQuery(name = "Mail.findById", query = "SELECT m FROM Mail m WHERE m.id = :id"),
+        @NamedQuery(name = "Mail.findByMail", query = "SELECT m FROM Mail m WHERE m.mail = :mail"),
         @NamedQuery(name = "Mail.findByStPrincipal", query = "SELECT m FROM Mail m WHERE m.principal = :principal") 
 })
 public class Mail implements Serializable 
@@ -52,7 +52,7 @@ public class Mail implements Serializable
     @ManyToOne(optional = false)
     private TipoMail tpMail;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "mail", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MedioCnt> medioCntList;
 
     public Mail() {

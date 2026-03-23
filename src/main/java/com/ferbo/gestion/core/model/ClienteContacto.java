@@ -25,14 +25,13 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "ClienteContacto.findAll", query = "SELECT c FROM ClienteContacto c"),
     @NamedQuery(name = "ClienteContacto.findByStHabilitado", query = "SELECT c FROM ClienteContacto c WHERE c.habilitado = :habilitado"),
-    @NamedQuery(name = "ClienteContacto.findByNbUsuario", query = "SELECT c FROM ClienteContacto c WHERE c.nbUsuario = :nbUsuario"),
+    @NamedQuery(name = "ClienteContacto.findByNbUsuario", query = "SELECT c FROM ClienteContacto c WHERE c.usuario = :usuario"),
     @NamedQuery(name = "ClienteContacto.findByNbPassword", query = "SELECT c FROM ClienteContacto c WHERE c.password = :password"),
     @NamedQuery(name = "ClienteContacto.findByStUsuario", query = "SELECT c FROM ClienteContacto c WHERE c.stUsuario = :stUsuario"),
     @NamedQuery(name = "ClienteContacto.findByFhAlta", query = "SELECT c FROM ClienteContacto c WHERE c.alta = :alta"),
     @NamedQuery(name = "ClienteContacto.findByFhCadPasswd", query = "SELECT c FROM ClienteContacto c WHERE c.cadPasswd = :cadPasswd"),
     @NamedQuery(name = "ClienteContacto.findByFhUltAcceso", query = "SELECT c FROM ClienteContacto c WHERE c.ultAcceso = :ultAcceso"),
-    @NamedQuery(name = "ClienteContacto.findById", query = "SELECT c FROM ClienteContacto c WHERE c.id = :id"),
-    @NamedQuery(name = "ClienteContacto.findAllByIdCliente", query = "SELECT DISTINCT cc FROM ClienteContacto cc LEFT JOIN FETCH cc.contacto co LEFT JOIN FETCH co.medioCntList WHERE cc.cliente.id = :idCliente")
+    @NamedQuery(name = "ClienteContacto.findById", query = "SELECT c FROM ClienteContacto c WHERE c.id = :id")
 })
 public class ClienteContacto implements Serializable 
 {
@@ -45,7 +44,7 @@ public class ClienteContacto implements Serializable
 
     @Size(max = 50)
     @Column(name = "nb_usuario")
-    private String nbUsuario;
+    private String usuario;
 
     @Size(max = 1024)
     @Column(name = "nb_password")
@@ -115,12 +114,12 @@ public class ClienteContacto implements Serializable
         this.habilitado = habilitado;
     }
 
-    public String getNbUsuario() {
-        return nbUsuario;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setNbUsuario(String nbUsuario) {
-        this.nbUsuario = nbUsuario;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getPassword() {

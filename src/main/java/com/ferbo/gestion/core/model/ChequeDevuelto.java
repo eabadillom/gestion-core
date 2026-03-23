@@ -58,7 +58,6 @@ public class ChequeDevuelto implements Serializable
     @Temporal(TemporalType.DATE)
     private Date fechaPago;
     
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "MONTO_PAGO")

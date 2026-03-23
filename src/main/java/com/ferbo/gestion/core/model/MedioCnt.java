@@ -21,10 +21,10 @@ import javax.validation.constraints.Size;
 @Table(name = "medio_cnt")
 @NamedQueries({
         @NamedQuery(name = "MedioCnt.findAll", query = "SELECT m FROM MedioCnt m"),
-        @NamedQuery(name = "MedioCnt.findByIdMedio", query = "SELECT m FROM MedioCnt m WHERE m.id = :id"),
+        @NamedQuery(name = "MedioCnt.findById", query = "SELECT m FROM MedioCnt m WHERE m.id = :id"),
         @NamedQuery(name = "MedioCnt.findByTpMedio", query = "SELECT m FROM MedioCnt m WHERE m.tpMedio = :tpMedio"),
         @NamedQuery(name = "MedioCnt.findByStMedio", query = "SELECT m FROM MedioCnt m WHERE m.stMedio = :stMedio"),
-        @NamedQuery(name = "MedioCnt.findByIdContacto", query = "SELECT m FROM MedioCnt m WHERE m.contacto.id = :idContacto") })
+        @NamedQuery(name = "MedioCnt.findByContacto", query = "SELECT m FROM MedioCnt m WHERE m.contacto.id = :idContacto") })
 public class MedioCnt implements Serializable 
 {
     private static final long serialVersionUID = 1L;

@@ -19,10 +19,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author alberto
- */
 @Entity
 @Table(name = "constancia_servicios")
 @NamedQueries({
@@ -62,12 +58,12 @@ public class ConstanciaServicios implements Serializable
     @Column(name = "STATUS")
     private Integer status;
     
-    @OneToMany(mappedBy = "constanciaCve")
+    @OneToMany(mappedBy = "constancia")
     private List<DetalleConstanciaServicio> detalleConstanciaServicioList;
     
     @JoinColumn(name = "CLIENTE_CVE", referencedColumnName = "CTE_CVE")
     @ManyToOne
-    private Cliente clienteCve;
+    private Cliente cliente;
 
     public ConstanciaServicios() {
     }
@@ -132,12 +128,12 @@ public class ConstanciaServicios implements Serializable
         this.detalleConstanciaServicioList = detalleConstanciaServicioList;
     }
 
-    public Cliente getClienteCve() {
-        return clienteCve;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setClienteCve(Cliente clienteCve) {
-        this.clienteCve = clienteCve;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     @Override

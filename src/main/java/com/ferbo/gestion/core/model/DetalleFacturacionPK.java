@@ -14,12 +14,12 @@ public class DetalleFacturacionPK implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "DETALLE_CVE")
-    private int id;
+    private int idDetalleFact;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "CTE_CVE")
-    private int cteCve;
+    private int idCliente;
     
     @Basic(optional = false)
     @NotNull
@@ -29,26 +29,26 @@ public class DetalleFacturacionPK implements Serializable
     public DetalleFacturacionPK() {
     }
 
-    public DetalleFacturacionPK(int id, int cteCve, int detFacSecuencia) {
-        this.id = id;
-        this.cteCve = cteCve;
+    public DetalleFacturacionPK(int idDetalleFact, int idCliente, int detFacSecuencia) {
+        this.idDetalleFact = idDetalleFact;
+        this.idCliente = idCliente;
         this.detFacSecuencia = detFacSecuencia;
     }
 
-    public int getId() {
-        return id;
+    public int getIdDetalleFact() {
+        return idDetalleFact;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdDetalleFact(int idDetalleFact) {
+        this.idDetalleFact = idDetalleFact;
     }
 
-    public int getCteCve() {
-        return cteCve;
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public void setCteCve(int cteCve) {
-        this.cteCve = cteCve;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
     public int getDetFacSecuencia() {
@@ -62,8 +62,8 @@ public class DetalleFacturacionPK implements Serializable
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) id;
-        hash += (int) cteCve;
+        hash += (int) idDetalleFact;
+        hash += (int) idCliente;
         hash += (int) detFacSecuencia;
         return hash;
     }
@@ -75,10 +75,10 @@ public class DetalleFacturacionPK implements Serializable
             return false;
         }
         DetalleFacturacionPK other = (DetalleFacturacionPK) object;
-        if (this.id != other.id) {
+        if (this.idDetalleFact != other.idDetalleFact) {
             return false;
         }
-        if (this.cteCve != other.cteCve) {
+        if (this.idCliente != other.idCliente) {
             return false;
         }
         if (this.detFacSecuencia != other.detFacSecuencia) {
@@ -89,7 +89,7 @@ public class DetalleFacturacionPK implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.DetalleFacturacionPK[ id=" + id + ", cteCve=" + cteCve + ", detFacSecuencia=" + detFacSecuencia + " ]";
+        return "mx.com.ferbo.model.DetalleFacturacionPK[ id=" + idDetalleFact + ", cteCve=" + idCliente + ", detFacSecuencia=" + detFacSecuencia + " ]";
     }
     
 }

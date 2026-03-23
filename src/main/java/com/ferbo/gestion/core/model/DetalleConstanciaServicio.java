@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "DetalleConstanciaServicio.findAll", query = "SELECT d FROM DetalleConstanciaServicio d"),
     @NamedQuery(name = "DetalleConstanciaServicio.findById", query = "SELECT d FROM DetalleConstanciaServicio d WHERE d.id = :id"),
-    @NamedQuery(name = "DetalleConstanciaServicio.findByServicioDes", query = "SELECT d FROM DetalleConstanciaServicio d WHERE d.descripcion = :descripcion"),
+    @NamedQuery(name = "DetalleConstanciaServicio.findByDescripcion", query = "SELECT d FROM DetalleConstanciaServicio d WHERE d.descripcion = :descripcion"),
     @NamedQuery(name = "DetalleConstanciaServicio.findByCantidad", query = "SELECT d FROM DetalleConstanciaServicio d WHERE d.cantidad = :cantidad")
 })
 public class DetalleConstanciaServicio implements Serializable 
@@ -41,11 +41,11 @@ public class DetalleConstanciaServicio implements Serializable
     
     @JoinColumn(name = "CONSTANCIA_CVE", referencedColumnName = "ID")
     @ManyToOne
-    private ConstanciaServicios constanciaCve;
+    private ConstanciaServicios constancia;
     
     @JoinColumn(name = "SERVICIO_CVE", referencedColumnName = "SERVICIO_CVE")
     @ManyToOne
-    private Servicio servicioCve;
+    private Servicio servicio;
 
     public DetalleConstanciaServicio() {
     }
@@ -78,20 +78,20 @@ public class DetalleConstanciaServicio implements Serializable
         this.cantidad = cantidad;
     }
 
-    public ConstanciaServicios getConstanciaCve() {
-        return constanciaCve;
+    public ConstanciaServicios getConstancia() {
+        return constancia;
     }
 
-    public void setConstanciaCve(ConstanciaServicios constanciaCve) {
-        this.constanciaCve = constanciaCve;
+    public void setConstancia(ConstanciaServicios constancia) {
+        this.constancia = constancia;
     }
 
-    public Servicio getServicioCve() {
-        return servicioCve;
+    public Servicio getServicio() {
+        return servicio;
     }
 
-    public void setServicioCve(Servicio servicioCve) {
-        this.servicioCve = servicioCve;
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
     }
 
     @Override
