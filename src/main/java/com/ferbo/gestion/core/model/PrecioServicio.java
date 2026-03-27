@@ -29,7 +29,6 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name = "PrecioServicio.findByServicioAndAvisoAndCliente", query = "SELECT p FROM PrecioServicio p WHERE p.cliente.id = :idCliente AND p.aviso.id = :idAviso AND p.servicio.id = :idServicio")
 @NamedQuery(name = "PrecioServicio.findByAviso", query = "SELECT p FROM PrecioServicio p WHERE p.aviso.id = :idAviso ORDER BY p.servicio.descripcion ASC")
 @NamedQuery(name = "PrecioServicio.findByClienteSinAviso", query = "SELECT ps FROM PrecioServicio ps WHERE ps.cliente.id = :idCliente AND ps.aviso IS NULL")
-//@NamedQuery(name = "PrecioServicio.findByClienteSinAviso", query = "SELECT ps FROM PrecioServicio ps WHERE ps.cliente.cteCve = :cteCve AND ps.avisoCve IS NOT NULL")
 public class PrecioServicio implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -152,7 +151,7 @@ public class PrecioServicio implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.PrecioServicio[ id=" + id + ", hashCode" + this.hashCode() + " ]";
+        return "com.ferbo.gestion.core.model.PrecioServicio[ id=" + id + ", hashCode" + this.hashCode() + " ]";
     }
     
 }

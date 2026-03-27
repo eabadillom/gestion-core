@@ -233,7 +233,7 @@ public class ProductoConstancia implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.ProductoConstancia[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.ProductoConstancia[ id=" + id + " ]";
     }
     
 }

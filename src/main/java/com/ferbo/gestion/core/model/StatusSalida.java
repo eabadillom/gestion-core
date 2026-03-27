@@ -107,7 +107,7 @@ public class StatusSalida implements Serializable
 
     @Override
     public String toString() {
-        return "StatusSalida[" + "id=" + id + ", descripcion=" + descripcion + ", clave=" + clave + ']';
+        return "com.ferbo.gestion.core.model.StatusSalida[" + "id=" + id + ", descripcion=" + descripcion + ", clave=" + clave + ']';
     }
     
 }

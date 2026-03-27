@@ -227,7 +227,7 @@ public class Servicio implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Servicio[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.Servicio[ id=" + id + " ]";
     }
     
 }

@@ -117,7 +117,7 @@ public class ServiciosSalida implements Serializable
 
     @Override
     public String toString() {
-        return "ServiciosSalida[" + "id=" + id + ", cantidad=" + cantidad + ']';
+        return "com.ferbo.gestion.core.model.ServiciosSalida[" + "id=" + id + ", cantidad=" + cantidad + ']';
     }
     
 }

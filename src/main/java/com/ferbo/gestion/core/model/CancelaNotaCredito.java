@@ -100,7 +100,7 @@ public class CancelaNotaCredito implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.CancelaNotaCredito[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.CancelaNotaCredito[ id=" + id + " ]";
     }
     
 }

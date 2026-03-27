@@ -2,7 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -18,8 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -116,8 +114,7 @@ public class NotaCredito implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHA")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private LocalDate fecha;
     
     @Size(max = 40)
     @Column(name = "CAJERO")
@@ -140,7 +137,7 @@ public class NotaCredito implements Serializable
         this.id = id;
     }
 
-    public NotaCredito(Integer id, String numero, String cliente, BigDecimal iva, BigDecimal total, String totalLetra, Date fecha) {
+    public NotaCredito(Integer id, String numero, String cliente, BigDecimal iva, BigDecimal total, String totalLetra, LocalDate fecha) {
         this.id = id;
         this.numero = numero;
         this.cliente = cliente;
@@ -262,11 +259,11 @@ public class NotaCredito implements Serializable
         this.observaciones = observaciones;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -295,14 +292,14 @@ public class NotaCredito implements Serializable
     }
 
     public List<NotaPorFactura> getNotaFacturaList() {
-		return notaFacturaList;
-	}
+        return notaFacturaList;
+    }
 
-	public void setNotaFacturaList(List<NotaPorFactura> notaFacturaList) {
-		this.notaFacturaList = notaFacturaList;
-	}
+    public void setNotaFacturaList(List<NotaPorFactura> notaFacturaList) {
+            this.notaFacturaList = notaFacturaList;
+    }
 
-	@Override
+    @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
@@ -324,7 +321,7 @@ public class NotaCredito implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.NotaCredito[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.NotaCredito[ id=" + id + " ]";
     }
     
 }

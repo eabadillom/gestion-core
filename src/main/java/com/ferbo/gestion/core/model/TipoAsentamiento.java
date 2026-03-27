@@ -108,7 +108,7 @@ public class TipoAsentamiento implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.TipoAsentamiento[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.TipoAsentamiento[ id=" + id + " ]";
     }
     
 }

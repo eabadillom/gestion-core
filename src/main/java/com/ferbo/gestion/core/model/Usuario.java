@@ -90,31 +90,6 @@ public class Usuario implements Serializable
     @Column(name = "huella")
     private boolean huella;
 
-    @Override
-    public int hashCode() {
-        if (this.id == null) {
-            return System.identityHashCode(this);
-        }
-        return Objects.hash(this.id);
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof Usuario)) {
-            return false;
-        }
-        Usuario other = (Usuario) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "mx.com.ferbo.model.Usuario[ id=" + id + " ]";
-    }
-
     public Usuario() {
     }
 
@@ -245,6 +220,31 @@ public class Usuario implements Serializable
 
     public void setStNtfSrvExt(boolean stNtfSrvExt) {
         this.stNtfSrvExt = stNtfSrvExt;
+    }
+    
+    @Override
+    public int hashCode() {
+        if (this.id == null) {
+            return System.identityHashCode(this);
+        }
+        return Objects.hash(this.id);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Usuario)) {
+            return false;
+        }
+        Usuario other = (Usuario) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.ferbo.gestion.core.model.Usuario[ id=" + id + " ]";
     }
 
 }

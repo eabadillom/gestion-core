@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "partida")
 @NamedQueries({
     @NamedQuery(name = "Partida.findAll", query = "SELECT p FROM Partida p"),
-    @NamedQuery(name = "Partida.findByPartida", query = "SELECT p FROM Partida p WHERE p.id = :id"),
+    @NamedQuery(name = "Partida.findByPartida", query = "SELECT p FROM Partida p WHERE p.id = :idPartida"),
     @NamedQuery(name = "Partida.findByPesoTotal", query = "SELECT p FROM Partida p WHERE p.pesoTotal = :pesoTotal"),
     @NamedQuery(name = "Partida.findByCantidadTotal", query = "SELECT p FROM Partida p WHERE p.cantidadTotal = :cantidadTotal"),
     @NamedQuery(name = "Partida.findByUnidadProducto", query = "SELECT p FROM Partida p WHERE p.unidadProducto = :unidadProducto"),
@@ -351,7 +351,7 @@ public class Partida implements Serializable, Cloneable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Partida[ id=" + id + ", productoDs=" + unidadProducto.getProducto().getDescripcion() + " ]";
+        return "com.ferbo.gestion.core.model.Partida[ id=" + id + ", productoDs=" + unidadProducto.getProducto().getDescripcion() + " ]";
     }
     
 }

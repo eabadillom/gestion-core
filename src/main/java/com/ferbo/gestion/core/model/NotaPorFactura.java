@@ -46,6 +46,6 @@ public class NotaPorFactura implements Serializable, Cloneable
 
     @Override
     public String toString() {
-        return "NotaPorFactura [notaPorFacturaPK=" + notaPorFacturaPK + ", cantidad=" + cantidad + "]";
+        return "com.ferbo.gestion.core.model.NotaPorFactura [notaPorFacturaPK=" + notaPorFacturaPK + ", cantidad=" + cantidad + "]";
     }
 }

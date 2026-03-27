@@ -80,7 +80,7 @@ public class DetallePartidaPK implements Serializable, Cloneable
 
     @Override
     public String toString() {
-        return "DetallePartidaPK [id=" + id + ", partida=" + partida + "]";
+        return "com.ferbo.gestion.core.model.DetallePartidaPK [id=" + id + ", partida=" + partida + "]";
     }
 
 }

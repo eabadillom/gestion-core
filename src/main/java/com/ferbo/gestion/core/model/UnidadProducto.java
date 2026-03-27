@@ -32,10 +32,6 @@ public class UnidadProducto implements Serializable {
     @Column(name = "UNIDAD_DE_PRODUCTO_CVE")
     private Integer id;
     
-    // @Basic(optional = false)
-    // @NotNull
-    // @Column(name = "PRODUCTO_CVE")
-    // private int productoCve;
     @JoinColumn(name = "UNIDAD_DE_MANEJO_CVE", referencedColumnName = "UNIDAD_DE_MANEJO_CVE")
     @ManyToOne(optional = false)
     private UnidadManejo unidadManejo;
@@ -103,7 +99,7 @@ public class UnidadProducto implements Serializable {
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.UnidadProducto[ unidadDeProductoCve=" + id + " ]";
+        return "com.ferbo.gestion.core.model.UnidadProducto[ unidadDeProductoCve=" + id + " ]";
     }
 
 }

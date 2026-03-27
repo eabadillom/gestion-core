@@ -81,7 +81,7 @@ public class StatusNotaCredito implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.StatusNotaCredito[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.StatusNotaCredito[ id=" + id + " ]";
     }
 
 }

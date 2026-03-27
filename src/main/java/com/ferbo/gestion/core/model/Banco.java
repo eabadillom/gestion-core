@@ -16,12 +16,12 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "bancos")
 @NamedQueries({
-    @NamedQuery(name = "Bancos.findAll", query = "SELECT b FROM Bancos b"),
-    @NamedQuery(name = "Bancos.findById", query = "SELECT b FROM Bancos b WHERE b.id = :id"),
-    @NamedQuery(name = "Bancos.findByClave", query = "SELECT b FROM Bancos b WHERE b.clave = :clave"),
-    @NamedQuery(name = "Bancos.findByNombre", query = "SELECT b FROM Bancos b WHERE b.nombre = :nombre")
+    @NamedQuery(name = "Banco.findAll", query = "SELECT b FROM Banco b"),
+    @NamedQuery(name = "Banco.findById", query = "SELECT b FROM Banco b WHERE b.id = :id"),
+    @NamedQuery(name = "Banco.findByClave", query = "SELECT b FROM Banco b WHERE b.clave = :clave"),
+    @NamedQuery(name = "Banco.findByNombre", query = "SELECT b FROM Banco b WHERE b.nombre = :nombre")
 })
-public class Bancos implements Serializable 
+public class Banco implements Serializable 
 {
     private static final long serialVersionUID = 1L;
     
@@ -43,14 +43,14 @@ public class Bancos implements Serializable
     @Column(name = "nombre")
     private String nombre;
 
-    public Bancos() {
+    public Banco() {
     }
 
-    public Bancos(Integer id) {
+    public Banco(Integer id) {
         this.id = id;
     }
 
-    public Bancos(Integer id, String clave, String nombre) {
+    public Banco(Integer id, String clave, String nombre) {
         this.id = id;
         this.clave = clave;
         this.nombre = nombre;
@@ -90,10 +90,10 @@ public class Bancos implements Serializable
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Bancos)) {
+        if (!(object instanceof Banco)) {
             return false;
         }
-        Bancos other = (Bancos) object;
+        Banco other = (Banco) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -102,7 +102,7 @@ public class Bancos implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Bancos[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.Bancos[ id=" + id + " ]";
     }
     
 }

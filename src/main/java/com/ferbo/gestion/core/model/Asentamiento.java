@@ -24,11 +24,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Asentamiento.findByEntidadPostal", query = "SELECT a FROM Asentamiento a WHERE a.entidadPostal.id = :idEntidadPostal"),
     @NamedQuery(name = "Asentamiento.findById", query = "SELECT a FROM Asentamiento a WHERE a.asentamientoPK.id = :idAsentamiento"),
     @NamedQuery(name = "Asentamiento.findByDescripcion", query = "SELECT a FROM Asentamiento a WHERE a.descripcion = :descricion"),
-    @NamedQuery(name = "Asentamiento.findByCp", query = "SELECT a FROM Asentamiento a WHERE a.cp = :cp"),
-    @NamedQuery(name = "Asentamiento.findByDomicilio", query = "SELECT a FROM Asentamiento a WHERE a.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.estado.estadoPK.pais.id = :idPais and a.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.estado.estadoPK.id = :idEstado and a.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.id = :idMunicipio and a.asentamientoPK.ciudad.ciudadPK.id = :idCiudad and a.asentamientoPK.id = :idAsentamiento"),
-    @NamedQuery(name = "Asentamiento.findByDomicilioCompleto", query = "SELECT a FROM Asentamiento a WHERE a.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.estado.estadoPK.pais.id = :idPais and a.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.estado.estadoPK.id = :idEstado and a.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.id = :idMunicipio and a.asentamientoPK.ciudad.ciudadPK.id = :idCiudad and a.tipoAsentamiento.id = :idTipoAsntmnto and a.entidadPostal.id = :idEntidadPostal"),
-    @NamedQuery(name = "Asentamiento.findByAsentamiento", query = "SELECT a FROM Asentamiento a WHERE a.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.estado.estadoPK.pais.id = :idPais and a.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.estado.estadoPK.id = :idEstado and a.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.id = :idMunicipio and a.asentamientoPK.ciudad.ciudadPK.id = :idCiudad and a.asentamientoPK.id =:idAsentamiento"),
-    @NamedQuery(name = "Asentamiento.findByPaisEstadoMunicipioCiudad", query = "SELECT a FROM Asentamiento a WHERE a.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.estado.estadoPK.pais.id = :idPais and a.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.estado.estadoPK.id = :idEstado and a.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.id = :idMunicipio and a.asentamientoPK.ciudad.ciudadPK.id = :idCiudad")
+    @NamedQuery(name = "Asentamiento.findByCp", query = "SELECT a FROM Asentamiento a WHERE a.cp = :cp")
 })
 public class Asentamiento implements Serializable 
 {
@@ -134,7 +130,7 @@ public class Asentamiento implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Asentamiento[ asentamientoPK=" + asentamientoPK.getId() + ", descripcion=" + descripcion + ", cp=" + cp + " ]";
+        return "com.ferbo.gestion.core.model.Asentamiento[ asentamientoPK=" + asentamientoPK.getId() + ", descripcion=" + descripcion + ", cp=" + cp + " ]";
     }
     
 }

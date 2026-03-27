@@ -2,7 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -19,8 +19,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,7 +31,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Factura.findByCliente", query = "SELECT f FROM Factura f WHERE f.cliente = :cliente"),
     @NamedQuery(name = "Factura.findByClienteStatusFactura", query = "SELECT f FROM Factura f WHERE f.cliente.id = :idCliente and f.status.id = :status"),
     @NamedQuery(name = "Factura.findByPeriodo", query = "SELECT f FROM Factura f WHERE f.fecha BETWEEN :fechaInicio AND :fechaFin ORDER BY f.fecha"),
-    @NamedQuery(name = "Factura.findByClientePeriodo", query = "SELECT f FROM Factura f WHERE f.cliente = :cliente AND f.fecha BETWEEN :fechaInicio AND :fechaFin ORDER BY f.fecha"),
+    @NamedQuery(name = "Factura.findByClientePeriodo", query = "SELECT DISTINCT f FROM Factura f WHERE f.cliente = :cliente AND f.fecha BETWEEN :fechaInicio AND :fechaFin ORDER BY f.fecha"),
     @NamedQuery(name = "Factura.findByNomSerie", query = "SELECT f FROM Factura f WHERE f.nomSerie = :nomSerie"),
     @NamedQuery(name = "Factura.findBySerieNumero", query = "SELECT f FROM Factura f WHERE f.numero = :numero AND f.nomSerie = :serie"),
     @NamedQuery(name = "Factura.findActivasBySerieNumero", query = "SELECT f FROM Factura f WHERE f.status NOT IN (0,2) AND f.numero = :numero AND f.nomSerie = :serie"),
@@ -41,7 +39,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Factura.findByStatusFacturaClientePeriodo", query = "SELECT f FROM Factura f WHERE f.fecha BETWEEN :fechaInicio AND :fechaFin AND f.cliente.id = :idCliente AND f.status.id = :idStatusFactura ORDER BY f.fecha, f.nomSerie, f.numero"),
     @NamedQuery(name = "Factura.findByFolioDeposito", query = "SELECT f FROM ConstanciaDeposito cdd INNER JOIN cdd.constanciaFacturaList cf INNER JOIN cf.factura f WHERE cdd.folio = :folio"),
     @NamedQuery(name = "Factura.findByCliente?Periodo", query = "SELECT f FROM Factura f WHERE (f.cfdi IS NULL) AND  (f.fecha BETWEEN :fechaInicio AND :fechaFin) AND (f.cliente.id = :idCliente OR :idCliente IS NULL) ORDER BY f.fecha"),
-    @NamedQuery(name = "Factura.findByNoCFDI", query = "SELECT f FROM Factura f LEFT JOIN f.cfdi c WHERE (f.fecha BETWEEN :fechaInicio AND :fechaFin) AND (f.cliente = :idCliente OR :idCliente IS NULL) AND (c IS NULL) AND (f.uuid IS NOT NULL)")
+    @NamedQuery(name = "Factura.findByNoCFDI", query = "SELECT f FROM Factura f LEFT JOIN f.cfdi c WHERE (f.fecha BETWEEN :fechaInicio AND :fechaFin) AND (f.cliente.id = :idCliente OR :idCliente IS NULL) AND (c IS NULL) AND (f.uuid IS NOT NULL)")
 })
 public class Factura implements Serializable 
 {
@@ -80,15 +78,12 @@ public class Factura implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private LocalDate fecha;
 
     @Basic(optional = false)
     @Column(name = "observacion")
     private String observacion;
 
-    // @Max(value=?) @Min(value=?)//if you know range of your decimal fields
-    // consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "subtotal")
@@ -185,12 +180,10 @@ public class Factura implements Serializable
     private BigDecimal valorDeclarado;
 
     @Column(name = "inicio_servicios")
-    @Temporal(TemporalType.DATE)
-    private Date inicioServicios;
+    private LocalDate inicioServicios;
 
     @Column(name = "fin_servicios")
-    @Temporal(TemporalType.DATE)
-    private Date finServicios;
+    private LocalDate finServicios;
 
     @Size(max = 255)
     @Column(name = "monto_letra")
@@ -294,11 +287,11 @@ public class Factura implements Serializable
         this.id = id;
     }
 
-    public Factura(Integer id, String numero, String moneda, String rfc, String nombreCliente, Date fecha,
+    public Factura(Integer id, String numero, String moneda, String rfc, String nombreCliente, LocalDate fecha,
             String observacion, BigDecimal subtotal, BigDecimal iva, BigDecimal total, String pais, String estado,
             String municipio, String ciudad, String colonia, String cp, String calle, String numExt, String numInt,
             String telefono, String fax, BigDecimal porcentajeIva, String numeroCliente, BigDecimal valorDeclarado,
-            Date inicioServicios, Date finServicios, String montoLetra, TipoFacturacion tipoFacturacion, Planta planta,
+            LocalDate inicioServicios, LocalDate finServicios, String montoLetra, TipoFacturacion tipoFacturacion, Planta planta,
             int plazo, BigDecimal retencion, String nomSerie, Cliente cliente,
             StatusFactura status, String metodoPago, String tipoPersona, String cdRegimen, String cdUsoCfdi,
             String uuid, String emisorNombre, String emisorRFC, String emisorCdRegimen, String emisorCodigoPostal) {
@@ -387,11 +380,11 @@ public class Factura implements Serializable
         this.nombreCliente = nombreCliente;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -539,19 +532,19 @@ public class Factura implements Serializable
         this.valorDeclarado = valorDeclarado;
     }
 
-    public Date getInicioServicios() {
+    public LocalDate getInicioServicios() {
         return inicioServicios;
     }
 
-    public void setInicioServicios(Date inicioServicios) {
+    public void setInicioServicios(LocalDate inicioServicios) {
         this.inicioServicios = inicioServicios;
     }
 
-    public Date getFinServicios() {
+    public LocalDate getFinServicios() {
         return finServicios;
     }
 
-    public void setFinServicios(Date finServicios) {
+    public void setFinServicios(LocalDate finServicios) {
         this.finServicios = finServicios;
     }
 
@@ -777,7 +770,7 @@ public class Factura implements Serializable
     
     @Override
     public String toString() {
-    	return "mx.com.ferbo.model.Factura[ id=" + id + " ]";
+    	return "com.ferbo.gestion.core.model.Factura[ id=" + id + " ]";
     }
     
 }

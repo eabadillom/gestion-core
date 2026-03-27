@@ -2,7 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -51,8 +49,7 @@ public class Pago implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private LocalDate fecha;
     
     @Size(max = 20)
     @Column(name = "referencia")
@@ -69,7 +66,7 @@ public class Pago implements Serializable
     @Basic(optional = true)
     @JoinColumn(name = "banco", referencedColumnName = "id")
     @ManyToOne
-    private Bancos banco;
+    private Banco banco;
     
     @JoinColumn(name = "factura", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -86,7 +83,7 @@ public class Pago implements Serializable
         this.id = id;
     }
 
-    public Pago(Integer id, BigDecimal monto, Date fecha) {
+    public Pago(Integer id, BigDecimal monto, LocalDate fecha) {
         this.id = id;
         this.monto = monto;
         this.fecha = fecha;
@@ -108,11 +105,11 @@ public class Pago implements Serializable
         this.monto = monto;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -140,11 +137,11 @@ public class Pago implements Serializable
         this.chequeDevuelto = chequeDevuelto;
     }
 
-    public Bancos getBanco() {
+    public Banco getBanco() {
         return banco;
     }
 
-    public void setBanco(Bancos banco) {
+    public void setBanco(Banco banco) {
         this.banco = banco;
     }
 
@@ -186,7 +183,7 @@ public class Pago implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Pago[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.Pago[ id=" + id + " ]";
     }
 
 }

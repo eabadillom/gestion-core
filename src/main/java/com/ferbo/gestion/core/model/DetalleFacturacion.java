@@ -89,7 +89,7 @@ public class DetalleFacturacion implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.DetalleFacturacion[ detalleFacturacionPK=" + detalleFacturacionPK + " ]";
+        return "com.ferbo.gestion.core.model.DetalleFacturacion[ detalleFacturacionPK=" + detalleFacturacionPK + " ]";
     }
     
 }

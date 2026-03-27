@@ -147,7 +147,7 @@ public class TraspasoServicio implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.TraspasoServicio[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.TraspasoServicio[ id=" + id + " ]";
     }
 
 }

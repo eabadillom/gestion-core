@@ -179,7 +179,7 @@ public class Posicion implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Posicion[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.Posicion[ id=" + id + " ]";
     }
 
 }

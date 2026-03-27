@@ -141,7 +141,7 @@ public class MedioCnt implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.MedioCnt[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.MedioCnt[ id=" + id + " ]";
     }
 
 }

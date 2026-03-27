@@ -93,7 +93,7 @@ public class StatusConstanciaSalida implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.StatusConstanciaSalida[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.StatusConstanciaSalida[ id=" + id + " ]";
     }
 
 }

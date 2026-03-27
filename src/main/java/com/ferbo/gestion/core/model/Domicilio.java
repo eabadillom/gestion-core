@@ -33,8 +33,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Domicilio.findByCp", query = "SELECT d FROM Domicilio d WHERE d.asentamiento.cp = :domicilioCp"),
     @NamedQuery(name = "Domicilio.findByTel1", query = "SELECT d FROM Domicilio d WHERE d.telefono1 = :telefono1"),
     @NamedQuery(name = "Domicilio.findByTel2", query = "SELECT d FROM Domicilio d WHERE d.telefono2 = :telefono2"),
-    @NamedQuery(name = "Domicilio.findByFax", query = "SELECT d FROM Domicilio d WHERE d.fax = :fax"),
-    @NamedQuery(name = "Domicilio.findByAsentamiento", query = "SELECT d FROM Domicilio d WHERE d.asentamiento.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.estado.estadoPK.pais.id = :idPais AND d.asentamiento.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.estado.estadoPK.id = :idEstado AND d.asentamiento.asentamientoPK.ciudad.ciudadPK.municipio.municipioPK.id = :idMunicipio AND d.asentamiento.asentamientoPK.ciudad.ciudadPK.id = :idCiudad AND d.asentamiento.asentamientoPK.id = :idAsentamiento" )
+    @NamedQuery(name = "Domicilio.findByFax", query = "SELECT d FROM Domicilio d WHERE d.fax = :fax")
 })
 public class Domicilio implements Serializable 
 {
@@ -198,7 +197,7 @@ public class Domicilio implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Domicilios[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.Domicilios[ id=" + id + " ]";
     }
     
 }

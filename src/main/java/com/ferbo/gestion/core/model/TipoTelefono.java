@@ -15,8 +15,8 @@ import javax.validation.constraints.Size;
 @Table(name = "tipo_telefono")
 @NamedQueries({
     @NamedQuery(name = "TipoTelefono.findAll", query = "SELECT t FROM TipoTelefono t"),
-    @NamedQuery(name = "TipoTelefono.findByTpTelefono", query = "SELECT t FROM TipoTelefono t WHERE t.tpTelefono = :tpTelefono"),
-    @NamedQuery(name = "TipoTelefono.findByNbTelefono", query = "SELECT t FROM TipoTelefono t WHERE t.nbTelefono = :nbTelefono")
+    @NamedQuery(name = "TipoTelefono.findById", query = "SELECT t FROM TipoTelefono t WHERE t.id = :idTelefono"),
+    @NamedQuery(name = "TipoTelefono.findByDescripcion", query = "SELECT t FROM TipoTelefono t WHERE t.descripcion = :descripcion")
 })
 public class TipoTelefono implements Serializable 
 {
@@ -26,46 +26,46 @@ public class TipoTelefono implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "tp_telefono")
-    private Short tpTelefono;
+    private Short id;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "nb_telefono")
-    private String nbTelefono;
+    private String descripcion;
 
     public TipoTelefono() {
     }
 
-    public TipoTelefono(Short tpTelefono) {
-        this.tpTelefono = tpTelefono;
+    public TipoTelefono(Short id) {
+        this.id = id;
     }
 
-    public TipoTelefono(Short tpTelefono, String nbTelefono) {
-        this.tpTelefono = tpTelefono;
-        this.nbTelefono = nbTelefono;
+    public TipoTelefono(Short id, String descripcion) {
+        this.id = id;
+        this.descripcion = descripcion;
     }
 
-    public Short getTpTelefono() {
-        return tpTelefono;
+    public Short getId() {
+        return id;
     }
 
-    public void setTpTelefono(Short tpTelefono) {
-        this.tpTelefono = tpTelefono;
+    public void setId(Short id) {
+        this.id = id;
     }
 
-    public String getNbTelefono() {
-        return nbTelefono;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNbTelefono(String nbTelefono) {
-        this.nbTelefono = nbTelefono;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (tpTelefono != null ? tpTelefono.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -76,7 +76,7 @@ public class TipoTelefono implements Serializable
             return false;
         }
         TipoTelefono other = (TipoTelefono) object;
-        if ((this.tpTelefono == null && other.tpTelefono != null) || (this.tpTelefono != null && !this.tpTelefono.equals(other.tpTelefono))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -84,7 +84,7 @@ public class TipoTelefono implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.TipoTelefono[ tpTelefono=" + tpTelefono + " ]";
+        return "com.ferbo.gestion.core.model.TipoTelefono[ id=" + id + " ]";
     }
     
 }

@@ -15,12 +15,12 @@ import javax.validation.constraints.Size;
 @Table(name = "ud_cobro")
 @NamedQueries({
     @NamedQuery(name = "UdCobro.findAll", query = "SELECT u FROM UdCobro u"),
-    @NamedQuery(name = "UdCobro.findByIdUnidad", query = "SELECT u FROM UdCobro u WHERE u.id = :idUdCobro"),
-    @NamedQuery(name = "UdCobro.findByNbUnidad", query = "SELECT u FROM UdCobro u WHERE u.nbUnidad = :nbUnidad"),
-    @NamedQuery(name = "UdCobro.findByCdUnidad", query = "SELECT u FROM UdCobro u WHERE u.cdUnidad = :cdUnidad")
+    @NamedQuery(name = "UdCobro.findById", query = "SELECT u FROM UdCobro u WHERE u.id = :idUdCobro"),
+    @NamedQuery(name = "UdCobro.findByDescripcion", query = "SELECT u FROM UdCobro u WHERE u.descripcion = :nbUnidad"),
+    @NamedQuery(name = "UdCobro.findByClave", query = "SELECT u FROM UdCobro u WHERE u.clave = :cdUnidad")
 })
-public class UdCobro implements Serializable {
-
+public class UdCobro implements Serializable 
+{
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -34,13 +34,13 @@ public class UdCobro implements Serializable {
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "nb_unidad")
-    private String nbUnidad;
+    private String descripcion;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "cd_unidad")
-    private String cdUnidad;
+    private String clave;
 
     public UdCobro() {
     }
@@ -49,34 +49,34 @@ public class UdCobro implements Serializable {
         this.id = id;
     }
 
-    public UdCobro(String id, String nbUnidad, String cdUnidad) {
+    public UdCobro(String id, String descripcion, String clave) {
         this.id = id;
-        this.nbUnidad = nbUnidad;
-        this.cdUnidad = cdUnidad;
+        this.descripcion = descripcion;
+        this.clave = clave;
     }
 
-    public String getIdUnidad() {
+    public String getId() {
         return id;
     }
 
-    public void setIdUnidad(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getNbUnidad() {
-        return nbUnidad;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNbUnidad(String nbUnidad) {
-        this.nbUnidad = nbUnidad;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public String getCdUnidad() {
-        return cdUnidad;
+    public String getClave() {
+        return clave;
     }
 
-    public void setCdUnidad(String cdUnidad) {
-        this.cdUnidad = cdUnidad;
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class UdCobro implements Serializable {
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.UdCobro[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.UdCobro[ id=" + id + " ]";
     }
     
 }

@@ -97,7 +97,7 @@ public class EstadoInventario implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.EstadoInventario[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.EstadoInventario[ id=" + id + " ]";
     }
     
 }

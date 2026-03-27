@@ -72,7 +72,7 @@ public class MunicipioPK implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.MunicipioPK[ idMunicipio=" + id + " ]";
+        return "com.ferbo.gestion.core.model.MunicipioPK[ idMunicipio=" + id + " ]";
     }
 
 }

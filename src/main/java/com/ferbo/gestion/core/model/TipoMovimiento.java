@@ -90,7 +90,7 @@ public class TipoMovimiento implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.TipoMovimiento[ clave=" + clave + " ]";
+        return "com.ferbo.gestion.core.model.TipoMovimiento[ clave=" + clave + " ]";
     }
     
 }

@@ -1,7 +1,7 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -16,8 +16,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -51,8 +49,7 @@ public class ConstanciaTraspaso implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private LocalDate fecha;
     
     @Basic(optional = false)
     @NotNull
@@ -87,7 +84,7 @@ public class ConstanciaTraspaso implements Serializable
         this.id = id;
     }
 
-    public ConstanciaTraspaso(Integer id, String numero, Date fecha, String observacion, String nombreCliente) {
+    public ConstanciaTraspaso(Integer id, String numero, LocalDate fecha, String observacion, String nombreCliente) {
         this.id = id;
         this.numero = numero;
         this.fecha = fecha;
@@ -111,11 +108,11 @@ public class ConstanciaTraspaso implements Serializable
         this.numero = numero;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -189,7 +186,7 @@ public class ConstanciaTraspaso implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.ConstanciaTraspaso[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.ConstanciaTraspaso[ id=" + id + " ]";
     }
     
 }

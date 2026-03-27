@@ -87,9 +87,7 @@ public class TraspasoPartida implements Serializable
         this.id = id;
     }
     
-    public TraspasoPartida(Integer id, String constancia, Partida partida, String descripcion, long cantidad,
-            String origen,
-            String destino) {
+    public TraspasoPartida(Integer id, String constancia, Partida partida, String descripcion, long cantidad, String origen, String destino) {
         this.id = id;
         this.constancia = constancia;
         this.partida = partida;
@@ -114,16 +112,7 @@ public class TraspasoPartida implements Serializable
     public void setConstancia(String constancia) {
         this.constancia = constancia;
     }
-
-    /*
-     * public int getPartida() {
-     * return partida;
-     * }
-     * 
-     * public void setPartida(int partida) {
-     * this.partida = partida;
-     * }
-     */
+    
     public String getDescripcion() {
         return descripcion;
     }
@@ -171,6 +160,14 @@ public class TraspasoPartida implements Serializable
     public void setPartida(Partida partida) {
         this.partida = partida;
     }
+    
+    public PartidaAfectada getPartidaAfectada() {
+        return partidaAfectada;
+    }
+
+    public void setPartidaAfectada(PartidaAfectada partidaAfectada) {
+        this.partidaAfectada = partidaAfectada;
+    }
 
     @Override
     public int hashCode() {
@@ -194,15 +191,7 @@ public class TraspasoPartida implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.TraspasoPartida[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.TraspasoPartida[ id=" + id + " ]";
     }
-
-	public PartidaAfectada getPartidaAfectada() {
-		return partidaAfectada;
-	}
-
-	public void setPartidaAfectada(PartidaAfectada partidaAfectada) {
-		this.partidaAfectada = partidaAfectada;
-	}
 
 }

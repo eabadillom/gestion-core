@@ -99,7 +99,7 @@ public class ProductoPorCliente implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.ProductoPorCliente[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.ProductoPorCliente[ id=" + id + " ]";
     }
 
 }

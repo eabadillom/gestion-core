@@ -89,7 +89,7 @@ public class TipoDomicilio implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.TiposDomicilio[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.TiposDomicilio[ id=" + id + " ]";
     }
     
 }

@@ -96,7 +96,7 @@ public class Perfil implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Perfil[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.Perfil[ id=" + id + " ]";
     }
     
 }

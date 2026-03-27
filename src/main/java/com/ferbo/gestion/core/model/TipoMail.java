@@ -15,8 +15,8 @@ import javax.validation.constraints.Size;
 @Table(name = "tipo_mail")
 @NamedQueries({
     @NamedQuery(name = "TipoMail.findAll", query = "SELECT t FROM TipoMail t"),
-    @NamedQuery(name = "TipoMail.findByTpMail", query = "SELECT t FROM TipoMail t WHERE t.tpMail = :tpMail"),
-    @NamedQuery(name = "TipoMail.findByNbTipo", query = "SELECT t FROM TipoMail t WHERE t.nbTipo = :nbTipo")
+    @NamedQuery(name = "TipoMail.findById", query = "SELECT t FROM TipoMail t WHERE t.id = :idMail"),
+    @NamedQuery(name = "TipoMail.findByDescripcion", query = "SELECT t FROM TipoMail t WHERE t.descripcion = :descripcion")
 })
 public class TipoMail implements Serializable 
 {
@@ -26,46 +26,46 @@ public class TipoMail implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "tp_mail")
-    private Short tpMail;
+    private Short id;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "nb_tipo")
-    private String nbTipo;
+    private String descripcion;
 
     public TipoMail() {
     }
 
-    public TipoMail(Short tpMail) {
-        this.tpMail = tpMail;
+    public TipoMail(Short id) {
+        this.id = id;
     }
 
-    public TipoMail(Short tpMail, String nbTipo) {
-        this.tpMail = tpMail;
-        this.nbTipo = nbTipo;
+    public TipoMail(Short id, String descripcion) {
+        this.id = id;
+        this.descripcion = descripcion;
     }
 
-    public Short getTpMail() {
-        return tpMail;
+    public Short getId() {
+        return id;
     }
 
-    public void setTpMail(Short tpMail) {
-        this.tpMail = tpMail;
+    public void setId(Short id) {
+        this.id = id;
     }
 
-    public String getNbTipo() {
-        return nbTipo;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNbTipo(String nbTipo) {
-        this.nbTipo = nbTipo;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (tpMail != null ? tpMail.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -76,7 +76,7 @@ public class TipoMail implements Serializable
             return false;
         }
         TipoMail other = (TipoMail) object;
-        if ((this.tpMail == null && other.tpMail != null) || (this.tpMail != null && !this.tpMail.equals(other.tpMail))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -84,7 +84,7 @@ public class TipoMail implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.TipoMail[ tpMail=" + tpMail + " ]";
+        return "com.ferbo.gestion.core.model.TipoMail[ id=" + id + " ]";
     }
     
 }

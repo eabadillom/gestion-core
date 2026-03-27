@@ -181,14 +181,14 @@ public class ServicioFactura implements Serializable
     }
 
     public ClaveUnidad getCdUnidad() {
-		return cdUnidad;
-	}
+        return cdUnidad;
+    }
 
-	public void setCdUnidad(ClaveUnidad cdUnidad) {
-		this.cdUnidad = cdUnidad;
-	}
+    public void setCdUnidad(ClaveUnidad cdUnidad) {
+        this.cdUnidad = cdUnidad;
+    }
 
-	@Override
+    @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
@@ -210,7 +210,7 @@ public class ServicioFactura implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.ServicioFactura[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.ServicioFactura[ id=" + id + " ]";
     }
     
 }

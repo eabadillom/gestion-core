@@ -1,8 +1,8 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -18,7 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -69,19 +68,16 @@ public class Salida implements Serializable
     private String observaciones;
     
     @Column(name = "fh_salida")
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date fechaSalida;
+    private LocalDate fechaSalida;
     
     @Column(name = "tm_salida")
     private LocalTime horaSalida;
     
     @Column(name = "fh_registro")
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date fechaRegistro;
+    private LocalDate fechaRegistro;
     
     @Column(name = "fh_modificacion")
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date fechaModificacion;
+    private LocalDate fechaModificacion;
     
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "salida")
     private List<SalidaDetalle> listSalidaDetalle;
@@ -156,11 +152,11 @@ public class Salida implements Serializable
         this.observaciones = observaciones;
     }
 
-    public Date getFechaSalida() {
+    public LocalDate getFechaSalida() {
         return fechaSalida;
     }
 
-    public void setFechaSalida(Date fechaSalida) {
+    public void setFechaSalida(LocalDate fechaSalida) {
         this.fechaSalida = fechaSalida;
     }
 
@@ -172,19 +168,19 @@ public class Salida implements Serializable
         this.horaSalida = horaSalida;
     }
 
-    public Date getFechaRegistro() {
+    public LocalDate getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Date fechaRegistro) {
+    public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public Date getFechaModificacion() {
+    public LocalDate getFechaModificacion() {
         return fechaModificacion;
     }
 
-    public void setFechaModificacion(Date fechaModificacion) {
+    public void setFechaModificacion(LocalDate fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
     }
 
@@ -232,7 +228,7 @@ public class Salida implements Serializable
 
     @Override
     public String toString() {
-        return "Salida[" + "id=" + id + ", folioSalida=" + folioSalida + ", placasTransporte=" + placasTransporte 
+        return "com.ferbo.gestion.core.model.Salida[" + "id=" + id + ", folioSalida=" + folioSalida + ", placasTransporte=" + placasTransporte 
             + ", nombreTransportista=" + nombreTransportista + ", observaciones=" + observaciones + ", fechaSalida=" + fechaSalida 
                 + ", horaSalida=" + horaSalida + ", fechaRegistro=" + fechaRegistro + ", fechaModificacion=" + fechaModificacion + ']';
     }

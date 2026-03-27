@@ -72,7 +72,7 @@ public class EstadoPK implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.EstadoPK[ idPais=" + pais.getId() + ", idEstado=" + id + " ]";
+        return "com.ferbo.gestion.core.model.EstadoPK[ idPais=" + pais.getId() + ", idEstado=" + id + " ]";
     }
     
 }

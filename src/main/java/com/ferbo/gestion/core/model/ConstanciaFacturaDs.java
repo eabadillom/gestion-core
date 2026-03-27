@@ -129,7 +129,7 @@ public class ConstanciaFacturaDs implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.ConstanciaFacturaDs[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.ConstanciaFacturaDs[ id=" + id + " folioCliente=" + folioCliente + " ]";
     }
     
 }

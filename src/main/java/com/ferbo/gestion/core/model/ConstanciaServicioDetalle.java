@@ -105,7 +105,7 @@ public class ConstanciaServicioDetalle implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.ConstanciaServicioDetalle[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.ConstanciaServicioDetalle[ id=" + id + " ]";
     }
     
 }

@@ -91,7 +91,7 @@ public class TipoFacturacion implements Serializable {
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.TipoFacturacion[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.TipoFacturacion[ id=" + id + " ]";
     }
     
 }

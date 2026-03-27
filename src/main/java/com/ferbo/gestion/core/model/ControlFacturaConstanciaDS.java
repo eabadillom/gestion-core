@@ -121,7 +121,7 @@ public class ControlFacturaConstanciaDS implements Serializable
 
     @Override
     public String toString() {
-        return "ControlFacturaConstanciaDS [controlFactConstDsPK=" + controlFactConstDsPK + ", constanciaServicio="
+        return "com.ferbo.gestion.core.model.ControlFacturaConstanciaDS [controlFactConstDsPK=" + controlFactConstDsPK + ", constanciaServicio="
                 + constanciaDeServicio + ", factura=" + factura + ", status=" + status + "]";
     }
 

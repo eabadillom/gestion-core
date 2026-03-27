@@ -1,9 +1,8 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,7 +37,7 @@ public class Cfdi implements Serializable
 
     @Column(name = "cfdi_fecha")
     @Basic(optional = false)
-    private Date fecha;
+    private LocalDateTime fecha;
 
     @Column(name = "cfdi_cert_sat")
     @Basic(optional = false)
@@ -46,34 +45,6 @@ public class Cfdi implements Serializable
     private String certificadoSAT;
 
     public Cfdi() {
-    }
-
-    @Override
-    public int hashCode() {
-        if (this.id == null) {
-            return System.identityHashCode(this);
-        }
-        return Objects.hash(id);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Cfdi other = (Cfdi) obj;
-        return Objects.equals(id, other.id);
-    }
-
-    @Override
-    public String toString() {
-        return "Cfdi [id=" + id + ", uuid=" + uuid + ", fecha=" + fecha + ", certificadoSAT=" + certificadoSAT + "]";
     }
 
     public Integer getId() {
@@ -100,11 +71,11 @@ public class Cfdi implements Serializable
         this.uuid = uuid;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
@@ -133,7 +104,7 @@ public class Cfdi implements Serializable
         private Integer id;
         private Factura factura;
         private String uuid;
-        private Date fecha;
+        private LocalDateTime fecha;
         private String certificadoSAT;
 
         private Builder() {
@@ -154,7 +125,7 @@ public class Cfdi implements Serializable
             return this;
         }
 
-        public Builder fecha(Date fecha) {
+        public Builder fecha(LocalDateTime fecha) {
             this.fecha = fecha;
             return this;
         }
@@ -167,6 +138,34 @@ public class Cfdi implements Serializable
         public Cfdi build() {
             return new Cfdi(this);
         }
+    }
+    
+    @Override
+    public int hashCode() {
+        if (this.id == null) {
+            return System.identityHashCode(this);
+        }
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Cfdi other = (Cfdi) obj;
+        return Objects.equals(id, other.id);
+    }
+
+    @Override
+    public String toString() {
+        return "com.ferbo.gestion.core.model.Cfdi[id=" + id + ", uuid=" + uuid + ", fecha=" + fecha + ", certificadoSAT=" + certificadoSAT + "]";
     }
     
 }

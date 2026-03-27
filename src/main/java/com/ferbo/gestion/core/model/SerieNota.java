@@ -1,7 +1,7 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "serie_nota")
@@ -38,8 +36,7 @@ public class SerieNota implements Serializable
     private Integer id;
     
     @Column(name = "FECHA_INICIO")
-    @Temporal(TemporalType.DATE)
-    private Date fechaInicio;
+    private LocalDate fechaInicio;
     
     @Column(name = "NUMERO_INICIAL")
     private Integer numeroInicial;
@@ -69,11 +66,11 @@ public class SerieNota implements Serializable
         this.id = id;
     }
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
@@ -131,7 +128,7 @@ public class SerieNota implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.SerieNota[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.SerieNota[ id=" + id + " ]";
     }
     
 }

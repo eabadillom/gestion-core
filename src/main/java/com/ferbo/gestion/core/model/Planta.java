@@ -328,7 +328,7 @@ public class Planta implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Planta[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.Planta[ id=" + id + " ]";
     }
 
 }

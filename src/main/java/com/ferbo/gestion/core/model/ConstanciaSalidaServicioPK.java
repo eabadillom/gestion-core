@@ -69,7 +69,7 @@ public class ConstanciaSalidaServicioPK implements Serializable
 
     @Override
     public String toString() {
-        return "ConstanciaSalidaServicioPK [constanciaSalida=" + constanciaSalida + ", servicio="
+        return "com.ferbo.gestion.core.model.ConstanciaSalidaServicioPK [constanciaSalida=" + constanciaSalida + ", servicio="
                 + servicio + "]";
     }
     

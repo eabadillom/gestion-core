@@ -47,11 +47,6 @@ public class NotaPorFacturaPK implements Serializable, Cloneable
     }
 
     @Override
-    public String toString() {
-        return "NotaPorFacturaPK [nota=" + nota.getId() + ", factura=" + factura.getId() + "]";
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(factura, nota);
     }
@@ -69,6 +64,11 @@ public class NotaPorFacturaPK implements Serializable, Cloneable
         }
         NotaPorFacturaPK other = (NotaPorFacturaPK) obj;
         return Objects.equals(factura, other.factura) && Objects.equals(nota, other.nota);
+    }
+    
+    @Override
+    public String toString() {
+        return "com.ferbo.gestion.core.model.NotaPorFacturaPK [nota=" + nota.getId() + ", factura=" + factura.getId() + "]";
     }
 
 }

@@ -107,11 +107,11 @@ public class Saldo
 
     @Override
     public String toString() {
-        return "{\"numeroCliente\":\"" + numeroCliente + "\", \"nombreCliente\":\"" + nombreCliente
+        return "com.ferbo.gestion.core.model.Saldo[\"numeroCliente\":\"" + numeroCliente + "\", \"nombreCliente\":\"" + nombreCliente
                 + "\", \"emisorRFC\":\"" + emisorRFC + "\", \"emisorNombre\":\"" + emisorNombre + "\", \"saldo\":\""
                 + saldo + "\", \"enPlazo\":\"" + enPlazo + "\", \"atraso8dias\":\"" + atraso8dias
                 + "\", \"atraso15dias\":\"" + atraso15dias + "\", \"atraso30dias\":\"" + atraso30dias
-                + "\", \"atraso60dias\":\"" + atraso60dias + "\", \"atrasoMayor60dias\":\"" + atrasoMayor60dias + "\"}";
+                + "\", \"atraso60dias\":\"" + atraso60dias + "\", \"atrasoMayor60dias\":\"" + atrasoMayor60dias + "\"]";
     }
 
 }

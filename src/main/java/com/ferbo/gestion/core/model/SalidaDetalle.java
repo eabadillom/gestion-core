@@ -116,7 +116,7 @@ public class SalidaDetalle implements Serializable
 
     @Override
     public String toString() {
-        return "SalidaDetalle[" + "id=" + id + ", cantidad=" + cantidad + ", pesoAprox=" + pesoAprox + ']';
+        return "com.ferbo.gestion.core.model.SalidaDetalle[" + "id=" + id + ", cantidad=" + cantidad + ", pesoAprox=" + pesoAprox + ']';
     }
     
 }

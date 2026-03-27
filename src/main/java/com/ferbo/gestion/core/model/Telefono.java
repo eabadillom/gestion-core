@@ -129,7 +129,7 @@ public class Telefono implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Telefono[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.Telefono[ id=" + id + " ]";
     }
 
 }

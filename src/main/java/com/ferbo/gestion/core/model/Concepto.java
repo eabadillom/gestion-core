@@ -1,7 +1,7 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -37,11 +37,11 @@ public class Concepto implements Serializable
 
     @Basic(optional = false)
     @Column(name = "fh_vigencia_ini")
-    private Date vigenciaInicio;
+    private LocalDate vigenciaInicio;
 
     @Basic(optional = true)
     @Column(name = "fh_vigencia_fin")
-    private Date vigenciaFin;
+    private LocalDate vigenciaFin;
 
     @Basic(optional = true)
     @Column(name = "nb_pal_similares")
@@ -64,19 +64,19 @@ public class Concepto implements Serializable
         this.nombre = nombre;
     }
 
-    public Date getVigenciaInicio() {
+    public LocalDate getVigenciaInicio() {
         return vigenciaInicio;
     }
 
-    public void setVigenciaInicio(Date vigenciaInicio) {
+    public void setVigenciaInicio(LocalDate vigenciaInicio) {
         this.vigenciaInicio = vigenciaInicio;
     }
 
-    public Date getVigenciaFin() {
+    public LocalDate getVigenciaFin() {
         return vigenciaFin;
     }
 
-    public void setVigenciaFin(Date vigenciaFin) {
+    public void setVigenciaFin(LocalDate vigenciaFin) {
         this.vigenciaFin = vigenciaFin;
     }
 

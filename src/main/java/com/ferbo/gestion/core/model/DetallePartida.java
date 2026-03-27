@@ -2,7 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -36,75 +34,74 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "DetallePartida.findByDtpSAP", query = "SELECT d FROM DetallePartida d WHERE d.dtpSAP = :dtpSAP"),
     @NamedQuery(name = "DetallePartida.findByDtpTarimas", query = "SELECT d FROM DetallePartida d WHERE d.dtpTarimas = :dtpTarimas")
 })
-public class DetallePartida implements Serializable, Cloneable 
-{
+public class DetallePartida implements Serializable, Cloneable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @EmbeddedId
     private DetallePartidaPK detallePartidaPK;
-    
+
     @Column(name = "det_padre")
     private Integer detPadre;
-    
+
     @Column(name = "det_part_padre")
     private Integer detPartPadre;
-    
+
     @Column(name = "cantidad_u_manejo")
     private Integer cantidadUManejo;
-    
+
     @Column(name = "cantidad_u_medida")
     private BigDecimal cantidadUMedida;
-    
+
     @Size(max = 12)
     @Column(name = "dtp_codigo")
     private String dtpCodigo;
-    
+
     @Size(max = 20)
     @Column(name = "dtp_lote")
     private String dtpLote;
-    
+
     @Column(name = "dtp_caducidad")
-    @Temporal(TemporalType.DATE)
-    private Date dtpCaducidad;
-    
+    private LocalDate dtpCaducidad;
+
     @Size(max = 12)
     @Column(name = "dtp_PO")
     private String dtpPO;
-    
+
     @Size(max = 20)
     @Column(name = "dtp_MP")
     private String dtpMP;
-    
+
     @Size(max = 13)
     @Column(name = "dtp_pedimento")
     private String dtpPedimento;
-    
+
     @Size(max = 20)
     @Column(name = "dtp_SAP")
     private String dtpSAP;
-    
+
     @Size(max = 15)
     @Column(name = "dtp_tarimas")
     private String dtpTarimas;
-    
+
     @JoinColumns({
         @JoinColumn(name = "det_anterior", referencedColumnName = "DET_PART_CVE"),
         @JoinColumn(name = "det_part_anterior", referencedColumnName = "PARTIDA_CVE")})
     @ManyToOne(cascade = CascadeType.MERGE)
     private DetallePartida detallePartida;
-    
+
     @JoinColumn(name = "tipo_mov_cve", referencedColumnName = "CLAVE")
     @ManyToOne(cascade = CascadeType.DETACH)
     private TipoMovimiento tipoMovimiento;
-    
+
     @JoinColumn(name = "u_medida_cve", referencedColumnName = "UNIDAD_DE_MANEJO_CVE")
     @ManyToOne
     private UnidadManejo unidadMedida;
-    
+
     @JoinColumn(name = "edo_inv_cve", referencedColumnName = "edo_inv_cve")
     @ManyToOne(cascade = CascadeType.DETACH)
     private EstadoInventario edoInventario;
-    
+
     public DetallePartida() {
     }
 
@@ -172,11 +169,11 @@ public class DetallePartida implements Serializable, Cloneable
         this.dtpLote = dtpLote;
     }
 
-    public Date getDtpCaducidad() {
+    public LocalDate getDtpCaducidad() {
         return dtpCaducidad;
     }
 
-    public void setDtpCaducidad(Date dtpCaducidad) {
+    public void setDtpCaducidad(LocalDate dtpCaducidad) {
         this.dtpCaducidad = dtpCaducidad;
     }
 
@@ -273,37 +270,41 @@ public class DetallePartida implements Serializable, Cloneable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.DetallePartida[ detallePartidaPK=" + detallePartidaPK + " ]";
+        return "com.ferbo.gestion.core.model.DetallePartida[ detallePartidaPK=" + detallePartidaPK + " ]";
     }
 
-	@Override
-	public DetallePartida clone() throws CloneNotSupportedException {
-		DetallePartida dp = null;
-		
-		dp = new DetallePartida();
-		dp.setDetallePartidaPK(new DetallePartidaPK());
-		dp.setDetPadre(this.detPadre == null ? null : new Integer(this.detPadre));
-		dp.setDetPartPadre(this.detPartPadre == null ? null : new Integer(this.detPartPadre));
-		dp.setCantidadUManejo(this.cantidadUManejo == null ? null : new Integer(this.cantidadUManejo));
-		dp.setCantidadUMedida(this.cantidadUMedida);
-		dp.setDtpCodigo(this.dtpCodigo);
-		dp.setDtpLote(this.dtpLote);
-		dp.setDtpCaducidad(this.dtpCaducidad == null ? null : new Date(this.dtpCaducidad.getTime()));
-		dp.setDtpPO(this.getDtpPO());
-		dp.setDtpMP(this.dtpMP);
-		dp.setDtpPedimento(this.dtpPedimento);
-		dp.setDtpSAP(this.dtpSAP);
-		dp.setDtpTarimas(this.dtpTarimas);
-		dp.setDetallePartida(this.detallePartida);
-		if(this.getTipoMovimiento() != null)
-			dp.setTipoMovimiento(this.tipoMovimiento);
-		
-		if(this.unidadMedida != null)
-			dp.setUnidadMedida(this.unidadMedida );
-		
-		if(this.edoInventario != null)
-			dp.setEdoInventario(this.edoInventario);
-		
-		return dp;
-	}
+    @Override
+    public DetallePartida clone() throws CloneNotSupportedException {
+        DetallePartida dp = null;
+
+        dp = new DetallePartida();
+        dp.setDetallePartidaPK(new DetallePartidaPK());
+        dp.setDetPadre(this.detPadre == null ? null : new Integer(this.detPadre));
+        dp.setDetPartPadre(this.detPartPadre == null ? null : new Integer(this.detPartPadre));
+        dp.setCantidadUManejo(this.cantidadUManejo == null ? null : new Integer(this.cantidadUManejo));
+        dp.setCantidadUMedida(this.cantidadUMedida);
+        dp.setDtpCodigo(this.dtpCodigo);
+        dp.setDtpLote(this.dtpLote);
+        dp.setDtpCaducidad(this.dtpCaducidad == null ? null : this.dtpCaducidad);
+        dp.setDtpPO(this.getDtpPO());
+        dp.setDtpMP(this.dtpMP);
+        dp.setDtpPedimento(this.dtpPedimento);
+        dp.setDtpSAP(this.dtpSAP);
+        dp.setDtpTarimas(this.dtpTarimas);
+        dp.setDetallePartida(this.detallePartida);
+        if (this.getTipoMovimiento() != null) {
+            dp.setTipoMovimiento(this.tipoMovimiento);
+        }
+
+        if (this.unidadMedida != null) {
+            dp.setUnidadMedida(this.unidadMedida);
+        }
+
+        if (this.edoInventario != null) {
+            dp.setEdoInventario(this.edoInventario);
+        }
+
+        return dp;
+    }
+    
 }

@@ -141,7 +141,7 @@ public class PartidaServicio implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.PartidaServicio[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.PartidaServicio[ id=" + id + " ]";
     }
     
 }

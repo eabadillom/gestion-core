@@ -87,7 +87,7 @@ public class Categoria implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Categoria[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.Categoria[ id=" + id + " ]";
     }
     
 }

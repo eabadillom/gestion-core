@@ -75,7 +75,7 @@ public class CiudadPK implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.CiudadesPK[ idCiudad=" + id + " ]";
+        return "com.ferbo.gestion.core.model.CiudadesPK[ idCiudad=" + id + " ]";
     }
     
 }

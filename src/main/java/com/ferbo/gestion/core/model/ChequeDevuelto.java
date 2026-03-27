@@ -2,7 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -49,14 +47,12 @@ public class ChequeDevuelto implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHA_DEVUELTO")
-    @Temporal(TemporalType.DATE)
-    private Date fechaDevuelto;
+    private LocalDateTime fechaDevuelto;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHA_PAGO")
-    @Temporal(TemporalType.DATE)
-    private Date fechaPago;
+    private LocalDateTime fechaPago;
     
     @Basic(optional = false)
     @NotNull
@@ -87,7 +83,7 @@ public class ChequeDevuelto implements Serializable
         this.id = id;
     }
 
-    public ChequeDevuelto(Integer id, Date fechaDevuelto, Date fechaPago, BigDecimal montoPago, int banco) {
+    public ChequeDevuelto(Integer id, LocalDateTime fechaDevuelto, LocalDateTime fechaPago, BigDecimal montoPago, int banco) {
         this.id = id;
         this.fechaDevuelto = fechaDevuelto;
         this.fechaPago = fechaPago;
@@ -111,19 +107,19 @@ public class ChequeDevuelto implements Serializable
         this.cheque = cheque;
     }
 
-    public Date getFechaDevuelto() {
+    public LocalDateTime getFechaDevuelto() {
         return fechaDevuelto;
     }
 
-    public void setFechaDevuelto(Date fechaDevuelto) {
+    public void setFechaDevuelto(LocalDateTime fechaDevuelto) {
         this.fechaDevuelto = fechaDevuelto;
     }
 
-    public Date getFechaPago() {
+    public LocalDateTime getFechaPago() {
         return fechaPago;
     }
 
-    public void setFechaPago(Date fechaPago) {
+    public void setFechaPago(LocalDateTime fechaPago) {
         this.fechaPago = fechaPago;
     }
 
@@ -189,7 +185,7 @@ public class ChequeDevuelto implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.ChequeDevuelto[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.ChequeDevuelto[ id=" + id + " ]";
     }
     
 }

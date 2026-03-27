@@ -1,21 +1,21 @@
 package com.ferbo.gestion.core.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Inventario 
 {
     protected Integer partidaCve;
     protected Integer folio;
-    protected Date fechaIngreso;
+    protected LocalDate fechaIngreso;
     protected Producto producto;
     protected Cliente cliente;
     protected Integer cantidad;
     protected UnidadManejo unidadManejo;
     protected Planta planta;
     protected Integer plantad;
-    protected Date caducidad;
+    protected LocalDate caducidad;
     protected String codigo;
     protected String lote;
     protected String sap;
@@ -53,7 +53,7 @@ public class Inventario
     }
 
     public Inventario(Integer folio, Producto producto, Cliente cliente, Integer cantidad, UnidadManejo unidadManejo,
-            Planta planta, Integer plantad, Date caducidad, String codigo, String lote, String sap, Camara camara,
+            Planta planta, Integer plantad, LocalDate caducidad, String codigo, String lote, String sap, Camara camara,
             Integer camarad, Posicion posicion, Integer posiciond, Integer partidaCve, BigDecimal peso,
             String inventarioCve, String detalleAnt, Integer detallePartidaAnterior, Integer detallePadre,
             Integer detallePartidaPadre, String po, String mp, String pedimento, String tarimas, String folioCliente,
@@ -77,7 +77,7 @@ public class Inventario
     }
 
     public Inventario(Integer folio, Producto producto, Integer cantidad, UnidadManejo unidadManejo, Planta planta,
-            Date caducidad, String codigo, String lote, String sap, Camara camara, Posicion posicion, Integer partidaCve,
+            LocalDate caducidad, String codigo, String lote, String sap, Camara camara, Posicion posicion, Integer partidaCve,
             BigDecimal peso, String inventarioCve, String detalleAnt, Integer detallePartidaAnterior,
             Integer detallePadre, Integer detallePartidaPadre, String po, String mp, String pedimento, String tarimas,
             Servicio srv, ConstanciaDeposito constanciaDeposito) {
@@ -163,11 +163,11 @@ public class Inventario
         this.planta = planta;
     }
 
-    public Date getCaducidad() {
+    public LocalDate getCaducidad() {
         return caducidad;
     }
 
-    public void setCaducidad(Date caducidad) {
+    public void setCaducidad(LocalDate caducidad) {
         this.caducidad = caducidad;
     }
 
@@ -347,11 +347,11 @@ public class Inventario
         this.posicion = posicion;
     }
 
-    public Date getFechaIngreso() {
+    public LocalDate getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(Date fechaIngreso) {
+    public void setFechaIngreso(LocalDate fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 
@@ -388,7 +388,7 @@ public class Inventario
 
     @Override
     public String toString() {
-        return "Inventario [folio=" + folio + ", producto=" + producto + ", cliente=" + cliente + ", cantidad="
+        return "com.ferbo.gestion.core.model.Inventario [folio=" + folio + ", producto=" + producto + ", cliente=" + cliente + ", cantidad="
                 + cantidad + ", unidadManejo=" + unidadManejo + ", planta=" + planta + ", plantad=" + plantad
                 + ", caducidad=" + caducidad + ", codigo=" + codigo + ", lote=" + lote + ", sap=" + sap + ", camara="
                 + camara + ", camarad=" + camarad + ", posicion=" + posicion + ", partidaCve=" + partidaCve + ", peso="

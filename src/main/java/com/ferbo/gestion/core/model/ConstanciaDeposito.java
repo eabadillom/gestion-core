@@ -2,7 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -18,8 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -51,8 +49,7 @@ public class ConstanciaDeposito implements Serializable
     private Integer folio;
 
     @Column(name = "FECHA_INGRESO")
-    @Temporal(TemporalType.DATE)
-    private Date fechaIngreso;
+    private LocalDate fechaIngreso;
 
     @Size(max = 100)
     @Column(name = "NOMBRE_TRANSPORTISTA")
@@ -91,7 +88,7 @@ public class ConstanciaDeposito implements Serializable
 
     @JoinColumn(name = "aviso_cve", referencedColumnName = "aviso_cve", nullable = false)
     @ManyToOne
-    private Aviso avisoCve;
+    private Aviso aviso;
 
     @JoinColumn(name = "status", referencedColumnName = "edo_cve", nullable = false)
     @ManyToOne
@@ -120,11 +117,11 @@ public class ConstanciaDeposito implements Serializable
         this.folio = folio;
     }
 
-    public Date getFechaIngreso() {
+    public LocalDate getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(Date fechaIngreso) {
+    public void setFechaIngreso(LocalDate fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 
@@ -206,12 +203,12 @@ public class ConstanciaDeposito implements Serializable
         this.cliente = cliente;
     }
 
-    public Aviso getAvisoCve() {
-        return avisoCve;
+    public Aviso getAviso() {
+        return aviso;
     }
 
-    public void setAvisoCve(Aviso avisoCve) {
-        this.avisoCve = avisoCve;
+    public void setAviso(Aviso aviso) {
+        this.aviso = aviso;
     }
 
     public EstadoConstancia getStatus() {
@@ -253,7 +250,7 @@ public class ConstanciaDeposito implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.ConstanciaDeposito[ folio=" + folio + " ]";
+        return "com.ferbo.gestion.core.model.ConstanciaDeposito[ folio=" + folio + " ]";
     }
 
 }

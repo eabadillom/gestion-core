@@ -2,7 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -17,8 +17,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -46,8 +44,7 @@ public class ConstanciaDeServicio implements Serializable
     private Integer folio;
     
     @Column(name = "FECHA")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private LocalDate fecha;
     
     @Size(max = 100)
     @Column(name = "NOMBRE_TRANSPORTISTA")
@@ -107,11 +104,11 @@ public class ConstanciaDeServicio implements Serializable
         this.folio = folio;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -217,7 +214,7 @@ public class ConstanciaDeServicio implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.ConstanciaDeServicio[ folio=" + folio + " ]";
+        return "com.ferbo.gestion.core.model.ConstanciaDeServicio[ folio=" + folio + " ]";
     }
     
 }

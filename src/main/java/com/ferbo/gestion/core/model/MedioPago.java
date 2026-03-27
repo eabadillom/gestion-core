@@ -1,7 +1,7 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -53,12 +51,10 @@ public class MedioPago implements Serializable
     private String formaPago = null;
 
     @Column(name = "mp_fh_vigencia_ini")
-    @Temporal(TemporalType.DATE)
-    private Date vigenciaInicio = null;
+    private LocalDate vigenciaInicio = null;
 
     @Column(name = "mp_fh_vigencia_fin")
-    @Temporal(TemporalType.DATE)
-    private Date vigenciaFin = null;
+    private LocalDate vigenciaFin = null;
 
     public MedioPago() {
     }
@@ -105,19 +101,19 @@ public class MedioPago implements Serializable
         this.formaPago = formaPago;
     }
 
-    public Date getVigenciaInicio() {
+    public LocalDate getVigenciaInicio() {
         return vigenciaInicio;
     }
 
-    public void setVigenciaInicio(Date vigenciaInicio) {
+    public void setVigenciaInicio(LocalDate vigenciaInicio) {
         this.vigenciaInicio = vigenciaInicio;
     }
 
-    public Date getVigenciaFin() {
+    public LocalDate getVigenciaFin() {
         return vigenciaFin;
     }
 
-    public void setVigenciaFin(Date vigenciaFin) {
+    public void setVigenciaFin(LocalDate vigenciaFin) {
         this.vigenciaFin = vigenciaFin;
     }
 
@@ -144,7 +140,7 @@ public class MedioPago implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.MedioPago[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.MedioPago[ id=" + id + " ]";
     }
 
 }

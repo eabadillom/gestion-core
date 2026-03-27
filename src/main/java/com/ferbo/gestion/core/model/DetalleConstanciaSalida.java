@@ -3,7 +3,6 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,8 +24,8 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "DetalleConstanciaSalida.findAll", query = "SELECT d FROM DetalleConstanciaSalida d"),
     @NamedQuery(name = "DetalleConstanciaSalida.findById", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.id = :id"),
-    @NamedQuery(name = "DetalleConstanciaSalida.findByPartidaCve", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.partida.id = :idPartida"),//nueva
-    @NamedQuery(name = "DetalleConstanciaSalida.findByCamaraCve", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.camaraCve = :camaraCve"),
+    @NamedQuery(name = "DetalleConstanciaSalida.findByPartida", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.partida.id = :idPartida"),//nueva
+    @NamedQuery(name = "DetalleConstanciaSalida.findByCamara", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.camaraCve = :camaraCve"),
     @NamedQuery(name = "DetalleConstanciaSalida.findByCantidad", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.cantidad = :cantidad"),
     @NamedQuery(name = "DetalleConstanciaSalida.findByPeso", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.peso = :peso"),
     @NamedQuery(name = "DetalleConstanciaSalida.findByUnidad", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.unidad = :unidad"),
@@ -189,14 +188,7 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
     public void setConstancia(ConstanciaSalida constancia) {
         this.constancia = constancia;
     }
-
-//    public DetallePartida getDetallePartida() {
-//        return detallePartida;
-//    }
-//
-//    public void setDetallePartida(DetallePartida detallePartida) {
-//        this.detallePartida = detallePartida;
-//    }
+    
     public Partida getPartida() {
         return partida;
     }
@@ -205,6 +197,14 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
         this.partida = partida;
     }
 
+    public int getDetPart() {
+        return detPart;
+    }
+
+    public void setDetPart(int detPart) {
+        this.detPart = detPart;
+    }
+    
     @Override
     public int hashCode() {
         if (this.id == null) {
@@ -228,22 +228,7 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.DetalleConstanciaSalida[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.DetalleConstanciaSalida[ id=" + id + " ]";
     }
-
-    public int getDetPart() {
-        return detPart;
-    }
-
-    public void setDetPart(int detPart) {
-        this.detPart = detPart;
-    }
-
-//	public DetallePartida getDetallePartida() {
-//		return detallePartida;
-//	}
-//
-//	public void setDetallePartida(DetallePartida detallePartida) {
-//		this.detallePartida = detallePartida;
-//	}
+    
 }

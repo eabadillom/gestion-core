@@ -107,7 +107,7 @@ public class TipoPago implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.TipoPago[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.TipoPago[ id=" + id + " ]";
     }
     
 }

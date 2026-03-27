@@ -1,7 +1,7 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -16,8 +16,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -56,12 +54,10 @@ public class ConstanciaFactura implements Serializable
     private String folioCliente;
 
     @Column(name = "vigencia_inicio")
-    @Temporal(TemporalType.DATE)
-    private Date vigenciaInicio;
+    private LocalDate vigenciaInicio;
 
     @Column(name = "vigencia_fin")
-    @Temporal(TemporalType.DATE)
-    private Date vigenciaFin;
+    private LocalDate vigenciaFin;
 
     @Column(name = "planta_cve")
     private Integer plantaCve;
@@ -118,19 +114,19 @@ public class ConstanciaFactura implements Serializable
         this.folioCliente = folioCliente;
     }
 
-    public Date getVigenciaInicio() {
+    public LocalDate getVigenciaInicio() {
         return vigenciaInicio;
     }
 
-    public void setVigenciaInicio(Date vigenciaInicio) {
+    public void setVigenciaInicio(LocalDate vigenciaInicio) {
         this.vigenciaInicio = vigenciaInicio;
     }
 
-    public Date getVigenciaFin() {
+    public LocalDate getVigenciaFin() {
         return vigenciaFin;
     }
 
-    public void setVigenciaFin(Date vigenciaFin) {
+    public void setVigenciaFin(LocalDate vigenciaFin) {
         this.vigenciaFin = vigenciaFin;
     }
 
@@ -236,7 +232,7 @@ public class ConstanciaFactura implements Serializable
 
     @Override
     public String toString() {
-        return "ConstanciaFactura [id=" + id + ", folio=" + constanciaDeposito + ", folioCliente="
+        return "com.ferbo.gestion.core.model.ConstanciaFactura [id=" + id + ", folio=" + constanciaDeposito + ", folioCliente="
                 + folioCliente + ", vigenciaInicio=" + vigenciaInicio + ", vigenciaFin=" + vigenciaFin + ", plantaCve="
                 + plantaCve + ", plantaDs=" + plantaDs + ", plantaAbrev=" + plantaAbrev + ", camaraCve=" + camaraCve
                 + ", camaraDs=" + camaraDs + ", camaraAbrev=" + camaraAbrev + ", factura=" + factura

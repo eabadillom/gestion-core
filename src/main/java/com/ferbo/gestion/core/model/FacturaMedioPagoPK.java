@@ -69,7 +69,7 @@ public class FacturaMedioPagoPK implements Serializable
 
     @Override
     public String toString() {
-        return "FacturaMedioPagoPK [id=" + id + "]";
+        return "com.ferbo.gestion.core.model.FacturaMedioPagoPK [id=" + id + "]";
     }
 
 }

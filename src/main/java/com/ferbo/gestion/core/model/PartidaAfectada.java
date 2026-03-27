@@ -90,12 +90,6 @@ public class PartidaAfectada implements Serializable
     }
 
     @Override
-    public String toString() {
-        return "PartidaAfectada [id=" + id + ", traspaso=" + traspaso + ", partida=" + partida + ", partidatraspaso="
-                + partidaTraspaso + "]";
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(id, partida, partidaTraspaso, traspaso);
     }
@@ -114,6 +108,12 @@ public class PartidaAfectada implements Serializable
         PartidaAfectada other = (PartidaAfectada) obj;
         return Objects.equals(id, other.id) && Objects.equals(partida, other.partida)
                 && Objects.equals(partidaTraspaso, other.partidaTraspaso) && Objects.equals(traspaso, other.traspaso);
+    }
+    
+    @Override
+    public String toString() {
+        return "com.ferbo.gestion.core.model.PartidaAfectada [id=" + id + ", traspaso=" + traspaso + ", partida=" + partida + ", partidatraspaso="
+                + partidaTraspaso + "]";
     }
 
 }

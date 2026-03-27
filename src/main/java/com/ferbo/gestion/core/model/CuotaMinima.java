@@ -114,7 +114,7 @@ public class CuotaMinima implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.CuotaMinima[ cuotaMinimaPK=" + cuotaMinimaPK + " ]";
+        return "com.ferbo.gestion.core.model.CuotaMinima[ cuotaMinimaPK=" + cuotaMinimaPK + " ]";
     }
     
 }

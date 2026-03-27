@@ -3,7 +3,6 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -131,7 +130,7 @@ public class Producto implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Producto[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.Producto[ id=" + id + " ]";
     }
     
 }

@@ -38,39 +38,6 @@ public class Tarima implements Serializable
     @OneToMany(mappedBy = "tarima")
     private List<Partida> partidas;
 
-    @Override
-    public int hashCode() {
-        if (this.id == null) {
-            return System.identityHashCode(this);
-        }
-        return Objects.hash(this.id);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Tarima other = (Tarima) obj;
-
-        if (this.id == null || other.id == null) {
-            return Objects.equals(this.hashCode(), other.hashCode());
-        }
-
-        return Objects.equals(id, other.id);
-    }
-
-    @Override
-    public String toString() {
-        return "Tarima [hashCode=" + this.hashCode() + " id=" + this.id + ", nombre=" + nombre + "]";
-    }
-
     public Tarima() {
     }
 
@@ -105,6 +72,39 @@ public class Tarima implements Serializable
 
     public void setPartidas(List<Partida> partidas) {
         this.partidas = partidas;
+    }
+    
+    @Override
+    public int hashCode() {
+        if (this.id == null) {
+            return System.identityHashCode(this);
+        }
+        return Objects.hash(this.id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Tarima other = (Tarima) obj;
+
+        if (this.id == null || other.id == null) {
+            return Objects.equals(this.hashCode(), other.hashCode());
+        }
+
+        return Objects.equals(id, other.id);
+    }
+
+    @Override
+    public String toString() {
+        return "com.ferbo.gestion.core.model.Tarima [hashCode=" + this.hashCode() + " id=" + this.id + ", nombre=" + nombre + "]";
     }
     
 }

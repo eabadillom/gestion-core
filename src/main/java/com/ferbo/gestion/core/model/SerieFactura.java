@@ -1,7 +1,7 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,8 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -44,8 +42,7 @@ public class SerieFactura implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_inicio")
-    @Temporal(TemporalType.DATE)
-    private Date fechaInicio;
+    private LocalDate fechaInicio;
     
     @Basic(optional = false)
     @NotNull
@@ -83,7 +80,7 @@ public class SerieFactura implements Serializable
         this.id = id;
     }
 
-    public SerieFactura(Integer id, Date fechaInicio, int numeroInicial, int numeroActual, int numeroFinal, String nomSerie) {
+    public SerieFactura(Integer id, LocalDate fechaInicio, int numeroInicial, int numeroActual, int numeroFinal, String nomSerie) {
         this.id = id;
         this.fechaInicio = fechaInicio;
         this.numeroInicial = numeroInicial;
@@ -100,11 +97,11 @@ public class SerieFactura implements Serializable
         this.id = id;
     }
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
@@ -188,7 +185,7 @@ public class SerieFactura implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.SerieFactura[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.SerieFactura[ id=" + id + " ]";
     }
     
 }

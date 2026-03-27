@@ -103,7 +103,7 @@ public class DetalleCteProd implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.DetalleCteProd[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.DetalleCteProd[ id=" + id + " ]";
     }
     
 }

@@ -1,7 +1,7 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -15,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -31,7 +29,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ClienteContacto.findByFhAlta", query = "SELECT c FROM ClienteContacto c WHERE c.alta = :alta"),
     @NamedQuery(name = "ClienteContacto.findByFhCadPasswd", query = "SELECT c FROM ClienteContacto c WHERE c.cadPasswd = :cadPasswd"),
     @NamedQuery(name = "ClienteContacto.findByFhUltAcceso", query = "SELECT c FROM ClienteContacto c WHERE c.ultAcceso = :ultAcceso"),
-    @NamedQuery(name = "ClienteContacto.findById", query = "SELECT c FROM ClienteContacto c WHERE c.id = :id")
+    @NamedQuery(name = "ClienteContacto.findById", query = "SELECT c FROM ClienteContacto c WHERE c.id = :id"),
+    @NamedQuery(name = "ClienteContacto.findAllByIdCliente", query = "SELECT DISTINCT cc FROM ClienteContacto cc LEFT JOIN cc.contacto c LEFT JOIN c.medioCntList mc WHERE cc.cliente.id = :idCliente")
 })
 public class ClienteContacto implements Serializable 
 {
@@ -59,16 +58,13 @@ public class ClienteContacto implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "fh_alta")
-    @Temporal(TemporalType.DATE)
-    private Date alta;
+    private LocalDate alta;
 
     @Column(name = "fh_cad_passwd")
-    @Temporal(TemporalType.DATE)
-    private Date cadPasswd;
+    private LocalDate cadPasswd;
 
     @Column(name = "fh_ult_acceso")
-    @Temporal(TemporalType.DATE)
-    private Date ultAcceso;
+    private LocalDate ultAcceso;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -99,7 +95,7 @@ public class ClienteContacto implements Serializable
         this.id = id;
     }
 
-    public ClienteContacto(Integer id, boolean habilitado, String stUsuario, Date alta) {
+    public ClienteContacto(Integer id, boolean habilitado, String stUsuario, LocalDate alta) {
         this.id = id;
         this.habilitado = habilitado;
         this.stUsuario = stUsuario;
@@ -138,27 +134,27 @@ public class ClienteContacto implements Serializable
         this.stUsuario = stUsuario;
     }
 
-    public Date getAlta() {
+    public LocalDate getAlta() {
         return alta;
     }
 
-    public void setAlta(Date alta) {
+    public void setAlta(LocalDate alta) {
         this.alta = alta;
     }
 
-    public Date getCadPasswd() {
+    public LocalDate getCadPasswd() {
         return cadPasswd;
     }
 
-    public void setCadPasswd(Date cadPasswd) {
+    public void setCadPasswd(LocalDate cadPasswd) {
         this.cadPasswd = cadPasswd;
     }
 
-    public Date getUltAcceso() {
+    public LocalDate getUltAcceso() {
         return ultAcceso;
     }
 
-    public void setUltAcceso(Date ultAcceso) {
+    public void setUltAcceso(LocalDate ultAcceso) {
         this.ultAcceso = ultAcceso;
     }
 
@@ -227,7 +223,7 @@ public class ClienteContacto implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.ClienteContacto[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.ClienteContacto[ id=" + id + " ]";
     }
 
 }

@@ -3,7 +3,6 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -240,18 +239,18 @@ public class ServicioConstancia implements Serializable
     }
 
     public String getCdUnidad() {
-		return cdUnidad;
-	}
+        return cdUnidad;
+    }
 
-	public void setCdUnidad(String cdUnidad) {
-		this.cdUnidad = cdUnidad;
-	}
+    public void setCdUnidad(String cdUnidad) {
+        this.cdUnidad = cdUnidad;
+    }
 
-	@Override
+    @Override
     public int hashCode() {
-		if(this.id == null)
-			return System.identityHashCode(this);
-		return Objects.hash(this.id);
+        if(this.id == null)
+            return System.identityHashCode(this);
+        return Objects.hash(this.id);
     }
 
     @Override
@@ -269,7 +268,7 @@ public class ServicioConstancia implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.ServicioConstancia[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.ServicioConstancia[ id=" + id + " ]";
     }
     
 }

@@ -1,7 +1,7 @@
 package com.ferbo.gestion.core.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class InventarioDetalle extends Inventario 
@@ -43,7 +43,7 @@ public class InventarioDetalle extends Inventario
 
     public InventarioDetalle(
             Integer folio, Producto producto, Cliente cliente, Integer cantidad, UnidadManejo unidadManejo,
-            Planta planta, Integer plantad, Date caducidad, String codigo, String lote, String sap, Camara camara,
+            Planta planta, Integer plantad, LocalDate caducidad, String codigo, String lote, String sap, Camara camara,
             Integer camarad, Posicion posicion, Integer posiciond, Integer partidaCve, BigDecimal peso,
             String inventarioCve, String detalleAnt, Integer detallePartidaAnterior, Integer detallePadre,
             Integer detallePartidaPadre, String po, String mp, String pedimento, String tarimas, String folioCliente,

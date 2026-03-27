@@ -1,7 +1,7 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -52,13 +50,11 @@ public class ClaveUnidad implements Serializable
     private String nota;
 
     @Basic(optional = false)
-    @Temporal(TemporalType.DATE)//Devuelve fecha y descarta la hora
     @Column(name = "fh_vigencia_ini")
-    private Date fechInicio;
+    private LocalDate fechInicio;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "fh_vigencia_fin")
-    private Date fechFinal;
+    private LocalDate fechFinal;
 
     @Size(max = 50)
     @Column(name = "nb_simbolo")
@@ -96,19 +92,19 @@ public class ClaveUnidad implements Serializable
         this.nota = nota;
     }
 
-    public Date getFechInicio() {
+    public LocalDate getFechInicio() {
         return fechInicio;
     }
 
-    public void setFechInicio(Date fechInicio) {
+    public void setFechInicio(LocalDate fechInicio) {
         this.fechInicio = fechInicio;
     }
 
-    public Date getFechFinal() {
+    public LocalDate getFechFinal() {
         return fechFinal;
     }
 
-    public void setFechFinal(Date fechFinal) {
+    public void setFechFinal(LocalDate fechFinal) {
         this.fechFinal = fechFinal;
     }
 

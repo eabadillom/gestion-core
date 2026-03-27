@@ -149,7 +149,7 @@ public class CuotaMensualServicio implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.CuotaMensualServicio[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.CuotaMensualServicio[ id=" + id + " ]";
     }
     
 }

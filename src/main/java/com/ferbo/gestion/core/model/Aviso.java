@@ -2,7 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -18,8 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -42,7 +40,7 @@ import javax.validation.constraints.Size;
         @NamedQuery(name = "Aviso.findByValSeg", query = "SELECT a FROM Aviso a WHERE a.valSeg = :valSeg"),
         @NamedQuery(name = "Aviso.findByPlazo", query = "SELECT a FROM Aviso a WHERE a.plazo = :plazo"),
         @NamedQuery(name = "Aviso.findByTpFacturacion", query = "SELECT a FROM Aviso a WHERE a.tpFacturacion = :tpFacturacion"),
-        @NamedQuery(name = "Aviso.findByCliente", query = "SELECT a FROM Aviso a WHERE a.cliente.id = :cteCve")
+        @NamedQuery(name = "Aviso.findByCliente", query = "SELECT a FROM Aviso a WHERE a.cliente.id = :idCliente")
 })
 public class Aviso implements Serializable 
 {
@@ -101,8 +99,7 @@ public class Aviso implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "aviso_fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private LocalDate fecha;
 
     @Size(max = 255)
     @Column(name = "aviso_observaciones")
@@ -145,33 +142,6 @@ public class Aviso implements Serializable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "aviso", orphanRemoval = true)
     private List<PrecioServicio> precioServicioList;
     
-    @Override
-    public int hashCode() {
-    	if(this.id == null)
-    		return System.identityHashCode(this);
-    	return Objects.hashCode(this.id);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-    	if (this == o)
-    		return true;
-    	if (!(o instanceof Aviso))
-    		return false;
-    	Aviso other = (Aviso) o;
-    	
-    	if (this.id != null && other.id != null) {
-    		return Objects.equals(this.id, other.id);
-    	} else {
-    		return this == other;
-    	}
-    }
-
-    @Override
-    public String toString() {
-        return "mx.com.ferbo.model.Aviso[ avisoCve=" + id + " ]";
-    }
-
     public Aviso() {
     }
 
@@ -180,7 +150,7 @@ public class Aviso implements Serializable
     }
 
     public Aviso(Integer id, boolean po, boolean pedimento, boolean sap, boolean lote,
-            boolean caducidad, boolean tarima, boolean otro, Date fecha, int vigencia,
+            boolean caducidad, boolean tarima, boolean otro, LocalDate fecha, int vigencia,
             int plazo, String tpFacturacion) {
         this.id = id;
         this.po = po;
@@ -276,11 +246,11 @@ public class Aviso implements Serializable
         this.temp = temp;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -369,5 +339,33 @@ public class Aviso implements Serializable
         ps.setServicio(null);
         ps.setUnidad(null);
     }
+    
+    @Override
+    public int hashCode() {
+    	if(this.id == null)
+    		return System.identityHashCode(this);
+    	return Objects.hashCode(this.id);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+    	if (this == o)
+    		return true;
+    	if (!(o instanceof Aviso))
+    		return false;
+    	Aviso other = (Aviso) o;
+    	
+    	if (this.id != null && other.id != null) {
+    		return Objects.equals(this.id, other.id);
+    	} else {
+    		return this == other;
+    	}
+    }
+
+    @Override
+    public String toString() {
+        return "com.ferbo.gestion.core.model.Aviso[ avisoCve=" + id + " ]";
+    }
+    
 }
 

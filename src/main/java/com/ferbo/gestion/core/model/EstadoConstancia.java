@@ -2,7 +2,6 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -86,7 +85,7 @@ public class EstadoConstancia implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.EstadoConstancia[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.EstadoConstancia[ id=" + id + " ]";
     }
     
 }

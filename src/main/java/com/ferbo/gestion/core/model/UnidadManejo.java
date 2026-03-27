@@ -36,30 +36,6 @@ public class UnidadManejo implements Serializable
     @Column(name = "UNIDAD_DE_MANEJO_DS")
     private String descripcion;
     
-    @Override
-    public int hashCode() {
-        if(this.id == null)
-        	return System.identityHashCode(this);
-        return Objects.hash(this.id);
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof UnidadManejo)) {
-            return false;
-        }
-        UnidadManejo other = (UnidadManejo) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "mx.com.ferbo.model.UnidadManejo[ id=" + id + " ]";
-    }
-    
     public UnidadManejo() {
     }
 
@@ -81,6 +57,30 @@ public class UnidadManejo implements Serializable
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+    
+    @Override
+    public int hashCode() {
+        if(this.id == null)
+        	return System.identityHashCode(this);
+        return Objects.hash(this.id);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof UnidadManejo)) {
+            return false;
+        }
+        UnidadManejo other = (UnidadManejo) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.ferbo.gestion.core.model.UnidadManejo[ id=" + id + " ]";
     }
     
 }

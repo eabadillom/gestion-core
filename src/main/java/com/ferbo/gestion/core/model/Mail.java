@@ -138,7 +138,7 @@ public class Mail implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Mail[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.Mail[ id=" + id + " ]";
     }
 
 }

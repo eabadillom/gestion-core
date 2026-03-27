@@ -450,7 +450,7 @@ public class Cliente implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Cliente[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.Cliente[ id=" + id + " ]";
     }
 
 }

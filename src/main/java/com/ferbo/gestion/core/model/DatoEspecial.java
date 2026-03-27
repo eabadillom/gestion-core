@@ -147,7 +147,7 @@ public class DatoEspecial implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.DatosEspecial[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.DatosEspecial[ id=" + id + " ]";
     }
     
 }

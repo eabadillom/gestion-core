@@ -100,7 +100,7 @@ public class Parametro implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Parametro[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.Parametro[ id=" + id + " ]";
     }
     
 }

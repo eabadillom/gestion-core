@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "MetodoPago.findAll", query = "SELECT mp FROM MetodoPago mp "),
     @NamedQuery(name = "MetodoPago.findByVigentes", query = "SELECT mp FROM MetodoPago mp WHERE mp.fechaInicio <= :fecha AND (mp.fechaFinal IS NULL OR mp.fechaFinal >= :fecha) ORDER BY mp.descripcion"),
-    @NamedQuery(name = "MetodoPago.findByClave", query = "SELECT mp FROM MetodoPago mp WHERE mp.clave = :clave"),
+    @NamedQuery(name = "MetodoPago.findByClave", query = "SELECT mp FROM MetodoPago mp WHERE mp.id = :idMetodoPago"),
     @NamedQuery(name = "MetodoPago.findByDescripcion", query = "SELECT mp FROM MetodoPago mp WHERE mp.descripcion = :descripcion")
 })
 public class MetodoPago implements Serializable 
@@ -32,7 +32,7 @@ public class MetodoPago implements Serializable
     @NotNull
     @Column(name = "cd_metodo_pago")
     @Size(max = 5)
-    private String clave;
+    private String id;
 
     @NotNull
     @Column(name = "nb_metodo_pago")
@@ -51,12 +51,12 @@ public class MetodoPago implements Serializable
     public MetodoPago() {
     }
 
-    public String getClave() {
-        return clave;
+    public String getId() {
+        return id;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDescripcion() {
@@ -84,13 +84,8 @@ public class MetodoPago implements Serializable
     }
 
     @Override
-    public String toString() {
-        return "MetodoPago [clave=" + clave + "]";
-    }
-
-    @Override
     public int hashCode() {
-        return Objects.hash(clave);
+        return Objects.hash(id);
     }
 
     @Override
@@ -105,7 +100,12 @@ public class MetodoPago implements Serializable
             return false;
         }
         MetodoPago other = (MetodoPago) obj;
-        return Objects.equals(clave, other.clave);
+        return Objects.equals(id, other.id);
+    }
+    
+    @Override
+    public String toString() {
+        return "com.ferbo.gestion.core.model.MetodoPago [clave=" + id + "]";
     }
 
 }

@@ -1,7 +1,7 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -42,8 +40,7 @@ public class Ingreso implements Serializable
 
     @Column(name = "fecha_hora")
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaHora;
+    private LocalDate fechaHora;
 
     @JoinColumn(name = "id_cliente", referencedColumnName = "CTE_CVE")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -70,7 +67,6 @@ public class Ingreso implements Serializable
     private IngresoStatus ingresoStatus;
 
     public Ingreso() {
-
     }
 
     public Integer getId() {
@@ -89,11 +85,11 @@ public class Ingreso implements Serializable
         this.folio = folio;
     }
 
-    public Date getFechaHora() {
+    public LocalDate getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(Date fechaHora) {
+    public void setFechaHora(LocalDate fechaHora) {
         this.fechaHora = fechaHora;
     }
 
@@ -167,7 +163,7 @@ public class Ingreso implements Serializable
 
     @Override
     public String toString() {
-        return "Ingreso [idIngreso=" + id + ", folio=" + folio + ", fechaHora=" + fechaHora + ", idCliente="
+        return "com.ferbo.gestion.core.model.Ingreso [idIngreso=" + id + ", folio=" + folio + ", fechaHora=" + fechaHora + ", idCliente="
                 + cliente + ", transportista=" + transportista + ", placas=" + placas + ", observaciones="
                 + observaciones + ", idContacto=" + contacto + ", ingresoStatus=" + ingresoStatus + "]";
     }

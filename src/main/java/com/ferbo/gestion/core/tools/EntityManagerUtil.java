@@ -12,10 +12,6 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.internal.SessionImpl;
 
-/**
- *
- * @author alberto
- */
 public class EntityManagerUtil 
 {
     private static Logger log = LogManager.getLogger(EntityManagerUtil.class);

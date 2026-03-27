@@ -104,7 +104,7 @@ public class StatusFactura implements Serializable {
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.StatusFactura[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.StatusFactura[ id=" + id + " ]";
     }
 
 }

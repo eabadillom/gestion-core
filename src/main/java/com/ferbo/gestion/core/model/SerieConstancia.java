@@ -86,7 +86,7 @@ public class SerieConstancia implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.SerieConstancia[ serieConstanciaPK=" + serieConstanciaPK + " ]";
+        return "com.ferbo.gestion.core.model.SerieConstancia[ serieConstanciaPK=" + serieConstanciaPK + " ]";
     }
     
 }

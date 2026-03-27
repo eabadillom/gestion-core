@@ -114,7 +114,7 @@ public class Paises implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Paises[ idPais=" + id + ", descripcion=" + descripcion + " ]";
+        return "com.ferbo.gestion.core.model.Paises[ idPais=" + id + ", descripcion=" + descripcion + " ]";
     }
     
 }

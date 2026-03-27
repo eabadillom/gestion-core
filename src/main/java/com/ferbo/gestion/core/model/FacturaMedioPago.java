@@ -49,10 +49,6 @@ public class FacturaMedioPago implements Serializable
     @Column(name = "fmp_referencia")
     private String referencia;
     
-//    @JoinColumn(name = "factura_id", referencedColumnName = "id", insertable = false, updatable = false)
-//    @ManyToOne(optional = false)
-//    private Factura factura;
-
     public FacturaMedioPago() {
     }
 
@@ -110,14 +106,6 @@ public class FacturaMedioPago implements Serializable
         this.referencia = referencia;
     }
 
-//    public Factura getFactura() {
-//        return factura;
-//    }
-//
-//    public void setFactura(Factura factura) {
-//        this.factura = factura;
-//    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -140,7 +128,7 @@ public class FacturaMedioPago implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.FacturaMedioPago[ facturaMedioPagoPK=" + facturaMedioPagoPK + " ]";
+        return "com.ferbo.gestion.core.model.FacturaMedioPago[ facturaMedioPagoPK=" + facturaMedioPagoPK + " ]";
     }
     
 }

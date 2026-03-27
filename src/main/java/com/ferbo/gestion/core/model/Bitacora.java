@@ -1,7 +1,7 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -144,8 +142,7 @@ public class Bitacora implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_cambio")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaCambio;
+    private LocalDateTime fechaCambio;
 
     public Bitacora() {
     }
@@ -154,7 +151,7 @@ public class Bitacora implements Serializable
         this.id = id;
     }
 
-    public Bitacora(Integer id, int idUsuario, String usuario, String usuarioNombre, String hostIp, String hostNombre, int cteCve, String numeroCte, String cteNombre, String cteRfc, String moduloNombre, String accion, String valorAntNombre, String valorAnt, String valorActNombre, String valorAct, String otroDato, Date fechaCambio) {
+    public Bitacora(Integer id, int idUsuario, String usuario, String usuarioNombre, String hostIp, String hostNombre, int cteCve, String numeroCte, String cteNombre, String cteRfc, String moduloNombre, String accion, String valorAntNombre, String valorAnt, String valorActNombre, String valorAct, String otroDato, LocalDateTime fechaCambio) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.usuario = usuario;
@@ -311,11 +308,11 @@ public class Bitacora implements Serializable
         this.otroDato = otroDato;
     }
 
-    public Date getFechaCambio() {
+    public LocalDateTime getFechaCambio() {
         return fechaCambio;
     }
 
-    public void setFechaCambio(Date fechaCambio) {
+    public void setFechaCambio(LocalDateTime fechaCambio) {
         this.fechaCambio = fechaCambio;
     }
 
@@ -341,7 +338,7 @@ public class Bitacora implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Bitacora[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.Bitacora[ id=" + id + " ]";
     }
     
 }

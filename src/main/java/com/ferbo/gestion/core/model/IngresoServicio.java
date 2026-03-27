@@ -2,7 +2,6 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -88,7 +87,7 @@ public class IngresoServicio implements Serializable
 
     @Override
     public String toString() {
-        return "IngresoServicio [idIngresoServicio=" + id + ", servicio=" + servicio + ", cantidad="
+        return "com.ferbo.gestion.core.model.IngresoServicio [idIngresoServicio=" + id + ", servicio=" + servicio + ", cantidad="
                 + cantidad + ", unidadDeManejo=" + unidadManejo + ", ingreso=" + ingreso + "]";
     }
 

@@ -1,7 +1,7 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,8 +15,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -61,12 +59,10 @@ public class Emisor implements Serializable
     private String rfc;
 
     @Column(name = "fh_inicio_op")
-    @Temporal(TemporalType.DATE)
-    private Date inicioOp;
+    private LocalDate inicioOp;
 
     @Column(name = "fh_ult_cambio")
-    @Temporal(TemporalType.DATE)
-    private Date ultCambio;
+    private LocalDate ultCambio;
 
     @Size(min = 0, max = 1)
     @Column(name = "st_padron")
@@ -91,7 +87,7 @@ public class Emisor implements Serializable
     public Emisor() {
     }
     
-    public Emisor(Integer id, String emisor, String tpPersona, String regimenCapital, String rfc, Date inicioOp, Date ultCambio,
+    public Emisor(Integer id, String emisor, String tpPersona, String regimenCapital, String rfc, LocalDate inicioOp, LocalDate ultCambio,
             String padron, RegimenFiscal regimen, String uuid, List<Certificado> listaCertificado) {
         this.id = id;
         this.emisor = emisor;
@@ -146,19 +142,19 @@ public class Emisor implements Serializable
         this.rfc = rfc;
     }
 
-    public Date getInicioOp() {
+    public LocalDate getInicioOp() {
         return inicioOp;
     }
 
-    public void setInicioOp(Date inicioOp) {
+    public void setInicioOp(LocalDate inicioOp) {
         this.inicioOp = inicioOp;
     }
 
-    public Date getUltCambio() {
+    public LocalDate getUltCambio() {
         return ultCambio;
     }
 
-    public void setUltCambio(Date ultCambio) {
+    public void setUltCambio(LocalDate ultCambio) {
         this.ultCambio = ultCambio;
     }
 
@@ -223,7 +219,7 @@ public class Emisor implements Serializable
 
     @Override
     public String toString() {
-        return "Emisor [id=" + id + ", emisor=" + emisor + ", tpPersona=" + tpPersona
+        return "com.ferbo.gestion.core.model.Emisor [id=" + id + ", emisor=" + emisor + ", tpPersona=" + tpPersona
                 + ", regimenCapital=" + regimenCapital + ", rfc=" + rfc + ", inicioOp="
                 + inicioOp + ", ultCambio=" + ultCambio + ", padron=" + padron + ", regimen="
                 + regimen + ", uuid=" + uuid + ", listaCertificado=" + listaCertificado + "]";

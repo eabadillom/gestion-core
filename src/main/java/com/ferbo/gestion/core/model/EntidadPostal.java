@@ -95,7 +95,7 @@ public class EntidadPostal implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.EntidadPostal[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.EntidadPostal[ id=" + id + " ]";
     }
     
 }

@@ -45,40 +45,6 @@ public class ConstanciaDepositoDetalle implements Serializable
     @ManyToOne
     private Servicio servicio;
 
-    @Override
-    public int hashCode() {
-        if (this.id == null) {
-            return System.identityHashCode(this);
-        }
-        return Objects.hash(this.id);
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof ConstanciaDepositoDetalle)) {
-            return false;
-        }
-        ConstanciaDepositoDetalle other = (ConstanciaDepositoDetalle) object;
-        if (this.hashCode() != other.hashCode()) {
-            return false;
-        }
-
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-
-        if (this.servicio != other.servicio) {
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "mx.com.ferbo.model.ConstanciaDepositoDetalle[ constanciaDepositoDetalleCve=" + id + " ]";
-    }
-
     public ConstanciaDepositoDetalle() {
     }
 
@@ -116,6 +82,40 @@ public class ConstanciaDepositoDetalle implements Serializable
 
     public void setServicioCve(Servicio servicio) {
         this.servicio = servicio;
+    }
+    
+    @Override
+    public int hashCode() {
+        if (this.id == null) {
+            return System.identityHashCode(this);
+        }
+        return Objects.hash(this.id);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof ConstanciaDepositoDetalle)) {
+            return false;
+        }
+        ConstanciaDepositoDetalle other = (ConstanciaDepositoDetalle) object;
+        if (this.hashCode() != other.hashCode()) {
+            return false;
+        }
+
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+
+        if (this.servicio != other.servicio) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.ferbo.gestion.core.model.ConstanciaDepositoDetalle[ constanciaDepositoDetalleCve=" + id + " ]";
     }
     
 }

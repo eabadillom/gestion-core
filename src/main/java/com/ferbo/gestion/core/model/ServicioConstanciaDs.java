@@ -3,7 +3,6 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -182,7 +181,7 @@ public class ServicioConstanciaDs implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.ServicioConstanciaDs[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.ServicioConstanciaDs[ id=" + id + " ]";
     }
 
 }

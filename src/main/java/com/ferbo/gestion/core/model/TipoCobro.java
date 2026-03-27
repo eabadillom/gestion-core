@@ -110,7 +110,7 @@ public class TipoCobro implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.TipoCobro[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.TipoCobro[ id=" + id + " ]";
     }
     
 }

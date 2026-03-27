@@ -1,7 +1,7 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,8 +15,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -28,7 +26,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ConstanciaServicios.findByNumero", query = "SELECT c FROM ConstanciaServicios c WHERE c.numero = :numero"),
     @NamedQuery(name = "ConstanciaServicios.findByNombreCte", query = "SELECT c FROM ConstanciaServicios c WHERE c.nombreCte = :nombreCte"),
     @NamedQuery(name = "ConstanciaServicios.findByObservaciones", query = "SELECT c FROM ConstanciaServicios c WHERE c.observaciones = :observaciones"),
-    @NamedQuery(name = "ConstanciaServicios.findByStatus", query = "SELECT c FROM ConstanciaServicios c WHERE c.status = :status")})
+    @NamedQuery(name = "ConstanciaServicios.findByStatus", query = "SELECT c FROM ConstanciaServicios c WHERE c.status = :status")
+})
 public class ConstanciaServicios implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -40,8 +39,7 @@ public class ConstanciaServicios implements Serializable
     private Integer id;
     
     @Column(name = "FECHA")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private LocalDate fecha;
     
     @Size(max = 15)
     @Column(name = "NUMERO")
@@ -80,11 +78,11 @@ public class ConstanciaServicios implements Serializable
         this.id = id;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -158,7 +156,7 @@ public class ConstanciaServicios implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.ConstanciaServicios[ id=" + id + " ]";
+        return "com.ferbo.gestion.core.model.ConstanciaServicios[ id=" + id + " ]";
     }
     
 }

@@ -1,7 +1,7 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -37,7 +37,7 @@ public class Certificado implements Serializable
     private Integer id;
 
     @Column(name = "fh_alta")
-    private Date fechaAlta;
+    private LocalDateTime fechaAlta;
 
     @Size(min = 1, max = 256)
     @Column(name = "nb_certificado")
@@ -65,6 +65,18 @@ public class Certificado implements Serializable
 
     public Certificado() {
     }
+    
+    public Certificado(Integer id, LocalDateTime fechaAlta, String nombreCertificado, byte[] certificado, String llavePrivada,
+            byte[] dtLlavePrivada, String password, Emisor emisor) {
+        this.id = id;
+        this.fechaAlta = fechaAlta;
+        this.nombreCertificado = nombreCertificado;
+        this.certificado = certificado;
+        this.llavePrivada = llavePrivada;
+        this.dtLlavePrivada = dtLlavePrivada;
+        this.password = password;
+        this.emisor = emisor;
+    }
 
     public Integer getId() {
         return id;
@@ -74,11 +86,11 @@ public class Certificado implements Serializable
         this.id = id;
     }
 
-    public Date getFechaAlta() {
+    public LocalDateTime getFechaAlta() {
         return fechaAlta;
     }
 
-    public void setFechaAlta(Date fechaAlta) {
+    public void setFechaAlta(LocalDateTime fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
 
@@ -127,18 +139,6 @@ public class Certificado implements Serializable
     }
 
     public void setEmisor(Emisor emisor) {
-        this.emisor = emisor;
-    }
-
-    public Certificado(Integer id, Date fechaAlta, String nombreCertificado, byte[] certificado, String llavePrivada,
-            byte[] dtLlavePrivada, String password, Emisor emisor) {
-        this.id = id;
-        this.fechaAlta = fechaAlta;
-        this.nombreCertificado = nombreCertificado;
-        this.certificado = certificado;
-        this.llavePrivada = llavePrivada;
-        this.dtLlavePrivada = dtLlavePrivada;
-        this.password = password;
         this.emisor = emisor;
     }
 

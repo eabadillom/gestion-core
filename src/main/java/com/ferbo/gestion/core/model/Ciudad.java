@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Ciudad.findByMunicipio", query = "SELECT c FROM Ciudad c WHERE c.ciudadPK.municipio.municipioPK.id = :idMunicipio"),
     @NamedQuery(name = "Ciudad.findById", query = "SELECT c FROM Ciudad c WHERE c.ciudadPK.id = :idCiudad"),
     @NamedQuery(name = "Ciudad.findByDescripcion", query = "SELECT c FROM Ciudad c WHERE c.descripcion = :descripcion"),
-    @NamedQuery(name = "Ciudad.findByTodo", query = "SELECT c FROM Ciudad c WHERE c.ciudadPK.municipio.municipioPK.estado.estadoPK.pais.id = :idPais AND c.ciudadPK.municipio.municipioPK.estado.estadoPK.id = :idEstado AND c.ciudadPK.municipio.municipioPK.id = :idMunicipio AND c.ciudadPK.id = :idCiudad"),
+    @NamedQuery(name = "Ciudad.findByParametros", query = "SELECT c FROM Ciudad c WHERE c.ciudadPK.municipio.municipioPK.estado.estadoPK.pais.id = :idPais AND c.ciudadPK.municipio.municipioPK.estado.estadoPK.id = :idEstado AND c.ciudadPK.municipio.municipioPK.id = :idMunicipio AND c.ciudadPK.id = :idCiudad"),
     @NamedQuery(name = "Ciudad.findByPaisEstadoMunicipio", query = "SELECT c FROM Ciudad c WHERE c.ciudadPK.municipio.municipioPK.id = :idMunicipio AND c.ciudadPK.municipio.municipioPK.estado.estadoPK.id = :idEstado AND c.ciudadPK.id = :idCiudad"),
     @NamedQuery(name = "Ciudad.findByEstadoMunicipio", query = "SELECT c FROM Ciudad c WHERE c.ciudadPK.municipio.municipioPK.id = :idMunicipio AND c.ciudadPK.municipio.municipioPK.estado.estadoPK.id = :idEstado")
 })
@@ -104,7 +104,7 @@ public class Ciudad implements Serializable
 
     @Override
     public String toString() {
-        return "mx.com.ferbo.model.Ciudad[ ciudadPK=" + ciudadPK.getId() + ", descripcion=" + descripcion + " ]";
+        return "com.ferbo.gestion.core.model.Ciudad[ ciudadPK=" + ciudadPK.getId() + ", descripcion=" + descripcion + " ]";
     }
     
 }
