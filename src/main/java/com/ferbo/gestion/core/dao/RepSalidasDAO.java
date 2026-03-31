@@ -1,0 +1,94 @@
+package com.ferbo.gestion.core.dao;
+
+import com.ferbo.gestion.core.commons.dao.BaseDAO;
+import com.ferbo.gestion.core.tools.JpaExecutor;
+import com.ferbo.gestion.core.ui.RepSalidas;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class RepSalidasDAO extends BaseDAO<RepSalidas, Integer> 
+{
+    private static Logger log = LogManager.getLogger(RepSalidasDAO.class);
+
+    public RepSalidasDAO() {
+        super(RepSalidas.class);
+    }
+    
+    public List<RepSalidas> buscar(LocalDate fechaIni, LocalDate fechaFin, Integer idCliente, Integer idPlanta, Integer idCamara) 
+    {
+        return JpaExecutor.executeRead(em -> {
+            String sql = "SELECT "
+                    + "	cs.fecha, "
+                    + "	cdd.folio_cliente, "
+                    + "	cs.numero, "
+                    + "	dcs.producto, "
+                    + "	dcs.unidad, "
+                    + "	dcs.cantidad, "
+                    + "	dcs.peso, "
+                    + "	c.numero_cte, "
+                    + "	c.cte_nombre, "
+                    + "	cdd.fecha_ingreso, "
+                    + "	p.partida_cve, "
+                    + "	p.cantidad_total, "
+                    + "	p.peso_total, "
+                    + "	cam.camara_cve, "
+                    + "	cam.camara_abrev AS camara, "
+                    + "	plt.planta_cve, "
+                    + "	plt.planta_abrev AS planta "
+                    + "FROM constancia_salida cs "
+                    + "INNER JOIN detalle_constancia_salida dcs ON dcs.constancia_cve = cs.id  "
+                    + "INNER JOIN partida p ON p.PARTIDA_CVE = dcs.partida_cve "
+                    + "INNER JOIN constancia_de_deposito cdd ON p.folio = cdd.folio "
+                    + "INNER JOIN cliente c ON c.CTE_CVE = cdd.cte_cve  "
+                    + "INNER JOIN camara cam ON cam.camara_cve = dcs.camara_cve "
+                    + "INNER JOIN planta plt ON plt.planta_cve = cam.planta_cve "
+                    + "WHERE cs.status NOT IN (2) "
+                    + "	AND cs.FECHA BETWEEN :fechaIni AND :fechaFin "
+                    + "	AND (cdd.cte_cve = :idCliente OR :idCliente IS NULL) "
+                    + "	AND (plt.planta_cve = :idPlanta OR :idPlanta IS NULL) "
+                    + "	AND (cam.camara_cve = :idCamara OR :idCamara IS NULL) "
+                    + "ORDER BY c.cte_nombre ASC, cdd.FECHA_INGRESO ASC, cdd.folio_cliente asc, p.PARTIDA_CVE ASC, cs.fecha ASC";
+
+            List<Object[]> results = em.createNativeQuery(sql)
+                    .setParameter("fechaIni", fechaIni)
+                    .setParameter("fechaFin", fechaFin)
+                    .setParameter("idCliente", idCliente)
+                    .setParameter("idPlanta", idPlanta)
+                    .setParameter("idCamara", idCamara)
+                    .getResultList();
+
+            List<RepSalidas> resultList = new ArrayList<RepSalidas>();
+            for (Object[] o : results) {
+                RepSalidas r = new RepSalidas();
+                int idx = 0;
+
+                r.setFecha((LocalDate) o[idx++]);
+                r.setFolioCliente((String) o[idx++]);
+                r.setNumero((String) o[idx++]);
+                r.setProducto((String) o[idx++]);
+                r.setUnidad((String) o[idx++]);
+                r.setCantidad((Integer) o[idx++]);
+                r.setPeso((BigDecimal) o[idx++]);
+                r.setNumeroCliente((String) o[idx++]);
+                r.setNombreCliente((String) o[idx++]);
+                r.setFechaIngreso((LocalDate) o[idx++]);
+                r.setIdPartida((Integer) o[idx++]);
+                r.setCantidadTotal((Integer) o[idx++]);
+                r.setPesoTotal((BigDecimal) o[idx++]);
+                r.setIdCamara((Integer) o[idx++]);
+                r.setCamara((String) o[idx++]);
+                r.setIdPlanta((Integer) o[idx++]);
+                r.setPlanta((String) o[idx++]);
+
+                resultList.add(r);
+            }
+
+            return resultList;
+        });
+    }
+    
+}

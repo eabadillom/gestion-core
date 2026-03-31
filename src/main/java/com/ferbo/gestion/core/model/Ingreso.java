@@ -163,9 +163,9 @@ public class Ingreso implements Serializable
 
     @Override
     public String toString() {
-        return "com.ferbo.gestion.core.model.Ingreso [idIngreso=" + id + ", folio=" + folio + ", fechaHora=" + fechaHora + ", idCliente="
-                + cliente + ", transportista=" + transportista + ", placas=" + placas + ", observaciones="
-                + observaciones + ", idContacto=" + contacto + ", ingresoStatus=" + ingresoStatus + "]";
+        return "com.ferbo.gestion.core.model.Ingreso [idIngreso=" + id + ", folio=" + folio 
+                + ", fechaHora=" + fechaHora + ", transportista=" + transportista 
+                + ", placas=" + placas + ", observaciones=" + observaciones + "]";
     }
 
 }

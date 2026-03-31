@@ -21,7 +21,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "ingreso_producto")
 @NamedQueries({
-    @NamedQuery(name = "IngresoProducto.findByAll", query = "SELECT ip FROM IngresoProducto ip")
+    @NamedQuery(name = "IngresoProducto.findByAll", query = "SELECT ip FROM IngresoProducto ip"),
+    @NamedQuery(name = "IngresoProducto.findById", query = "SELECT ip FROM IngresoProducto ip WHERE ip.id = :idProducto")
 })
 public class IngresoProducto implements Serializable, Cloneable 
 {

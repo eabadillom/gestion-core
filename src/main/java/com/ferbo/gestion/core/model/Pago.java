@@ -29,7 +29,7 @@ import javax.validation.constraints.Size;
         @NamedQuery(name = "Pago.findByCheque", query = "SELECT p FROM Pago p WHERE p.cheque = :cheque"),
         @NamedQuery(name = "Pago.findByChequeDevuelto", query = "SELECT p FROM Pago p WHERE p.chequeDevuelto = :chequeDevuelto"),
         @NamedQuery(name = "Pago.findByFacturaId", query = "SELECT p FROM Pago p WHERE p.factura.id = :facturaId"),
-        @NamedQuery(name = "Pago.findByClienteFechas", query = "SELECT p FROM Pago p WHERE (p.factura.cliente.id = :cteCve OR :cteCve IS NULL) AND (p.fecha BETWEEN :startDate AND :endDate)") 
+        @NamedQuery(name = "Pago.findByClienteFechas", query = "SELECT p FROM Pago p WHERE (p.factura.cliente.id = :idCliente OR :idCliente IS NULL) AND (p.fecha BETWEEN :startDate AND :endDate)") 
 })
 public class Pago implements Serializable 
 {
