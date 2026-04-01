@@ -12,7 +12,7 @@ public class ControlFacturaConstanciaDsPK implements Serializable
 
     @JoinColumn(name = "CONSTANCIA")
     @ManyToOne(optional = false)
-    private ConstanciaDeServicio constanciaServicio;
+    private ConstanciaServicio constanciaServicio;
 
     @JoinColumn(name = "FACTURA")
     @ManyToOne(optional = false)
@@ -21,17 +21,17 @@ public class ControlFacturaConstanciaDsPK implements Serializable
     public ControlFacturaConstanciaDsPK() {
     }
 
-    public ControlFacturaConstanciaDsPK(ConstanciaDeServicio constanciaServicio, Factura factura) {
+    public ControlFacturaConstanciaDsPK(ConstanciaServicio constanciaServicio, Factura factura) {
         super();
         this.constanciaServicio = constanciaServicio;
         this.factura = factura;
     }
 
-    public ConstanciaDeServicio getConstanciaServicio() {
+    public ConstanciaServicio getConstanciaServicio() {
         return constanciaServicio;
     }
 
-    public void setConstanciaServicio(ConstanciaDeServicio constanciaServicio) {
+    public void setConstanciaServicio(ConstanciaServicio constanciaServicio) {
         this.constanciaServicio = constanciaServicio;
     }
 

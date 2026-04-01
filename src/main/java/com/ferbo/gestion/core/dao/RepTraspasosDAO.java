@@ -44,11 +44,7 @@ public class RepTraspasosDAO extends BaseDAO<RepTraspasos, Integer>
                     + "INNER JOIN cliente c ON ct.cliente = c.cte_cve "
                     + "WHERE (ct.fecha BETWEEN :fechaIni AND :fechaFin) "
                     + "AND (ct.cliente = :idCliente OR :idCliente IS NULL) "
-                    + "ORDER BY "
-                    + "	c.cte_nombre ASC, "
-                    + "	ct.fecha ASC, "
-                    + "	ct.numero ASC, "
-                    + "	p.folio ASC ";
+                    + "ORDER BY c.cte_nombre ASC, ct.fecha ASC,	ct.numero ASC, p.folio ASC ";
 
             List<Object[]> results = em.createNativeQuery(sql)
                     .setParameter("fechaIni", fechaIni)

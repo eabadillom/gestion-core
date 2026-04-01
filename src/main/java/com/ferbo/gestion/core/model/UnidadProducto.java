@@ -20,8 +20,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "UnidadProducto.findAll", query = "SELECT u FROM UnidadProducto u"),
     @NamedQuery(name = "UnidadProducto.findById", query = "SELECT u FROM UnidadProducto u WHERE u.id = :idUP"),
     @NamedQuery(name = "UnidadProducto.findByIdUnidadProducto", query = "SELECT u FROM UnidadProducto u WHERE u.producto.id = :idProducto AND u.unidadManejo.id = :idUnidadManejo"),
-    @NamedQuery(name = "UnidadProducto.findByIdProducto", query = "SELECT u FROM UnidadProducto u WHERE u.id = :idProducto"),
-    @NamedQuery(name = "UnidadProducto.findByCliente", query = "SELECT udp FROM UnidadProducto udp JOIN udp.producto p JOIN udp.unidadManejo udm JOIN p.productoPorClienteList ppc WHERE ppc.cliente.id = :idCliente ")
+    @NamedQuery(name = "UnidadProducto.findByIdProducto", query = "SELECT u FROM UnidadProducto u WHERE u.id = :idProducto")
 })
 public class UnidadProducto implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -102,38 +102,11 @@ public class Cliente implements Serializable
     @Column(name = "uuid")
     private String uuid;
 
-    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
-    private List<ConstanciaDeServicio> constanciaDeServicioList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
-    private List<ProductoPorCliente> productoPorClienteList;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ClienteDomicilio> clienteDomiciliosList;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
-    private List<DetalleFacturacion> detalleFacturacionList;
-
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Aviso> avisoList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private List<PrecioServicio> precioServicioList;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", orphanRemoval = true)
     private List<ClienteContacto> clienteContactoList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
-    private List<ConstanciaServicios> constanciaServiciosList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
-    private List<ConstanciaSalida> constanciaSalidaList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
-    private List<CuotaMinima> cuotaMinimaList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
-    private List<ConstanciaTraspaso> constanciaTraspasoList;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
     private CandadoSalida candadoSalida;
@@ -254,22 +227,6 @@ public class Cliente implements Serializable
         this.codUnico = codUnico;
     }
 
-    public List<ConstanciaDeServicio> getConstanciaDeServiciosList() {
-        return constanciaDeServicioList;
-    }
-
-    public void setConstanciaDeServiciosList(List<ConstanciaDeServicio> constanciaDeServiciosList) {
-        this.constanciaDeServicioList = constanciaDeServiciosList;
-    }
-
-    public List<ProductoPorCliente> getProductoPorClienteList() {
-        return productoPorClienteList;
-    }
-
-    public void setProductoPorClienteList(List<ProductoPorCliente> productoPorClienteList) {
-        this.productoPorClienteList = productoPorClienteList;
-    }
-
     public List<ClienteDomicilio> getClienteDomiciliosList() {
         return clienteDomiciliosList;
     }
@@ -278,68 +235,12 @@ public class Cliente implements Serializable
         this.clienteDomiciliosList = clienteDomiciliosList;
     }
 
-    public List<DetalleFacturacion> getDetalleFacturacionList() {
-        return detalleFacturacionList;
-    }
-
-    public void setDetalleFacturacionList(List<DetalleFacturacion> detalleFacturacionList) {
-        this.detalleFacturacionList = detalleFacturacionList;
-    }
-
-    public List<Aviso> getAvisoList() {
-        return avisoList;
-    }
-
-    public void setAvisoList(List<Aviso> avisoList) {
-        this.avisoList = avisoList;
-    }
-
-    public List<PrecioServicio> getPrecioServicioList() {
-        return precioServicioList;
-    }
-
-    public void setPrecioServicioList(List<PrecioServicio> precioServicioList) {
-        this.precioServicioList = precioServicioList;
-    }
-
     public List<ClienteContacto> getClienteContactoList() {
         return clienteContactoList;
     }
 
     public void setClienteContactoList(List<ClienteContacto> clienteContactoList) {
         this.clienteContactoList = clienteContactoList;
-    }
-
-    public List<ConstanciaServicios> getConstanciaServiciosList() {
-        return constanciaServiciosList;
-    }
-
-    public void setConstanciaServiciosList(List<ConstanciaServicios> constanciaServiciosList) {
-        this.constanciaServiciosList = constanciaServiciosList;
-    }
-
-    public List<ConstanciaSalida> getConstanciaSalidaList() {
-        return constanciaSalidaList;
-    }
-
-    public void setConstanciaSalidaList(List<ConstanciaSalida> constanciaSalidaList) {
-        this.constanciaSalidaList = constanciaSalidaList;
-    }
-
-    public List<CuotaMinima> getCuotaMinimaList() {
-        return cuotaMinimaList;
-    }
-
-    public void setCuotaMinimaList(List<CuotaMinima> cuotaMinimaList) {
-        this.cuotaMinimaList = cuotaMinimaList;
-    }
-
-    public List<ConstanciaTraspaso> getConstanciaTraspasoList() {
-        return constanciaTraspasoList;
-    }
-
-    public void setConstanciaTraspasoList(List<ConstanciaTraspaso> constanciaTraspasoList) {
-        this.constanciaTraspasoList = constanciaTraspasoList;
     }
 
     public String getRegimenCapital() {

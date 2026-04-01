@@ -21,7 +21,6 @@ public class RepInventarioDAO extends BaseDAO<RepInventario, Integer>
     public List<RepInventario> buscar(LocalDate fecha, Integer idCliente, Integer idPlanta, Integer idCamara) 
     {
         return JpaExecutor.executeRead(em -> {
-            List<RepInventario> resultList = null;
             String sql = "select * from ( "
                     + "	select "
                     + "	    cddEnt.folio            as folio, "
@@ -103,7 +102,7 @@ public class RepInventarioDAO extends BaseDAO<RepInventario, Integer>
                     .setParameter("idCamara", idCamara)
                     .getResultList();
 
-            resultList = new ArrayList<RepInventario>();
+            List<RepInventario> resultList = new ArrayList<RepInventario>();
             for (Object[] o : results) {
                 RepInventario r = new RepInventario();
                 int idx = 0;

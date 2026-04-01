@@ -23,17 +23,17 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "constancia_de_servicio")
 @NamedQueries({
-    @NamedQuery(name = "ConstanciaDeServicio.findAll", query = "SELECT c FROM ConstanciaDeServicio c"),
-    @NamedQuery(name = "ConstanciaDeServicio.findByFolio", query = "SELECT c FROM ConstanciaDeServicio c WHERE c.folio = :folio"),
-    @NamedQuery(name = "ConstanciaDeServicio.findByFecha", query = "SELECT c FROM ConstanciaDeServicio c WHERE c.fecha = :fecha"),
-    @NamedQuery(name = "ConstanciaDeServicio.findByNombreTransportista", query = "SELECT c FROM ConstanciaDeServicio c WHERE c.nombreTransportista = :nombreTransportista"),
-    @NamedQuery(name = "ConstanciaDeServicio.findByPlacasTransporte", query = "SELECT c FROM ConstanciaDeServicio c WHERE c.placasTransporte = :placasTransporte"),
-    @NamedQuery(name = "ConstanciaDeServicio.findByObservaciones", query = "SELECT c FROM ConstanciaDeServicio c WHERE c.observaciones = :observaciones"),
-    @NamedQuery(name = "ConstanciaDeServicio.findByFolioCliente", query = "SELECT c FROM ConstanciaDeServicio c WHERE c.folioCliente = :folioCliente"),
-    @NamedQuery(name = "ConstanciaDeServicio.findByPeriodoClienteFolioCliente", query = "SELECT c FROM ConstanciaDeServicio c WHERE (c.fecha BETWEEN :fechaInicio AND :fechaFin) AND (c.cliente.id = :idCliente OR :idCliente IS NULL) AND (c.folioCliente = :folioCliente OR :folioCliente IS NULL)"),
-    @NamedQuery(name = "ConstanciaDeServicio.findByValorDeclarado", query = "SELECT c FROM ConstanciaDeServicio c WHERE c.valorDeclarado = :valorDeclarado")
+    @NamedQuery(name = "ConstanciaServicio.findAll", query = "SELECT c FROM ConstanciaServicio c"),
+    @NamedQuery(name = "ConstanciaServicio.findByFolio", query = "SELECT c FROM ConstanciaServicio c WHERE c.folio = :folio"),
+    @NamedQuery(name = "ConstanciaServicio.findByFecha", query = "SELECT c FROM ConstanciaServicio c WHERE c.fecha = :fecha"),
+    @NamedQuery(name = "ConstanciaServicio.findByNombreTransportista", query = "SELECT c FROM ConstanciaServicio c WHERE c.nombreTransportista = :nombreTransportista"),
+    @NamedQuery(name = "ConstanciaServicio.findByPlacasTransporte", query = "SELECT c FROM ConstanciaServicio c WHERE c.placasTransporte = :placasTransporte"),
+    @NamedQuery(name = "ConstanciaServicio.findByObservaciones", query = "SELECT c FROM ConstanciaServicio c WHERE c.observaciones = :observaciones"),
+    @NamedQuery(name = "ConstanciaServicio.findByFolioCliente", query = "SELECT c FROM ConstanciaServicio c WHERE c.folioCliente = :folioCliente"),
+    @NamedQuery(name = "ConstanciaServicio.findByPeriodoClienteFolioCliente", query = "SELECT c FROM ConstanciaServicio c WHERE (c.fecha BETWEEN :fechaInicio AND :fechaFin) AND (c.cliente.id = :idCliente OR :idCliente IS NULL) AND (c.folioCliente = :folioCliente OR :folioCliente IS NULL)"),
+    @NamedQuery(name = "ConstanciaServicio.findByValorDeclarado", query = "SELECT c FROM ConstanciaServicio c WHERE c.valorDeclarado = :valorDeclarado")
 })
-public class ConstanciaDeServicio implements Serializable 
+public class ConstanciaServicio implements Serializable 
 {
     private static final long serialVersionUID = 1L;
     
@@ -67,7 +67,7 @@ public class ConstanciaDeServicio implements Serializable
     @Column(name = "VALOR_DECLARADO")
     private BigDecimal valorDeclarado;
     
-    @OneToMany(mappedBy = "constanciaDeServicio", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "constanciaServicio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PartidaServicio> partidaServicioList;
     
     @JoinColumn(name = "CTE_CVE", referencedColumnName = "CTE_CVE")
@@ -78,20 +78,20 @@ public class ConstanciaDeServicio implements Serializable
     @ManyToOne
     private EstadoConstancia status;
     
-    @OneToMany(mappedBy = "constanciaDeServicio", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "constanciaServicio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ConstanciaServicioDetalle> constanciaServicioDetalleList;
     
-    @OneToMany(mappedBy = "constanciaDeServicio", orphanRemoval = true)
+    @OneToMany(mappedBy = "constanciaServicio", orphanRemoval = true)
     private List<ConstanciaFacturaDs> constanciaFacturaDsList;
     
-    public ConstanciaDeServicio() {
+    public ConstanciaServicio() {
     }
 
-    public ConstanciaDeServicio(Integer folio) {
+    public ConstanciaServicio(Integer folio) {
         this.folio = folio;
     }
 
-    public ConstanciaDeServicio(Integer folio, String folioCliente) {
+    public ConstanciaServicio(Integer folio, String folioCliente) {
         this.folio = folio;
         this.folioCliente = folioCliente;
     }
@@ -202,10 +202,10 @@ public class ConstanciaDeServicio implements Serializable
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ConstanciaDeServicio)) {
+        if (!(object instanceof ConstanciaServicio)) {
             return false;
         }
-        ConstanciaDeServicio other = (ConstanciaDeServicio) object;
+        ConstanciaServicio other = (ConstanciaServicio) object;
         if ((this.folio == null && other.folio != null) || (this.folio != null && !this.folio.equals(other.folio))) {
             return false;
         }

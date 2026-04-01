@@ -1,10 +1,8 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,8 +21,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Producto.findById", query = "SELECT p FROM Producto p WHERE p.id = :idProducto"),
     @NamedQuery(name = "Producto.findByDescripcion", query = "SELECT p FROM Producto p WHERE p.descripcion = :descripcion"),
     @NamedQuery(name = "Producto.findByNumeroProd", query = "SELECT p FROM Producto p WHERE p.numeroProd = :numeroProd"),
-    @NamedQuery(name = "Producto.findByCategoria", query = "SELECT p FROM Producto p WHERE p.categoria = :categoria"),
-    @NamedQuery(name = "Producto.findByCliente", query = "SELECT p FROM Producto p JOIN p.productoPorClienteList ppc WHERE ppc.cliente.id = :idCliente ORDER BY p.descripcion ASC")
+    @NamedQuery(name = "Producto.findByCategoria", query = "SELECT p FROM Producto p WHERE p.categoria = :categoria")
 })
 public class Producto implements Serializable 
 {
@@ -51,9 +47,6 @@ public class Producto implements Serializable
     @NotNull
     @Column(name = "categoria")
     private int categoria;
-
-    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.PERSIST}, mappedBy = "producto")
-    private List<ProductoPorCliente> productoPorClienteList;
 
     public Producto() {
     }
@@ -100,14 +93,6 @@ public class Producto implements Serializable
         this.categoria = categoria;
     }
 
-    public List<ProductoPorCliente> getProductoPorClienteList() {
-        return productoPorClienteList;
-    }
-
-    public void setProductoPorClienteList(List<ProductoPorCliente> productoPorClienteList) {
-        this.productoPorClienteList = productoPorClienteList;
-    }
-    
     @Override
     public int hashCode() {
         if (this.id == null) {

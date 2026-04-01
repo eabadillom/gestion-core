@@ -1,11 +1,10 @@
 package com.ferbo.gestion.core.dao;
 
 import com.ferbo.gestion.core.commons.dao.BaseDAO;
-import com.ferbo.gestion.core.model.ConstanciaDeServicio;
+import com.ferbo.gestion.core.model.ConstanciaServicio;
 import com.ferbo.gestion.core.model.ConstanciaFacturaDs;
 import com.ferbo.gestion.core.model.ConstanciaServicioDetalle;
 import com.ferbo.gestion.core.model.PartidaServicio;
-import com.ferbo.gestion.core.model.PrecioServicio;
 import com.ferbo.gestion.core.tools.JpaExecutor;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,18 +45,16 @@ public class FacturacionServiciosDAO extends BaseDAO<ConstanciaFacturaDs, Intege
                     + "	SELECT FOLIO, COUNT(FOLIO) AS CTA_SERVICIOS FROM constancia_servicio_detalle cdet "
                     + "	GROUP BY FOLIO "
                     + ") det ON cs.FOLIO = det.FOLIO "
-                    + "WHERE cs.status not in (4) "
-                    + "AND cs.CTE_CVE = :idCliente "
-                    + "AND tCF.id IS NULL "
+                    + "WHERE cs.status not in (4) AND cs.CTE_CVE = :idCliente AND tCF.id IS NULL "
                     + "ORDER BY cs.FECHA, cs.FOLIO_CLIENTE ";
 
-            Query query = em.createNativeQuery(sql, ConstanciaDeServicio.class)
+            Query query = em.createNativeQuery(sql, ConstanciaServicio.class)
                     .setParameter("idCliente", idCliente);
 
-            List<ConstanciaDeServicio> listaConstancias = query.getResultList();
+            List<ConstanciaServicio> listaConstancias = query.getResultList();
             List<ConstanciaFacturaDs> list = new ArrayList<>();
 
-            for (ConstanciaDeServicio constancia : listaConstancias) {
+            for (ConstanciaServicio constancia : listaConstancias) {
                 List<ConstanciaServicioDetalle> allConstanciaServicioDetalle = constancia.getConstanciaServicioDetalleList();//recuperando constancias de servicio detalle de servicio ds
                 List<PartidaServicio> allPartidaServicio = constancia.getPartidaServicioList();
                 log.debug("Lista PartidaServicio.size() = {}", allPartidaServicio.size());
@@ -74,7 +71,7 @@ public class FacturacionServiciosDAO extends BaseDAO<ConstanciaFacturaDs, Intege
                 }
 
                 ConstanciaFacturaDs cf = new ConstanciaFacturaDs();
-                cf.setConstanciaDeServicio(constancia);
+                cf.setConstanciaServicio(constancia);
                 cf.setFolioCliente(constancia.getFolioCliente());
 
                 // FALTA RELACION DE CONSTANCIA FACTURA DS CON LA CONSTANCIA DE SERVICIO constancia.setConstanciaFacturaDsList(null);
@@ -82,11 +79,6 @@ public class FacturacionServiciosDAO extends BaseDAO<ConstanciaFacturaDs, Intege
                 constancia.setConstanciaFacturaDsList(new ArrayList<>());
                 constancia.setConstanciaFacturaDsList(list);
                 //modificacion
-                for (ConstanciaServicioDetalle csd : allConstanciaServicioDetalle) {
-                    List<PrecioServicio> allPrecioServicio = csd.getServicio().getPrecioServicioList();
-                    log.debug("Lista PrecioServicio.size() = {}", allPrecioServicio.size());
-                }
-
             }
 
             return list;

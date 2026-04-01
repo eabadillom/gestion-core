@@ -51,15 +51,9 @@ public class RepEntradasDAO extends BaseDAO<RepEntradas, Integer>
                     + "INNER JOIN producto prd ON prd.producto_cve = udp.producto_cve "
                     + "INNER JOIN camara cam ON cam.camara_cve = p.camara_cve "
                     + "INNER JOIN planta plt ON cam.planta_cve = plt.planta_cve "
-                    + "WHERE cdd.fecha_ingreso BETWEEN :fechaIni AND :fechaFin "
-                    + "	AND (cdd.cte_cve = :idCliente OR :idCliente IS NULL) "
-                    + "	AND (cam.camara_cve = :idCamara OR :idCamara IS NULL) "
-                    + "	AND (plt.planta_cve = :idPlanta OR :idPlanta IS NULL) "
-                    + "ORDER BY "
-                    + "	c.cte_nombre DESC, "
-                    + "	c.numero_cte DESC, "
-                    + "	prd.producto_ds DESC, "
-                    + "	cdd.fecha_ingreso DESC ";
+                    + "WHERE cdd.fecha_ingreso BETWEEN :fechaIni AND :fechaFin AND (cdd.cte_cve = :idCliente OR :idCliente IS NULL) "
+                    + "	AND (cam.camara_cve = :idCamara OR :idCamara IS NULL) AND (plt.planta_cve = :idPlanta OR :idPlanta IS NULL) "
+                    + "ORDER BY c.cte_nombre DESC, c.numero_cte DESC, prd.producto_ds DESC, cdd.fecha_ingreso DESC ";
             
             List<Object[]> results = em.createNativeQuery(sql)
                     .setParameter("fechaIni", fechaIni)

@@ -21,7 +21,6 @@ public class RepServiciosDAO extends BaseDAO<RepServicios, Integer>
     public List<RepServicios> buscar(LocalDate fechaIni, LocalDate fechaFin, Integer idCliente) 
     {
         return JpaExecutor.executeRead(em -> {
-            List<RepServicios> resultList = null;
             String sql = "SELECT "
                     + "	cs.folio, "
                     + "	cs.folio_cliente, "
@@ -48,9 +47,7 @@ public class RepServiciosDAO extends BaseDAO<RepServicios, Integer>
                     + "	(cs.fecha BETWEEN :fechaIni AND :fechaFin) "
                     + "	AND (c.cte_cve = :idCliente OR :idCliente IS NULL) "
                     + "	AND (cs.status <> 4) "
-                    + "ORDER BY "
-                    + "	c.cte_nombre ASC, "
-                    + "	cs.folio_cliente ASC ";
+                    + "ORDER BY c.cte_nombre ASC, cs.folio_cliente ASC ";
 
             List<Object[]> results = em.createNativeQuery(sql)
                     .setParameter("fechaIni", fechaIni)
@@ -58,7 +55,7 @@ public class RepServiciosDAO extends BaseDAO<RepServicios, Integer>
                     .setParameter("idCliente", idCliente)
                     .getResultList();
 
-            resultList = new ArrayList<RepServicios>();
+            List<RepServicios> resultList = new ArrayList<RepServicios>();
             for (Object[] o : results) {
                 RepServicios r = new RepServicios();
                 int idx = 0;

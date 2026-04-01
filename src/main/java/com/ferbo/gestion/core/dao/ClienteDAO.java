@@ -36,7 +36,6 @@ public class ClienteDAO extends BaseDAO<Cliente, Integer>
                         "INNER JOIN c.medioCntList mc \n" +
                         "LEFT JOIN mc.mail m \n" +
                         "LEFT JOIN mc.telefono t \n" +
-                        "INNER JOIN cl.precioServicioList ps \n" +
                         "INNER JOIN cl.clienteDomiciliosList cd \n" +
                         "INNER JOIN cd.domicilio d \n" +
                         "WHERE cl.id = :idCliente", Cliente.class)

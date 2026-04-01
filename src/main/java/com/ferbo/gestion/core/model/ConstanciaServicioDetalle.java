@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "ConstanciaServicioDetalle.findAll", query = "SELECT c FROM ConstanciaServicioDetalle c"),
     @NamedQuery(name = "ConstanciaServicioDetalle.findByConstanciaServicioDetalleCve", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.id = :idConstanciaSrvDet"),
-    @NamedQuery(name = "ConstanciaServicioDetalle.findByFolio", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.constanciaDeServicio.folio = :folio"),
+    @NamedQuery(name = "ConstanciaServicioDetalle.findByFolio", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.constanciaServicio.folio = :folio"),
     @NamedQuery(name = "ConstanciaServicioDetalle.findByServicioCantidad", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.servicioCantidad = :servicioCantidad")
 })
 public class ConstanciaServicioDetalle implements Serializable 
@@ -38,7 +38,7 @@ public class ConstanciaServicioDetalle implements Serializable
     
     @JoinColumn(name = "FOLIO", referencedColumnName = "FOLIO")
     @ManyToOne(fetch = FetchType.LAZY)
-    private ConstanciaDeServicio constanciaDeServicio;
+    private ConstanciaServicio constanciaServicio;
     
     @JoinColumn(name = "SERVICIO_CVE", referencedColumnName = "SERVICIO_CVE")
     @ManyToOne(optional = false)
@@ -67,12 +67,12 @@ public class ConstanciaServicioDetalle implements Serializable
         this.servicioCantidad = servicioCantidad;
     }
 
-    public ConstanciaDeServicio getConstanciaDeServicio() {
-        return constanciaDeServicio;
+    public ConstanciaServicio getConstanciaServicio() {
+        return constanciaServicio;
     }
 
-    public void setConstanciaDeServicio(ConstanciaDeServicio constanciaDeServicio) {
-        this.constanciaDeServicio = constanciaDeServicio;
+    public void setConstanciaServicio(ConstanciaServicio constanciaServicio) {
+        this.constanciaServicio = constanciaServicio;
     }
 
     public Servicio getServicio() {

@@ -1,10 +1,8 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -58,12 +55,6 @@ public class Servicio implements Serializable
     @Column(name = "uuid")
     private String uuId;
 
-    @OneToMany(mappedBy = "servicio")
-    private List<DetalleConstanciaServicio> detalleConstanciaServicioList;
-
-    @OneToMany(mappedBy = "servicio")
-    private List<ConstanciaSalidaServicio> constanciaSalidaServicioList;
-
     @JoinColumn(name = "COBRO", referencedColumnName = "id")
     @ManyToOne
     private TipoCobro cobro;
@@ -71,18 +62,6 @@ public class Servicio implements Serializable
     @JoinColumn(name = "cd_unidad", referencedColumnName = "cd_unidad", insertable = false, updatable = false)
     @ManyToOne
     private ClaveUnidad claveUnit;
-
-    @OneToMany(mappedBy = "servicio")
-    private List<CuotaMensualServicio> cuotaMensualServicioList;
-
-    @OneToMany(mappedBy = "servicio")
-    private List<PrecioServicio> precioServicioList;
-
-    @OneToMany(mappedBy = "servicio")
-    private List<ConstanciaDepositoDetalle> constanciaDepositoDetalleList;
-
-    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "servicio")
-    private List<ConstanciaServicioDetalle> constanciaServicioDetalleList;
 
     public Servicio() {
     }
@@ -139,14 +118,6 @@ public class Servicio implements Serializable
         this.uuId = uuId;
     }
 
-    public List<DetalleConstanciaServicio> getDetalleConstanciaServicioList() {
-        return detalleConstanciaServicioList;
-    }
-
-    public void setDetalleConstanciaServicioList(List<DetalleConstanciaServicio> detalleConstanciaServicioList) {
-        this.detalleConstanciaServicioList = detalleConstanciaServicioList;
-    }
-
     public TipoCobro getCobro() {
         return cobro;
     }
@@ -163,46 +134,6 @@ public class Servicio implements Serializable
         this.claveUnit = claveUnit;
     }
 
-    public List<CuotaMensualServicio> getCuotaMensualServicioList() {
-        return cuotaMensualServicioList;
-    }
-
-    public void setCuotaMensualServicioList(List<CuotaMensualServicio> cuotaMensualServicioList) {
-        this.cuotaMensualServicioList = cuotaMensualServicioList;
-    }
-
-    public List<PrecioServicio> getPrecioServicioList() {
-        return precioServicioList;
-    }
-
-    public void setPrecioServicioList(List<PrecioServicio> precioServicioList) {
-        this.precioServicioList = precioServicioList;
-    }
-
-    public List<ConstanciaDepositoDetalle> getConstanciaDepositoDetalleList() {
-        return constanciaDepositoDetalleList;
-    }
-
-    public void setConstanciaDepositoDetalleList(List<ConstanciaDepositoDetalle> constanciaDepositoDetalleList) {
-        this.constanciaDepositoDetalleList = constanciaDepositoDetalleList;
-    }
-
-    public List<ConstanciaServicioDetalle> getConstanciaServicioDetalleList() {
-        return constanciaServicioDetalleList;
-    }
-
-    public void setConstanciaServicioDetalleList(List<ConstanciaServicioDetalle> constanciaServicioDetalleList) {
-        this.constanciaServicioDetalleList = constanciaServicioDetalleList;
-    }
-
-    public List<ConstanciaSalidaServicio> getConstanciaSalidaServicioList() {
-        return constanciaSalidaServicioList;
-    }
-
-    public void setConstanciaSalidaServicioList(List<ConstanciaSalidaServicio> constanciaSalidaServicioList) {
-        this.constanciaSalidaServicioList = constanciaSalidaServicioList;
-    }
-    
     @Override
     public int hashCode() {
         if (this.id == null) {
