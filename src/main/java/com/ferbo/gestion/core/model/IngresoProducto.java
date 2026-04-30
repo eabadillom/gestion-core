@@ -1,0 +1,209 @@
+package com.ferbo.gestion.core.model;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Objects;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(name = "ingreso_producto")
+public class IngresoProducto implements Serializable, Cloneable 
+{
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_ingreso_producto")
+    private Integer id;
+
+    @Column(name = "cantidad")
+    private Integer cantidad;
+
+    @JoinColumn(name = "id_unidad_medida", referencedColumnName = "UNIDAD_DE_MANEJO_CVE")
+    @ManyToOne
+    private UnidadManejo unidad;
+
+    @Column(name = "peso")
+    private BigDecimal peso;
+
+    @JoinColumn(name = "id_planta", referencedColumnName = "PLANTA_CVE")
+    @ManyToOne
+    private Planta planta;
+
+    @Column(name = "no_tarimas")
+    @NotNull
+    private BigDecimal numeroTarimas;
+
+    @Column(name = "lote")
+    @Size(max = 20)
+    private String lote;
+
+    @Column(name = "pedimento")
+    @Size(max = 13)
+    private String pedimento;
+
+    @Column(name = "contenedor")
+    @Size(max = 20)
+    private String contenedor;
+
+    @Column(name = "fecha_Caducidad")
+    private LocalDate caducidad;
+
+    @Column(name = "otro")
+    @Size(max = 12)
+    private String otro;
+
+    @JoinColumn(name = "id_ingreso", referencedColumnName = "id_ingreso")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Ingreso ingreso;
+
+    @JoinColumn(name = "id_producto", referencedColumnName = "PRODUCTO_CVE")
+    @ManyToOne
+    private Producto producto;
+
+    public IngresoProducto() {
+    }
+
+    public IngresoProducto clone() throws CloneNotSupportedException {
+        return (IngresoProducto) super.clone();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public UnidadManejo getUnidad() {
+        return unidad;
+    }
+
+    public void setUnidad(UnidadManejo unidad) {
+        this.unidad = unidad;
+    }
+
+    public BigDecimal getPeso() {
+        return peso;
+    }
+
+    public void setPeso(BigDecimal peso) {
+        this.peso = peso;
+    }
+
+    public Planta getPlanta() {
+        return planta;
+    }
+
+    public void setPlanta(Planta planta) {
+        this.planta = planta;
+    }
+
+    public BigDecimal getNumeroTarimas() {
+        return numeroTarimas;
+    }
+
+    public void setNumeroTarimas(BigDecimal numeroTarimas) {
+        this.numeroTarimas = numeroTarimas;
+    }
+
+    public String getLote() {
+        return lote;
+    }
+
+    public void setLote(String lote) {
+        this.lote = lote;
+    }
+
+    public String getPedimento() {
+        return pedimento;
+    }
+
+    public void setPedimento(String pedimento) {
+        this.pedimento = pedimento;
+    }
+
+    public String getContenedor() {
+        return contenedor;
+    }
+
+    public void setContenedor(String contenedor) {
+        this.contenedor = contenedor;
+    }
+
+    public LocalDate getCaducidad() {
+        return caducidad;
+    }
+
+    public void setCaducidad(LocalDate caducidad) {
+        this.caducidad = caducidad;
+    }
+
+    public String getOtro() {
+        return otro;
+    }
+
+    public void setOtro(String otro) {
+        this.otro = otro;
+    }
+
+    public Ingreso getIngreso() {
+        return ingreso;
+    }
+
+    public void setIngreso(Ingreso ingreso) {
+        this.ingreso = ingreso;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    @Override
+    public int hashCode() {
+    	if(this.id == null)
+    		return System.identityHashCode(this);
+    	return Objects.hash(this.id);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof IngresoProducto)) {
+            return false;
+        }
+        IngresoProducto other = (IngresoProducto) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+}

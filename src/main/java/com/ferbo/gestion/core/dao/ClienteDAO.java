@@ -7,7 +7,42 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< Updated upstream
 import com.ferbo.gestion.core.model.Cliente;
+=======
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.ferbo.gestion.core.commons.dao.BaseDAO;
+import com.ferbo.gestion.core.model.Cliente;
+import com.ferbo.gestion.core.tools.CoreException;
+import com.ferbo.gestion.core.tools.JpaExecutor;
+
+public class ClienteDAO extends BaseDAO<Cliente, Integer> 
+{
+    private static Logger log = LogManager.getLogger(ClienteDAO.class);
+
+    public ClienteDAO() {
+        super(Cliente.class);
+    }
+    
+    public List<Cliente> buscarTodos() 
+    {
+        return JpaExecutor.executeRead(em -> 
+            em.createNamedQuery("Cliente.findAll", Cliente.class)
+                .getResultList()
+        );
+    }
+
+    public Cliente buscarPorCodigoUnico(String codigoUnico) throws CoreException 
+    {
+        return JpaExecutor.executeRead(em -> 
+            em.createNamedQuery("Cliente.findByCodigoUnico", Cliente.class)
+                .setParameter("codigoUnico", codigoUnico)
+                .getSingleResult()
+        );
+    }
+>>>>>>> Stashed changes
 
 public class ClienteDAO extends DAO implements IDAO<Cliente> {
 	

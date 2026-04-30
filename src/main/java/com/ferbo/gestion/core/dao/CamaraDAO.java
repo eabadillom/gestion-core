@@ -1,5 +1,6 @@
 package com.ferbo.gestion.core.dao;
 
+<<<<<<< Updated upstream
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,5 +73,33 @@ public class CamaraDAO extends DAO implements IDAO<Camara> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+=======
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.ferbo.gestion.core.commons.dao.BaseDAO;
+import com.ferbo.gestion.core.model.Camara;
+import com.ferbo.gestion.core.model.Planta;
+import com.ferbo.gestion.core.tools.JpaExecutor;
+
+public class CamaraDAO extends BaseDAO<Camara, Integer> 
+{
+    private static Logger log = LogManager.getLogger(CamaraDAO.class);
+
+    public CamaraDAO() {
+        super(Camara.class);
+    }
+
+    public List<Camara> buscarPorPlanta(Planta p) 
+    {
+        return JpaExecutor.executeRead(em -> 
+            em.createNamedQuery("Camara.findByPlanta", Camara.class)
+            .setParameter("idPlanta", p.getId())
+            .getResultList()
+        );
+    }
+>>>>>>> Stashed changes
 
 }

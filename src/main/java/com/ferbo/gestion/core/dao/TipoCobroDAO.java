@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+<<<<<<< Updated upstream
 
 import com.ferbo.gestion.core.model.TipoCobro;
 
@@ -69,4 +70,25 @@ public class TipoCobroDAO extends DAO implements IDAO<TipoCobro> {
 		return 0;
 	}
 	
+=======
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class TipoCobroDAO extends BaseDAO<TipoCobro, Integer>
+{
+    private static Logger log = LogManager.getLogger(TipoCobroDAO.class);
+
+    public TipoCobroDAO() {
+        super(TipoCobro.class);
+    }
+    
+    public List<TipoCobro> buscarTodos() 
+    {
+        return JpaExecutor.executeRead(em -> 
+            em.createNamedQuery("TipoCobro.findAll", TipoCobro.class)
+                .getResultList()
+        );
+    }
+    
+>>>>>>> Stashed changes
 }
