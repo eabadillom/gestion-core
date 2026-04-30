@@ -1,7 +1,6 @@
 package com.ferbo.gestion.core.dao;
 
 import com.ferbo.gestion.core.commons.dao.BaseDAO;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import com.ferbo.gestion.core.ui.OcupacionCamara;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,18 +9,19 @@ import java.util.List;
 import javax.persistence.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class RepOcupacionCamaraDAO extends BaseDAO<OcupacionCamara, Integer> 
 {
     private static Logger log = LogManager.getLogger(RepOcupacionCamaraDAO.class);
 
-    public RepOcupacionCamaraDAO() {
-        super(OcupacionCamara.class);
+    public RepOcupacionCamaraDAO(TransactionManager transactManager) {
+        super(OcupacionCamara.class, transactManager);
     }
     
     public List<OcupacionCamara> ocupacionCamara(LocalDate fecha, Integer idCliente, Integer idPlanta, Integer idCamara) 
     {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             String sql = "select "
                     + "*, "
                     + "(I.total_pos - I.tarima) AS posiciones_Disponibles "

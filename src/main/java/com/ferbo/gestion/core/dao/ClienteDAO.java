@@ -5,22 +5,22 @@ import java.util.List;
 import com.ferbo.gestion.core.commons.dao.BaseDAO;
 import com.ferbo.gestion.core.model.Cliente;
 import com.ferbo.gestion.core.tools.CoreException;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class ClienteDAO extends BaseDAO<Cliente, Integer> 
 {
     private static Logger log = LogManager.getLogger(ClienteDAO.class);
 
-    public ClienteDAO() {
-        super(Cliente.class);
+    public ClienteDAO(TransactionManager transactManager) {
+        super(Cliente.class, transactManager);
     }
     
     public List<Cliente> buscarTodos() 
     {
-        return JpaExecutor.executeRead(em -> 
+        return transactManager.executeRead(em -> 
             em.createNamedQuery("Cliente.findAll", Cliente.class)
                 .getResultList()
         );
@@ -28,7 +28,7 @@ public class ClienteDAO extends BaseDAO<Cliente, Integer>
 
     public Cliente obtenerPorId(Integer idCliente) throws CoreException 
     {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             return em.createQuery("SELECT DISTINCT cl FROM Cliente cl \n" +
                         "INNER JOIN cl.candadoSalida cs \n" +
                         "INNER JOIN cl.clienteContactoList cc \n" +
@@ -46,7 +46,7 @@ public class ClienteDAO extends BaseDAO<Cliente, Integer>
     
     public Cliente buscarPorCodigoUnico(String codigoUnico) throws CoreException 
     {
-        return JpaExecutor.executeRead(em -> 
+        return transactManager.executeRead(em -> 
             em.createNamedQuery("Cliente.findByCodUnico", Cliente.class)
                 .setParameter("codUnico", codigoUnico)
                 .getSingleResult()

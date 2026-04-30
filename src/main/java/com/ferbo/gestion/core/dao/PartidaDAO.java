@@ -2,22 +2,22 @@ package com.ferbo.gestion.core.dao;
 
 import com.ferbo.gestion.core.commons.dao.BaseDAO;
 import com.ferbo.gestion.core.model.Partida;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import javax.persistence.TypedQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class PartidaDAO extends BaseDAO<Partida, Integer> 
 {
     private static Logger log = LogManager.getLogger(Partida.class);
 
-    public PartidaDAO() {
-        super(Partida.class);
+    public PartidaDAO(TransactionManager transactManager) {
+        super(Partida.class, transactManager);
     }
     
     public Partida buscarPorIdConEntrada(Integer idPartida) 
     {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             TypedQuery<Partida> query = em.createQuery(
                 "SELECT p FROM Partida p "
                     + "INNER JOIN p.constanciaDeposito cd "

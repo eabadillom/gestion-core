@@ -2,22 +2,22 @@ package com.ferbo.gestion.core.dao;
 
 import com.ferbo.gestion.core.commons.dao.BaseDAO;
 import com.ferbo.gestion.core.model.Concepto;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class ConceptoDAO extends BaseDAO<Concepto, String> 
 {
     private static Logger log = LogManager.getLogger(ConceptoDAO.class);
 
-    public ConceptoDAO() {
-        super(Concepto.class);
+    public ConceptoDAO(TransactionManager transactManager) {
+        super(Concepto.class, transactManager);
     }
     
     public List<Concepto> buscarPorNombre(String nombre) 
     {
-        return JpaExecutor.executeRead(em -> { 
+        return transactManager.executeRead(em -> { 
             String prmNombre = new String(nombre);
 
             if (prmNombre.startsWith("%") == false) {
@@ -36,7 +36,7 @@ public class ConceptoDAO extends BaseDAO<Concepto, String>
 
     public List<Concepto> buscarPorClaveNombre(String clave, String nombre) 
     {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             String prmClave = new String(clave);
             if (prmClave.startsWith("%") == false) {
                 prmClave = "%".concat(prmClave);

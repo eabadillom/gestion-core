@@ -4,22 +4,22 @@ import com.ferbo.gestion.core.commons.dao.BaseDAO;
 import com.ferbo.gestion.core.model.ConstanciaDeposito;
 import com.ferbo.gestion.core.model.DetalleConstanciaSalida;
 import com.ferbo.gestion.core.model.Partida;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class DetalleConstanciaSalidaDAO extends BaseDAO<DetalleConstanciaSalida, Integer>
 {
     private static Logger log = LogManager.getLogger(DetalleConstanciaSalidaDAO.class);
 
-    public DetalleConstanciaSalidaDAO() {
-        super(DetalleConstanciaSalida.class);
+    public DetalleConstanciaSalidaDAO(TransactionManager transactManager) {
+        super(DetalleConstanciaSalida.class, transactManager);
     }
     
     public List<DetalleConstanciaSalida> buscarPorPartidaCve(Partida partida) 
     {
-        return JpaExecutor.executeRead(em -> 
+        return transactManager.executeRead(em -> 
             em.createNamedQuery("DetalleConstanciaSalida.findByPartida", DetalleConstanciaSalida.class)
                 .setParameter("idPartida", partida.getId())
                 .getResultList()
@@ -28,7 +28,7 @@ public class DetalleConstanciaSalidaDAO extends BaseDAO<DetalleConstanciaSalida,
     
     public List<DetalleConstanciaSalida> buscarPorParams(Partida p, ConstanciaDeposito cDepSel) 
     {
-        return JpaExecutor.executeRead(em -> 
+        return transactManager.executeRead(em -> 
             em.createNamedQuery("DetalleConstanciaSalida.findByParams", DetalleConstanciaSalida.class)
                 .setParameter("idPartida", p.getId())
                 .setParameter("folioEntrada", cDepSel.getFolioCliente())

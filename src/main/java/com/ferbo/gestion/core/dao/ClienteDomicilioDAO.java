@@ -3,26 +3,22 @@ package com.ferbo.gestion.core.dao;
 import com.ferbo.gestion.core.commons.dao.BaseDAO;
 import com.ferbo.gestion.core.model.Cliente;
 import com.ferbo.gestion.core.model.ClienteDomicilio;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class ClienteDomicilioDAO extends BaseDAO<ClienteDomicilio, Integer>
 {
     private static Logger log = LogManager.getLogger(ClienteDomicilioDAO.class);
 
-    public ClienteDomicilioDAO(Class<ClienteDomicilio> modelClass) {
-        super(modelClass);
-    }
-
-    public ClienteDomicilioDAO() {
-        super(ClienteDomicilio.class);
+    public ClienteDomicilioDAO(TransactionManager transactManager) {
+        super(ClienteDomicilio.class, transactManager);
     }
 
     public List<ClienteDomicilio> buscarDomicilioFiscalPorCliente(Integer idCliente, boolean isFullInfo) {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             List<ClienteDomicilio> listado = em.createNamedQuery("ClienteDomicilio.findByClienteDomFiscal", ClienteDomicilio.class)
                 .setParameter("idTipoDom", (short) 1)
                 .setParameter("idCliente", idCliente)
@@ -42,7 +38,7 @@ public class ClienteDomicilioDAO extends BaseDAO<ClienteDomicilio, Integer>
     }
 
     public List<ClienteDomicilio> buscaPorCliente(Cliente c) {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             List<ClienteDomicilio> listado = em.createNamedQuery("ClienteDomicilio.findByCliente", ClienteDomicilio.class)
                 .setParameter("idCliente", c.getId())
                 .getResultList();

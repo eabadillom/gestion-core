@@ -8,7 +8,6 @@ import com.ferbo.gestion.core.model.ConstanciaSalida;
 import com.ferbo.gestion.core.model.DetalleConstanciaSalida;
 import com.ferbo.gestion.core.model.Partida;
 import com.ferbo.gestion.core.tools.DateUtils;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -19,18 +18,19 @@ import java.util.stream.Collectors;
 import javax.persistence.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class FacturacionVigenciasDAO extends BaseDAO<ConstanciaFactura, Integer> 
 {
     private static Logger log = LogManager.getLogger(FacturacionVigenciasDAO.class);
 
-    public FacturacionVigenciasDAO() {
-        super(ConstanciaFactura.class);
+    public FacturacionVigenciasDAO(TransactionManager transactManager) {
+        super(ConstanciaFactura.class, transactManager);
     }
 
     public List<ConstanciaFactura> buscarNoFacturados(Integer idCliente, LocalDate fechaCorte, Integer idPlanta) 
     {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             List<ConstanciaFactura> list = new ArrayList<>();
             
             String sql = "select distinct\n"

@@ -2,21 +2,21 @@ package com.ferbo.gestion.core.dao;
 
 import com.ferbo.gestion.core.commons.dao.BaseDAO;
 import com.ferbo.gestion.core.model.ConstanciaDeposito;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class ConstanciaDepositoDAO extends BaseDAO <ConstanciaDeposito, Integer>
 {
     private static Logger log = LogManager.getLogger(ConstanciaDepositoDAO.class);
     
-    public ConstanciaDepositoDAO(){
-        super(ConstanciaDeposito.class);
+    public ConstanciaDepositoDAO(TransactionManager transactManager){
+        super(ConstanciaDeposito.class, transactManager);
     }
     
     public ConstanciaDeposito buscarPorFolioCliente(String folioCliente) 
     {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             return em.createQuery("SELECT DISTINCT c \n" +
                     "FROM ConstanciaDeposito c \n" +
                     "INNER JOIN c.cliente cl \n" +

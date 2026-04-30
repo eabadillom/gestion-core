@@ -6,25 +6,25 @@ import com.ferbo.gestion.core.model.ConstanciaDepositoDetalle;
 import com.ferbo.gestion.core.model.ConstanciaFactura;
 import com.ferbo.gestion.core.model.Partida;
 import com.ferbo.gestion.core.tools.DateUtils;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class FacturacionDepositosDAO extends BaseDAO<ConstanciaDeposito, Integer> 
 {
     private static Logger log = LogManager.getLogger(FacturacionDepositosDAO.class);
 
-    public FacturacionDepositosDAO() {
-        super(ConstanciaDeposito.class);
+    public FacturacionDepositosDAO(TransactionManager transactManager) {
+        super(ConstanciaDeposito.class, transactManager);
     }
 
     public List<ConstanciaFactura> buscarNoFacturados(Integer idCliente, Integer idPlanta) 
     {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             List<ConstanciaFactura> listaConstanciaFactura = new ArrayList<>();
             
             //La siguiente consulta recibe dos parámetros: cteCve y plantaCve

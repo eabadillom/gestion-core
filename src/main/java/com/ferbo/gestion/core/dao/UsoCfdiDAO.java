@@ -2,22 +2,22 @@ package com.ferbo.gestion.core.dao;
 
 import com.ferbo.gestion.core.commons.dao.BaseDAO;
 import com.ferbo.gestion.core.model.UsoCfdi;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class UsoCfdiDAO extends BaseDAO<UsoCfdi, Integer> 
 {
     private static Logger log = LogManager.getLogger(UsoCfdiDAO.class);
 
-    public UsoCfdiDAO() {
-        super(UsoCfdi.class);
+    public UsoCfdiDAO(TransactionManager transactManager) {
+        super(UsoCfdi.class, transactManager);
     }
 
     public List<UsoCfdi> buscarTodos() 
     {
-        return JpaExecutor.executeRead(em -> 
+        return transactManager.executeRead(em -> 
             em.createNamedQuery("UsoCfdi.findAll", UsoCfdi.class)
                 .getResultList()
         );
@@ -25,7 +25,7 @@ public class UsoCfdiDAO extends BaseDAO<UsoCfdi, Integer>
 
     public List<UsoCfdi> buscarUsoCfdiPorTipoPersona(String tipoPersona) 
     {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             String namedQuery;
             if ("F".equalsIgnoreCase(tipoPersona)) {
                 namedQuery = "UsoCfdi.findByPersonaFisica";

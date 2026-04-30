@@ -1,7 +1,6 @@
 package com.ferbo.gestion.core.dao;
 
 import com.ferbo.gestion.core.commons.dao.BaseDAO;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import com.ferbo.gestion.core.ui.RepSalidas;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,18 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class RepSalidasDAO extends BaseDAO<RepSalidas, Integer> 
 {
     private static Logger log = LogManager.getLogger(RepSalidasDAO.class);
 
-    public RepSalidasDAO() {
-        super(RepSalidas.class);
+    public RepSalidasDAO(TransactionManager transactManager) {
+        super(RepSalidas.class, transactManager);
     }
     
     public List<RepSalidas> buscar(LocalDate fechaIni, LocalDate fechaFin, Integer idCliente, Integer idPlanta, Integer idCamara) 
     {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             String sql = "SELECT "
                     + "	cs.fecha, "
                     + "	cdd.folio_cliente, "

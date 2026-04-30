@@ -1,7 +1,6 @@
 package com.ferbo.gestion.core.dao;
 
 import com.ferbo.gestion.core.commons.dao.BaseDAO;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import com.ferbo.gestion.core.ui.RepInventario;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,18 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class RepInventarioDAO extends BaseDAO<RepInventario, Integer>
 {
     private static Logger log = LogManager.getLogger(RepInventarioDAO.class);
 
-    public RepInventarioDAO() {
-        super(RepInventario.class);
+    public RepInventarioDAO(TransactionManager transactManager) {
+        super(RepInventario.class, transactManager);
     }
     
     public List<RepInventario> buscar(LocalDate fecha, Integer idCliente, Integer idPlanta, Integer idCamara) 
     {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             String sql = "select * from ( "
                     + "	select "
                     + "	    cddEnt.folio            as folio, "

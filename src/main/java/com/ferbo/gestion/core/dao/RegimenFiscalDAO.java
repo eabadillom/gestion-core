@@ -2,22 +2,22 @@ package com.ferbo.gestion.core.dao;
 
 import com.ferbo.gestion.core.commons.dao.BaseDAO;
 import com.ferbo.gestion.core.model.RegimenFiscal;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class RegimenFiscalDAO extends BaseDAO<RegimenFiscal, Integer> 
 {
     private static Logger log = LogManager.getLogger(RegimenFiscalDAO.class);
 
-    public RegimenFiscalDAO() {
-        super(RegimenFiscal.class);
+    public RegimenFiscalDAO(TransactionManager transactManager) {
+        super(RegimenFiscal.class, transactManager);
     }
     
     public List<RegimenFiscal> buscarTodos()
     {
-        return JpaExecutor.executeRead(em -> 
+        return transactManager.executeRead(em -> 
             em.createNamedQuery("RegimenFiscal.findAll", RegimenFiscal.class)
                 .getResultList()
         );
@@ -25,7 +25,7 @@ public class RegimenFiscalDAO extends BaseDAO<RegimenFiscal, Integer>
 
     public List<RegimenFiscal> buscarPorTipoPersona(String tipoPersona) 
     {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             String namedQuery;
             if ("F".equalsIgnoreCase(tipoPersona)) {
                 namedQuery = "RegimenFiscal.findByst_per_fisica";

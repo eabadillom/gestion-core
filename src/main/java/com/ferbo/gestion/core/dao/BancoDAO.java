@@ -2,22 +2,22 @@ package com.ferbo.gestion.core.dao;
 
 import com.ferbo.gestion.core.commons.dao.BaseDAO;
 import com.ferbo.gestion.core.model.Banco;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class BancoDAO extends BaseDAO<Banco, Integer> 
 {
     private static Logger log = LogManager.getLogger(BancoDAO.class);
 
-    public BancoDAO() {
-        super(Banco.class);
+    public BancoDAO(TransactionManager transactManager) {
+        super(Banco.class, transactManager);
     }
 
     public List<Banco> buscarTodos() 
     {
-        return JpaExecutor.executeRead(em -> 
+        return transactManager.executeRead(em -> 
             em.createNamedQuery("Bancos.findAll", Banco.class)
                 .getResultList()
         );

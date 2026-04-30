@@ -54,6 +54,9 @@ public class Planta implements Serializable
     @Size(max = 10)
     @Column(name = "PLANTA_COD")
     private String codigo;
+    
+    @Column(name = "st_habilitado")
+    private Boolean habilitado;
 
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
     @ManyToOne
@@ -243,6 +246,14 @@ public class Planta implements Serializable
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public Boolean getHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(Boolean habilitado) {
+        this.habilitado = habilitado;
     }
 
     public Usuario getUsuario() {

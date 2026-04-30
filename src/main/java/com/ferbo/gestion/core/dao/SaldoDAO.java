@@ -1,21 +1,26 @@
 package com.ferbo.gestion.core.dao;
 
+import com.ferbo.gestion.core.commons.dao.BaseDAO;
 import com.ferbo.gestion.core.model.Cliente;
 import com.ferbo.gestion.core.model.Saldo;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import javax.persistence.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
-public class SaldoDAO 
+public class SaldoDAO extends BaseDAO<Saldo, Integer> 
 {
     private static Logger log = LogManager.getLogger(SaldoDAO.class);
+    
+    public SaldoDAO(TransactionManager transactManager){
+        super(Saldo.class, transactManager);
+    }
 
     public Saldo getSaldo(Cliente cliente, LocalDate fecha, String emisorRFC) 
     {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             Query query = em.createNativeQuery("WITH cartera (id,numero_cliente, cliente, nom_serie, numero, nombre_cliente, fecha, subtotal, iva, total, saldo, status, nombre_status, emi_rfc, emi_nombre,plazo, dias) AS\n"
                     + "(\n"
                     + "	SELECT\n"

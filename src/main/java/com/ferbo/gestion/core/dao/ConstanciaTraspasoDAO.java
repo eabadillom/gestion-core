@@ -2,22 +2,22 @@ package com.ferbo.gestion.core.dao;
 
 import com.ferbo.gestion.core.commons.dao.BaseDAO;
 import com.ferbo.gestion.core.model.ConstanciaTraspaso;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import java.time.LocalDate;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class ConstanciaTraspasoDAO extends BaseDAO<ConstanciaTraspaso, Integer>
 {
     private static Logger log = LogManager.getLogger(ConstanciaTraspasoDAO.class);
 
-    public ConstanciaTraspasoDAO() {
-        super(ConstanciaTraspaso.class);
+    public ConstanciaTraspasoDAO(TransactionManager transactManager) {
+        super(ConstanciaTraspaso.class, transactManager);
     }
     
     public List<ConstanciaTraspaso> buscarPorNumero(String numero) {
-        return JpaExecutor.executeRead(em -> 
+        return transactManager.executeRead(em -> 
             em.createNamedQuery("ConstanciaTraspaso.findByNumero", ConstanciaTraspaso.class)
                 .setParameter("numero", numero)
                 .getResultList()
@@ -26,7 +26,7 @@ public class ConstanciaTraspasoDAO extends BaseDAO<ConstanciaTraspaso, Integer>
 
     public List<ConstanciaTraspaso> buscar(LocalDate fechaInicio, LocalDate fechaFin, Integer idCliente, String folioCliente) 
     {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             String folio = null;
             if (folioCliente != null && folioCliente.contains("%") == false) {
                 folio = "%".concat(folioCliente).concat("%");

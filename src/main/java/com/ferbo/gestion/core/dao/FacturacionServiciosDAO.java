@@ -5,25 +5,25 @@ import com.ferbo.gestion.core.model.ConstanciaServicio;
 import com.ferbo.gestion.core.model.ConstanciaFacturaDs;
 import com.ferbo.gestion.core.model.ConstanciaServicioDetalle;
 import com.ferbo.gestion.core.model.PartidaServicio;
-import com.ferbo.gestion.core.tools.JpaExecutor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
 public class FacturacionServiciosDAO extends BaseDAO<ConstanciaFacturaDs, Integer> 
 {
     private static Logger log = LogManager.getLogger(FacturacionServiciosDAO.class);
 
-    public FacturacionServiciosDAO() {
-        super(ConstanciaFacturaDs.class);
+    public FacturacionServiciosDAO(TransactionManager transactManager) {
+        super(ConstanciaFacturaDs.class, transactManager);
     }
 
     public List<ConstanciaFacturaDs> buscarNoFacturados(Integer idCliente) 
     {
-        return JpaExecutor.executeRead(em -> {
+        return transactManager.executeRead(em -> {
             String sql = "SELECT "
                     + " cs.FOLIO, "
                     + "	cs.CTE_CVE, "
