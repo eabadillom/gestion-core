@@ -1,48 +1,8 @@
 package com.ferbo.gestion.core.model;
 
-<<<<<<< Updated upstream
-public class Camara {
-	private Integer idCamara = null;
-	private Integer idPlanta = null;
-	private String nombre = null;
-	private String abreviatura = null;
-	private Planta planta = null;
-	
-	public Integer getIdCamara() {
-		return idCamara;
-	}
-	public void setIdCamara(Integer idCamara) {
-		this.idCamara = idCamara;
-	}
-	public Integer getIdPlanta() {
-		return idPlanta;
-	}
-	public void setIdPlanta(Integer idPlanta) {
-		this.idPlanta = idPlanta;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getAbreviatura() {
-		return abreviatura;
-	}
-	public void setAbreviatura(String abreviatura) {
-		this.abreviatura = abreviatura;
-	}
-	public Planta getPlanta() {
-		return planta;
-	}
-	public void setPlanta(Planta planta) {
-		this.planta = planta;
-	}
-=======
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -170,5 +131,4 @@ public class Camara implements Serializable
         return "com.ferbo.gestion.core.model.Camara[ id=" + id + " ]";
     }
     
->>>>>>> Stashed changes
 }

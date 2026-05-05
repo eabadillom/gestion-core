@@ -1,43 +1,8 @@
 package com.ferbo.gestion.core.model;
 
-<<<<<<< Updated upstream
-public class Mail {
-	private Integer idMail = null;
-	private String mail = null;
-	private boolean principal = false;
-	private Integer idTipoMail = null;
-	
-	
-	public Integer getIdMail() {
-		return idMail;
-	}
-	public void setIdMail(Integer idMail) {
-		this.idMail = idMail;
-	}
-	public String getMail() {
-		return mail;
-	}
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-	public boolean isPrincipal() {
-		return principal;
-	}
-	public void setPrincipal(boolean principal) {
-		this.principal = principal;
-	}
-	public Integer getIdTipoMail() {
-		return idTipoMail;
-	}
-	public void setIdTipoMail(Integer idTipoMail) {
-		this.idTipoMail = idTipoMail;
-	}
-	
-=======
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -47,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -168,5 +135,4 @@ public class Mail implements Serializable
         return "com.ferbo.gestion.core.model.Mail[ id=" + id + " ]";
     }
 
->>>>>>> Stashed changes
 }

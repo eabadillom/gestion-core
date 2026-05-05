@@ -1,23 +1,5 @@
 package com.ferbo.gestion.core.model;
 
-<<<<<<< Updated upstream
-public class UnidadManejo {
-	private Integer idUnidadManejo = null;
-	private String nombre = null;
-	
-	public Integer getIdUnidadManejo() {
-		return idUnidadManejo;
-	}
-	public void setIdUnidadManejo(Integer idUnidadManejo) {
-		this.idUnidadManejo = idUnidadManejo;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-=======
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -97,5 +79,4 @@ public class UnidadManejo implements Serializable
         return "com.ferbo.gestion.core.model.UnidadManejo[ id=" + id + " ]";
     }
     
->>>>>>> Stashed changes
 }

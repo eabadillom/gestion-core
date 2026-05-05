@@ -1,55 +1,8 @@
 package com.ferbo.gestion.core.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-<<<<<<< Updated upstream
-
-public class ConstanciaDepositoDetalle {
-	
-	private Integer idConstanciaDepositoDetalle = null;
-	private Integer idServicio = null;
-	private Servicio servicio = null;
-	private Integer folio = null;
-	private BigDecimal cantidad = null;
-	
-	public Integer getIdConstanciaDepositoDetalle() {
-		return idConstanciaDepositoDetalle;
-	}
-	public void setIdConstanciaDepositoDetalle(Integer idConstanciaDepositoDetalle) {
-		this.idConstanciaDepositoDetalle = idConstanciaDepositoDetalle;
-	}
-	public Integer getIdServicio() {
-		return idServicio;
-	}
-	public void setIdServicio(Integer idServicio) {
-		this.idServicio = idServicio;
-	}
-	public Servicio getServicio() {
-		return servicio;
-	}
-	public void setServicio(Servicio servicio) {
-		this.servicio = servicio;
-	}
-	public Integer getFolio() {
-		return folio;
-	}
-	public void setFolio(Integer folio) {
-		this.folio = folio;
-	}
-	public BigDecimal getCantidad() {
-		return cantidad;
-	}
-	public void setCantidad(BigDecimal cantidad) {
-		this.cantidad = cantidad;
-	}
-	@Override
-	public String toString() {
-		return "{\"idConstanciaDepositoDetalle\":\"" + idConstanciaDepositoDetalle + "\", \"idServicio\":\""
-				+ idServicio + "\", \"servicio\":\"" + servicio + "\", \"folio\":\"" + folio + "\", \"cantidad\":\""
-				+ cantidad + "\"}";
-	}
-=======
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -58,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
@@ -157,5 +112,4 @@ public class ConstanciaDepositoDetalle implements Serializable
         return "com.ferbo.gestion.core.model.ConstanciaDepositoDetalle[ constanciaDepositoDetalleCve=" + id + " ]";
     }
     
->>>>>>> Stashed changes
 }

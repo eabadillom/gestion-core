@@ -1,23 +1,5 @@
 package com.ferbo.gestion.core.model;
 
-<<<<<<< Updated upstream
-public class TipoTelefono {
-	private Integer tipoTelefono = null;
-	private String nombreTelefono = null;
-	
-	public Integer getTipoTelefono() {
-		return tipoTelefono;
-	}
-	public void setTipoTelefono(Integer tipoTelefono) {
-		this.tipoTelefono = tipoTelefono;
-	}
-	public String getNombreTelefono() {
-		return nombreTelefono;
-	}
-	public void setNombreTelefono(String nombreTelefono) {
-		this.nombreTelefono = nombreTelefono;
-	}
-=======
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -102,5 +84,4 @@ public class TipoTelefono implements Serializable
         return "com.ferbo.gestion.core.model.TipoTelefono[ id=" + id + " ]";
     }
     
->>>>>>> Stashed changes
 }

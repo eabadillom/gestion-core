@@ -1,40 +1,7 @@
 package com.ferbo.gestion.core.model;
 
-<<<<<<< Updated upstream
-public class Producto {
-	private Integer idProducto = null;
-	private String nombre = null;
-	private String numero = null;
-	private Integer idCategoria = null;
-	
-	public Integer getIdProducto() {
-		return idProducto;
-	}
-	public void setIdProducto(Integer idProducto) {
-		this.idProducto = idProducto;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getNumero() {
-		return numero;
-	}
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-	public Integer getIdCategoria() {
-		return idCategoria;
-	}
-	public void setIdCategoria(Integer idCategoria) {
-		this.idCategoria = idCategoria;
-	}
-=======
 import java.io.Serializable;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -148,5 +115,4 @@ public class Producto implements Serializable
         return "com.ferbo.gestion.core.model.Producto[ id=" + id + " ]";
     }
     
->>>>>>> Stashed changes
 }

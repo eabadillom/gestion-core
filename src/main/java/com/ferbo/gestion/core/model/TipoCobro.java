@@ -1,30 +1,5 @@
 package com.ferbo.gestion.core.model;
 
-<<<<<<< Updated upstream
-public class TipoCobro {
-	private Integer idTipoCobro = null;
-	private String nombre = null;
-	private String descripcion = null;
-	
-	public Integer getIdTipoCobro() {
-		return idTipoCobro;
-	}
-	public void setIdTipoCobro(Integer idTipoCobro) {
-		this.idTipoCobro = idTipoCobro;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-=======
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -32,7 +7,9 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -121,5 +98,4 @@ public class TipoCobro implements Serializable
         return "com.ferbo.gestion.core.model.TipoCobro[ id=" + id + " ]";
     }
     
->>>>>>> Stashed changes
 }
