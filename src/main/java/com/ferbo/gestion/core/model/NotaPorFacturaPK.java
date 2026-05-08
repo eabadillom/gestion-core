@@ -2,7 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.CascadeType;
+
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,7 +13,7 @@ public class NotaPorFacturaPK implements Serializable, Cloneable
     private static final long serialVersionUID = 1L;
 
     @JoinColumn(name = "NOTA")
-    @ManyToOne(optional = false, cascade = {CascadeType.MERGE})
+    @ManyToOne(optional = false)
     private NotaCredito nota;
 
     @JoinColumn(name = "FACTURA")
