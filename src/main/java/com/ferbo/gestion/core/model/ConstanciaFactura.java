@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,7 +19,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "constancia_factura")
-@NamedQuery(name = "ConstanciaFactura.findByFolioVigenciaInicioVigenciaFin", query = "SELECT c FROM ConstanciaFactura c WHERE c.constanciaDeposito.folio = :folio AND c.vigenciaInicio = :vigenciaInicio and c.vigenciaFin = :vigenciaFin")
+@NamedQuery(name = "ConstanciaFactura.findByFolioVigenciaInicioVigenciaFin", query = "SELECT c FROM ConstanciaFactura c WHERE c.constanciaDeposito.id = :folio AND c.vigenciaInicio = :vigenciaInicio and c.vigenciaFin = :vigenciaFin")
 public class ConstanciaFactura implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -124,36 +123,36 @@ public class ConstanciaFactura implements Serializable
         this.idPlanta = idPlanta;
     }
 
-    public String getPlantaDs() {
+    public String getNombrePlanta() {
         return nombrePlanta;
     }
 
-    public void setPlantaDs(String plantaDs) {
-        this.nombrePlanta = plantaDs;
+    public void setNombrePlanta(String nombrePlanta) {
+        this.nombrePlanta = nombrePlanta;
     }
 
     public String getPlantaAbrev() {
         return plantaAbrev;
     }
 
-    public void setPlantaAbrev(String plantaAbrev) {
-        this.plantaAbrev = plantaAbrev;
+    public Integer getIdCamara() {
+        return idCamara;
     }
 
-    public Integer getCamaraCve() {
-        return idCamara;
+    public void setIdCamara(Integer idCamara) {
+        this.idCamara = idCamara;
     }
 
     public void setCamaraCve(Integer camaraCve) {
         this.idCamara = camaraCve;
     }
 
-    public String getCamaraDs() {
+    public String getNombreCamara() {
         return nombreCamara;
     }
 
-    public void setCamaraDs(String camaraDs) {
-        this.nombreCamara = camaraDs;
+    public void setNombreCamara(String nombreCamara) {
+        this.nombreCamara = nombreCamara;
     }
 
     public String getCamaraAbrev() {

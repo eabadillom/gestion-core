@@ -1,17 +1,14 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -35,13 +32,11 @@ public class MetodoPago implements Serializable
     private String descripcion;
 
     @Column(name = "fh_vigencia_ini")
-    @Temporal(TemporalType.DATE)
     @NotNull
-    private Date vigenciaInicio;
+    private LocalDate vigenciaInicio;
 
     @Column(name = "fh_vigencia_fin")
-    @Temporal(TemporalType.DATE)
-    private Date vigenciaFin;
+    private LocalDate vigenciaFin;
 
     public MetodoPago() {
     }
@@ -62,20 +57,20 @@ public class MetodoPago implements Serializable
         this.descripcion = descripcion;
     }
 
-    public Date getFechaInicio() {
+    public LocalDate getVigenciaInicio() {
         return vigenciaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
-        this.vigenciaInicio = fechaInicio;
+    public void setVigenciaInicio(LocalDate vigenciaInicio) {
+        this.vigenciaInicio = vigenciaInicio;
     }
 
-    public Date getFechaFinal() {
+    public LocalDate getVigenciaFin() {
         return vigenciaFin;
     }
 
-    public void setFechaFinal(Date fechaFinal) {
-        this.vigenciaFin = fechaFinal;
+    public void setVigenciaFin(LocalDate vigenciaFin) {
+        this.vigenciaFin = vigenciaFin;
     }
 
     @Override

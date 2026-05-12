@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "medio_cnt")
-@NamedQuery(name = "MedioCnt.findByContacto", query = "SELECT m FROM MedioCnt m WHERE m.contacto.id = :idContacto")
+@NamedQuery(name = "MedioContacto.findByContacto", query = "SELECT m FROM MedioContacto m WHERE m.contacto.id = :idContacto")
 public class MedioContacto implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -82,11 +82,11 @@ public class MedioContacto implements Serializable
         this.tipoMedio = tipoMedio;
     }
 
-    public boolean getStMedio() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStMedio(boolean status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

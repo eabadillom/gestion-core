@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -26,7 +24,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "nota_credito")
-@NamedQuery(name = "NotaCredito.findByPeriodoCliente", query = "SELECT n FROM NotaCredito n WHERE (n.fecha BETWEEN :fechaInicio AND :fechaFin) AND (n.idcliente = :idCliente OR :idCliente IS NULL) ORDER BY n.fecha ASC")
+@NamedQuery(name = "NotaCredito.findByPeriodoCliente", query = "SELECT n FROM NotaCredito n WHERE (n.fecha BETWEEN :fechaInicio AND :fechaFin) AND (n.cliente.id = :idCliente OR :idCliente IS NULL) ORDER BY n.fecha ASC")
 public class NotaCredito implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -276,12 +274,12 @@ public class NotaCredito implements Serializable
         this.status = status;
     }
 
-    public List<NotaPorFactura> getNotas() {
+    public List<NotaPorFactura> getNotasFactura() {
         return notasFactura;
     }
 
-    public void setNotaFacturaList(List<NotaPorFactura> notaFacturaList) {
-            this.notasFactura = notaFacturaList;
+    public void setNotasFactura(List<NotaPorFactura> notasFactura) {
+        this.notasFactura = notasFactura;
     }
 
     @Override

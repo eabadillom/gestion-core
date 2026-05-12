@@ -3,7 +3,6 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,7 +19,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cliente_contacto")
-@NamedQuery(name = "ClienteContacto.findAllByIdCliente", query = "SELECT DISTINCT cc FROM ClienteContacto cc LEFT JOIN cc.contacto c LEFT JOIN c.medioCntList mc WHERE cc.cliente.id = :idCliente")
+@NamedQuery(name = "ClienteContacto.findAllByIdCliente", query = "SELECT DISTINCT cc FROM ClienteContacto cc LEFT JOIN cc.contacto c LEFT JOIN c.mediosContacto mc WHERE cc.cliente.id = :idCliente")
 public class ClienteContacto implements Serializable 
 {
     private static final long serialVersionUID = 1L;

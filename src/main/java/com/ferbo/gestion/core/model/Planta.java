@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -59,7 +58,7 @@ public class Planta implements Serializable
     @OneToMany(mappedBy = "planta")
     private List<Camara> camaras;
 
-    @OneToMany(mappedBy = "serieConstanciaPK.planta", fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "key.planta", fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<SerieConstancia> seriesConstancia;
 
     @Column(name = " id_pais")

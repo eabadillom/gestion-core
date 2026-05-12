@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,7 +21,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "salida")
-@NamedQuery(name = "Salida.findByFolioSalida", query = "SELECT s FROM Salida s WHERE s.folioSalida = :folioSalida")
+@NamedQuery(name = "Salida.findByFolioSalida", query = "SELECT s FROM Salida s WHERE s.folio = :folioSalida")
 @NamedQuery(name = "Salida.findByCliente", query = "SELECT s FROM Salida s INNER JOIN s.status st INNER JOIN s.cliente cl WHERE cl.id = :idCliente AND st.clave = :clave AND s.fechaSalida = :fechaSalida")
 @NamedQuery(name = "Salida.findByParametros", query = "SELECT s FROM Salida s INNER JOIN s.status st INNER JOIN s.cliente cl WHERE st.clave = :clave AND s.fechaSalida = :fechaSalida AND cl.id = :idCliente")
 public class Salida implements Serializable

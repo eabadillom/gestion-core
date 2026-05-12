@@ -3,7 +3,6 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;

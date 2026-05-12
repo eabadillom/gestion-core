@@ -1,7 +1,6 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -21,7 +20,7 @@ public class SerieConstancia implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "nu_serie")
-    private int nuumero;
+    private int numero;
     
     public SerieConstancia() {
     }
@@ -30,9 +29,9 @@ public class SerieConstancia implements Serializable
         this.key = key;
     }
 
-    public SerieConstancia(SerieConstanciaPK key, int nuumero) {
+    public SerieConstancia(SerieConstanciaPK key, int numero) {
         this.key = key;
-        this.nuumero = nuumero;
+        this.numero = numero;
     }
 
     public SerieConstancia(Cliente cliente, String tpSerie, Planta planta) {
@@ -48,11 +47,11 @@ public class SerieConstancia implements Serializable
     }
 
     public int getNumero() {
-        return nuumero;
+        return numero;
     }
 
     public void setNumero(int numero) {
-        this.nuumero = numero;
+        this.numero = numero;
     }
     
     @Override

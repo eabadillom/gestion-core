@@ -3,7 +3,6 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -105,36 +104,36 @@ public class Posicion implements Serializable
         this.camara = camara;
     }
 
-    public String getCodPosicion() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodPosicion(String codPosicion) {
-        this.codigo = codPosicion;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public String getDescPosicion() {
+    public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescPosicion(String descPosicion) {
-        this.descripcion = descPosicion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public BigDecimal getTempIni() {
+    public BigDecimal getTemperaturaInicial() {
         return temperaturaInicial;
     }
 
-    public void setTempIni(BigDecimal tempIni) {
-        this.temperaturaInicial = tempIni;
+    public void setTemperaturaInicial(BigDecimal temperaturaInicial) {
+        this.temperaturaInicial = temperaturaInicial;
     }
 
-    public BigDecimal getTempFin() {
+    public BigDecimal getTemperaturaFinal() {
         return temperaturaFinal;
     }
 
-    public void setTempFin(BigDecimal tempFin) {
-        this.temperaturaFinal = tempFin;
+    public void setTemperaturaFinal(BigDecimal temperaturaFinal) {
+        this.temperaturaFinal = temperaturaFinal;
     }
 
     public boolean getHabilitada() {

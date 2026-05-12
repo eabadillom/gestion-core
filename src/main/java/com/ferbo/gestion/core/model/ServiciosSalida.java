@@ -2,7 +2,6 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "servicios_salida")
-@NamedQuery(name = "ServiciosSalida.findByFolioSalida", query = "SELECT ss FROM ServiciosSalida ss INNER JOIN ss.salida s WHERE s.folioSalida = :folioSalida")
+@NamedQuery(name = "ServiciosSalida.findByFolioSalida", query = "SELECT ss FROM ServiciosSalida ss INNER JOIN ss.salida s WHERE s.folio = :folioSalida")
 public class ServiciosSalida implements Serializable
 {
     private static final long serialVersionUID = 1L;

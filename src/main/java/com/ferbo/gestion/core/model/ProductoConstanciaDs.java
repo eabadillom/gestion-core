@@ -2,7 +2,6 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -85,28 +84,28 @@ public class ProductoConstanciaDs implements Serializable
         this.descripcion = descripcion;
     }
 
-    public BigDecimal getCatidadCobro() {
+    public BigDecimal getPeso() {
         return peso;
     }
 
-    public void setCatidadCobro(BigDecimal catidadCobro) {
-        this.peso = catidadCobro;
+    public void setPeso(BigDecimal peso) {
+        this.peso = peso;
     }
 
-    public String getUnidadCobro() {
+    public String getUnidadPeso() {
         return unidadPeso;
     }
 
-    public void setUnidadCobro(String unidadCobro) {
-        this.unidadPeso = unidadCobro;
+    public void setUnidadPeso(String unidadPeso) {
+        this.unidadPeso = unidadPeso;
     }
 
-    public BigDecimal getCantidadManejo() {
+    public BigDecimal getCantidad() {
         return cantidad;
     }
 
-    public void setCantidadManejo(BigDecimal cantidadManejo) {
-        this.cantidad = cantidadManejo;
+    public void setCantidad(BigDecimal cantidad) {
+        this.cantidad = cantidad;
     }
 
     public String getUnidadManejo() {

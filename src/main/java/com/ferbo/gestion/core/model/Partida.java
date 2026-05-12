@@ -29,12 +29,12 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Partida.findByPesoTotal", query = "SELECT p FROM Partida p WHERE p.pesoTotal = :pesoTotal"),
     @NamedQuery(name = "Partida.findByCantidadTotal", query = "SELECT p FROM Partida p WHERE p.cantidadTotal = :cantidadTotal"),
     @NamedQuery(name = "Partida.findByUnidadProducto", query = "SELECT p FROM Partida p WHERE p.unidadProducto = :unidadProducto"),
-    @NamedQuery(name = "Partida.findByCantidadDeCobro", query = "SELECT p FROM Partida p WHERE p.cantidadDeCobro = :cantidadDeCobro"),
+    @NamedQuery(name = "Partida.findByCantidadDeCobro", query = "SELECT p FROM Partida p WHERE p.cantidadCobro = :cantidadDeCobro"),
     @NamedQuery(name = "Partida.findByPartidaSeq", query = "SELECT p FROM Partida p WHERE p.partidaSeq = :partidaSeq"),
     @NamedQuery(name = "Partida.findByValorMercancia", query = "SELECT p FROM Partida p WHERE p.valorMercancia = :valorMercancia"),
     @NamedQuery(name = "Partida.findByRendimiento", query = "SELECT p FROM Partida p WHERE p.rendimiento = :rendimiento"),
-    @NamedQuery(name = "Partida.findByNoTarimas", query = "SELECT p FROM Partida p WHERE p.noTarimas = :noTarimas"),
-    @NamedQuery(name = "Partida.findByConstanciaDeDeposito", query = "SELECT p FROM Partida p WHERE p.constanciaDeposito.folio = :folioCliente")
+    @NamedQuery(name = "Partida.findByNoTarimas", query = "SELECT p FROM Partida p WHERE p.numeroTarimas = :noTarimas"),
+    @NamedQuery(name = "Partida.findByConstanciaDeDeposito", query = "SELECT p FROM Partida p WHERE p.constanciaDeposito.folioCliente = :folioCliente")
 })
 public class Partida implements Serializable, Cloneable 
 {
@@ -69,7 +69,7 @@ public class Partida implements Serializable, Cloneable
     @Column(name = "no_tarimas")
     private BigDecimal numeroTarimas;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "detallePartidaPK.partida")//PENDIENTE NO MNODIFICA EL DETALLE PARTIDA DE LA PARTIDA SELECCIONADA detallePartidaPK.id
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "key.partida")//PENDIENTE NO MNODIFICA EL DETALLE PARTIDA DE LA PARTIDA SELECCIONADA detallePartidaPK.id
     private List<DetallePartida> detallesPartida;
 
     @JoinColumn(name = "CAMARA_CVE", referencedColumnName = "CAMARA_CVE")

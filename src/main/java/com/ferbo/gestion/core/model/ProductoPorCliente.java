@@ -2,7 +2,6 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,11 +46,11 @@ public class ProductoPorCliente implements Serializable
         this.cliente = cliente;
     }
 
-    public Integer getProdXCteCve() {
+    public Integer getId() {
         return id;
     }
 
-    public void setProdXCteCve(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

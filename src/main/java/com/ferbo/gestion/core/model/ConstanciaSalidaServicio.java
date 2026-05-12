@@ -8,14 +8,13 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "constancia_salida_srv")
 @NamedQuery(name = "ConstanciaSalidaServicio.findByIdConstancia", query = "SELECT c FROM ConstanciaSalidaServicio c WHERE c.key.constanciaSalida = :constanciaSalida")
-@NamedQuery(name = "ConstanciaSalidaServicio.findByIdServicio", query = "SELECT c FROM ConstanciaSalidaServicio c WHERE c.constanciaSalidaServicioPK.servicio = :servicio")
+@NamedQuery(name = "ConstanciaSalidaServicio.findByIdServicio", query = "SELECT c FROM ConstanciaSalidaServicio c WHERE c.key.servicio = :servicio")
 public class ConstanciaSalidaServicio implements Serializable 
 {    
     private static final long serialVersionUID = 1L;

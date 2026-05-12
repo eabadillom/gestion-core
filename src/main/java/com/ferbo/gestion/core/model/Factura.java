@@ -51,7 +51,6 @@ public class Factura implements Serializable
     @Size(min = 1, max = 30)
     @Column(name = "moneda")
     private String moneda;
-    
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha")

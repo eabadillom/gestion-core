@@ -40,4 +40,5 @@ public class ClaveUnidadDAO extends BaseDAO<ClaveUnidad,String>
                 .getResultList();
         });
     }
+
 }

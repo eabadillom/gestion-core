@@ -3,7 +3,6 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +16,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tarima")
-@NamedQuery(name = "Tarima.findByFolio", query = "SELECT t FROM Tarima t JOIN t.partidas p JOIN p.constanciaDeposito cdd WHERE cdd.folio = :folio")
+@NamedQuery(name = "Tarima.findByFolio", query = "SELECT t FROM Tarima t JOIN t.partidas p JOIN p.constanciaDeposito cdd WHERE cdd.id = :folio")
 public class Tarima implements Serializable 
 {
     private static final long serialVersionUID = 7674317677823854599L;

@@ -1,7 +1,6 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -65,7 +64,7 @@ public class TraspasoPartida implements Serializable
     @ManyToOne(optional = false, cascade = {CascadeType.MERGE})
     private Partida partida;
     
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "partidaTraspaso")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "traspasoPartida")
     private PartidaAfectada partidaAfectada;
 
     public TraspasoPartida() {

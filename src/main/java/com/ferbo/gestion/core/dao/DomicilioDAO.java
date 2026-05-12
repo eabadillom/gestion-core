@@ -2,7 +2,6 @@ package com.ferbo.gestion.core.dao;
 
 import com.ferbo.gestion.core.commons.dao.BaseDAO;
 import com.ferbo.gestion.core.model.Domicilio;
-import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.ferbo.gestion.core.config.TransactionManager;
@@ -13,14 +12,6 @@ public class DomicilioDAO extends BaseDAO<Domicilio, Integer>
 
     public DomicilioDAO(TransactionManager transactManager) {
         super(Domicilio.class, transactManager);
-    }
-
-    public List<Domicilio> buscarTodos() 
-    {
-        return transactManager.executeRead(em -> 
-            em.createNamedQuery("Domicilio.findAll", Domicilio.class)
-                .getResultList()
-        );
     }
 
     public Domicilio buscarPorAsentamiento(Integer idPais, Integer idEstado, Integer idMunicipio, Integer idCiudad, Integer idAsentamiento) 

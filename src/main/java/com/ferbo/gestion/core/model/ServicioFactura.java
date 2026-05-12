@@ -3,7 +3,6 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -112,7 +111,7 @@ public class ServicioFactura implements Serializable
     public void setCantidad(BigDecimal cantidad) {
         this.cantidad = cantidad;
     }
-    
+
     public String getUnidad() {
         return unidad;
     }

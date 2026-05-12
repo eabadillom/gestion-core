@@ -5,13 +5,11 @@ import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -19,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "constancia_servicio_detalle")
 @NamedQuery(name = "ConstanciaServicioDetalle.findAll", query = "SELECT c FROM ConstanciaServicioDetalle c")
 @NamedQuery(name = "ConstanciaServicioDetalle.findByConstanciaServicioDetalleCve", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.id = :idConstanciaSrvDet")
-@NamedQuery(name = "ConstanciaServicioDetalle.findByFolio", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.constanciaServicio.folio = :folio")
+@NamedQuery(name = "ConstanciaServicioDetalle.findByFolio", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.constancia.folio = :folio")
 public class ConstanciaServicioDetalle implements Serializable 
 {
     private static final long serialVersionUID = 1L;

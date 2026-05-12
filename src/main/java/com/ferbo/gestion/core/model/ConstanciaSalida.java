@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,7 +22,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "constancia_salida")
 @NamedQuery(name = "ConstanciaSalida.findByNumero", query = "SELECT c FROM ConstanciaSalida c WHERE c.numero = :numero")
-@NamedQuery(name = "ConstanciaSalida.findByFolioDeposito", query = "SELECT cs FROM ConstanciaDeposito cdd INNER JOIN cdd.partidaList p INNER JOIN p.detalleConstanciaSalidaList dcs INNER JOIN dcs.constancia cs WHERE cdd.folio = :folio")
+@NamedQuery(name = "ConstanciaSalida.findByFolioDeposito", query = "SELECT cs FROM ConstanciaDeposito cdd INNER JOIN cdd.partidas p INNER JOIN p.detallesSalida dcs INNER JOIN dcs.constancia cs WHERE cdd.id = :folio")
 public class ConstanciaSalida implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -78,7 +77,7 @@ public class ConstanciaSalida implements Serializable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "constancia")
     private List<DetalleConstanciaSalida> detalles;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "constanciaSalida")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "constancia")
     private List<ConstanciaSalidaServicio> servicios;
 
     @JoinColumn(name = "CLIENTE_CVE", referencedColumnName = "CTE_CVE")

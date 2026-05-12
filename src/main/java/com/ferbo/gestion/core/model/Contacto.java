@@ -11,8 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -112,20 +110,20 @@ public class Contacto implements Serializable
         this.nombre = nombre;
     }
 
-    public String getApellido1() {
+    public String getPrimerApellido() {
         return primerApellido;
     }
 
-    public void setApellido1(String apellido1) {
-        this.primerApellido = apellido1;
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
     }
 
-    public String getApellido2() {
+    public String getSegundoApellido() {
         return segundoApellido;
     }
 
-    public void setApellido2(String apellido2) {
-        this.segundoApellido = apellido2;
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido = segundoApellido;
     }
 
     public List<ClienteContacto> getClienteContactoList() {

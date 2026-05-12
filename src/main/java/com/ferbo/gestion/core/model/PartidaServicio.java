@@ -3,17 +3,14 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -21,7 +18,7 @@ import javax.persistence.Table;
 @Table(name = "partida_servicio")
 @NamedQuery(name = "PartidaServicio.findAll", query = "SELECT p FROM PartidaServicio p")
 @NamedQuery(name = "PartidaServicio.findById", query = "SELECT p FROM PartidaServicio p WHERE p.id = :idPartida")
-@NamedQuery(name = "PartidaServicio.findByCantidadDeCobro", query = "SELECT p FROM PartidaServicio p WHERE p.cantidadDeCobro = :cantidadDeCobro")
+@NamedQuery(name = "PartidaServicio.findByCantidadDeCobro", query = "SELECT p FROM PartidaServicio p WHERE p.unidadCobro = :cantidadDeCobro")
 @NamedQuery(name = "PartidaServicio.findByCantidadTotal", query = "SELECT p FROM PartidaServicio p WHERE p.cantidadTotal = :cantidadTotal")
 @NamedQuery(name = "PartidaServicio.findByFolio", query = "SELECT p FROM PartidaServicio p WHERE p.constanciaServicio.folio = :folio")
 public class PartidaServicio implements Serializable 

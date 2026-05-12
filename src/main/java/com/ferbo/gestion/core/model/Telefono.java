@@ -83,12 +83,12 @@ public class Telefono implements Serializable
         this.principal = principal;
     }
 
-    public TipoTelefono getTpTelefono() {
+    public TipoTelefono getTipoTelefono() {
         return tipoTelefono;
     }
 
-    public void setTpTelefono(TipoTelefono tpTelefono) {
-        this.tipoTelefono = tpTelefono;
+    public void setTipoTelefono(TipoTelefono tipoTelefono) {
+        this.tipoTelefono = tipoTelefono;
     }
 
     public List<MedioContacto> getMediosContacto() {

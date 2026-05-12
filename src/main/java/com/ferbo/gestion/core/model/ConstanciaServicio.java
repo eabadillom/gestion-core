@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -68,7 +67,7 @@ public class ConstanciaServicio implements Serializable
     @ManyToOne
     private EstadoConstancia status;
     
-    @OneToMany(mappedBy = "constanciaServicio", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "constancia", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ConstanciaServicioDetalle> servicios;
     
     @Deprecated

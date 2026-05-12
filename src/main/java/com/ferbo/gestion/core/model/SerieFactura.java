@@ -3,7 +3,6 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +18,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "serie_factura")
-@NamedQuery(name = "SerieFactura.findByEmisor", query = "SELECT s FROM SerieFactura s WHERE s.statusSerie.id in (1,2) AND s.emisor.id = :idEmisor")
+@NamedQuery(name = "SerieFactura.findByEmisor", query = "SELECT s FROM SerieFactura s WHERE s.status.id in (1,2) AND s.emisor.id = :idEmisor")
 public class SerieFactura implements Serializable 
 {
     private static final long serialVersionUID = 1L;

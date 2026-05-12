@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -66,7 +65,7 @@ public class ConstanciaDeposito implements Serializable
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "constanciaDeposito")
     private List<Partida> partidas;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "constanciaDeposito")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "constancia")
     private List<ConstanciaDepositoDetalle> servicios;
 
     @JoinColumn(name = "CTE_CVE", referencedColumnName = "CTE_CVE", nullable = false)

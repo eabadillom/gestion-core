@@ -23,7 +23,7 @@ import javax.validation.constraints.Null;
     @NamedQuery(name = "PartidaAfectada.findById", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.id= :idPartidaAfectada"),
     @NamedQuery(name = "PartidaAfectada.findByTraspaso", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.traspaso = :traspaso"),
     @NamedQuery(name = "PartidaAfectada.findByPartida", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.partida = :partida"),
-    @NamedQuery(name = "PartidaAfectada.findByPartidaTraspaso", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.partidaTraspaso = :partidaTraspaso")
+    @NamedQuery(name = "PartidaAfectada.findByPartidaTraspaso", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.traspasoPartida = :partidaTraspaso")
 })
 public class PartidaAfectada implements Serializable 
 {
