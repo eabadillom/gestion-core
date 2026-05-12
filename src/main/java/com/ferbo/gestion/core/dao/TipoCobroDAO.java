@@ -1,72 +1,26 @@
 package com.ferbo.gestion.core.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-
+import com.ferbo.gestion.core.commons.dao.BaseDAO;
 import com.ferbo.gestion.core.model.TipoCobro;
+import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import com.ferbo.gestion.core.config.TransactionManager;
 
-public class TipoCobroDAO extends DAO implements IDAO<TipoCobro> {
-	
-	private static final String SELECT = "SELECT  id, nombre, descripcion FROM tipo_cobro tc ";
+public class TipoCobroDAO extends BaseDAO<TipoCobro, Integer> 
+{
+    private static Logger log = LogManager.getLogger(TipoCobroDAO.class);
 
-	@Override
-	public TipoCobro getBean(ResultSet rs) throws SQLException {
-		TipoCobro bean = new TipoCobro();
-		bean.setIdTipoCobro(getInteger(rs, "id"));
-		bean.setNombre(getTrim(rs.getString("nombre")));
-		bean.setDescripcion(getTrim(rs.getString("descripcion")));
-		return bean;
-	}
-
-	@Override
-	public List<TipoCobro> get(Connection conn) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public TipoCobro get(Connection conn, Object id) throws SQLException {
-		TipoCobro bean = new TipoCobro();
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = null;
-		int idx = 1;
-		
-		try {
-			sql = SELECT + "WHERE id = ? ";
-			ps = conn.prepareStatement(sql);
-			setInteger(ps, idx++, (Integer)id);
-			rs = ps.executeQuery();
-			if(rs.next()) {
-				bean = getBean(rs);
-			}
-		} finally {
-			close(rs);
-			close(ps);
-		}
-		
-		return bean;
-	}
-
-	@Override
-	public int insert(Connection conn, TipoCobro bean) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int update(Connection conn, TipoCobro bean) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int delete(Connection conn, TipoCobro bean) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
+    public TipoCobroDAO(TransactionManager transactManager) {
+        super(TipoCobro.class, transactManager);
+    }
+    
+    public List<TipoCobro> buscarTodos() 
+    {
+        return transactManager.executeRead(em -> 
+            em.createNamedQuery("TipoCobro.findAll", TipoCobro.class)
+                .getResultList()
+        );
+    }
+    
 }
