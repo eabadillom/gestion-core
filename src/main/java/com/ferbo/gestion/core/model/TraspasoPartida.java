@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -19,17 +17,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "traspaso_partida")
-@NamedQueries({
-        @NamedQuery(name = "TraspasoPartida.findAll", query = "SELECT t FROM TraspasoPartida t"),
-        @NamedQuery(name = "TraspasoPartida.findById", query = "SELECT t FROM TraspasoPartida t WHERE t.id = :id"),
-        @NamedQuery(name = "TraspasoPartida.findByConstancia", query = "SELECT t FROM TraspasoPartida t WHERE t.constancia = :constancia"),
-        @NamedQuery(name = "TraspasoPartida.findByPartida", query = "SELECT t FROM TraspasoPartida t WHERE t.partida.id = :idPartida"),
-        @NamedQuery(name = "TraspasoPartida.findByDescripcion", query = "SELECT t FROM TraspasoPartida t WHERE t.descripcion = :descripcion"),
-        @NamedQuery(name = "TraspasoPartida.findByCantidad", query = "SELECT t FROM TraspasoPartida t WHERE t.cantidad = :cantidad"),
-        @NamedQuery(name = "TraspasoPartida.findByOrigen", query = "SELECT t FROM TraspasoPartida t WHERE t.origen = :origen"),
-        @NamedQuery(name = "TraspasoPartida.findByTraspaso", query = "SELECT t FROM TraspasoPartida t WHERE t.traspaso.id = :traspaso"),
-        @NamedQuery(name = "TraspasoPartida.findByDestino", query = "SELECT t FROM TraspasoPartida t WHERE t.destino = :destino")
-})
 public class TraspasoPartida implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -77,7 +64,7 @@ public class TraspasoPartida implements Serializable
     @ManyToOne(optional = false, cascade = {CascadeType.MERGE})
     private Partida partida;
     
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "partidaTraspaso")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "traspasoPartida")
     private PartidaAfectada partidaAfectada;
 
     public TraspasoPartida() {

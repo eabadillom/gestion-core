@@ -23,7 +23,7 @@ public class SerieConstanciaPK implements Serializable
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "tp_serie")
-    private String tpSerie;
+    private String tipoSerie;
 
     @ManyToOne
     @JoinColumn(name = "id_planta")
@@ -32,9 +32,9 @@ public class SerieConstanciaPK implements Serializable
     public SerieConstanciaPK() {
     }
 
-    public SerieConstanciaPK(Cliente cliente, String tpSerie, Planta planta) {
+    public SerieConstanciaPK(Cliente cliente, String tipoSerie, Planta planta) {
         this.cliente = cliente;
-        this.tpSerie = tpSerie;
+        this.tipoSerie = tipoSerie;
         this.planta = planta;
     }
 
@@ -55,16 +55,18 @@ public class SerieConstanciaPK implements Serializable
     }
 
     public String getTpSerie() {
-        return tpSerie;
+        return tipoSerie;
     }
 
     public void setTpSerie(String tpSerie) {
-        this.tpSerie = tpSerie;
+        this.tipoSerie = tpSerie;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cliente, planta, tpSerie);
+    	if(this.cliente == null || planta == null || tipoSerie == null)
+    		return System.identityHashCode(this);
+        return Objects.hash(cliente, planta, tipoSerie);
     }
 
     @Override
@@ -80,12 +82,12 @@ public class SerieConstanciaPK implements Serializable
         }
         SerieConstanciaPK other = (SerieConstanciaPK) obj;
         return Objects.equals(cliente, other.cliente) && Objects.equals(planta, other.planta)
-                && Objects.equals(tpSerie, other.tpSerie);
+                && Objects.equals(tipoSerie, other.tipoSerie);
     }
 
     @Override
     public String toString() {
-        return "com.ferbo.gestion.core.model.SerieConstanciaPK [ tpSerie=" + tpSerie + " ]";
+        return "com.ferbo.gestion.core.model.SerieConstanciaPK [ tpSerie=" + tipoSerie + " ]";
     }
     
 }

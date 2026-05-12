@@ -3,6 +3,7 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,14 +21,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "planta")
-@NamedQueries({
-    @NamedQuery(name = "Planta.findAll", query = "SELECT p FROM Planta p"),
-    @NamedQuery(name = "Planta.findById", query = "SELECT p FROM Planta p WHERE p.id = :idPlanta"),
-    @NamedQuery(name = "Planta.findByDescripcion", query = "SELECT p FROM Planta p WHERE p.descripcion = :descripcion"),
-    @NamedQuery(name = "Planta.findByAbrev", query = "SELECT p FROM Planta p WHERE p.abrev = :abrev"),
-    @NamedQuery(name = "Planta.findBySufijo", query = "SELECT p FROM Planta p WHERE p.sufijo = :sufijo"),
-    @NamedQuery(name = "Planta.findByCod", query = "SELECT p FROM Planta p WHERE p.codigo = :codigo")
-})
+@NamedQuery(name = "Planta.findAll", query = "SELECT p FROM Planta p")
 public class Planta implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -63,10 +56,10 @@ public class Planta implements Serializable
     private Usuario usuario;
 
     @OneToMany(mappedBy = "planta")
-    private List<Camara> camaraList;
+    private List<Camara> camaras;
 
-    @OneToMany(mappedBy = "serieConstanciaPK.planta", fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<SerieConstancia> serieConstanciaList;
+    @OneToMany(mappedBy = "key.planta", fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<SerieConstancia> seriesConstancia;
 
     @Column(name = " id_pais")
     private Integer idPais;
@@ -111,7 +104,7 @@ public class Planta implements Serializable
     private SerieFactura serieFacturaDefault;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "planta")
-    private List<Posicion> posicionList;
+    private List<Posicion> posiciones;
 
     public Planta() {
     }
@@ -264,12 +257,12 @@ public class Planta implements Serializable
         this.usuario = usuario;
     }
 
-    public List<Camara> getCamaraList() {
-        return camaraList;
+    public List<Camara> getCamaras() {
+        return camaras;
     }
 
-    public void setCamaraList(List<Camara> camaraList) {
-        this.camaraList = camaraList;
+    public void setCamaras(List<Camara> camaras) {
+        this.camaras = camaras;
     }
 
     public Emisor getEmisor() {
@@ -280,33 +273,33 @@ public class Planta implements Serializable
         this.emisor = emisor;
     }
 
-    public List<Posicion> getPosicionList() {
-        return posicionList;
+    public List<Posicion> getPosiciones() {
+        return posiciones;
     }
 
-    public void setPosicionList(List<Posicion> posicionList) {
-        this.posicionList = posicionList;
+    public void setPosiciones(List<Posicion> posiciones) {
+        this.posiciones = posiciones;
     }
 
-    public List<SerieConstancia> getSerieConstanciaList() {
-        return serieConstanciaList;
+    public List<SerieConstancia> getSeriesConstancia() {
+        return seriesConstancia;
     }
 
-    public void setSerieConstanciaList(List<SerieConstancia> serieConstanciaList) {
-        this.serieConstanciaList = serieConstanciaList;
+    public void setSeriesConstancia(List<SerieConstancia> seriesConstancia) {
+        this.seriesConstancia = seriesConstancia;
     }
 
     public void add(SerieConstancia serieConstancia) {
-        if (this.serieConstanciaList == null) {
-            this.serieConstanciaList = new ArrayList<SerieConstancia>();
+        if (this.seriesConstancia == null) {
+            this.seriesConstancia = new ArrayList<SerieConstancia>();
         }
 
-        if (serieConstancia.getSerieConstanciaPK() == null) {
-            serieConstancia.setSerieConstanciaPK(new SerieConstanciaPK());
+        if (serieConstancia.getKey() == null) {
+            serieConstancia.setKey(new SerieConstanciaPK());
         }
 
-        serieConstancia.getSerieConstanciaPK().setPlanta(this);
-        this.serieConstanciaList.add(serieConstancia);
+        serieConstancia.getKey().setPlanta(this);
+        this.seriesConstancia.add(serieConstancia);
     }
 
     public SerieFactura getSerieFacturaDefault() {
@@ -319,9 +312,9 @@ public class Planta implements Serializable
     
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    	if(this.id == null)
+    		return System.identityHashCode(this);
+    	return Objects.hashCode(this.id);
     }
 
     @Override

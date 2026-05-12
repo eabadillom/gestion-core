@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -16,13 +15,11 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cheque")
-@NamedQueries({
-    @NamedQuery(name = "Cheque.findAll", query = "SELECT c FROM Cheque c"),
-    @NamedQuery(name = "Cheque.findById", query = "SELECT c FROM Cheque c WHERE c.id = :id"),
-    @NamedQuery(name = "Cheque.findByNumero", query = "SELECT c FROM Cheque c WHERE c.numero = :numero"),
-    @NamedQuery(name = "Cheque.findByBanco", query = "SELECT c FROM Cheque c WHERE c.banco = :banco"),
-    @NamedQuery(name = "Cheque.findByMonto", query = "SELECT c FROM Cheque c WHERE c.monto = :monto")
-})
+@NamedQuery(name = "Cheque.findAll", query = "SELECT c FROM Cheque c")
+@NamedQuery(name = "Cheque.findById", query = "SELECT c FROM Cheque c WHERE c.id = :id")
+@NamedQuery(name = "Cheque.findByNumero", query = "SELECT c FROM Cheque c WHERE c.numero = :numero")
+@NamedQuery(name = "Cheque.findByBanco", query = "SELECT c FROM Cheque c WHERE c.banco = :banco")
+@NamedQuery(name = "Cheque.findByMonto", query = "SELECT c FROM Cheque c WHERE c.monto = :monto")
 public class Cheque implements Serializable 
 {
     private static final long serialVersionUID = 1L;

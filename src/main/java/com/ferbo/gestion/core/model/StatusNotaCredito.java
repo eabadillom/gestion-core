@@ -1,31 +1,28 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "status_nota_credito")
-@NamedQueries({
-    @NamedQuery(name = "StatusNotaCredito.findAll", query = "SELECT s FROM StatusNotaCredito s"),
-    @NamedQuery(name = "StatusNotaCredito.findById", query = "SELECT s FROM StatusNotaCredito s WHERE s.id = :idStNotaCredito"),
-    @NamedQuery(name = "StatusNotaCredito.findByDescripcion", query = "SELECT s FROM StatusNotaCredito s WHERE s.descripcion = :descripcion")
-})
+@NamedQuery(name = "StatusNotaCredito.findAll", query = "SELECT s FROM StatusNotaCredito s")
 public class StatusNotaCredito implements Serializable 
 {
     private static final long serialVersionUID = 1L;
-    public static final Integer STATUS_NOTA_CREDITO_ERROR = 0;
-    public static final Integer STATUS_NOTA_CREDITO_NUEVA = 1;
-    public static final Integer STATUS_NOTA_CREDITO_CANCELADA = 2;
-
+    
+    public static final Integer ERROR     = 0;
+    public static final Integer NUEVA     = 1;
+    public static final Integer CANCELADA = 2;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -61,9 +58,9 @@ public class StatusNotaCredito implements Serializable
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        if(this.id == null)
+        	return System.identityHashCode(this);
+        return Objects.hashCode(this.id);
     }
 
     @Override

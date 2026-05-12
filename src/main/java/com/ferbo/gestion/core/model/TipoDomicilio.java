@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -16,11 +15,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tipos_domicilio")
-@NamedQueries({
-    @NamedQuery(name = "TipoDomicilio.findAll", query = "SELECT t FROM TipoDomicilio t"),
-    @NamedQuery(name = "TipoDomicilio.findById", query = "SELECT t FROM TipoDomicilio t WHERE t.id = :idDomicilioTipo"),
-    @NamedQuery(name = "TipoDomicilio.findByDescripcion", query = "SELECT t FROM TipoDomicilio t WHERE t.descripcion = :descripcion")
-})
+@NamedQuery(name = "TipoDomicilio.findAll", query = "SELECT t FROM TipoDomicilio t")
 public class TipoDomicilio implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -67,9 +62,8 @@ public class TipoDomicilio implements Serializable
 
     @Override
     public int hashCode() {
-        if (this.id == null) {
-            return System.identityHashCode(this);
-        }
+        if (this.id == null)
+        	return System.identityHashCode(this);
         return Objects.hash(id);
     }
 

@@ -7,7 +7,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,14 +15,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "estados")
-@NamedQueries({
-    @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e"),
-    @NamedQuery(name = "Estado.findByPais", query = "SELECT e FROM Estado e WHERE e.estadoPK.pais.id = :idPais"),
-    @NamedQuery(name = "Estado.findByEstado", query = "SELECT e FROM Estado e WHERE e.estadoPK.id = :idEstado"),
-    @NamedQuery(name = "Estado.findByClave", query = "SELECT e FROM Estado e WHERE e.clave = :clave"),
-    @NamedQuery(name = "Estado.findByDescripcion", query = "SELECT e FROM Estado e WHERE e.descripcion = :descripcion"),
-    @NamedQuery(name = "Estado.findByCriterios", query = "SELECT e FROM Estado e WHERE e.estadoPK.pais.id = :idPais AND e.estadoPK.id = :idEstado")
-})
+@NamedQuery(name = "Estado.findByPais", query = "SELECT e FROM Estado e WHERE e.estadoPK.pais.id = :idPais")
 public class Estado implements Serializable 
 {
     private static final long serialVersionUID = 1L;

@@ -2,6 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,29 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "producto_constancia")
-@NamedQueries({
-    @NamedQuery(name = "ProductoConstancia.findAll", query = "SELECT p FROM ProductoConstancia p"),
-    @NamedQuery(name = "ProductoConstancia.findById", query = "SELECT p FROM ProductoConstancia p WHERE p.id = :idProductoConstancia"),
-    @NamedQuery(name = "ProductoConstancia.findByDescripcion", query = "SELECT p FROM ProductoConstancia p WHERE p.descripcion = :descripcion"),
-    @NamedQuery(name = "ProductoConstancia.findByCatidadCobro", query = "SELECT p FROM ProductoConstancia p WHERE p.catidadCobro = :catidadCobro"),
-    @NamedQuery(name = "ProductoConstancia.findByUnidadCobro", query = "SELECT p FROM ProductoConstancia p WHERE p.unidadCobro = :unidadCobro"),
-    @NamedQuery(name = "ProductoConstancia.findByCantidadManejo", query = "SELECT p FROM ProductoConstancia p WHERE p.cantidadManejo = :cantidadManejo"),
-    @NamedQuery(name = "ProductoConstancia.findByUnidadManejo", query = "SELECT p FROM ProductoConstancia p WHERE p.unidadManejo = :unidadManejo"),
-    @NamedQuery(name = "ProductoConstancia.findByPlantaCve", query = "SELECT p FROM ProductoConstancia p WHERE p.plantaCve = :plantaCve"),
-    @NamedQuery(name = "ProductoConstancia.findByPlantaDs", query = "SELECT p FROM ProductoConstancia p WHERE p.plantaDs = :plantaDs"),
-    @NamedQuery(name = "ProductoConstancia.findByPlantaAbrev", query = "SELECT p FROM ProductoConstancia p WHERE p.plantaAbrev = :plantaAbrev"),
-    @NamedQuery(name = "ProductoConstancia.findByCamaraCve", query = "SELECT p FROM ProductoConstancia p WHERE p.camaraCve = :camaraCve"),
-    @NamedQuery(name = "ProductoConstancia.findByCamaraDs", query = "SELECT p FROM ProductoConstancia p WHERE p.camaraDs = :camaraDs"),
-    @NamedQuery(name = "ProductoConstancia.findByCamaraAbrev", query = "SELECT p FROM ProductoConstancia p WHERE p.camaraAbrev = :camaraAbrev")
-})
 public class ProductoConstancia implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -52,16 +36,16 @@ public class ProductoConstancia implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "catidad_cobro")
-    private BigDecimal catidadCobro;
+    private BigDecimal peso;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "unidad_cobro")
-    private String unidadCobro;
+    private String unidadPeso;
     
     @Column(name = "cantidad_manejo")
-    private BigDecimal cantidadManejo;
+    private BigDecimal cantidad;
     
     @Size(max = 255)
     @Column(name = "unidad_manejo")
@@ -100,11 +84,11 @@ public class ProductoConstancia implements Serializable
         this.id = id;
     }
 
-    public ProductoConstancia(Integer id, String descripcion, int constancia, BigDecimal catidadCobro, String unidadCobro) {
+    public ProductoConstancia(Integer id, String descripcion, int constancia, BigDecimal peso, String unidadCobro) {
         this.id = id;
         this.descripcion = descripcion;
-        this.catidadCobro = catidadCobro;
-        this.unidadCobro = unidadCobro;
+        this.peso = peso;
+        this.unidadPeso = unidadCobro;
     }
 
     public Integer getId() {
@@ -124,27 +108,27 @@ public class ProductoConstancia implements Serializable
     }
 
     public BigDecimal getCatidadCobro() {
-        return catidadCobro;
+        return peso;
     }
 
-    public void setCatidadCobro(BigDecimal catidadCobro) {
-        this.catidadCobro = catidadCobro;
+    public void setPeso(BigDecimal peso) {
+        this.peso = peso;
     }
 
-    public String getUnidadCobro() {
-        return unidadCobro;
+    public String getUnidadPeso() {
+        return unidadPeso;
     }
 
-    public void setUnidadCobro(String unidadCobro) {
-        this.unidadCobro = unidadCobro;
+    public void setUnidadPeso(String unidadPeso) {
+        this.unidadPeso = unidadPeso;
     }
 
-    public BigDecimal getCantidadManejo() {
-        return cantidadManejo;
+    public BigDecimal getCantidad() {
+        return cantidad;
     }
 
-    public void setCantidadManejo(BigDecimal cantidadManejo) {
-        this.cantidadManejo = cantidadManejo;
+    public void setCantidad(BigDecimal cantidad) {
+        this.cantidad = cantidad;
     }
 
     public String getUnidadManejo() {
@@ -213,9 +197,9 @@ public class ProductoConstancia implements Serializable
 
 	@Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+		if(this.id == null)
+			return System.identityHashCode(this);
+		return Objects.hashCode(this.id);
     }
 
     @Override

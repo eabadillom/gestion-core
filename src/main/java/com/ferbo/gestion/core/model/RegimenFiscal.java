@@ -108,7 +108,9 @@ public class RegimenFiscal implements Serializable
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, descripcion, personaFisica, personaMoral, vigenciaFin, vigenciaInicio);
+        if(this.id == null)
+        	return System.identityHashCode(this);
+        return Objects.hashCode(this.id);
     }
 
     @Override

@@ -2,27 +2,21 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "ingreso")
-@NamedQueries({
-    @NamedQuery(name = "Ingreso.findAll", query = "SELECT i FROM Ingreso i"),
-    @NamedQuery(name = "Ingreso.findById", query = "SELECT i FROM Ingreso i WHERE i.id= :idIngreso")
-})
 public class Ingreso implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -43,7 +37,7 @@ public class Ingreso implements Serializable
     private LocalDate fechaHora;
 
     @JoinColumn(name = "id_cliente", referencedColumnName = "CTE_CVE")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Cliente cliente;
 
     @Column(name = "transportista")
@@ -59,12 +53,12 @@ public class Ingreso implements Serializable
     private String observaciones;
 
     @JoinColumn(name = "id_contacto", referencedColumnName = "id_contacto")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Contacto contacto;
 
     @JoinColumn(name = "status", referencedColumnName = "id_status")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private IngresoStatus ingresoStatus;
+    @ManyToOne
+    private IngresoStatus status;
 
     public Ingreso() {
     }
@@ -133,19 +127,19 @@ public class Ingreso implements Serializable
         this.contacto = contacto;
     }
 
-    public IngresoStatus getIngresoStatus() {
-        return ingresoStatus;
+    public IngresoStatus getStatus() {
+        return status;
     }
 
-    public void setIngresoStatus(IngresoStatus ingresoStatus) {
-        this.ingresoStatus = ingresoStatus;
+    public void setStatus(IngresoStatus status) {
+        this.status = status;
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    	if(this.id == null)
+    		return System.identityHashCode(this);
+    	return Objects.hash(this.id);
     }
 
     @Override

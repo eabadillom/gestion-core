@@ -8,29 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "usuario")
-@NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id"),
-    @NamedQuery(name = "Usuario.findByUsuario", query = "SELECT u FROM Usuario u WHERE u.usuario = :usuario"),
-    @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password"),
-    @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
-    @NamedQuery(name = "Usuario.findByDescripcion", query = "SELECT u FROM Usuario u WHERE u.descripcion = :descripcion"),
-    @NamedQuery(name = "Usuario.findByPerfil", query = "SELECT u FROM Usuario u WHERE u.perfil = :perfil"),
-    @NamedQuery(name = "Usuario.findByApellido1", query = "SELECT u FROM Usuario u WHERE u.apellido1 = :apellido1"),
-    @NamedQuery(name = "Usuario.findByApellido2", query = "SELECT u FROM Usuario u WHERE u.apellido2 = :apellido2"),
-    @NamedQuery(name = "Usuario.findByMail", query = "SELECT u FROM Usuario u WHERE u.mail = :mail"),
-    @NamedQuery(name = "Usuario.findByIdPlanta", query = "SELECT u FROM Usuario u WHERE u.idPlanta = :idPlanta"),
-    @NamedQuery(name = "Usuario.findByStNtfSrvExt", query = "SELECT u FROM Usuario u WHERE u.stNtfSrvExt = :stNtfSrvExt"),
-    @NamedQuery(name = "Usuario.findByStUsuario", query = "SELECT u FROM Usuario u WHERE u.stUsuario = :stUsuario"),
-    @NamedQuery(name = "Usuario.findBynumEmpleado", query = "SELECT u FROM Usuario u WHERE u.numEmpleado = :numEmpleado")
-})
+@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
+@NamedQuery(name = "Usuario.findByUsuario", query = "SELECT u FROM Usuario u WHERE u.usuario = :usuario")
+@NamedQuery(name = "Usuario.findByPerfil", query = "SELECT u FROM Usuario u WHERE u.perfil = :perfil")
 public class Usuario implements Serializable 
 {
     private static final long serialVersionUID = 1L;

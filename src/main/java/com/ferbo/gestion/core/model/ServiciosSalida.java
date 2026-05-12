@@ -10,17 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "servicios_salida")
-@NamedQueries({
-    @NamedQuery(name = "ServiciosSalida.findAll", query = "SELECT ss FROM ServiciosSalida ss"),
-    @NamedQuery(name = "ServiciosSalida.findById", query = "SELECT ss FROM ServiciosSalida ss WHERE ss.id = :idSrvSalida"),
-    @NamedQuery(name = "ServiciosSalida.findByFolioSalida", query = "SELECT ss FROM ServiciosSalida ss INNER JOIN ss.salida s WHERE s.folioSalida = :folioSalida")
-})
+@NamedQuery(name = "ServiciosSalida.findByFolioSalida", query = "SELECT ss FROM ServiciosSalida ss INNER JOIN ss.salida s WHERE s.folio = :folioSalida")
 public class ServiciosSalida implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -41,7 +36,7 @@ public class ServiciosSalida implements Serializable
     
     @ManyToOne
     @JoinColumn(name = "unidad_de_manejo_cve", referencedColumnName = "unidad_de_manejo_cve")
-    private UnidadManejo unidadManejo;
+    private UnidadManejo unidad;
     
     @Column(name = "nu_cantidad")
     private Integer cantidad;
@@ -73,12 +68,12 @@ public class ServiciosSalida implements Serializable
         this.servicio = servicio;
     }
 
-    public UnidadManejo getUnidadManejo() {
-        return unidadManejo;
+    public UnidadManejo getUnidad() {
+        return unidad;
     }
 
-    public void setUnidadManejo(UnidadManejo unidadManejo) {
-        this.unidadManejo = unidadManejo;
+    public void getUnidad(UnidadManejo unidad) {
+        this.unidad = unidad;
     }
 
     public Integer getCantidad() {

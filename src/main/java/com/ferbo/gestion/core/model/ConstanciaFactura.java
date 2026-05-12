@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,21 +19,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "constancia_factura")
-@NamedQueries({
-    @NamedQuery(name = "ConstanciaFactura.findAll", query = "SELECT c FROM ConstanciaFactura c"),
-    @NamedQuery(name = "ConstanciaFactura.findById", query = "SELECT c FROM ConstanciaFactura c WHERE c.id = :id"),
-    @NamedQuery(name = "ConstanciaFactura.findByFolioVigenciaInicioVigenciaFin", query = "SELECT c FROM ConstanciaFactura c WHERE c.constanciaDeposito.folio = :folio AND c.vigenciaInicio = :vigenciaInicio and c.vigenciaFin = :vigenciaFin"),
-    @NamedQuery(name = "ConstanciaFactura.findByFolio", query = "SELECT c FROM ConstanciaFactura c WHERE c.constanciaDeposito.folio = :folio"),
-    @NamedQuery(name = "ConstanciaFactura.findByFolioCliente", query = "SELECT c FROM ConstanciaFactura c WHERE c.folioCliente = :folioCliente"),
-    @NamedQuery(name = "ConstanciaFactura.findByVigenciaInicio", query = "SELECT c FROM ConstanciaFactura c WHERE c.vigenciaInicio = :vigenciaInicio"),
-    @NamedQuery(name = "ConstanciaFactura.findByVigenciaFin", query = "SELECT c FROM ConstanciaFactura c WHERE c.vigenciaFin = :vigenciaFin"),
-    @NamedQuery(name = "ConstanciaFactura.findByIdPlanta", query = "SELECT c FROM ConstanciaFactura c WHERE c.plantaCve = :plantaCve"),
-    @NamedQuery(name = "ConstanciaFactura.findByPlantaDs", query = "SELECT c FROM ConstanciaFactura c WHERE c.plantaDs = :plantaDs"),
-    @NamedQuery(name = "ConstanciaFactura.findByPlantaAbrev", query = "SELECT c FROM ConstanciaFactura c WHERE c.plantaAbrev = :plantaAbrev"),
-    @NamedQuery(name = "ConstanciaFactura.findByIdCamara", query = "SELECT c FROM ConstanciaFactura c WHERE c.camaraCve = :camaraCve"),
-    @NamedQuery(name = "ConstanciaFactura.findByCamaraDs", query = "SELECT c FROM ConstanciaFactura c WHERE c.camaraDs = :camaraDs"),
-    @NamedQuery(name = "ConstanciaFactura.findByCamaraAbrev", query = "SELECT c FROM ConstanciaFactura c WHERE c.camaraAbrev = :camaraAbrev")
-})
+@NamedQuery(name = "ConstanciaFactura.findByFolioVigenciaInicioVigenciaFin", query = "SELECT c FROM ConstanciaFactura c WHERE c.constanciaDeposito.id = :folio AND c.vigenciaInicio = :vigenciaInicio and c.vigenciaFin = :vigenciaFin")
 public class ConstanciaFactura implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -60,22 +45,22 @@ public class ConstanciaFactura implements Serializable
     private LocalDate vigenciaFin;
 
     @Column(name = "planta_cve")
-    private Integer plantaCve;
+    private Integer idPlanta;
     
     @Size(max = 80)
     @Column(name = "planta_ds")
-    private String plantaDs;
+    private String nombrePlanta;
 
     @Size(max = 6)
     @Column(name = "planta_abrev")
     private String plantaAbrev;
 
     @Column(name = "camara_cve")
-    private Integer camaraCve;
+    private Integer idCamara;
 
     @Size(max = 80)
     @Column(name = "camara_ds")
-    private String camaraDs;
+    private String nombreCamara;
 
     @Size(max = 6)
     @Column(name = "camara_abrev")
@@ -86,10 +71,10 @@ public class ConstanciaFactura implements Serializable
     private Factura factura;
 
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "constanciaFactura")
-    private List<ServicioConstancia> servicioConstanciaList;
+    private List<ServicioConstancia> serviciosConstancia;
 
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "constanciaFactura")
-    private List<ProductoConstancia> productoConstanciaList;
+    private List<ProductoConstancia> productosConstancia;
 
     public ConstanciaFactura() {
     }
@@ -130,44 +115,44 @@ public class ConstanciaFactura implements Serializable
         this.vigenciaFin = vigenciaFin;
     }
 
-    public Integer getPlantaCve() {
-        return plantaCve;
+    public Integer getIdPlanta() {
+        return idPlanta;
     }
 
-    public void setPlantaCve(Integer plantaCve) {
-        this.plantaCve = plantaCve;
+    public void setIdPlanta(Integer idPlanta) {
+        this.idPlanta = idPlanta;
     }
 
-    public String getPlantaDs() {
-        return plantaDs;
+    public String getNombrePlanta() {
+        return nombrePlanta;
     }
 
-    public void setPlantaDs(String plantaDs) {
-        this.plantaDs = plantaDs;
+    public void setNombrePlanta(String nombrePlanta) {
+        this.nombrePlanta = nombrePlanta;
     }
 
     public String getPlantaAbrev() {
         return plantaAbrev;
     }
 
-    public void setPlantaAbrev(String plantaAbrev) {
-        this.plantaAbrev = plantaAbrev;
+    public Integer getIdCamara() {
+        return idCamara;
     }
 
-    public Integer getCamaraCve() {
-        return camaraCve;
+    public void setIdCamara(Integer idCamara) {
+        this.idCamara = idCamara;
     }
 
     public void setCamaraCve(Integer camaraCve) {
-        this.camaraCve = camaraCve;
+        this.idCamara = camaraCve;
     }
 
-    public String getCamaraDs() {
-        return camaraDs;
+    public String getNombreCamara() {
+        return nombreCamara;
     }
 
-    public void setCamaraDs(String camaraDs) {
-        this.camaraDs = camaraDs;
+    public void setNombreCamara(String nombreCamara) {
+        this.nombreCamara = nombreCamara;
     }
 
     public String getCamaraAbrev() {
@@ -186,20 +171,20 @@ public class ConstanciaFactura implements Serializable
         this.factura = factura;
     }
 
-    public List<ServicioConstancia> getServicioConstanciaList() {
-        return servicioConstanciaList;
+    public List<ServicioConstancia> getServiciosConstancia() {
+        return serviciosConstancia;
     }
 
-    public void setServicioConstanciaList(List<ServicioConstancia> servicioConstanciaList) {
-        this.servicioConstanciaList = servicioConstanciaList;
+    public void setServiciosConstancia(List<ServicioConstancia> serviciosConstancia) {
+        this.serviciosConstancia = serviciosConstancia;
     }
 
-    public List<ProductoConstancia> getProductoConstanciaList() {
-        return productoConstanciaList;
+    public List<ProductoConstancia> getProductosConstancia() {
+        return productosConstancia;
     }
 
-    public void setProductoConstanciaList(List<ProductoConstancia> productoConstanciaList) {
-        this.productoConstanciaList = productoConstanciaList;
+    public void setProductosConstancia(List<ProductoConstancia> productosConstancia) {
+        this.productosConstancia = productosConstancia;
     }
 
     public ConstanciaDeposito getConstanciaDeposito() {
@@ -234,10 +219,10 @@ public class ConstanciaFactura implements Serializable
     public String toString() {
         return "com.ferbo.gestion.core.model.ConstanciaFactura [id=" + id + ", folio=" + constanciaDeposito + ", folioCliente="
                 + folioCliente + ", vigenciaInicio=" + vigenciaInicio + ", vigenciaFin=" + vigenciaFin + ", plantaCve="
-                + plantaCve + ", plantaDs=" + plantaDs + ", plantaAbrev=" + plantaAbrev + ", camaraCve=" + camaraCve
-                + ", camaraDs=" + camaraDs + ", camaraAbrev=" + camaraAbrev + ", factura=" + factura
-                + ", servicioConstanciaList=" + servicioConstanciaList + ", productoConstanciaList="
-                + productoConstanciaList + "]";
+                + idPlanta + ", plantaDs=" + nombrePlanta + ", plantaAbrev=" + plantaAbrev + ", camaraCve=" + idCamara
+                + ", camaraDs=" + nombreCamara + ", camaraAbrev=" + camaraAbrev + ", factura=" + factura
+                + ", servicioConstanciaList=" + serviciosConstancia + ", productoConstanciaList="
+                + productosConstancia + "]";
     }
     
 }

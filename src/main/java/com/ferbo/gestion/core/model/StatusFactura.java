@@ -1,13 +1,13 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -15,19 +15,14 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "status_factura")
-@NamedQueries({
-    @NamedQuery(name = "StatusFactura.findAll", query = "SELECT s FROM StatusFactura s"),
-    @NamedQuery(name = "StatusFactura.findById", query = "SELECT s FROM StatusFactura s WHERE s.id = :id"),
-    @NamedQuery(name = "StatusFactura.findByNombre", query = "SELECT s FROM StatusFactura s WHERE s.nombre = :nombre"),
-    @NamedQuery(name = "StatusFactura.findByDescripcion", query = "SELECT s FROM StatusFactura s WHERE s.descripcion = :descripcion")
-})
+@NamedQuery(name = "StatusFactura.findAll", query = "SELECT s FROM StatusFactura s")
 public class StatusFactura implements Serializable {
     private static final long serialVersionUID = 1L;
     
-    public static final int STATUS_ERROR = 0;
-    public static final int STATUS_POR_COBRAR = 1;
-    public static final int STATUS_CANCELADA = 2;
-    public static final int STATUS_PAGADA = 3;
+    public static final int STATUS_ERROR        = 0;
+    public static final int STATUS_POR_COBRAR   = 1;
+    public static final int STATUS_CANCELADA    = 2;
+    public static final int STATUS_PAGADA       = 3;
     public static final int STATUS_PAGO_PARCIAL = 4;
 
     @Id
@@ -84,9 +79,9 @@ public class StatusFactura implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        if(this.id == null)
+        	return System.identityHashCode(this);
+        return Objects.hashCode(this.id);
     }
 
     @Override

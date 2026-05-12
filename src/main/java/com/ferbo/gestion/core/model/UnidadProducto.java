@@ -10,18 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "unidad_de_producto")
-@NamedQueries({
-    @NamedQuery(name = "UnidadProducto.findAll", query = "SELECT u FROM UnidadProducto u"),
-    @NamedQuery(name = "UnidadProducto.findById", query = "SELECT u FROM UnidadProducto u WHERE u.id = :idUP"),
-    @NamedQuery(name = "UnidadProducto.findByIdUnidadProducto", query = "SELECT u FROM UnidadProducto u WHERE u.producto.id = :idProducto AND u.unidadManejo.id = :idUnidadManejo"),
-    @NamedQuery(name = "UnidadProducto.findByIdProducto", query = "SELECT u FROM UnidadProducto u WHERE u.id = :idProducto")
-})
 public class UnidadProducto implements Serializable {
     private static final long serialVersionUID = 1L;
     

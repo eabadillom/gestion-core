@@ -18,12 +18,10 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "servicio")
 @NamedQueries({
-    @NamedQuery(name = "Servicio.findAll", query = "SELECT s FROM Servicio s ORDER BY s.descripcion"),
-    @NamedQuery(name = "Servicio.findById", query = "SELECT s FROM Servicio s WHERE s.id = :idServicio"),
     @NamedQuery(name = "Servicio.findByDescripcion", query = "SELECT s FROM Servicio s WHERE s.descripcion = :descripcion"),
     @NamedQuery(name = "Servicio.findByCodigo", query = "SELECT s FROM Servicio s WHERE s.codigo = :codigo"),
-    @NamedQuery(name = "Servicio.findByUnidad", query = "SELECT s FROM Servicio s WHERE s.unidad = :unidad"),//cd unidad paso a ser clave foranea
-    @NamedQuery(name = "Servicio.findByUuId", query = "SELECT s FROM Servicio s WHERE s.uuId = :uuId")
+    @NamedQuery(name = "Servicio.findByUnidad", query = "SELECT s FROM Servicio s WHERE s.unidad = :unidad"),
+    @NamedQuery(name = "Servicio.findByUuId", query = "SELECT s FROM Servicio s WHERE s.uuid = :uuId")
 })
 public class Servicio implements Serializable 
 {
@@ -43,25 +41,21 @@ public class Servicio implements Serializable
     @Column(name = "SERVICIO_COD")
     private String codigo;
 
-    @Size(max = 5)
-    @Column(name = "cd_unidad")
-    private String unidad;
-
     @Size(max = 50)
     @Column(name = "SERVICIO_NOM")
     private String nombre;
 
     @Size(max = 50)
     @Column(name = "uuid")
-    private String uuId;
+    private String uuid;
 
     @JoinColumn(name = "COBRO", referencedColumnName = "id")
     @ManyToOne
-    private TipoCobro cobro;
+    private TipoCobro tipoCobro;
 
     @JoinColumn(name = "cd_unidad", referencedColumnName = "cd_unidad", insertable = false, updatable = false)
     @ManyToOne
-    private ClaveUnidad claveUnit;
+    private ClaveUnidad unidad;
 
     public Servicio() {
     }
@@ -94,14 +88,6 @@ public class Servicio implements Serializable
         this.codigo = codigo;
     }
 
-    public String getUnidad() {
-        return unidad;
-    }
-
-    public void setUnidad(String unidad) {
-        this.unidad = unidad;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -110,28 +96,28 @@ public class Servicio implements Serializable
         this.nombre = nombre;
     }
 
-    public String getUuId() {
-        return uuId;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setUuId(String uuId) {
-        this.uuId = uuId;
+    public void setUuid(String uuId) {
+        this.uuid = uuId;
     }
 
-    public TipoCobro getCobro() {
-        return cobro;
+    public TipoCobro getTipoCobro() {
+        return tipoCobro;
     }
 
-    public void setCobro(TipoCobro cobro) {
-        this.cobro = cobro;
+    public void setTipoCobro(TipoCobro tipoCobro) {
+        this.tipoCobro = tipoCobro;
     }
 
-    public ClaveUnidad getClaveUnit() {
-        return claveUnit;
+    public ClaveUnidad getUnidad() {
+        return unidad;
     }
 
-    public void setClaveUnit(ClaveUnidad claveUnit) {
-        this.claveUnit = claveUnit;
+    public void setUnidad(ClaveUnidad claveUnidad) {
+        this.unidad = claveUnidad;
     }
 
     @Override

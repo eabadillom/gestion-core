@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,15 +20,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "constancia_traspaso")
-@NamedQueries({
-    @NamedQuery(name = "ConstanciaTraspaso.findAll", query = "SELECT c FROM ConstanciaTraspaso c"),
-    @NamedQuery(name = "ConstanciaTraspaso.findById", query = "SELECT c FROM ConstanciaTraspaso c WHERE c.id = :id"),
-    @NamedQuery(name = "ConstanciaTraspaso.findByNumero", query = "SELECT c FROM ConstanciaTraspaso c WHERE c.numero = :numero"),
-    @NamedQuery(name = "ConstanciaTraspaso.findByFecha", query = "SELECT c FROM ConstanciaTraspaso c WHERE c.fecha = :fecha"),
-    @NamedQuery(name = "ConstanciaTraspaso.findByObservacion", query = "SELECT c FROM ConstanciaTraspaso c WHERE c.observacion = :observacion"),
-    @NamedQuery(name = "ConstanciaTraspaso.findByNombreCliente", query = "SELECT c FROM ConstanciaTraspaso c WHERE c.nombreCliente = :nombreCliente"),
-    @NamedQuery(name = "ConstanciaTraspaso.findByPeriodoClienteNumero", query = "SELECT c FROM ConstanciaTraspaso c WHERE (c.fecha BETWEEN :fechaInicio AND :fechaFin) AND (c.cliente.id = :idCliente OR :idCliente IS NULL) AND (c.numero = :folioCliente OR :folioCliente IS NULL )"),
-    @NamedQuery(name = "ConstanciaTraspaso.findByFechaCadena", query = "SELECT c FROM ConstanciaTraspaso c WHERE c.fechaCadena = :fechaCadena")})
+@NamedQuery(name = "ConstanciaTraspaso.findByNumero", query = "SELECT c FROM ConstanciaTraspaso c WHERE c.numero = :numero")
 public class ConstanciaTraspaso implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -68,10 +59,10 @@ public class ConstanciaTraspaso implements Serializable
     private String fechaCadena;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "traspaso")
-    private List<TraspasoServicio> traspasoServicioList;
+    private List<TraspasoServicio> servicios;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "traspaso")
-    private List<TraspasoPartida> traspasoPartidaList;
+    private List<TraspasoPartida> partidas;
     
     @JoinColumn(name = "cliente", referencedColumnName = "CTE_CVE")
     @ManyToOne(optional = false)
@@ -140,20 +131,20 @@ public class ConstanciaTraspaso implements Serializable
         this.fechaCadena = fechaCadena;
     }
 
-    public List<TraspasoServicio> getTraspasoServicioList() {
-        return traspasoServicioList;
+    public List<TraspasoServicio> getServicios() {
+        return servicios;
     }
 
-    public void setTraspasoServicioList(List<TraspasoServicio> traspasoServicioList) {
-        this.traspasoServicioList = traspasoServicioList;
+    public void getServicios(List<TraspasoServicio> servicios) {
+        this.servicios = servicios;
     }
 
-    public List<TraspasoPartida> getTraspasoPartidaList() {
-        return traspasoPartidaList;
+    public List<TraspasoPartida> getPartidas() {
+        return partidas;
     }
 
-    public void setTraspasoPartidaList(List<TraspasoPartida> traspasoPartidaList) {
-        this.traspasoPartidaList = traspasoPartidaList;
+    public void setPartidas(List<TraspasoPartida> partidas) {
+        this.partidas = partidas;
     }
 
     public Cliente getCliente() {

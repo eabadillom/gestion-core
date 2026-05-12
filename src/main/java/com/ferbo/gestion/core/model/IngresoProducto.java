@@ -3,6 +3,7 @@ package com.ferbo.gestion.core.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,18 +13,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "ingreso_producto")
-@NamedQueries({
-    @NamedQuery(name = "IngresoProducto.findByAll", query = "SELECT ip FROM IngresoProducto ip"),
-    @NamedQuery(name = "IngresoProducto.findById", query = "SELECT ip FROM IngresoProducto ip WHERE ip.id = :idProducto")
-})
 public class IngresoProducto implements Serializable, Cloneable 
 {
     private static final long serialVersionUID = 1L;
@@ -39,18 +34,18 @@ public class IngresoProducto implements Serializable, Cloneable
 
     @JoinColumn(name = "id_unidad_medida", referencedColumnName = "UNIDAD_DE_MANEJO_CVE")
     @ManyToOne
-    private UnidadManejo unidadManejo;
+    private UnidadManejo unidad;
 
     @Column(name = "peso")
     private BigDecimal peso;
 
     @JoinColumn(name = "id_planta", referencedColumnName = "PLANTA_CVE")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Planta planta;
 
     @Column(name = "no_tarimas")
     @NotNull
-    private BigDecimal noTarimas;
+    private BigDecimal numeroTarimas;
 
     @Column(name = "lote")
     @Size(max = 20)
@@ -65,7 +60,7 @@ public class IngresoProducto implements Serializable, Cloneable
     private String contenedor;
 
     @Column(name = "fecha_Caducidad")
-    private LocalDate fechaCaducidad;
+    private LocalDate caducidad;
 
     @Column(name = "otro")
     @Size(max = 12)
@@ -80,7 +75,6 @@ public class IngresoProducto implements Serializable, Cloneable
     private Producto producto;
 
     public IngresoProducto() {
-
     }
 
     public IngresoProducto clone() throws CloneNotSupportedException {
@@ -103,12 +97,12 @@ public class IngresoProducto implements Serializable, Cloneable
         this.cantidad = cantidad;
     }
 
-    public UnidadManejo getUnidadManejo() {
-        return unidadManejo;
+    public UnidadManejo getUnidad() {
+        return unidad;
     }
 
-    public void setUnidadManejo(UnidadManejo unidadManejo) {
-        this.unidadManejo = unidadManejo;
+    public void setUnidad(UnidadManejo unidad) {
+        this.unidad = unidad;
     }
 
     public BigDecimal getPeso() {
@@ -127,12 +121,12 @@ public class IngresoProducto implements Serializable, Cloneable
         this.planta = planta;
     }
 
-    public BigDecimal getNoTarimas() {
-        return noTarimas;
+    public BigDecimal getNumeroTarimas() {
+        return numeroTarimas;
     }
 
-    public void setNoTarimas(BigDecimal noTarimas) {
-        this.noTarimas = noTarimas;
+    public void setNumeroTarimas(BigDecimal numeroTarimas) {
+        this.numeroTarimas = numeroTarimas;
     }
 
     public String getLote() {
@@ -159,12 +153,12 @@ public class IngresoProducto implements Serializable, Cloneable
         this.contenedor = contenedor;
     }
 
-    public LocalDate getFechaCaducidad() {
-        return fechaCaducidad;
+    public LocalDate getCaducidad() {
+        return caducidad;
     }
 
-    public void setFechaCaducidad(LocalDate fechaCaducidad) {
-        this.fechaCaducidad = fechaCaducidad;
+    public void setCaducidad(LocalDate caducidad) {
+        this.caducidad = caducidad;
     }
 
     public String getOtro() {
@@ -193,9 +187,9 @@ public class IngresoProducto implements Serializable, Cloneable
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    	if(this.id == null)
+    		return System.identityHashCode(this);
+    	return Objects.hash(this.id);
     }
 
     @Override

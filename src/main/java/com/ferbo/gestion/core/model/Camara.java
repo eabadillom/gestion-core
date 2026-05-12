@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,13 +19,10 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "camara")
-@NamedQueries({
-    @NamedQuery(name = "Camara.findAll", query = "SELECT c FROM Camara c"),
-    @NamedQuery(name = "Camara.findByCamara", query = "SELECT c FROM Camara c WHERE c.id = :idCamara"),
-    @NamedQuery(name = "Camara.findByPlanta", query = "SELECT c FROM Camara c WHERE c.planta.id = :idPlanta"),
-    @NamedQuery(name = "Camara.findByDescripcion", query = "SELECT c FROM Camara c WHERE c.descripcion = :descripcion"),
-    @NamedQuery(name = "Camara.findByClave", query = "SELECT c FROM Camara c WHERE c.clave = :clave")
-})
+@NamedQuery(name = "Camara.findAll", query = "SELECT c FROM Camara c")
+@NamedQuery(name = "Camara.findByCamara", query = "SELECT c FROM Camara c WHERE c.id = :idCamara")
+@NamedQuery(name = "Camara.findByPlanta", query = "SELECT c FROM Camara c WHERE c.planta.id = :idPlanta")
+@NamedQuery(name = "Camara.findByClave", query = "SELECT c FROM Camara c WHERE c.clave = :clave")
 public class Camara implements Serializable 
 {
     private static final long serialVersionUID = 1L;

@@ -29,12 +29,12 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Partida.findByPesoTotal", query = "SELECT p FROM Partida p WHERE p.pesoTotal = :pesoTotal"),
     @NamedQuery(name = "Partida.findByCantidadTotal", query = "SELECT p FROM Partida p WHERE p.cantidadTotal = :cantidadTotal"),
     @NamedQuery(name = "Partida.findByUnidadProducto", query = "SELECT p FROM Partida p WHERE p.unidadProducto = :unidadProducto"),
-    @NamedQuery(name = "Partida.findByCantidadDeCobro", query = "SELECT p FROM Partida p WHERE p.cantidadDeCobro = :cantidadDeCobro"),
+    @NamedQuery(name = "Partida.findByCantidadDeCobro", query = "SELECT p FROM Partida p WHERE p.cantidadCobro = :cantidadDeCobro"),
     @NamedQuery(name = "Partida.findByPartidaSeq", query = "SELECT p FROM Partida p WHERE p.partidaSeq = :partidaSeq"),
     @NamedQuery(name = "Partida.findByValorMercancia", query = "SELECT p FROM Partida p WHERE p.valorMercancia = :valorMercancia"),
     @NamedQuery(name = "Partida.findByRendimiento", query = "SELECT p FROM Partida p WHERE p.rendimiento = :rendimiento"),
-    @NamedQuery(name = "Partida.findByNoTarimas", query = "SELECT p FROM Partida p WHERE p.noTarimas = :noTarimas"),
-    @NamedQuery(name = "Partida.findByConstanciaDeDeposito", query = "SELECT p FROM Partida p WHERE p.constanciaDeposito.folio = :folioCliente")
+    @NamedQuery(name = "Partida.findByNoTarimas", query = "SELECT p FROM Partida p WHERE p.numeroTarimas = :noTarimas"),
+    @NamedQuery(name = "Partida.findByConstanciaDeDeposito", query = "SELECT p FROM Partida p WHERE p.constanciaDeposito.folioCliente = :folioCliente")
 })
 public class Partida implements Serializable, Cloneable 
 {
@@ -53,7 +53,7 @@ public class Partida implements Serializable, Cloneable
     private Integer cantidadTotal;
 
     @Column(name = "cantidad_de_cobro")
-    private BigDecimal cantidadDeCobro;
+    private BigDecimal cantidadCobro;
 
     @Column(name = "partida_seq")
     private Integer partidaSeq;
@@ -67,10 +67,10 @@ public class Partida implements Serializable, Cloneable
     @Basic(optional = true)
     @NotNull
     @Column(name = "no_tarimas")
-    private BigDecimal noTarimas;
+    private BigDecimal numeroTarimas;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "detallePartidaPK.partida")//PENDIENTE NO MNODIFICA EL DETALLE PARTIDA DE LA PARTIDA SELECCIONADA detallePartidaPK.id
-    private List<DetallePartida> detallePartidaList;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "key.partida")//PENDIENTE NO MNODIFICA EL DETALLE PARTIDA DE LA PARTIDA SELECCIONADA detallePartidaPK.id
+    private List<DetallePartida> detallesPartida;
 
     @JoinColumn(name = "CAMARA_CVE", referencedColumnName = "CAMARA_CVE")
     @ManyToOne
@@ -81,41 +81,41 @@ public class Partida implements Serializable, Cloneable
     private ConstanciaDeposito constanciaDeposito;
 
     @JoinColumn(name = "unidad_de_cobro", referencedColumnName = "UNIDAD_DE_MANEJO_CVE")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private UnidadManejo unidadCobro;
-
+    
     @OneToMany(mappedBy = "partida", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    private List<DetalleConstanciaSalida> detalleConstanciaSalidaList;
+    private List<DetalleConstanciaSalida> detallesSalida;
 
     @JoinColumn(name = "UNIDAD_DE_PRODUCTO_CVE", referencedColumnName = "UNIDAD_DE_PRODUCTO_CVE")
     @ManyToOne(optional = false)
     private UnidadProducto unidadProducto;
 
     @OneToMany(mappedBy = "partida", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    private List<TraspasoPartida> traspasoPartidaList;
+    private List<TraspasoPartida> traspasosPartida;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "cd_tarima", referencedColumnName = "cd_tarima")
     private Tarima tarima;  
 
     public void add(DetallePartida detalle) {
-        if (this.detallePartidaList == null) {
-            this.detallePartidaList = new ArrayList<DetallePartida>();
+        if (this.detallesPartida == null) {
+            this.detallesPartida = new ArrayList<DetallePartida>();
         }
 
-        if (detalle.getDetallePartidaPK() == null) {
-            detalle.setDetallePartidaPK(new DetallePartidaPK(detallePartidaList.size(), this));
+        if (detalle.getKey() == null) {
+            detalle.setKey(new DetallePartidaPK(detallesPartida.size(), this));
         }
 
-        this.detallePartidaList.add(detalle);
+        this.detallesPartida.add(detalle);
     }
 
-    public void add(DetalleConstanciaSalida detalleConstanciaSalida) {
-        if (this.detalleConstanciaSalidaList == null) {
-            this.detalleConstanciaSalidaList = new ArrayList<DetalleConstanciaSalida>();
+    public void add(DetalleConstanciaSalida detallesSalida) {
+        if (this.detallesSalida == null) {
+            this.detallesSalida = new ArrayList<DetalleConstanciaSalida>();
         }
 
-        this.detalleConstanciaSalidaList.add(detalleConstanciaSalida);
+        this.detallesSalida.add(detallesSalida);
     }
 
     public void setUnidadProducto(UnidadProducto unidadProducto) {
@@ -131,7 +131,7 @@ public class Partida implements Serializable, Cloneable
 
     public Partida(Integer id, BigDecimal noTarimas) {
         this.id = id;
-        this.noTarimas = noTarimas;
+        this.numeroTarimas = noTarimas;
     }
 
     public Integer getId() {
@@ -158,12 +158,12 @@ public class Partida implements Serializable, Cloneable
         this.cantidadTotal = cantidadTotal;
     }
 
-    public BigDecimal getCantidadDeCobro() {
-        return cantidadDeCobro;
+    public BigDecimal getCantidadCobro() {
+        return cantidadCobro;
     }
 
-    public void setCantidadDeCobro(BigDecimal cantidadDeCobro) {
-        this.cantidadDeCobro = cantidadDeCobro;
+    public void setCantidadCobro(BigDecimal cantidadCobro) {
+        this.cantidadCobro = cantidadCobro;
     }
 
     public Integer getPartidaSeq() {
@@ -190,22 +190,22 @@ public class Partida implements Serializable, Cloneable
         this.rendimiento = rendimiento;
     }
 
-    public BigDecimal getNoTarimas() {
-        return noTarimas;
+    public BigDecimal getNumeroTarimas() {
+        return numeroTarimas;
     }
 
-    public void setNoTarimas(BigDecimal noTarimas) {
-        this.noTarimas = noTarimas;
+    public void setNumeroTarimas(BigDecimal numeroTarimas) {
+        this.numeroTarimas = numeroTarimas;
     }
 
-    public List<DetallePartida> getDetallePartidaList() {
-        return detallePartidaList;
+    public List<DetallePartida> getDetallesPartida() {
+        return detallesPartida;
     }
 
-    public void setDetallePartidaList(List<DetallePartida> detallePartidaList) {
-        this.detallePartidaList = detallePartidaList;
-        for (DetallePartida dp : detallePartidaList) {
-            dp.getDetallePartidaPK().setPartida(this);
+    public void setDetallesPartida(List<DetallePartida> detallesPartida) {
+        this.detallesPartida = detallesPartida;
+        for (DetallePartida detallePartida : detallesPartida) {
+            detallePartida.getKey().setPartida(this);
         }
     }
 
@@ -233,24 +233,24 @@ public class Partida implements Serializable, Cloneable
         this.unidadCobro = unidadCobro;
     }
 
-    public List<DetalleConstanciaSalida> getDetalleConstanciaSalidaList() {
-        return detalleConstanciaSalidaList;
+    public List<DetalleConstanciaSalida> getDetallesSalida() {
+        return detallesSalida;
     }
 
-    public void setDetalleConstanciaSalidaList(List<DetalleConstanciaSalida> detalleConstanciaSalidaList) {
-        this.detalleConstanciaSalidaList = detalleConstanciaSalidaList;
+    public void setDetallesSalida(List<DetalleConstanciaSalida> detallesSalida) {
+        this.detallesSalida = detallesSalida;
     }
 
     public UnidadProducto getUnidadProducto() {
         return unidadProducto;
     }
 
-    public List<TraspasoPartida> getTraspasoPartidaList() {
-        return traspasoPartidaList;
+    public List<TraspasoPartida> getTraspasosPartida() {
+        return traspasosPartida;
     }
 
-    public void setTraspasoPartidaList(List<TraspasoPartida> traspasoPartidaList) {
-        this.traspasoPartidaList = traspasoPartidaList;
+    public void setTraspasosPartida(List<TraspasoPartida> traspasosPartida) {
+        this.traspasosPartida = traspasosPartida;
     }
 
     public Tarima getTarima() {
@@ -268,19 +268,19 @@ public class Partida implements Serializable, Cloneable
         partida.setId(this.id == null ? null : new Integer(this.id));
         partida.setPesoTotal(this.pesoTotal);
         partida.setCantidadTotal(this.cantidadTotal == null ? null : new Integer(this.cantidadTotal));
-        partida.setCantidadDeCobro(this.cantidadDeCobro);
+        partida.setCantidadCobro(this.cantidadCobro);
         partida.setPartidaSeq(this.partidaSeq == null ? null : new Integer(this.partidaSeq));
         partida.setValorMercancia(this.valorMercancia);
         partida.setRendimiento(this.rendimiento);
-        partida.setNoTarimas(this.noTarimas);
+        partida.setNumeroTarimas(this.numeroTarimas);
 
-        if (this.detallePartidaList != null) {
-            partida.setDetallePartidaList(new ArrayList<DetallePartida>());
+        if (this.detallesPartida != null) {
+            partida.setDetallesPartida(new ArrayList<DetallePartida>());
         }
 
-        for (DetallePartida dp : this.detallePartidaList) {
+        for (DetallePartida dp : this.detallesPartida) {
             DetallePartida detalle = dp.clone();
-            detalle.setDetallePartidaPK(new DetallePartidaPK(partida, dp.getDetallePartidaPK().getId()));
+            detalle.setKey(new DetallePartidaPK(partida, dp.getKey().getId()));
             partida.add(detalle);
         }
 
@@ -297,14 +297,14 @@ public class Partida implements Serializable, Cloneable
         }
 
         //Se omite la lista de DetalleConstanciaSalida
-        partida.setDetalleConstanciaSalidaList(null);
+        partida.setDetallesSalida(null);
 
         if (this.unidadProducto != null) {
             partida.setUnidadProducto(this.unidadProducto);
         }
 
         //Se omite la lista de TraspasoPartida
-        partida.setTraspasoPartidaList(null);
+        partida.setTraspasosPartida(null);
 
         //Se omite Tarima.
         partida.setTarima(null);

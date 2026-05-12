@@ -7,19 +7,14 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "concepto")
-@NamedQueries({
-    @NamedQuery(name = "Concepto.findAll", query = "SELECT c FROM Concepto c ORDER BY c.nombre"),
-    @NamedQuery(name = "Concepto.likeClave", query = "SELECT c FROM Concepto c WHERE c.clave LIKE :clave "),
-    @NamedQuery(name = "Concepto.likeNombre", query = "SELECT c FROM Concepto c WHERE c.nombre LIKE :nombre "),
-    @NamedQuery(name = "Concepto.likeClaveNombre", query = "SELECT c FROM Concepto c WHERE c.clave like :clave OR c.nombre LIKE :nombre")
-})
+@NamedQuery(name = "Concepto.likeNombre", query = "SELECT c FROM Concepto c WHERE c.nombre LIKE :nombre ")
+@NamedQuery(name = "Concepto.likeClaveNombre", query = "SELECT c FROM Concepto c WHERE c.clave like :clave OR c.nombre LIKE :nombre")
 public class Concepto implements Serializable 
 {
     private static final long serialVersionUID = -4219319323024650558L;

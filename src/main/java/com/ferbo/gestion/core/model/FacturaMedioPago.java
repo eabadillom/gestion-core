@@ -7,32 +7,22 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "factura_medio_pago")
-@NamedQueries({
-    @NamedQuery(name = "FacturaMedioPago.findAll", query = "SELECT f FROM FacturaMedioPago f"),
-    @NamedQuery(name = "FacturaMedioPago.findByIdFactura", query = "SELECT f FROM FacturaMedioPago f WHERE f.facturaMedioPagoPK.factura.id = :idFactura"),
-    @NamedQuery(name = "FacturaMedioPago.findByMedioPago", query = "SELECT f FROM FacturaMedioPago f WHERE f.medioPago.id = :idMedioPago"),
-    @NamedQuery(name = "FacturaMedioPago.findByDescripcion", query = "SELECT f FROM FacturaMedioPago f WHERE f.descripcion = :descripcion"),
-    @NamedQuery(name = "FacturaMedioPago.findByPorcentaje", query = "SELECT f FROM FacturaMedioPago f WHERE f.porcentaje = :porcentaje"),
-    @NamedQuery(name = "FacturaMedioPago.findByReferencia", query = "SELECT f FROM FacturaMedioPago f WHERE f.referencia = :referencia")
-})
 public class FacturaMedioPago implements Serializable 
 {
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
-    protected FacturaMedioPagoPK facturaMedioPagoPK;
+    protected FacturaMedioPagoPK key;
     
     @JoinColumn(name = "mp_id", referencedColumnName = "mp_id")
     @ManyToOne(optional = false)
-    private MedioPago medioPago;
+    private FormaPago medioPago;
     
     @Basic(optional = false)
     @NotNull
@@ -52,33 +42,33 @@ public class FacturaMedioPago implements Serializable
     public FacturaMedioPago() {
     }
 
-    public FacturaMedioPago(FacturaMedioPagoPK facturaMedioPagoPK) {
-        this.facturaMedioPagoPK = facturaMedioPagoPK;
+    public FacturaMedioPago(FacturaMedioPagoPK primaryKey) {
+        this.key = primaryKey;
     }
 
-    public FacturaMedioPago(FacturaMedioPagoPK facturaMedioPagoPK, String descripcion, int porcentaje) {
-        this.facturaMedioPagoPK = facturaMedioPagoPK;
+    public FacturaMedioPago(FacturaMedioPagoPK primaryKey, String descripcion, int porcentaje) {
+        this.key = primaryKey;
         this.descripcion = descripcion;
         this.porcentaje = porcentaje;
     }
 
-    public FacturaMedioPago(Factura facturaId, int fmpId) {
-        this.facturaMedioPagoPK = new FacturaMedioPagoPK(facturaId, fmpId);
+    public FacturaMedioPago(Factura idFactura, int fmpId) {
+        this.key = new FacturaMedioPagoPK(idFactura, fmpId);
     }
-
+	
     public FacturaMedioPagoPK getFacturaMedioPagoPK() {
-        return facturaMedioPagoPK;
+        return key;
     }
 
     public void setFacturaMedioPagoPK(FacturaMedioPagoPK facturaMedioPagoPK) {
-        this.facturaMedioPagoPK = facturaMedioPagoPK;
+        this.key = facturaMedioPagoPK;
     }
 
-    public MedioPago getMedioPago() {
+    public FormaPago getMedioPago() {
         return medioPago;
     }
 
-    public void setMedioPago(MedioPago medioPago) {
+    public void setMedioPago(FormaPago medioPago) {
         this.medioPago = medioPago;
     }
 
@@ -109,7 +99,7 @@ public class FacturaMedioPago implements Serializable
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (facturaMedioPagoPK != null ? facturaMedioPagoPK.hashCode() : 0);
+        hash += (key != null ? key.hashCode() : 0);
         return hash;
     }
 
@@ -120,7 +110,7 @@ public class FacturaMedioPago implements Serializable
             return false;
         }
         FacturaMedioPago other = (FacturaMedioPago) object;
-        if ((this.facturaMedioPagoPK == null && other.facturaMedioPagoPK != null) || (this.facturaMedioPagoPK != null && !this.facturaMedioPagoPK.equals(other.facturaMedioPagoPK))) {
+        if ((this.key == null && other.key != null) || (this.key != null && !this.key.equals(other.key))) {
             return false;
         }
         return true;
@@ -128,7 +118,7 @@ public class FacturaMedioPago implements Serializable
 
     @Override
     public String toString() {
-        return "com.ferbo.gestion.core.model.FacturaMedioPago[ facturaMedioPagoPK=" + facturaMedioPagoPK + " ]";
+        return "com.ferbo.gestion.core.model.FacturaMedioPago[ facturaMedioPagoPK=" + key + " ]";
     }
     
 }

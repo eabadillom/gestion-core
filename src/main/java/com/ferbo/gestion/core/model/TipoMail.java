@@ -1,11 +1,11 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -13,11 +13,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tipo_mail")
-@NamedQueries({
-    @NamedQuery(name = "TipoMail.findAll", query = "SELECT t FROM TipoMail t"),
-    @NamedQuery(name = "TipoMail.findById", query = "SELECT t FROM TipoMail t WHERE t.id = :idMail"),
-    @NamedQuery(name = "TipoMail.findByDescripcion", query = "SELECT t FROM TipoMail t WHERE t.descripcion = :descripcion")
-})
+@NamedQuery(name = "TipoMail.findAll", query = "SELECT t FROM TipoMail t")
 public class TipoMail implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -64,9 +60,9 @@ public class TipoMail implements Serializable
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    	if(this.id == null)
+    		return System.identityHashCode(this);
+        return Objects.hashCode(this.id);
     }
 
     @Override

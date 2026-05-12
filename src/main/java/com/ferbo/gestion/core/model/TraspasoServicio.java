@@ -2,6 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,23 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "traspaso_servicio")
-@NamedQueries({
-    @NamedQuery(name = "TraspasoServicio.findAll", query = "SELECT t FROM TraspasoServicio t"),
-    @NamedQuery(name = "TraspasoServicio.findById", query = "SELECT t FROM TraspasoServicio t WHERE t.id = :idTraspasoServicio"),
-    @NamedQuery(name = "TraspasoServicio.findByServicio", query = "SELECT t FROM TraspasoServicio t WHERE t.servicio = :servicio"),
-    @NamedQuery(name = "TraspasoServicio.findByTraspaso", query = "SELECT t FROM TraspasoServicio t WHERE t.traspaso.id = :idTraspaso"),
-    @NamedQuery(name = "TraspasoServicio.findByCantidad", query = "SELECT t FROM TraspasoServicio t WHERE t.cantidad = :cantidad"),
-    @NamedQuery(name = "TraspasoServicio.findByPrecio", query = "SELECT t FROM TraspasoServicio t WHERE t.precio = :precio"),
-    @NamedQuery(name = "TraspasoServicio.findBySubtotal", query = "SELECT t FROM TraspasoServicio t WHERE t.subtotal = :subtotal")
-})
 public class TraspasoServicio implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -127,9 +117,9 @@ public class TraspasoServicio implements Serializable
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        if(this.id == null)
+        	return System.identityHashCode(this);
+        return Objects.hashCode(this.id);
     }
 
     @Override

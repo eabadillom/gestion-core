@@ -1,28 +1,21 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "status_salida")
-@NamedQueries({
-    @NamedQuery(name = "StatusSalida.findAll", query = "SELECT s FROM StatusSalida s"),
-    @NamedQuery(name = "StatusSalida.findById", query = "SELECT s FROM StatusSalida s WHERE s.id = :idStatus"),
-    @NamedQuery(name = "StatusSalida.findByClave", query = "SELECT s FROM StatusSalida s WHERE s.clave = :clave")
-})
+@NamedQuery(name = "StatusSalida.findAll", query = "SELECT s FROM StatusSalida s")
+@NamedQuery(name = "StatusSalida.findByClave", query = "SELECT s FROM StatusSalida s WHERE s.clave = :clave")
 public class StatusSalida implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -40,9 +33,6 @@ public class StatusSalida implements Serializable
     @Size(max = 2)
     @Column(name = "nb_clave")
     private String clave;
-    
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "status")
-    private List<Salida> listSalidas;
     
     public StatusSalida() {
     }
@@ -71,19 +61,10 @@ public class StatusSalida implements Serializable
         this.clave = clave;
     }
 
-    public List<Salida> getListSalidas() {
-        return listSalidas;
-    }
-
-    public void setListSalidas(List<Salida> listSalidas) {
-        this.listSalidas = listSalidas;
-    }
-
     @Override
     public int hashCode() {
-        if (this.id == null) {
-            return System.identityHashCode(this);
-        }
+        if (this.id == null)
+        	return System.identityHashCode(this);
         return Objects.hash(this.id);
     }
 

@@ -2,6 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,25 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "servicio_factura")
-@NamedQueries({
-    @NamedQuery(name = "ServicioFactura.findAll", query = "SELECT s FROM ServicioFactura s"),
-    @NamedQuery(name = "ServicioFactura.findById", query = "SELECT s FROM ServicioFactura s WHERE s.id = :idServicioFactura"),
-    @NamedQuery(name = "ServicioFactura.findByDescripcion", query = "SELECT s FROM ServicioFactura s WHERE s.descripcion = :descripcion"),
-    @NamedQuery(name = "ServicioFactura.findByCantidad", query = "SELECT s FROM ServicioFactura s WHERE s.cantidad = :cantidad"),
-    @NamedQuery(name = "ServicioFactura.findByUnidad", query = "SELECT s FROM ServicioFactura s WHERE s.unidad = :unidad"),
-    @NamedQuery(name = "ServicioFactura.findByCosto", query = "SELECT s FROM ServicioFactura s WHERE s.costo = :costo"),
-    @NamedQuery(name = "ServicioFactura.findByTarifa", query = "SELECT s FROM ServicioFactura s WHERE s.tarifa = :tarifa"),
-    @NamedQuery(name = "ServicioFactura.findByUdCobro", query = "SELECT s FROM ServicioFactura s WHERE s.udCobro = :udCobro"),
-    @NamedQuery(name = "ServicioFactura.findByCodigo", query = "SELECT s FROM ServicioFactura s WHERE s.codigo = :codigo")
-})
 public class ServicioFactura implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -50,19 +38,19 @@ public class ServicioFactura implements Serializable
     @Column(name = "cantidad")
     private BigDecimal cantidad;
     
+    @Column(name = "tarifa")
+    private BigDecimal precioUnitario;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "costo")
+    private BigDecimal subtotal;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "unidad")
     private String unidad;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "costo")
-    private BigDecimal costo;
-    
-    @Column(name = "tarifa")
-    private BigDecimal tarifa;
     
     @Size(max = 10)
     @Column(name = "ud_cobro")
@@ -97,7 +85,7 @@ public class ServicioFactura implements Serializable
         this.descripcion = descripcion;
         this.cantidad = cantidad;
         this.unidad = unidad;
-        this.costo = costo;
+        this.subtotal = costo;
     }
 
     public Integer getId() {
@@ -131,29 +119,29 @@ public class ServicioFactura implements Serializable
     public void setUnidad(String unidad) {
         this.unidad = unidad;
     }
-
-    public BigDecimal getCosto() {
-        return costo;
+    
+    public BigDecimal getPrecioUnitario() {
+    	return precioUnitario;
+    }
+    
+    public void setPrecioUnitario(BigDecimal precioUnitario) {
+    	this.precioUnitario = precioUnitario;
     }
 
-    public void setCosto(BigDecimal costo) {
-        this.costo = costo;
+    public BigDecimal getSubtotal() {
+    	return subtotal;
+    }
+    
+    public void setSubtotal(BigDecimal subtotal) {
+    	this.subtotal = subtotal;
     }
 
     public TipoCobro getTipoCobro() {
-        return tipoCobro;
+    	return tipoCobro;
     }
-
+    
     public void setTipoCobro(TipoCobro tipoCobro) {
-        this.tipoCobro = tipoCobro;
-    }
-
-    public BigDecimal getTarifa() {
-        return tarifa;
-    }
-
-    public void setTarifa(BigDecimal tarifa) {
-        this.tarifa = tarifa;
+    	this.tipoCobro = tipoCobro;
     }
 
     public String getUdCobro() {
@@ -190,9 +178,9 @@ public class ServicioFactura implements Serializable
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        if(this.id == null)
+        	return System.identityHashCode(this);
+        return Objects.hashCode(this.id);
     }
 
     @Override

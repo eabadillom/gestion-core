@@ -6,7 +6,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -14,11 +13,9 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "pais")
-@NamedQueries({
-    @NamedQuery(name = "Pais.findAll", query = "SELECT p FROM Pais p"),
-    @NamedQuery(name = "Pais.findById", query = "SELECT p FROM Pais p WHERE p.id = :idPais"),
-    @NamedQuery(name = "Pais.findByDescripcion", query = "SELECT p FROM Pais p WHERE p.descripcion = :descripcion")
-})
+@NamedQuery(name = "Pais.findAll", query = "SELECT p FROM Pais p")
+@NamedQuery(name = "Pais.findById", query = "SELECT p FROM Pais p WHERE p.id = :idPais")
+@NamedQuery(name = "Pais.findByDescripcion", query = "SELECT p FROM Pais p WHERE p.descripcion = :descripcion")
 public class Pais implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -65,9 +62,9 @@ public class Pais implements Serializable
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 11 * hash + Objects.hashCode(this.id);
-        return hash;
+    	if(this.id == null)
+    		return System.identityHashCode(this);
+    	return Objects.hash(this.id);
     }
 
     @Override

@@ -1,28 +1,20 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "metodo_pago")
-@NamedQueries({
-    @NamedQuery(name = "MetodoPago.findAll", query = "SELECT mp FROM MetodoPago mp "),
-    @NamedQuery(name = "MetodoPago.findByVigentes", query = "SELECT mp FROM MetodoPago mp WHERE mp.fechaInicio <= :fecha AND (mp.fechaFinal IS NULL OR mp.fechaFinal >= :fecha) ORDER BY mp.descripcion"),
-    @NamedQuery(name = "MetodoPago.findByClave", query = "SELECT mp FROM MetodoPago mp WHERE mp.id = :idMetodoPago"),
-    @NamedQuery(name = "MetodoPago.findByDescripcion", query = "SELECT mp FROM MetodoPago mp WHERE mp.descripcion = :descripcion")
-})
+@NamedQuery(name = "MetodoPago.findVigentes", query = "SELECT mp FROM MetodoPago mp WHERE mp.vigenciaInicio <= :fecha AND (mp.vigenciaFin IS NULL OR mp.vigenciaFin >= :fecha) ORDER BY mp.descripcion")
 public class MetodoPago implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -40,13 +32,11 @@ public class MetodoPago implements Serializable
     private String descripcion;
 
     @Column(name = "fh_vigencia_ini")
-    @Temporal(TemporalType.DATE)
     @NotNull
-    private Date fechaInicio;
+    private LocalDate vigenciaInicio;
 
     @Column(name = "fh_vigencia_fin")
-    @Temporal(TemporalType.DATE)
-    private Date fechaFinal;
+    private LocalDate vigenciaFin;
 
     public MetodoPago() {
     }
@@ -67,24 +57,26 @@ public class MetodoPago implements Serializable
         this.descripcion = descripcion;
     }
 
-    public Date getFechaInicio() {
-        return fechaInicio;
+    public LocalDate getVigenciaInicio() {
+        return vigenciaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setVigenciaInicio(LocalDate vigenciaInicio) {
+        this.vigenciaInicio = vigenciaInicio;
     }
 
-    public Date getFechaFinal() {
-        return fechaFinal;
+    public LocalDate getVigenciaFin() {
+        return vigenciaFin;
     }
 
-    public void setFechaFinal(Date fechaFinal) {
-        this.fechaFinal = fechaFinal;
+    public void setVigenciaFin(LocalDate vigenciaFin) {
+        this.vigenciaFin = vigenciaFin;
     }
 
     @Override
     public int hashCode() {
+    	if(this.id == null)
+    		return System.identityHashCode(this);
         return Objects.hash(id);
     }
 

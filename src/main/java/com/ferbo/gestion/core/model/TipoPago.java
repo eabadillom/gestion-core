@@ -1,13 +1,13 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -15,23 +15,18 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tipo_pago")
-@NamedQueries({
-    @NamedQuery(name = "TipoPago.findAll", query = "SELECT t FROM TipoPago t"),
-    @NamedQuery(name = "TipoPago.findById", query = "SELECT t FROM TipoPago t WHERE t.id = :idTipoPago"),
-    @NamedQuery(name = "TipoPago.findByNombre", query = "SELECT t FROM TipoPago t WHERE t.nombre = :nombre"),
-    @NamedQuery(name = "TipoPago.findByDescripcion", query = "SELECT t FROM TipoPago t WHERE t.descripcion = :descripcion")
-})
+@NamedQuery(name = "TipoPago.findAll", query = "SELECT t FROM TipoPago t")
 public class TipoPago implements Serializable 
 {
     private static final long serialVersionUID = 1L;
     
-    public static final Integer TIPO_PAGO_CHEQUE = 1;
-    public static final Integer TIPO_PAGO_FICHA_DE_DEPOSITO = 2;
-    public static final Integer TIPO_PAGO_CHEQUE_DE_CAJA = 3;
-    public static final Integer TIPO_PAGO_DOCUMENTO_DE_TRANSFERENCIA = 4;
-    public static final Integer TIPO_PAGO_NOTA_CREDITO = 5;
-    public static final Integer TIPO_PAGO_EFECTIVO = 6;
-    public static final Integer TIPO_PAGO_DOLARES = 7;
+    public static final Integer CHEQUE                     = 1;
+    public static final Integer FICHA_DE_DEPOSITO          = 2;
+    public static final Integer CHEQUE_DE_CAJA             = 3;
+    public static final Integer DOCUMENTO_DE_TRANSFERENCIA = 4;
+    public static final Integer NOTA_CREDITO               = 5;
+    public static final Integer EFECTIVO                   = 6;
+    public static final Integer DOLARES                    = 7;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -87,9 +82,9 @@ public class TipoPago implements Serializable
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    	if(this.id == null)
+    		return System.identityHashCode(this);
+        return Objects.hashCode(this.id);
     }
 
     @Override

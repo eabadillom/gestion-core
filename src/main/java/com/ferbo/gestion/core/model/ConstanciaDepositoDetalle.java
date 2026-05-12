@@ -11,18 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "constancia_deposito_detalle")
-@NamedQueries({
-    @NamedQuery(name = "ConstanciaDepositoDetalle.findAll", query = "SELECT c FROM ConstanciaDepositoDetalle c"),
-    @NamedQuery(name = "ConstanciaDepositoDetalle.findByConstanciaDepositoDetalleCve", query = "SELECT c FROM ConstanciaDepositoDetalle c WHERE c.id = :idConstanciaDepositoDet"),
-    @NamedQuery(name = "ConstanciaDepositoDetalle.findFolio", query = "SELECT c FROM ConstanciaDepositoDetalle c WHERE c.constanciaDeposito.folio = :folio"),
-    @NamedQuery(name = "ConstanciaDepositoDetalle.findByServicioCantidad", query = "SELECT c FROM ConstanciaDepositoDetalle c WHERE c.servicioCantidad = :servicioCantidad")
-})
 public class ConstanciaDepositoDetalle implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -35,11 +27,11 @@ public class ConstanciaDepositoDetalle implements Serializable
 
     @Column(name = "servicio_cantidad")
     @Basic(optional = false)
-    private BigDecimal servicioCantidad;
+    private BigDecimal cantidad;
 
     @JoinColumn(name = "FOLIO", referencedColumnName = "FOLIO", nullable = false)
     @ManyToOne(optional = false)
-    private ConstanciaDeposito constanciaDeposito;
+    private ConstanciaDeposito constancia;
 
     @JoinColumn(name = "SERVICIO_CVE", referencedColumnName = "SERVICIO_CVE", nullable = false)
     @ManyToOne
@@ -60,27 +52,27 @@ public class ConstanciaDepositoDetalle implements Serializable
         this.id = id;
     }
 
-    public BigDecimal getServicioCantidad() {
-        return servicioCantidad;
+    public BigDecimal getCantidad() {
+        return cantidad;
     }
 
-    public void setServicioCantidad(BigDecimal servicioCantidad) {
-        this.servicioCantidad = servicioCantidad;
+    public void setCantidad(BigDecimal cantidad) {
+        this.cantidad = cantidad;
     }
 
-    public ConstanciaDeposito getConstanciaDeposito() {
-        return constanciaDeposito;
+    public ConstanciaDeposito getConstancia() {
+        return constancia;
     }
 
-    public void setConstanciaDeposito(ConstanciaDeposito constanciaDeposito) {
-        this.constanciaDeposito = constanciaDeposito;
+    public void setConstancia(ConstanciaDeposito constancia) {
+        this.constancia = constancia;
     }
 
     public Servicio getServicio() {
         return servicio;
     }
 
-    public void setServicioCve(Servicio servicio) {
+    public void setServicio(Servicio servicio) {
         this.servicio = servicio;
     }
     

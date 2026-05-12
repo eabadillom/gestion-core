@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -24,17 +23,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "domicilios")
-@NamedQueries({
-    @NamedQuery(name = "Domicilio.findAll", query = "SELECT d FROM Domicilio d"),
-    @NamedQuery(name = "Domicilio.findById", query = "SELECT d FROM Domicilio d WHERE d.id = :idDomicilio"),
-    @NamedQuery(name = "Domicilio.findByCalle", query = "SELECT d FROM Domicilio d WHERE d.calle = :calle"),
-    @NamedQuery(name = "Domicilio.findByNumExt", query = "SELECT d FROM Domicilio d WHERE d.numExt = :numExt"),
-    @NamedQuery(name = "Domicilio.findByNumInt", query = "SELECT d FROM Domicilio d WHERE d.numInt = :numInt"),
-    @NamedQuery(name = "Domicilio.findByCp", query = "SELECT d FROM Domicilio d WHERE d.asentamiento.cp = :domicilioCp"),
-    @NamedQuery(name = "Domicilio.findByTel1", query = "SELECT d FROM Domicilio d WHERE d.telefono1 = :telefono1"),
-    @NamedQuery(name = "Domicilio.findByTel2", query = "SELECT d FROM Domicilio d WHERE d.telefono2 = :telefono2"),
-    @NamedQuery(name = "Domicilio.findByFax", query = "SELECT d FROM Domicilio d WHERE d.fax = :fax")
-})
+@NamedQuery(name = "Domicilio.findByCp", query = "SELECT d FROM Domicilio d WHERE d.asentamiento.cp = :domicilioCp")
 public class Domicilio implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -51,11 +40,11 @@ public class Domicilio implements Serializable
     
     @Size(max = 50)
     @Column(name = "domicilio_num_ext")
-    private String numExt;
+    private String numeroExterior;
     
     @Size(max = 50)
     @Column(name = "domicilio_num_int")
-    private String numInt;
+    private String numeroInterior;
     
     @Size(max = 10)
     @Column(name = "domicilio_tel1")
@@ -110,20 +99,20 @@ public class Domicilio implements Serializable
         this.calle = calle;
     }
 
-    public String getNumExt() {
-        return numExt;
+    public String getNumeroExterior() {
+        return numeroExterior;
     }
 
-    public void setNumExt(String numExt) {
-        this.numExt = numExt;
+    public void setNumeroExterior(String numExt) {
+        this.numeroExterior = numExt;
     }
 
-    public String getNumInt() {
-        return numInt;
+    public String getNumeroInterior() {
+        return numeroInterior;
     }
 
-    public void setNumInt(String numInt) {
-        this.numInt = numInt;
+    public void setNumInterior(String numInt) {
+        this.numeroInterior = numInt;
     }
 
     public String getTelefono1() {

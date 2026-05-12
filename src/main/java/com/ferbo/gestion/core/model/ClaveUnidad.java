@@ -6,7 +6,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -14,17 +13,9 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "clave_unidad")
-@NamedQueries({
-    @NamedQuery(name = "ClaveUnidad.findAll", query = "SELECT c FROM ClaveUnidad c "),
-    @NamedQuery(name = "ClaveUnidad.findById", query = "SELECT c FROM ClaveUnidad c WHERE c.id = :idUnidad"),
-    @NamedQuery(name = "ClaveUnidad.findByNombre", query = "SELECT c FROM ClaveUnidad c WHERE c.nombre = :nombre"),
-    @NamedQuery(name = "ClaveUnidad.findbyDescripcion", query = "SELECT c FROM ClaveUnidad c WHERE c.descripcion = :descripcion"),
-    @NamedQuery(name = "ClaveUnidad.findByNota", query = "SELECT c FROM ClaveUnidad c WHERE c.nota = :nota"),
-    @NamedQuery(name = "ClaveUnidad.findByFechaInicio", query = "SELECT c FROM ClaveUnidad c WHERE c.fechInicio = :fechInicio"),
-    @NamedQuery(name = "ClaveUnidad.findByFechaFinal", query = "SELECT c FROM ClaveUnidad c WHERE c.fechFinal = :fechFinal"),
-    @NamedQuery(name = "ClaveUnidad.findByNbSimbolo", query = "SELECT c FROM ClaveUnidad c WHERE c.simboloMedida = :simbolo"),
-    @NamedQuery(name = "ClaveUnidad.likeClaveNombre", query = "SELECT c FROM ClaveUnidad c WHERE c.id like :clave OR c.nombre like :nombre")
-})
+@NamedQuery(name = "ClaveUnidad.findById", query = "SELECT c FROM ClaveUnidad c WHERE c.id = :idUnidad")
+@NamedQuery(name = "ClaveUnidad.findByNombre", query = "SELECT c FROM ClaveUnidad c WHERE c.nombre = :nombre")
+@NamedQuery(name = "ClaveUnidad.likeClaveNombre", query = "SELECT c FROM ClaveUnidad c WHERE c.id like :clave OR c.nombre like :nombre")
 public class ClaveUnidad implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -51,10 +42,10 @@ public class ClaveUnidad implements Serializable
 
     @Basic(optional = false)
     @Column(name = "fh_vigencia_ini")
-    private LocalDate fechInicio;
+    private LocalDate fechaInicio;
 
     @Column(name = "fh_vigencia_fin")
-    private LocalDate fechFinal;
+    private LocalDate fechaFinal;
 
     @Size(max = 50)
     @Column(name = "nb_simbolo")
@@ -92,20 +83,20 @@ public class ClaveUnidad implements Serializable
         this.nota = nota;
     }
 
-    public LocalDate getFechInicio() {
-        return fechInicio;
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
     }
 
-    public void setFechInicio(LocalDate fechInicio) {
-        this.fechInicio = fechInicio;
+    public void setFechaInicio(LocalDate fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
-    public LocalDate getFechFinal() {
-        return fechFinal;
+    public LocalDate getFechaFinal() {
+        return fechaFinal;
     }
 
-    public void setFechFinal(LocalDate fechFinal) {
-        this.fechFinal = fechFinal;
+    public void setFechaFinal(LocalDate fechaFinal) {
+        this.fechaFinal = fechaFinal;
     }
 
     public String getSimboloMedida() {

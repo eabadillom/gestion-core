@@ -2,6 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,21 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "serie_nota")
-@NamedQueries({
-    @NamedQuery(name = "SerieNota.findAll", query = "SELECT s FROM SerieNota s"),
-    @NamedQuery(name = "SerieNota.findById", query = "SELECT s FROM SerieNota s WHERE s.id = :idSerieNota"),
-    @NamedQuery(name = "SerieNota.findByFechaInicio", query = "SELECT s FROM SerieNota s WHERE s.fechaInicio = :fechaInicio"),
-    @NamedQuery(name = "SerieNota.findByNumeroInicial", query = "SELECT s FROM SerieNota s WHERE s.numeroInicial = :numeroInicial"),
-    @NamedQuery(name = "SerieNota.findByNumeroActual", query = "SELECT s FROM SerieNota s WHERE s.numeroActual = :numeroActual"),
-    @NamedQuery(name = "SerieNota.findByNumeroFinal", query = "SELECT s FROM SerieNota s WHERE s.numeroFinal = :numeroFinal"),
-    @NamedQuery(name = "SerieNota.findActivas", query = "SELECT s FROM SerieNota s WHERE s.statusSerie.id = 1 ")
-})
+@NamedQuery(name = "SerieNota.findAll", query = "SELECT s FROM SerieNota s")
+@NamedQuery(name = "SerieNota.findActivas", query = "SELECT s FROM SerieNota s WHERE s.statusSerie.id = 1 ")
 public class SerieNota implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -108,11 +101,11 @@ public class SerieNota implements Serializable
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    	if(this.id == null)
+    		return System.identityHashCode(this);
+        return Objects.hashCode(this.id);
     }
-
+    
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set

@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -18,11 +17,8 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cancela_factura")
-@NamedQueries({
-    @NamedQuery(name = "CancelaFactura.findAll", query = "SELECT c FROM CancelaFactura c"),
-    @NamedQuery(name = "CancelaFactura.findById", query = "SELECT c FROM CancelaFactura c WHERE c.id = :idCancelaFactura"),
-    @NamedQuery(name = "CancelaFactura.findByDescripcion", query = "SELECT c FROM CancelaFactura c WHERE c.descripcion = :descripcion")
-})
+@NamedQuery(name = "CancelaFactura.findAll", query = "SELECT c FROM CancelaFactura c")
+@NamedQuery(name = "CancelaFactura.findById", query = "SELECT c FROM CancelaFactura c WHERE c.id = :idCancelaFactura")
 public class CancelaFactura implements Serializable 
 {
     private static final long serialVersionUID = 1L;

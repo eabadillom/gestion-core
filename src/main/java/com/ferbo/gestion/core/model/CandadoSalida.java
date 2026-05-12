@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -19,13 +18,9 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "candado_salida")
-@NamedQueries({
-    @NamedQuery(name = "CandadoSalida.findAll", query = "SELECT c FROM CandadoSalida c ORDER BY c.cliente.nombre ASC"),
-    @NamedQuery(name = "CandadoSalida.findById", query = "SELECT c FROM CandadoSalida c WHERE c.id = :id"),
-    @NamedQuery(name = "CandadoSalida.findByHabilitado", query = "SELECT c FROM CandadoSalida c WHERE c.habilitado = :habilitado"),
-    @NamedQuery(name = "CandadoSalida.findByNumSalidas", query = "SELECT c FROM CandadoSalida c WHERE c.numSalidas = :numSalidas"),
-    @NamedQuery(name = "CandadoSalida.findByCliente", query = "SELECT c FROM CandadoSalida c WHERE c.cliente.id = :idCliente")
-})
+@NamedQuery(name = "CandadoSalida.findAll", query = "SELECT c FROM CandadoSalida c ORDER BY c.cliente.nombre ASC")
+@NamedQuery(name = "CandadoSalida.findById", query = "SELECT c FROM CandadoSalida c WHERE c.id = :id")
+@NamedQuery(name = "CandadoSalida.findByCliente", query = "SELECT c FROM CandadoSalida c WHERE c.cliente.id = :idCliente")
 public class CandadoSalida implements Serializable 
 {
     private static final long serialVersionUID = 1L;

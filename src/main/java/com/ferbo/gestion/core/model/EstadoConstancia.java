@@ -6,7 +6,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -14,11 +13,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "estado_constancia")
-@NamedQueries({
-    @NamedQuery(name = "EstadoConstancia.findAll", query = "SELECT e FROM EstadoConstancia e"),
-    @NamedQuery(name = "EstadoConstancia.findById", query = "SELECT e FROM EstadoConstancia e WHERE e.id = :idEdoConstancia"),
-    @NamedQuery(name = "EstadoConstancia.findByDescripcion", query = "SELECT e FROM EstadoConstancia e WHERE e.descripcion = :descripcion")
-})
+@NamedQuery(name = "EstadoConstancia.findAll", query = "SELECT e FROM EstadoConstancia e")
 public class EstadoConstancia implements Serializable 
 {
     private static final long serialVersionUID = 1L;

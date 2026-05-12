@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,16 +21,8 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "constancia_salida")
-@NamedQueries({
-    @NamedQuery(name = "ConstanciaSalida.findAll", query = "SELECT c FROM ConstanciaSalida c"),
-    @NamedQuery(name = "ConstanciaSalida.findById", query = "SELECT c FROM ConstanciaSalida c WHERE c.id = :id"),
-    @NamedQuery(name = "ConstanciaSalida.findByFecha", query = "SELECT c FROM ConstanciaSalida c WHERE c.fecha = :fecha"),
-    @NamedQuery(name = "ConstanciaSalida.findByNumero", query = "SELECT c FROM ConstanciaSalida c WHERE c.numero = :numero"),
-    @NamedQuery(name = "ConstanciaSalida.findByNombreCte", query = "SELECT c FROM ConstanciaSalida c WHERE c.nombreCte = :nombreCte"),
-    @NamedQuery(name = "ConstanciaSalida.findByStatus", query = "SELECT c FROM ConstanciaSalida c WHERE c.status = :status"),
-    @NamedQuery(name = "ConstanciaSalida.findByObservaciones", query = "SELECT c FROM ConstanciaSalida c WHERE c.observaciones = :observaciones"),
-    @NamedQuery(name = "ConstanciaSalida.findByFolioDeposito", query = "SELECT cs FROM ConstanciaDeposito cdd INNER JOIN cdd.partidaList p INNER JOIN p.detalleConstanciaSalidaList dcs INNER JOIN dcs.constancia cs WHERE cdd.folio = :folio")
-})
+@NamedQuery(name = "ConstanciaSalida.findByNumero", query = "SELECT c FROM ConstanciaSalida c WHERE c.numero = :numero")
+@NamedQuery(name = "ConstanciaSalida.findByFolioDeposito", query = "SELECT cs FROM ConstanciaDeposito cdd INNER JOIN cdd.partidas p INNER JOIN p.detallesSalida dcs INNER JOIN dcs.constancia cs WHERE cdd.id = :folio")
 public class ConstanciaSalida implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -55,7 +46,7 @@ public class ConstanciaSalida implements Serializable
 
     @Size(max = 150)
     @Column(name = "NOMBRE_CTE")
-    private String nombreCte;
+    private String nombreCliente;
 
     @JoinColumn(name = "STATUS", referencedColumnName = "ID")
     @ManyToOne
@@ -81,13 +72,13 @@ public class ConstanciaSalida implements Serializable
 
     @NotNull
     @Column(name = "temp_transporte")
-    private BigDecimal temperaturaTransporte;
+    private BigDecimal temperatura;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "constancia")
-    private List<DetalleConstanciaSalida> detalleConstanciaSalidaList;
+    private List<DetalleConstanciaSalida> detalles;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "constanciaSalida")
-    private List<ConstanciaSalidaServicio> constanciaSalidaServicioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "constancia")
+    private List<ConstanciaSalidaServicio> servicios;
 
     @JoinColumn(name = "CLIENTE_CVE", referencedColumnName = "CTE_CVE")
     @ManyToOne(optional = false)
@@ -131,11 +122,11 @@ public class ConstanciaSalida implements Serializable
     }
 
     public String getNombreCte() {
-        return nombreCte;
+        return nombreCliente;
     }
 
     public void setNombreCte(String nombreCte) {
-        this.nombreCte = nombreCte;
+        this.nombreCliente = nombreCte;
     }
 
     public StatusConstanciaSalida getStatus() {
@@ -170,20 +161,20 @@ public class ConstanciaSalida implements Serializable
         this.placasTransporte = placasTransporte;
     }
 
-    public List<DetalleConstanciaSalida> getDetalleConstanciaSalidaList() {
-        return detalleConstanciaSalidaList;
+    public List<DetalleConstanciaSalida> getDetalles() {
+        return detalles;
     }
 
-    public void setDetalleConstanciaSalidaList(List<DetalleConstanciaSalida> detalleConstanciaSalidaList) {
-        this.detalleConstanciaSalidaList = detalleConstanciaSalidaList;
+    public void setDetalles(List<DetalleConstanciaSalida> detalles) {
+        this.detalles = detalles;
     }
 
-    public List<ConstanciaSalidaServicio> getConstanciaSalidaServicioList() {
-        return constanciaSalidaServicioList;
+    public List<ConstanciaSalidaServicio> getServicios() {
+        return servicios;
     }
 
-    public void setConstanciaSalidaServicioList(List<ConstanciaSalidaServicio> constanciaSalidaServicioList) {
-        this.constanciaSalidaServicioList = constanciaSalidaServicioList;
+    public void setServicios(List<ConstanciaSalidaServicio> servicios) {
+        this.servicios = servicios;
     }
 
     public Cliente getClientee() {
@@ -202,12 +193,12 @@ public class ConstanciaSalida implements Serializable
         this.statusTermo = statusTermo;
     }
 
-    public BigDecimal getTemperaturaTransporte() {
-        return temperaturaTransporte;
+    public BigDecimal getTemperatura() {
+        return temperatura;
     }
 
-    public void setTemperaturaTransporte(BigDecimal temperaturaTransporte) {
-        this.temperaturaTransporte = temperaturaTransporte;
+    public void setTemperatura(BigDecimal temperatura) {
+        this.temperatura = temperatura;
     }
     
     @Override

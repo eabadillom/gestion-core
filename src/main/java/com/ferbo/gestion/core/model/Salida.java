@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,13 +21,9 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "salida")
-@NamedQueries({
-    @NamedQuery(name = "Salida.findAll", query = "SELECT s FROM Salida s"),
-    @NamedQuery(name = "Salida.findById", query = "SELECT s FROM Salida s WHERE s.id = :idStatus"),
-    @NamedQuery(name = "Salida.findByFolioSalida", query = "SELECT s FROM Salida s WHERE s.folioSalida = :folioSalida"),
-    @NamedQuery(name = "Salida.findByCliente", query = "SELECT s FROM Salida s INNER JOIN s.status st INNER JOIN s.cliente cl WHERE cl.id = :idCliente AND st.clave = :clave AND s.fechaSalida = :fechaSalida"),
-    @NamedQuery(name = "Salida.findByParametros", query = "SELECT s FROM Salida s INNER JOIN s.status st INNER JOIN s.cliente cl WHERE st.clave = :clave AND s.fechaSalida = :fechaSalida AND cl.id = :idCliente")
-})
+@NamedQuery(name = "Salida.findByFolioSalida", query = "SELECT s FROM Salida s WHERE s.folio = :folioSalida")
+@NamedQuery(name = "Salida.findByCliente", query = "SELECT s FROM Salida s INNER JOIN s.status st INNER JOIN s.cliente cl WHERE cl.id = :idCliente AND st.clave = :clave AND s.fechaSalida = :fechaSalida")
+@NamedQuery(name = "Salida.findByParametros", query = "SELECT s FROM Salida s INNER JOIN s.status st INNER JOIN s.cliente cl WHERE st.clave = :clave AND s.fechaSalida = :fechaSalida AND cl.id = :idCliente")
 public class Salida implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -41,7 +36,7 @@ public class Salida implements Serializable
     
     @Size(max = 15)
     @Column(name = "cd_folio_salida")
-    private String folioSalida;
+    private String folio;
     
     @ManyToOne
     @JoinColumn(name = "cliente_cve", referencedColumnName = "CTE_CVE")
@@ -80,10 +75,10 @@ public class Salida implements Serializable
     private LocalDate fechaModificacion;
     
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "salida")
-    private List<SalidaDetalle> listSalidaDetalle;
+    private List<SalidaDetalle> detalles;
     
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "salida")
-    private List<ServiciosSalida> listServiciosSalida;
+    private List<ServiciosSalida> servicios;
 
     public Salida() {
     }
@@ -96,12 +91,12 @@ public class Salida implements Serializable
         this.id = id;
     }
 
-    public String getFolioSalida() {
-        return folioSalida;
+    public String getFolio() {
+        return folio;
     }
 
-    public void setFolioSalida(String folioSalida) {
-        this.folioSalida = folioSalida;
+    public void setFolio(String folio) {
+        this.folio = folio;
     }
 
     public Cliente getCliente() {
@@ -184,20 +179,20 @@ public class Salida implements Serializable
         this.fechaModificacion = fechaModificacion;
     }
 
-    public List<SalidaDetalle> getListSalidaDetalle() {
-        return listSalidaDetalle;
+    public List<SalidaDetalle> getDetalles() {
+        return detalles;
     }
 
-    public void setListSalidaDetalle(List<SalidaDetalle> listSalidaDetalle) {
-        this.listSalidaDetalle = listSalidaDetalle;
+    public void setDetalles(List<SalidaDetalle> detalles) {
+        this.detalles = detalles;
     }
 
-    public List<ServiciosSalida> getListServiciosSalida() {
-        return listServiciosSalida;
+    public List<ServiciosSalida> getServicios() {
+        return servicios;
     }
 
-    public void setListServiciosSalida(List<ServiciosSalida> listServiciosSalida) {
-        this.listServiciosSalida = listServiciosSalida;
+    public void setServicios(List<ServiciosSalida> listServiciosSalida) {
+        this.servicios = listServiciosSalida;
     }
 
     @Override
@@ -228,7 +223,7 @@ public class Salida implements Serializable
 
     @Override
     public String toString() {
-        return "com.ferbo.gestion.core.model.Salida[" + "id=" + id + ", folioSalida=" + folioSalida + ", placasTransporte=" + placasTransporte 
+        return "com.ferbo.gestion.core.model.Salida[" + "id=" + id + ", folioSalida=" + folio + ", placasTransporte=" + placasTransporte 
             + ", nombreTransportista=" + nombreTransportista + ", observaciones=" + observaciones + ", fechaSalida=" + fechaSalida 
                 + ", horaSalida=" + horaSalida + ", fechaRegistro=" + fechaRegistro + ", fechaModificacion=" + fechaModificacion + ']';
     }

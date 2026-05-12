@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,11 +18,9 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "constancia_factura_ds")
-@NamedQueries({
-    @NamedQuery(name = "ConstanciaFacturaDs.findAll", query = "SELECT c FROM ConstanciaFacturaDs c"),
-    @NamedQuery(name = "ConstanciaFacturaDs.findById", query = "SELECT c FROM ConstanciaFacturaDs c WHERE c.id = :id"),
-    @NamedQuery(name = "ConstanciaFacturaDs.findByFolioCliente", query = "SELECT c FROM ConstanciaFacturaDs c WHERE c.folioCliente = :folioCliente")
-})
+@NamedQuery(name = "ConstanciaFacturaDs.findAll", query = "SELECT c FROM ConstanciaFacturaDs c")
+@NamedQuery(name = "ConstanciaFacturaDs.findById", query = "SELECT c FROM ConstanciaFacturaDs c WHERE c.id = :id")
+@NamedQuery(name = "ConstanciaFacturaDs.findByFolioCliente", query = "SELECT c FROM ConstanciaFacturaDs c WHERE c.folioCliente = :folioCliente")
 public class ConstanciaFacturaDs implements Serializable 
 {
     private static final long serialVersionUID = 1L;

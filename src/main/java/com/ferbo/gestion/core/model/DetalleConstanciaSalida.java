@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -21,21 +20,8 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "detalle_constancia_salida")
-@NamedQueries({
-    @NamedQuery(name = "DetalleConstanciaSalida.findAll", query = "SELECT d FROM DetalleConstanciaSalida d"),
-    @NamedQuery(name = "DetalleConstanciaSalida.findById", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.id = :id"),
-    @NamedQuery(name = "DetalleConstanciaSalida.findByPartida", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.partida.id = :idPartida"),//nueva
-    @NamedQuery(name = "DetalleConstanciaSalida.findByCamara", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.camaraCve = :camaraCve"),
-    @NamedQuery(name = "DetalleConstanciaSalida.findByCantidad", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.cantidad = :cantidad"),
-    @NamedQuery(name = "DetalleConstanciaSalida.findByPeso", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.peso = :peso"),
-    @NamedQuery(name = "DetalleConstanciaSalida.findByUnidad", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.unidad = :unidad"),
-    @NamedQuery(name = "DetalleConstanciaSalida.findByProducto", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.producto = :producto"),
-    @NamedQuery(name = "DetalleConstanciaSalida.findByFolioEntrada", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.folioEntrada = :folioEntrada"),
-    @NamedQuery(name = "DetalleConstanciaSalida.findByCamaraCadena", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.camaraCadena = :camaraCadena"),
-    //@NamedQuery(name = "DetalleConstanciaSalida.findByDetPartCve", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.detPartCve = :detPartCve"),
-    @NamedQuery(name = "DetalleConstanciaSalida.findByTemperatura", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.temperatura = :temperatura"),
-    @NamedQuery(name = "DetalleConstanciaSalida.findByParams", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.partida.id = :idPartida AND d.folioEntrada =:folioEntrada AND d.producto = :producto")
-})
+@NamedQuery(name = "DetalleConstanciaSalida.findByPartida", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.partida.id = :idPartida")
+@NamedQuery(name = "DetalleConstanciaSalida.findByParams", query = "SELECT d FROM DetalleConstanciaSalida d WHERE d.partida.id = :idPartida AND d.folioEntrada =:folioEntrada AND d.producto = :producto")
 public class DetalleConstanciaSalida implements Serializable, Cloneable 
 {
     private static final long serialVersionUID = 1L;
@@ -49,7 +35,7 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
     @Basic(optional = false)
     @NotNull
     @Column(name = "CAMARA_CVE")
-    private int camaraCve;
+    private int idCamara;
 
     @Column(name = "CANTIDAD")
     private Integer cantidad;
@@ -73,7 +59,7 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
 
     @Size(max = 50)
     @Column(name = "CAMARA_CADENA")
-    private String camaraCadena;
+    private String camara;
 
     @Size(max = 6)
     @Column(name = "TEMPERATURA")
@@ -90,7 +76,7 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
 //    @OneToOne(optional = false, cascade = CascadeType.ALL)
 //    private DetallePartida detallePartida;
     @Column(name = "DET_PART_CVE")
-    private int detPart;
+    private int detallePartida;
 
     @JoinColumn(name = "PARTIDA_CVE", referencedColumnName = "PARTIDA_CVE")
     @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH})
@@ -103,9 +89,9 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
         this.id = id;
     }
 
-    public DetalleConstanciaSalida(Integer id, int camaraCve, BigDecimal peso) {
+    public DetalleConstanciaSalida(Integer id, int idCamara, BigDecimal peso) {
         this.id = id;
-        this.camaraCve = camaraCve;
+        this.idCamara = idCamara;
         this.peso = peso;
     }
 
@@ -117,12 +103,12 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
         this.id = id;
     }
 
-    public int getCamaraCve() {
-        return camaraCve;
+    public int getIdCamara() {
+        return idCamara;
     }
 
-    public void setCamaraCve(int camaraCve) {
-        this.camaraCve = camaraCve;
+    public void setIdCamara(int idCamara) {
+        this.idCamara = idCamara;
     }
 
     public Integer getCantidad() {
@@ -165,12 +151,12 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
         this.folioEntrada = folioEntrada;
     }
 
-    public String getCamaraCadena() {
-        return camaraCadena;
+    public String getCamara() {
+        return camara;
     }
 
-    public void setCamaraCadena(String camaraCadena) {
-        this.camaraCadena = camaraCadena;
+    public void setCamara(String camara) {
+        this.camara = camara;
     }
 
     public String getTemperatura() {
@@ -197,12 +183,12 @@ public class DetalleConstanciaSalida implements Serializable, Cloneable
         this.partida = partida;
     }
 
-    public int getDetPart() {
-        return detPart;
+    public int getDetallePartida() {
+        return detallePartida;
     }
 
-    public void setDetPart(int detPart) {
-        this.detPart = detPart;
+    public void setDetallePartida(int detallePartida) {
+        this.detallePartida = detallePartida;
     }
     
     @Override

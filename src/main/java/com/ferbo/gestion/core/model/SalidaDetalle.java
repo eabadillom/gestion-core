@@ -11,17 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "salida_detalle")
-@NamedQueries({
-    @NamedQuery(name = "SalidaDetalle.findAll", query = "SELECT sd FROM SalidaDetalle sd"),
-    @NamedQuery(name = "SalidaDetalle.findById", query = "SELECT sd FROM SalidaDetalle sd WHERE sd.id = :idSalDetalle"),
-    @NamedQuery(name = "SalidaDetalle.findByPlanta", query = "SELECT sd FROM SalidaDetalle sd INNER JOIN sd.partida pr INNER JOIN pr.camara cm INNER JOIN cm.planta pl WHERE pl.id = :idPlanta")
-})
 public class SalidaDetalle implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -44,7 +37,7 @@ public class SalidaDetalle implements Serializable
     private Integer cantidad;
     
     @Column(name = "ct_peso_aprox")
-    private BigDecimal pesoAprox;
+    private BigDecimal peso;
 
     public SalidaDetalle() {
     }
@@ -81,12 +74,12 @@ public class SalidaDetalle implements Serializable
         this.cantidad = cantidad;
     }
 
-    public BigDecimal getPesoAprox() {
-        return pesoAprox;
+    public BigDecimal getPeso() {
+        return peso;
     }
 
-    public void setPesoAprox(BigDecimal pesoAprox) {
-        this.pesoAprox = pesoAprox;
+    public void setPeso(BigDecimal peso) {
+        this.peso = peso;
     }
 
     @Override
@@ -116,7 +109,7 @@ public class SalidaDetalle implements Serializable
 
     @Override
     public String toString() {
-        return "com.ferbo.gestion.core.model.SalidaDetalle[" + "id=" + id + ", cantidad=" + cantidad + ", pesoAprox=" + pesoAprox + ']';
+        return "com.ferbo.gestion.core.model.SalidaDetalle[" + "id=" + id + ", cantidad=" + cantidad + ", pesoAprox=" + peso + ']';
     }
     
 }

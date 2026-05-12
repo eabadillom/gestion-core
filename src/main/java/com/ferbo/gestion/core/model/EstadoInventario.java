@@ -1,25 +1,18 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "estado_inventario")
-@NamedQueries({
-    @NamedQuery(name = "EstadoInventario.findAll", query = "SELECT e FROM EstadoInventario e"),
-    @NamedQuery(name = "EstadoInventario.findById", query = "SELECT e FROM EstadoInventario e WHERE e.id = :idEstadoInventario"),
-    @NamedQuery(name = "EstadoInventario.findByDescripcion", query = "SELECT e FROM EstadoInventario e WHERE e.descripcion = :descripcion")
-})
+@NamedQuery(name = "EstadoInventario.findAll", query = "SELECT e FROM EstadoInventario e")
 public class EstadoInventario implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -36,9 +29,6 @@ public class EstadoInventario implements Serializable
     @Column(name = "edo_descripcion")
     private String descripcion;
     
-    @OneToMany(mappedBy = "edoInventario")
-    private List<DetallePartida> detallePartidaList;
-
     public EstadoInventario() {
     }
 
@@ -65,14 +55,6 @@ public class EstadoInventario implements Serializable
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public List<DetallePartida> getDetallePartidaList() {
-        return detallePartidaList;
-    }
-
-    public void setDetallePartidaList(List<DetallePartida> detallePartidaList) {
-        this.detallePartidaList = detallePartidaList;
     }
 
     @Override

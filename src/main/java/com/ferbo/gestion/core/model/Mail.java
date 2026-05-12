@@ -12,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -21,12 +19,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "mail")
-@NamedQueries({
-        @NamedQuery(name = "Mail.findAll", query = "SELECT m FROM Mail m"),
-        @NamedQuery(name = "Mail.findById", query = "SELECT m FROM Mail m WHERE m.id = :id"),
-        @NamedQuery(name = "Mail.findByMail", query = "SELECT m FROM Mail m WHERE m.mail = :mail"),
-        @NamedQuery(name = "Mail.findByStPrincipal", query = "SELECT m FROM Mail m WHERE m.principal = :principal") 
-})
 public class Mail implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -50,10 +42,10 @@ public class Mail implements Serializable
 
     @JoinColumn(name = "tp_mail", referencedColumnName = "tp_mail")
     @ManyToOne(optional = false)
-    private TipoMail tpMail;
+    private TipoMail tipoMail;
 
     @OneToMany(mappedBy = "mail", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MedioCnt> medioCntList;
+    private List<MedioContacto> mediosContacto;
 
     public Mail() {
     }
@@ -100,20 +92,20 @@ public class Mail implements Serializable
         this.principal = principal;
     }
 
-    public TipoMail getTpMail() {
-        return tpMail;
+    public TipoMail getTipoMail() {
+        return tipoMail;
     }
 
-    public void setTpMail(TipoMail tpMail) {
-        this.tpMail = tpMail;
+    public void setTipoMail(TipoMail tipoMail) {
+        this.tipoMail = tipoMail;
     }
 
-    public List<MedioCnt> getMedioCntList() {
-        return medioCntList;
+    public List<MedioContacto> getMediosContacto() {
+        return mediosContacto;
     }
 
-    public void setMedioCntList(List<MedioCnt> medioCntList) {
-        this.medioCntList = medioCntList;
+    public void setMediosContacto(List<MedioContacto> medioCntList) {
+        this.mediosContacto = medioCntList;
     }
 
     @Override

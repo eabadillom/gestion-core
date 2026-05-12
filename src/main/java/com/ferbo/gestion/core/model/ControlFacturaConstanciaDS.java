@@ -6,22 +6,19 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "control_factura_constancia_ds")
-@NamedQueries({
-    @NamedQuery(name = "ControlFacturaConstanciaDS.findByConstancia", query = "SELECT c FROM ControlFacturaConstanciaDS c WHERE c.constanciaServicio.folio = :constancia"),
-    @NamedQuery(name = "ControlFacturaConstanciaDS.findByFactura", query = "SELECT c FROM ControlFacturaConstanciaDS c WHERE c.factura = :factura")
-})
+@NamedQuery(name = "ControlFacturaConstanciaDS.findByConstancia", query = "SELECT c FROM ControlFacturaConstanciaDS c WHERE c.constanciaServicio.folio = :constancia")
+@NamedQuery(name = "ControlFacturaConstanciaDS.findByFactura", query = "SELECT c FROM ControlFacturaConstanciaDS c WHERE c.factura = :factura")
 public class ControlFacturaConstanciaDS implements Serializable 
 {
     private static final long serialVersionUID = 5847560075881311313L;
 
     @EmbeddedId
-    private ControlFacturaConstanciaDsPK controlFactConstDsPK;
+    private ControlFacturaConstanciaDsPK key;
 
     @JoinColumn(name = "CONSTANCIA", referencedColumnName = "FOLIO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
@@ -45,12 +42,12 @@ public class ControlFacturaConstanciaDS implements Serializable
     public ControlFacturaConstanciaDS() {
     }
 
-    public ControlFacturaConstanciaDsPK getControlFactConstDsPK() {
-        return controlFactConstDsPK;
+    public ControlFacturaConstanciaDsPK getKey() {
+        return key;
     }
 
-    public void setControlFactConstDsPK(ControlFacturaConstanciaDsPK controlFactConstDsPK) {
-        this.controlFactConstDsPK = controlFactConstDsPK;
+    public void setKey(ControlFacturaConstanciaDsPK primaryKey) {
+        this.key = primaryKey;
     }
 
     public ConstanciaServicio getConstanciaServicio() {
@@ -121,7 +118,7 @@ public class ControlFacturaConstanciaDS implements Serializable
 
     @Override
     public String toString() {
-        return "com.ferbo.gestion.core.model.ControlFacturaConstanciaDS [controlFactConstDsPK=" + controlFactConstDsPK + ", constanciaServicio="
+        return "com.ferbo.gestion.core.model.ControlFacturaConstanciaDS [controlFactConstDsPK=" + key + ", constanciaServicio="
                 + constanciaServicio + ", factura=" + factura + ", status=" + status + "]";
     }
 

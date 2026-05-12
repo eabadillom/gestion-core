@@ -10,23 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "producto_constancia_ds")
-@NamedQueries({
-    @NamedQuery(name = "ProductoConstanciaDs.findAll", query = "SELECT p FROM ProductoConstanciaDs p"),
-    @NamedQuery(name = "ProductoConstanciaDs.findById", query = "SELECT p FROM ProductoConstanciaDs p WHERE p.id = :idProductoConstanciaDs"),
-    @NamedQuery(name = "ProductoConstanciaDs.findByDescripcion", query = "SELECT p FROM ProductoConstanciaDs p WHERE p.descripcion = :descripcion"),
-    @NamedQuery(name = "ProductoConstanciaDs.findByCatidadCobro", query = "SELECT p FROM ProductoConstanciaDs p WHERE p.catidadCobro = :catidadCobro"),
-    @NamedQuery(name = "ProductoConstanciaDs.findByUnidadCobro", query = "SELECT p FROM ProductoConstanciaDs p WHERE p.unidadCobro = :unidadCobro"),
-    @NamedQuery(name = "ProductoConstanciaDs.findByCantidadManejo", query = "SELECT p FROM ProductoConstanciaDs p WHERE p.cantidadManejo = :cantidadManejo"),
-    @NamedQuery(name = "ProductoConstanciaDs.findByUnidadManejo", query = "SELECT p FROM ProductoConstanciaDs p WHERE p.unidadManejo = :unidadManejo")
-})
 public class ProductoConstanciaDs implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -46,23 +35,23 @@ public class ProductoConstanciaDs implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "CATIDAD_COBRO")
-    private BigDecimal catidadCobro;
+    private BigDecimal peso;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "UNIDAD_COBRO")
-    private String unidadCobro;
+    private String unidadPeso;
     
     @Column(name = "CANTIDAD_MANEJO")
-    private BigDecimal cantidadManejo;
+    private BigDecimal cantidad;
     
     @Size(max = 255)
     @Column(name = "UNIDAD_MANEJO")
     private String unidadManejo;
     
     @JoinColumn(name = "CONSTANCIA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)//Modificado 5 de junio
+    @ManyToOne(optional = false)
     private ConstanciaFacturaDs constancia;
 
     public ProductoConstanciaDs() {
@@ -75,8 +64,8 @@ public class ProductoConstanciaDs implements Serializable
     public ProductoConstanciaDs(Integer id, String descripcion, BigDecimal catidadCobro, String unidadCobro) {
         this.id = id;
         this.descripcion = descripcion;
-        this.catidadCobro = catidadCobro;
-        this.unidadCobro = unidadCobro;
+        this.peso = catidadCobro;
+        this.unidadPeso = unidadCobro;
     }
 
     public Integer getId() {
@@ -95,28 +84,28 @@ public class ProductoConstanciaDs implements Serializable
         this.descripcion = descripcion;
     }
 
-    public BigDecimal getCatidadCobro() {
-        return catidadCobro;
+    public BigDecimal getPeso() {
+        return peso;
     }
 
-    public void setCatidadCobro(BigDecimal catidadCobro) {
-        this.catidadCobro = catidadCobro;
+    public void setPeso(BigDecimal peso) {
+        this.peso = peso;
     }
 
-    public String getUnidadCobro() {
-        return unidadCobro;
+    public String getUnidadPeso() {
+        return unidadPeso;
     }
 
-    public void setUnidadCobro(String unidadCobro) {
-        this.unidadCobro = unidadCobro;
+    public void setUnidadPeso(String unidadPeso) {
+        this.unidadPeso = unidadPeso;
     }
 
-    public BigDecimal getCantidadManejo() {
-        return cantidadManejo;
+    public BigDecimal getCantidad() {
+        return cantidad;
     }
 
-    public void setCantidadManejo(BigDecimal cantidadManejo) {
-        this.cantidadManejo = cantidadManejo;
+    public void setCantidad(BigDecimal cantidad) {
+        this.cantidad = cantidad;
     }
 
     public String getUnidadManejo() {

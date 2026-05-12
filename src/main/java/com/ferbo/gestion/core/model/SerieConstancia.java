@@ -5,71 +5,60 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "serie_constancia")
-@NamedQueries({
-    @NamedQuery(name = "SerieConstancia.findAll", query = "SELECT s FROM SerieConstancia s ORDER BY s.serieConstanciaPK.cliente, s.serieConstanciaPK.planta, s.serieConstanciaPK.tpSerie"),
-    @NamedQuery(name = "SerieConstancia.findByClienteTpSeriePlanta", query = "SELECT s FROM SerieConstancia s WHERE s.serieConstanciaPK.cliente.id = :idCliente AND s.serieConstanciaPK.tpSerie = :tpSerie AND s.serieConstanciaPK.planta.id = :idPlanta ORDER BY s.serieConstanciaPK.cliente, s.serieConstanciaPK.planta, s.serieConstanciaPK.tpSerie"),
-    @NamedQuery(name = "SerieConstancia.findByClienteAndPlanta", query = "SELECT s FROM SerieConstancia s WHERE s.serieConstanciaPK.cliente.id = :idCliente AND s.serieConstanciaPK.planta.id = :idPlanta ORDER BY s.serieConstanciaPK.cliente, s.serieConstanciaPK.planta, s.serieConstanciaPK.tpSerie"),
-    @NamedQuery(name = "SerieConstancia.findByClientePlanta", query = "SELECT s FROM SerieConstancia s WHERE s.serieConstanciaPK.cliente.id = :idCliente AND s.serieConstanciaPK.tpSerie = :tpSerie AND s.serieConstanciaPK.planta.id = :idPlanta ORDER BY s.serieConstanciaPK.cliente, s.serieConstanciaPK.planta, s.serieConstanciaPK.tpSerie"),
-    @NamedQuery(name = "SerieConstancia.findByIdCliente", query = "SELECT s FROM SerieConstancia s WHERE s.serieConstanciaPK.cliente.id = :idCliente ORDER BY s.serieConstanciaPK.cliente, s.serieConstanciaPK.planta, s.serieConstanciaPK.tpSerie"),
-    @NamedQuery(name = "SerieConstancia.findByTpSerie", query = "SELECT s FROM SerieConstancia s WHERE s.serieConstanciaPK.tpSerie = :tpSerie ORDER BY s.serieConstanciaPK.cliente, s.serieConstanciaPK.planta, s.serieConstanciaPK.tpSerie"),
-    @NamedQuery(name = "SerieConstancia.findByNuSerie", query = "SELECT s FROM SerieConstancia s WHERE s.nuSerie = :nuSerie ORDER BY s.serieConstanciaPK.cliente, s.serieConstanciaPK.planta, s.serieConstanciaPK.tpSerie")
-})
 public class SerieConstancia implements Serializable 
 {
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
-    protected SerieConstanciaPK serieConstanciaPK;
+    protected SerieConstanciaPK key;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "nu_serie")
-    private int nuSerie;
+    private int numero;
     
     public SerieConstancia() {
     }
 
-    public SerieConstancia(SerieConstanciaPK serieConstanciaPK) {
-        this.serieConstanciaPK = serieConstanciaPK;
+    public SerieConstancia(SerieConstanciaPK key) {
+        this.key = key;
     }
 
-    public SerieConstancia(SerieConstanciaPK serieConstanciaPK, int nuSerie) {
-        this.serieConstanciaPK = serieConstanciaPK;
-        this.nuSerie = nuSerie;
+    public SerieConstancia(SerieConstanciaPK key, int numero) {
+        this.key = key;
+        this.numero = numero;
     }
 
     public SerieConstancia(Cliente cliente, String tpSerie, Planta planta) {
-        this.serieConstanciaPK = new SerieConstanciaPK(cliente, tpSerie, planta);
+        this.key = new SerieConstanciaPK(cliente, tpSerie, planta);
     }
 
-    public SerieConstanciaPK getSerieConstanciaPK() {
-        return serieConstanciaPK;
+    public SerieConstanciaPK getKey() {
+        return key;
     }
 
-    public void setSerieConstanciaPK(SerieConstanciaPK serieConstanciaPK) {
-        this.serieConstanciaPK = serieConstanciaPK;
+    public void setKey(SerieConstanciaPK key) {
+        this.key = key;
     }
 
-    public int getNuSerie() {
-        return nuSerie;
+    public int getNumero() {
+        return numero;
     }
 
-    public void setNuSerie(int nuSerie) {
-        this.nuSerie = nuSerie;
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
     
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (serieConstanciaPK != null ? serieConstanciaPK.hashCode() : 0);
-        return hash;
+    	if(this.key == null)
+    		return System.identityHashCode(this);
+        return key.hashCode();
     }
 
     @Override
@@ -78,7 +67,7 @@ public class SerieConstancia implements Serializable
             return false;
         }
         SerieConstancia other = (SerieConstancia) object;
-        if ((this.serieConstanciaPK == null && other.serieConstanciaPK != null) || (this.serieConstanciaPK != null && !this.serieConstanciaPK.equals(other.serieConstanciaPK))) {
+        if ((this.key == null && other.key != null) || (this.key != null && !this.key.equals(other.key))) {
             return false;
         }
         return true;
@@ -86,7 +75,7 @@ public class SerieConstancia implements Serializable
 
     @Override
     public String toString() {
-        return "com.ferbo.gestion.core.model.SerieConstancia[ serieConstanciaPK=" + serieConstanciaPK + " ]";
+        return "com.ferbo.gestion.core.model.SerieConstancia[ serieConstanciaPK=" + key + " ]";
     }
     
 }

@@ -1,28 +1,19 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tipo_asentamiento")
-@NamedQueries({
-    @NamedQuery(name = "TipoAsentamiento.findAll", query = "SELECT t FROM TipoAsentamiento t"),
-    @NamedQuery(name = "TipoAsentamiento.findById", query = "SELECT t FROM TipoAsentamiento t WHERE t.id = :idTipoAsentamiento"),
-    @NamedQuery(name = "TipoAsentamiento.findByDescripcion", query = "SELECT t FROM TipoAsentamiento t WHERE t.descripcion = :descripcion"),
-    @NamedQuery(name = "TipoAsentamiento.findByClave", query = "SELECT t FROM TipoAsentamiento t WHERE t.clave = :clave")
-})
+@NamedQuery(name = "TipoAsentamiento.findAll", query = "SELECT t FROM TipoAsentamiento t")
 public class TipoAsentamiento implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -41,9 +32,6 @@ public class TipoAsentamiento implements Serializable
     @Column(name = "tipoasntmnto_ds_corta")
     private String clave;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoAsentamiento")
-    private List<Asentamiento> asentamientoList;
-
     public TipoAsentamiento() {
     }
 
@@ -73,14 +61,6 @@ public class TipoAsentamiento implements Serializable
 
     public void setClave(String clave) {
         this.clave = clave;
-    }
-
-    public List<Asentamiento> getAsentamientoList() {
-        return asentamientoList;
-    }
-
-    public void setAsentamientoList(List<Asentamiento> asentamientoList) {
-        this.asentamientoList = asentamientoList;
     }
 
     @Override

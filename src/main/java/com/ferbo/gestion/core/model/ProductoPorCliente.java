@@ -10,19 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "producto_por_cliente")
-@NamedQueries({
-    @NamedQuery(name = "ProductoPorCliente.findAll", query = "SELECT p FROM ProductoPorCliente p"),
-    @NamedQuery(name = "ProductoPorCliente.findByProdXId", query = "SELECT p FROM ProductoPorCliente p WHERE p.id = :idProducto AND p.cliente.id = :idCliente"),
-    @NamedQuery(name = "ProductoPorCliente.findByProducto", query = "SELECT p FROM ProductoPorCliente p WHERE p.producto.id = :idProducto"),
-    @NamedQuery(name = "ProductoPorCliente.findByCliente", query = "SELECT p FROM ProductoPorCliente p WHERE p.cliente.id = :idCliente"),
-    @NamedQuery(name = "ProductoPorCliente.findByClienteProducto", query = "SELECT p FROM ProductoPorCliente p WHERE p.cliente.id = :idCliente ORDER BY p.producto.descripcion")
-})
+@NamedQuery(name = "ProductoPorCliente.findByProdXId", query = "SELECT p FROM ProductoPorCliente p WHERE p.id = :idProducto AND p.cliente.id = :idCliente")
+@NamedQuery(name = "ProductoPorCliente.findByClienteProducto", query = "SELECT p FROM ProductoPorCliente p WHERE p.cliente.id = :idCliente ORDER BY p.producto.descripcion")
 public class ProductoPorCliente implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -52,11 +46,11 @@ public class ProductoPorCliente implements Serializable
         this.cliente = cliente;
     }
 
-    public Integer getProdXCteCve() {
+    public Integer getId() {
         return id;
     }
 
-    public void setProdXCteCve(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -78,9 +72,8 @@ public class ProductoPorCliente implements Serializable
 
     @Override
     public int hashCode() {
-        if (this.id == null) {
+        if (this.id == null)
             return System.identityHashCode(this);
-        }
         return Objects.hash(this.id);
     }
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,35 +15,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "nota_credito")
-@NamedQueries({
-    @NamedQuery(name = "NotaCredito.findAll", query = "SELECT n FROM NotaCredito n"),
-    @NamedQuery(name = "NotaCredito.findById", query = "SELECT n FROM NotaCredito n WHERE n.id = :idNotaCredito"),
-    @NamedQuery(name = "NotaCredito.findByNumero", query = "SELECT n FROM NotaCredito n WHERE n.numero = :numero"),
-    @NamedQuery(name = "NotaCredito.findByIdcliente", query = "SELECT n FROM NotaCredito n WHERE n.idcliente = :idcliente"),
-    @NamedQuery(name = "NotaCredito.findByCliente", query = "SELECT n FROM NotaCredito n WHERE n.cliente = :cliente"),
-    @NamedQuery(name = "NotaCredito.findByDomicilio", query = "SELECT n FROM NotaCredito n WHERE n.domicilio = :domicilio"),
-    @NamedQuery(name = "NotaCredito.findByRfc", query = "SELECT n FROM NotaCredito n WHERE n.rfc = :rfc"),
-    @NamedQuery(name = "NotaCredito.findBySubtotal", query = "SELECT n FROM NotaCredito n WHERE n.subtotal = :subtotal"),
-    @NamedQuery(name = "NotaCredito.findByIva", query = "SELECT n FROM NotaCredito n WHERE n.iva = :iva"),
-    @NamedQuery(name = "NotaCredito.findByTotal", query = "SELECT n FROM NotaCredito n WHERE n.total = :total"),
-    @NamedQuery(name = "NotaCredito.findByTotalLetra", query = "SELECT n FROM NotaCredito n WHERE n.totalLetra = :totalLetra"),
-    @NamedQuery(name = "NotaCredito.findByServicios", query = "SELECT n FROM NotaCredito n WHERE n.servicios = :servicios"),
-    @NamedQuery(name = "NotaCredito.findByConstancia", query = "SELECT n FROM NotaCredito n WHERE n.constancia = :constancia"),
-    @NamedQuery(name = "NotaCredito.findByPeriodo", query = "SELECT n FROM NotaCredito n WHERE n.periodo = :periodo"),
-    @NamedQuery(name = "NotaCredito.findByObservaciones", query = "SELECT n FROM NotaCredito n WHERE n.observaciones = :observaciones"),
-    @NamedQuery(name = "NotaCredito.findByFecha", query = "SELECT n FROM NotaCredito n WHERE n.fecha = :fecha"),
-    @NamedQuery(name = "NotaCredito.findByPeriodoCliente", query = "SELECT n FROM NotaCredito n WHERE (n.fecha BETWEEN :fechaInicio AND :fechaFin) AND (n.idcliente = :idCliente OR :idCliente IS NULL) ORDER BY n.fecha ASC"),
-    @NamedQuery(name = "NotaCredito.findByCajero", query = "SELECT n FROM NotaCredito n WHERE n.cajero = :cajero")
-})
+@NamedQuery(name = "NotaCredito.findByPeriodoCliente", query = "SELECT n FROM NotaCredito n WHERE (n.fecha BETWEEN :fechaInicio AND :fechaFin) AND (n.cliente.id = :idCliente OR :idCliente IS NULL) ORDER BY n.fecha ASC")
 public class NotaCredito implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -59,14 +41,15 @@ public class NotaCredito implements Serializable
     @Column(name = "NUMERO")
     private String numero;
     
-    @Column(name = "IDCLIENTE")
-    private Integer idcliente;
+    @ManyToOne
+    @JoinColumn(name = "IDCLIENTE")
+    private Cliente cliente;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "CLIENTE")
-    private String cliente;
+    private String nombreCliente;
     
     @Size(max = 255)
     @Column(name = "DOMICILIO")
@@ -93,7 +76,7 @@ public class NotaCredito implements Serializable
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "TOTAL_LETRA")
-    private String totalLetra;
+    private String importeLetra;
     
     @Size(max = 50)
     @Column(name = "SERVICIOS")
@@ -120,11 +103,11 @@ public class NotaCredito implements Serializable
     @Column(name = "CAJERO")
     private String cajero;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nota")
-    private List<CancelaNotaCredito> cancelaNotaCreditoList;
+    @OneToOne(cascade = CascadeType.MERGE, mappedBy = "nota")
+    private CancelaNotaCredito cancela;
     
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "notaPorFacturaPK.nota",fetch = FetchType.LAZY)
-    private List<NotaPorFactura> notaFacturaList;
+    private List<NotaPorFactura> notasFactura;
     
     @JoinColumn(name = "STATUS", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -137,13 +120,13 @@ public class NotaCredito implements Serializable
         this.id = id;
     }
 
-    public NotaCredito(Integer id, String numero, String cliente, BigDecimal iva, BigDecimal total, String totalLetra, LocalDate fecha) {
+    public NotaCredito(Integer id, String numero, String cliente, BigDecimal iva, BigDecimal total, String importeLetra, LocalDate fecha) {
         this.id = id;
         this.numero = numero;
-        this.cliente = cliente;
+        this.nombreCliente = cliente;
         this.iva = iva;
         this.total = total;
-        this.totalLetra = totalLetra;
+        this.importeLetra = importeLetra;
         this.fecha = fecha;
     }
 
@@ -163,20 +146,20 @@ public class NotaCredito implements Serializable
         this.numero = numero;
     }
 
-    public Integer getIdcliente() {
-        return idcliente;
-    }
-
-    public void setIdcliente(Integer idcliente) {
-        this.idcliente = idcliente;
-    }
-
-    public String getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(String cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
 
     public String getDomicilio() {
@@ -219,12 +202,12 @@ public class NotaCredito implements Serializable
         this.total = total;
     }
 
-    public String getTotalLetra() {
-        return totalLetra;
+    public String getImporteLetra() {
+        return importeLetra;
     }
 
-    public void setTotalLetra(String totalLetra) {
-        this.totalLetra = totalLetra;
+    public void setImporteLetra(String importeLetra) {
+        this.importeLetra = importeLetra;
     }
 
     public String getServicios() {
@@ -275,12 +258,12 @@ public class NotaCredito implements Serializable
         this.cajero = cajero;
     }
 
-    public List<CancelaNotaCredito> getCancelaNotaCreditoList() {
-        return cancelaNotaCreditoList;
+    public CancelaNotaCredito getCancela() {
+        return this.cancela;
     }
 
-    public void setCancelaNotaCreditoList(List<CancelaNotaCredito> cancelaNotaCreditoList) {
-        this.cancelaNotaCreditoList = cancelaNotaCreditoList;
+    public void setCancela(CancelaNotaCredito cancela) {
+        this.cancela = cancela;
     }
 
     public StatusNotaCredito getStatus() {
@@ -291,19 +274,19 @@ public class NotaCredito implements Serializable
         this.status = status;
     }
 
-    public List<NotaPorFactura> getNotaFacturaList() {
-        return notaFacturaList;
+    public List<NotaPorFactura> getNotasFactura() {
+        return notasFactura;
     }
 
-    public void setNotaFacturaList(List<NotaPorFactura> notaFacturaList) {
-            this.notaFacturaList = notaFacturaList;
+    public void setNotasFactura(List<NotaPorFactura> notasFactura) {
+        this.notasFactura = notasFactura;
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    	if(this.id == null)
+    		return System.identityHashCode(this);
+    	return Objects.hash(this.id);
     }
 
     @Override

@@ -11,31 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "servicio_constancia")
-@NamedQueries({
-    @NamedQuery(name = "ServicioConstancia.findAll", query = "SELECT s FROM ServicioConstancia s"),
-    @NamedQuery(name = "ServicioConstancia.findById", query = "SELECT s FROM ServicioConstancia s WHERE s.id = :idServicioConstancia"),
-    @NamedQuery(name = "ServicioConstancia.findByDescripcion", query = "SELECT s FROM ServicioConstancia s WHERE s.descripcion = :descripcion"),
-    @NamedQuery(name = "ServicioConstancia.findByCosto", query = "SELECT s FROM ServicioConstancia s WHERE s.costo = :costo"),
-    @NamedQuery(name = "ServicioConstancia.findByTarifa", query = "SELECT s FROM ServicioConstancia s WHERE s.tarifa = :tarifa"),
-    @NamedQuery(name = "ServicioConstancia.findByBaseCargo", query = "SELECT s FROM ServicioConstancia s WHERE s.baseCargo = :baseCargo"),
-    @NamedQuery(name = "ServicioConstancia.findByIdPlanta", query = "SELECT s FROM ServicioConstancia s WHERE s.plantaCve = :plantaCve"),
-    @NamedQuery(name = "ServicioConstancia.findByDsPlanta", query = "SELECT s FROM ServicioConstancia s WHERE s.plantaDs = :plantaDs"),
-    @NamedQuery(name = "ServicioConstancia.findByAbrevPlanta", query = "SELECT s FROM ServicioConstancia s WHERE s.plantaAbrev = :plantaAbrev"),
-    @NamedQuery(name = "ServicioConstancia.findByIdCamara", query = "SELECT s FROM ServicioConstancia s WHERE s.camaraCve = :camaraCve"),
-    @NamedQuery(name = "ServicioConstancia.findByDsCamara", query = "SELECT s FROM ServicioConstancia s WHERE s.camaraDs = :camaraDs"),
-    @NamedQuery(name = "ServicioConstancia.findByAbrevCamara", query = "SELECT s FROM ServicioConstancia s WHERE s.camaraAbrev = :camaraAbrev"),
-    @NamedQuery(name = "ServicioConstancia.findByUnidadMedida", query = "SELECT s FROM ServicioConstancia s WHERE s.unidadMedida = :unidadMedida"),
-    @NamedQuery(name = "ServicioConstancia.findByCodigo", query = "SELECT s FROM ServicioConstancia s WHERE s.codigo = :codigo"),
-    @NamedQuery(name = "ServicioConstancia.findByPlantaCod", query = "SELECT s FROM ServicioConstancia s WHERE s.plantaCod = :plantaCod")
-})
 public class ServicioConstancia implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -52,16 +33,16 @@ public class ServicioConstancia implements Serializable
     @Column(name = "descripcion")
     private String descripcion;
     
+    @Column(name = "baseCargo")
+    private BigDecimal cantidad;
+    
+    @Column(name = "tarifa")
+    private BigDecimal precioUnitario;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "costo")
-    private BigDecimal costo;
-    
-    @Column(name = "tarifa")
-    private BigDecimal tarifa;
-    
-    @Column(name = "baseCargo")
-    private BigDecimal baseCargo;
+    private BigDecimal subtotal;
     
     @Column(name = "planta_cve")
     private Integer plantaCve;
@@ -115,7 +96,7 @@ public class ServicioConstancia implements Serializable
     public ServicioConstancia(Integer id, String descripcion, BigDecimal costo) {
         this.id = id;
         this.descripcion = descripcion;
-        this.costo = costo;
+        this.subtotal = costo;
     }
 
     public Integer getId() {
@@ -142,28 +123,28 @@ public class ServicioConstancia implements Serializable
         this.constanciaFactura = constanciaFactura;
     }
 
-    public BigDecimal getCosto() {
-        return costo;
+    public BigDecimal getCantidad() {
+    	return cantidad;
+    }
+    
+    public void setCantidad(BigDecimal cantidad) {
+    	this.cantidad = cantidad;
+    }
+    
+    public BigDecimal getPrecioUnitario() {
+    	return precioUnitario;
+    }
+    
+    public void setPrecioUnitario(BigDecimal precioUnitario) {
+    	this.precioUnitario = precioUnitario;
     }
 
-    public void setCosto(BigDecimal costo) {
-        this.costo = costo;
+    public BigDecimal getSubtotal() {
+    	return subtotal;
     }
-
-    public BigDecimal getTarifa() {
-        return tarifa;
-    }
-
-    public void setTarifa(BigDecimal tarifa) {
-        this.tarifa = tarifa;
-    }
-
-    public BigDecimal getBaseCargo() {
-        return baseCargo;
-    }
-
-    public void setBaseCargo(BigDecimal baseCargo) {
-        this.baseCargo = baseCargo;
+    
+    public void setSubtotal(BigDecimal subtotal) {
+    	this.subtotal = subtotal;
     }
 
     public Integer getPlantaCve() {

@@ -10,85 +10,97 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+/**
+ * Datos Informativos de la Mercancía
+ * Cada producto registrado en el sistema cuenta con un conjunto de campos que permiten su identificación, trazabilidad y control legal, los cuales se pueden agrupar en tres categorías:
+ * 1. Identificación del Producto
+ * 
+ * Código: Clave interna asignada por el almacén para identificar el producto dentro de su propio sistema.
+ * SAP: Clave con la que el cliente identifica ese mismo producto en su sistema ERP (SAP). Se captura de forma manual, ya que el sistema no cuenta con integración directa con SAP.
+ * 
+ * 2. Trazabilidad Logística
+ * 
+ * PO (Purchase Order): Orden de compra que el cliente generó para adquirir la mercancía con su proveedor en el extranjero. Representa el origen de la operación.
+ * Contenedor: Unidad de transporte en la que llegó la mercancía al país.
+ * Tarima: Pallet físico sobre el que se encuentra almacenada la mercancía dentro de la bodega.
+ * Lote: Agrupación interna del producto para su control y seguimiento.
+ * Caducidad: Fecha de vencimiento o vida útil del producto.
+ * 
+ * 3. Control Aduanal
+ * 
+ * MP (Mercancía de Procedencia Extranjera): Indicador que señala que la mercancía fue importada, lo cual implica obligaciones legales tanto para el cliente como para el almacén.
+ * Pedimento: Documento oficial emitido por el SAT a través de un Agente Aduanal, que certifica la entrada legal de la mercancía a México. Es el documento más importante desde el punto de vista legal, ya que ampara la mercancía ante cualquier revisión de autoridades aduaneras.
+ * 
+ * 
+ * Flujo de la Mercancía
+ * Estos campos en conjunto narran la historia completa de cada producto:
+ * PO → Contenedor → Pedimento → Almacén (Código / SAP) → Tarima → Lote / Caducidad
+ * Desde que el cliente la ordenó a su proveedor, hasta que está físicamente resguardada en la bodega, debidamente documentada y localizable.
+ * 
+ */
 @Entity
 @Table(name = "detalle_partida")
-@NamedQueries({
-    @NamedQuery(name = "DetallePartida.findAll", query = "SELECT d FROM DetallePartida d"),
-    @NamedQuery(name = "DetallePartida.findByIdDetPartida", query = "SELECT d FROM DetallePartida d WHERE d.detallePartidaPK.id = :idDetPartCve"),
-    @NamedQuery(name = "DetallePartida.findByIdPartida", query = "SELECT d FROM DetallePartida d WHERE d.detallePartidaPK.partida.id = :idPartida"),
-    @NamedQuery(name = "DetallePartida.findByDetPadre", query = "SELECT d FROM DetallePartida d WHERE d.detPadre = :detPadre"),
-    @NamedQuery(name = "DetallePartida.findByDetPartPadre", query = "SELECT d FROM DetallePartida d WHERE d.detPartPadre = :detPartPadre"),
-    @NamedQuery(name = "DetallePartida.findByCantidadUManejo", query = "SELECT d FROM DetallePartida d WHERE d.cantidadUManejo = :cantidadUManejo"),
-    @NamedQuery(name = "DetallePartida.findByCantidadUMedida", query = "SELECT d FROM DetallePartida d WHERE d.cantidadUMedida = :cantidadUMedida"),
-    @NamedQuery(name = "DetallePartida.findByDtpCodigo", query = "SELECT d FROM DetallePartida d WHERE d.dtpCodigo = :dtpCodigo"),
-    @NamedQuery(name = "DetallePartida.findByDtpLote", query = "SELECT d FROM DetallePartida d WHERE d.dtpLote = :dtpLote"),
-    @NamedQuery(name = "DetallePartida.findByDtpCaducidad", query = "SELECT d FROM DetallePartida d WHERE d.dtpCaducidad = :dtpCaducidad"),
-    @NamedQuery(name = "DetallePartida.findByDtpPO", query = "SELECT d FROM DetallePartida d WHERE d.dtpPO = :dtpPO"),
-    @NamedQuery(name = "DetallePartida.findByDtpMP", query = "SELECT d FROM DetallePartida d WHERE d.dtpMP = :dtpMP"),
-    @NamedQuery(name = "DetallePartida.findByDtpPedimento", query = "SELECT d FROM DetallePartida d WHERE d.dtpPedimento = :dtpPedimento"),
-    @NamedQuery(name = "DetallePartida.findByDtpSAP", query = "SELECT d FROM DetallePartida d WHERE d.dtpSAP = :dtpSAP"),
-    @NamedQuery(name = "DetallePartida.findByDtpTarimas", query = "SELECT d FROM DetallePartida d WHERE d.dtpTarimas = :dtpTarimas")
-})
+@NamedQuery(name = "DetallePartida.findByIdPartida", query = "SELECT d FROM DetallePartida d WHERE d.key.partida.id = :idPartida")
 public class DetallePartida implements Serializable, Cloneable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 3123001101308610325L;
 
-    @EmbeddedId
-    private DetallePartidaPK detallePartidaPK;
-
-    @Column(name = "det_padre")
-    private Integer detPadre;
-
-    @Column(name = "det_part_padre")
-    private Integer detPartPadre;
-
+	@EmbeddedId
+    private DetallePartidaPK key;
+    
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumns({
+        @JoinColumn(name = "det_anterior",      referencedColumnName = "DET_PART_CVE"),
+        @JoinColumn(name = "det_part_anterior", referencedColumnName = "PARTIDA_CVE")})
+    private DetallePartida detalleAnterior;
+    
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumns({
+    	@JoinColumn(name = "det_padre",      referencedColumnName = "DET_PART_CVE"),
+    	@JoinColumn(name = "det_part_padre", referencedColumnName = "PARTIDA_CVE")
+    })
+    private DetallePartida detallePadre;
+    
     @Column(name = "cantidad_u_manejo")
-    private Integer cantidadUManejo;
+    private Integer cantidad;
 
     @Column(name = "cantidad_u_medida")
-    private BigDecimal cantidadUMedida;
+    private BigDecimal peso;
 
     @Size(max = 12)
     @Column(name = "dtp_codigo")
-    private String dtpCodigo;
+    private String codigo;
 
     @Size(max = 20)
     @Column(name = "dtp_lote")
-    private String dtpLote;
+    private String lote;
 
     @Column(name = "dtp_caducidad")
-    private LocalDate dtpCaducidad;
+    private LocalDate caducidad;
 
     @Size(max = 12)
     @Column(name = "dtp_PO")
-    private String dtpPO;
+    private String po;
 
     @Size(max = 20)
     @Column(name = "dtp_MP")
-    private String dtpMP;
+    private String mp;
 
     @Size(max = 13)
     @Column(name = "dtp_pedimento")
-    private String dtpPedimento;
+    private String pedimento;
 
     @Size(max = 20)
     @Column(name = "dtp_SAP")
-    private String dtpSAP;
+    private String sap;
 
     @Size(max = 15)
     @Column(name = "dtp_tarimas")
-    private String dtpTarimas;
-
-    @JoinColumns({
-        @JoinColumn(name = "det_anterior", referencedColumnName = "DET_PART_CVE"),
-        @JoinColumn(name = "det_part_anterior", referencedColumnName = "PARTIDA_CVE")})
-    @ManyToOne(cascade = CascadeType.MERGE)
-    private DetallePartida detallePartida;
+    private String tarimas;
 
     @JoinColumn(name = "tipo_mov_cve", referencedColumnName = "CLAVE")
     @ManyToOne(cascade = CascadeType.DETACH)
@@ -96,133 +108,125 @@ public class DetallePartida implements Serializable, Cloneable {
 
     @JoinColumn(name = "u_medida_cve", referencedColumnName = "UNIDAD_DE_MANEJO_CVE")
     @ManyToOne
-    private UnidadManejo unidadMedida;
+    private UnidadManejo unidad;
 
     @JoinColumn(name = "edo_inv_cve", referencedColumnName = "edo_inv_cve")
     @ManyToOne(cascade = CascadeType.DETACH)
-    private EstadoInventario edoInventario;
+    private EstadoInventario estadoInventario;
 
     public DetallePartida() {
     }
 
-    public DetallePartida(DetallePartidaPK detallePartidaPK) {
-        this.detallePartidaPK = detallePartidaPK;
+    public DetallePartida(DetallePartidaPK primaryKey) {
+        this.key = primaryKey;
     }
 
-    public DetallePartida(int detPartCve, Partida partidaCve) {
-        this.detallePartidaPK = new DetallePartidaPK(detPartCve, partidaCve);
+    public DetallePartida(int idDetallePartida, Partida idPartida) {
+        this.key = new DetallePartidaPK(idDetallePartida, idPartida);
     }
 
-    public DetallePartidaPK getDetallePartidaPK() {
-        return detallePartidaPK;
+    public DetallePartidaPK getKey() {
+        return key;
     }
 
-    public void setDetallePartidaPK(DetallePartidaPK detallePartidaPK) {
-        this.detallePartidaPK = detallePartidaPK;
+    public void setKey(DetallePartidaPK primaryKey) {
+        this.key = primaryKey;
     }
 
-    public Integer getDetPadre() {
-        return detPadre;
+    public DetallePartida getDetallePadre() {
+    	return this.detallePadre;
+    }
+    
+    public void setDetallePadre(DetallePartida detallePadre) {
+    	this.detallePadre = detallePadre;
+    }
+    
+    public DetallePartida getDetalleAnterior() {
+        return detalleAnterior;
     }
 
-    public void setDetPadre(Integer detPadre) {
-        this.detPadre = detPadre;
+    public void setDetalleAnterior(DetallePartida detalleAnterior) {
+        this.detalleAnterior = detalleAnterior;
     }
 
-    public Integer getDetPartPadre() {
-        return detPartPadre;
+    public Integer getCantidad() {
+        return cantidad;
     }
 
-    public void setDetPartPadre(Integer detPartPadre) {
-        this.detPartPadre = detPartPadre;
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
 
-    public Integer getCantidadUManejo() {
-        return cantidadUManejo;
+    public BigDecimal getPeso() {
+        return peso;
     }
 
-    public void setCantidadUManejo(Integer cantidadUManejo) {
-        this.cantidadUManejo = cantidadUManejo;
+    public void setPeso(BigDecimal peso) {
+        this.peso = peso;
     }
 
-    public BigDecimal getCantidadUMedida() {
-        return cantidadUMedida;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCantidadUMedida(BigDecimal cantidadUMedida) {
-        this.cantidadUMedida = cantidadUMedida;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public String getDtpCodigo() {
-        return dtpCodigo;
+    public String getLote() {
+        return lote;
     }
 
-    public void setDtpCodigo(String dtpCodigo) {
-        this.dtpCodigo = dtpCodigo;
+    public void setLote(String lote) {
+        this.lote = lote;
     }
 
-    public String getDtpLote() {
-        return dtpLote;
+    public LocalDate getCaducidad() {
+        return caducidad;
     }
 
-    public void setDtpLote(String dtpLote) {
-        this.dtpLote = dtpLote;
+    public void setCaducidad(LocalDate caducidad) {
+        this.caducidad = caducidad;
     }
 
-    public LocalDate getDtpCaducidad() {
-        return dtpCaducidad;
+    public String getPO() {
+        return po;
     }
 
-    public void setDtpCaducidad(LocalDate dtpCaducidad) {
-        this.dtpCaducidad = dtpCaducidad;
+    public void setPO(String po) {
+        this.po = po;
     }
 
-    public String getDtpPO() {
-        return dtpPO;
+    public String getMP() {
+        return mp;
     }
 
-    public void setDtpPO(String dtpPO) {
-        this.dtpPO = dtpPO;
+    public void setMP(String mp) {
+        this.mp = mp;
     }
 
-    public String getDtpMP() {
-        return dtpMP;
+    public String getPedimento() {
+        return pedimento;
     }
 
-    public void setDtpMP(String dtpMP) {
-        this.dtpMP = dtpMP;
+    public void setPedimento(String pedimento) {
+        this.pedimento = pedimento;
     }
 
-    public String getDtpPedimento() {
-        return dtpPedimento;
+    public String getSAP() {
+        return sap;
     }
 
-    public void setDtpPedimento(String dtpPedimento) {
-        this.dtpPedimento = dtpPedimento;
+    public void setSAP(String dtpSAP) {
+        this.sap = dtpSAP;
     }
 
-    public String getDtpSAP() {
-        return dtpSAP;
+    public String getTarimas() {
+        return tarimas;
     }
 
-    public void setDtpSAP(String dtpSAP) {
-        this.dtpSAP = dtpSAP;
-    }
-
-    public String getDtpTarimas() {
-        return dtpTarimas;
-    }
-
-    public void setDtpTarimas(String dtpTarimas) {
-        this.dtpTarimas = dtpTarimas;
-    }
-
-    public DetallePartida getDetallePartida() {
-        return detallePartida;
-    }
-
-    public void setDetallePartida(DetallePartida detallePartida) {
-        this.detallePartida = detallePartida;
+    public void setTarimas(String dtpTarimas) {
+        this.tarimas = dtpTarimas;
     }
 
     public TipoMovimiento getTipoMovimiento() {
@@ -233,26 +237,26 @@ public class DetallePartida implements Serializable, Cloneable {
         this.tipoMovimiento = tipoMovimiento;
     }
 
-    public UnidadManejo getUnidadMedida() {
-        return unidadMedida;
+    public UnidadManejo getUnidad() {
+        return unidad;
     }
 
-    public void setUnidadMedida(UnidadManejo unidadMedida) {
-        this.unidadMedida = unidadMedida;
+    public void setUnidad(UnidadManejo unidadMedida) {
+        this.unidad = unidadMedida;
     }
 
     public EstadoInventario getEdoInventario() {
-        return edoInventario;
+        return estadoInventario;
     }
 
     public void setEdoInventario(EstadoInventario edoInventario) {
-        this.edoInventario = edoInventario;
+        this.estadoInventario = edoInventario;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (detallePartidaPK != null ? detallePartidaPK.hashCode() : 0);
+        hash += (key != null ? key.hashCode() : 0);
         return hash;
     }
 
@@ -262,7 +266,7 @@ public class DetallePartida implements Serializable, Cloneable {
             return false;
         }
         DetallePartida other = (DetallePartida) object;
-        if ((this.detallePartidaPK == null && other.detallePartidaPK != null) || (this.detallePartidaPK != null && !this.detallePartidaPK.equals(other.detallePartidaPK))) {
+        if ((this.key == null && other.key != null) || (this.key != null && !this.key.equals(other.key))) {
             return false;
         }
         return true;
@@ -270,7 +274,7 @@ public class DetallePartida implements Serializable, Cloneable {
 
     @Override
     public String toString() {
-        return "com.ferbo.gestion.core.model.DetallePartida[ detallePartidaPK=" + detallePartidaPK + " ]";
+        return "com.ferbo.gestion.core.model.DetallePartida[ detallePartidaPK=" + key + " ]";
     }
 
     @Override
@@ -278,30 +282,28 @@ public class DetallePartida implements Serializable, Cloneable {
         DetallePartida dp = null;
 
         dp = new DetallePartida();
-        dp.setDetallePartidaPK(new DetallePartidaPK());
-        dp.setDetPadre(this.detPadre == null ? null : new Integer(this.detPadre));
-        dp.setDetPartPadre(this.detPartPadre == null ? null : new Integer(this.detPartPadre));
-        dp.setCantidadUManejo(this.cantidadUManejo == null ? null : new Integer(this.cantidadUManejo));
-        dp.setCantidadUMedida(this.cantidadUMedida);
-        dp.setDtpCodigo(this.dtpCodigo);
-        dp.setDtpLote(this.dtpLote);
-        dp.setDtpCaducidad(this.dtpCaducidad == null ? null : this.dtpCaducidad);
-        dp.setDtpPO(this.getDtpPO());
-        dp.setDtpMP(this.dtpMP);
-        dp.setDtpPedimento(this.dtpPedimento);
-        dp.setDtpSAP(this.dtpSAP);
-        dp.setDtpTarimas(this.dtpTarimas);
-        dp.setDetallePartida(this.detallePartida);
+        dp.setKey(new DetallePartidaPK());
+        dp.setCantidad(this.cantidad == null ? null : new Integer(this.cantidad));
+        dp.setPeso(this.peso);
+        dp.setCodigo(this.codigo);
+        dp.setLote(this.lote);
+        dp.setCaducidad(this.caducidad == null ? null : this.caducidad);
+        dp.setPO(this.getPO());
+        dp.setMP(this.mp);
+        dp.setPedimento(this.pedimento);
+        dp.setSAP(this.sap);
+        dp.setTarimas(this.tarimas);
+        dp.setDetalleAnterior(this.detalleAnterior);
         if (this.getTipoMovimiento() != null) {
             dp.setTipoMovimiento(this.tipoMovimiento);
         }
 
-        if (this.unidadMedida != null) {
-            dp.setUnidadMedida(this.unidadMedida);
+        if (this.unidad != null) {
+            dp.setUnidad(this.unidad);
         }
 
-        if (this.edoInventario != null) {
-            dp.setEdoInventario(this.edoInventario);
+        if (this.estadoInventario != null) {
+            dp.setEdoInventario(this.estadoInventario);
         }
 
         return dp;

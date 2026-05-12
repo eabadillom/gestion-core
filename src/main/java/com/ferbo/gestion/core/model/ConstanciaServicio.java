@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,17 +21,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "constancia_de_servicio")
-@NamedQueries({
-    @NamedQuery(name = "ConstanciaServicio.findAll", query = "SELECT c FROM ConstanciaServicio c"),
-    @NamedQuery(name = "ConstanciaServicio.findByFolio", query = "SELECT c FROM ConstanciaServicio c WHERE c.folio = :folio"),
-    @NamedQuery(name = "ConstanciaServicio.findByFecha", query = "SELECT c FROM ConstanciaServicio c WHERE c.fecha = :fecha"),
-    @NamedQuery(name = "ConstanciaServicio.findByNombreTransportista", query = "SELECT c FROM ConstanciaServicio c WHERE c.nombreTransportista = :nombreTransportista"),
-    @NamedQuery(name = "ConstanciaServicio.findByPlacasTransporte", query = "SELECT c FROM ConstanciaServicio c WHERE c.placasTransporte = :placasTransporte"),
-    @NamedQuery(name = "ConstanciaServicio.findByObservaciones", query = "SELECT c FROM ConstanciaServicio c WHERE c.observaciones = :observaciones"),
-    @NamedQuery(name = "ConstanciaServicio.findByFolioCliente", query = "SELECT c FROM ConstanciaServicio c WHERE c.folioCliente = :folioCliente"),
-    @NamedQuery(name = "ConstanciaServicio.findByPeriodoClienteFolioCliente", query = "SELECT c FROM ConstanciaServicio c WHERE (c.fecha BETWEEN :fechaInicio AND :fechaFin) AND (c.cliente.id = :idCliente OR :idCliente IS NULL) AND (c.folioCliente = :folioCliente OR :folioCliente IS NULL)"),
-    @NamedQuery(name = "ConstanciaServicio.findByValorDeclarado", query = "SELECT c FROM ConstanciaServicio c WHERE c.valorDeclarado = :valorDeclarado")
-})
+@NamedQuery(name = "ConstanciaServicio.findByFolioCliente", query = "SELECT c FROM ConstanciaServicio c WHERE c.folioCliente = :folioCliente")
 public class ConstanciaServicio implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -68,7 +57,7 @@ public class ConstanciaServicio implements Serializable
     private BigDecimal valorDeclarado;
     
     @OneToMany(mappedBy = "constanciaServicio", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PartidaServicio> partidaServicioList;
+    private List<PartidaServicio> partidas;
     
     @JoinColumn(name = "CTE_CVE", referencedColumnName = "CTE_CVE")
     @ManyToOne
@@ -78,9 +67,10 @@ public class ConstanciaServicio implements Serializable
     @ManyToOne
     private EstadoConstancia status;
     
-    @OneToMany(mappedBy = "constanciaServicio", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ConstanciaServicioDetalle> constanciaServicioDetalleList;
+    @OneToMany(mappedBy = "constancia", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ConstanciaServicioDetalle> servicios;
     
+    @Deprecated
     @OneToMany(mappedBy = "constanciaServicio", orphanRemoval = true)
     private List<ConstanciaFacturaDs> constanciaFacturaDsList;
     
@@ -152,12 +142,12 @@ public class ConstanciaServicio implements Serializable
         this.valorDeclarado = valorDeclarado;
     }
 
-    public List<PartidaServicio> getPartidaServicioList() {
-        return partidaServicioList;
+    public List<PartidaServicio> getPartidas() {
+        return partidas;
     }
 
-    public void setPartidaServicioList(List<PartidaServicio> partidaServicioList) {
-        this.partidaServicioList = partidaServicioList;
+    public void setPartidas(List<PartidaServicio> partidas) {
+        this.partidas = partidas;
     }
 
     public Cliente getCliente() {
@@ -176,18 +166,20 @@ public class ConstanciaServicio implements Serializable
         this.status = status;
     }
 
-    public List<ConstanciaServicioDetalle> getConstanciaServicioDetalleList() {
-        return constanciaServicioDetalleList;
+    public List<ConstanciaServicioDetalle> getServicios() {
+        return servicios;
     }
 
-    public void setConstanciaServicioDetalleList(List<ConstanciaServicioDetalle> constanciaServicioDetalleList) {
-        this.constanciaServicioDetalleList = constanciaServicioDetalleList;
+    public void setServicios(List<ConstanciaServicioDetalle> servicios) {
+        this.servicios = servicios;
     }
     
+    @Deprecated
     public List<ConstanciaFacturaDs> getConstanciaFacturaDsList() {
         return constanciaFacturaDsList;
     }
-
+    
+    @Deprecated
     public void setConstanciaFacturaDsList(List<ConstanciaFacturaDs> constanciaFacturaDsList) {
         this.constanciaFacturaDsList = constanciaFacturaDsList;
     }

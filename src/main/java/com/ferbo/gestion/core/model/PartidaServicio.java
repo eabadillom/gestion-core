@@ -2,28 +2,25 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "partida_servicio")
-@NamedQueries({
-    @NamedQuery(name = "PartidaServicio.findAll", query = "SELECT p FROM PartidaServicio p"),
-    @NamedQuery(name = "PartidaServicio.findById", query = "SELECT p FROM PartidaServicio p WHERE p.id = :idPartida"),
-    @NamedQuery(name = "PartidaServicio.findByCantidadDeCobro", query = "SELECT p FROM PartidaServicio p WHERE p.cantidadDeCobro = :cantidadDeCobro"),
-    @NamedQuery(name = "PartidaServicio.findByCantidadTotal", query = "SELECT p FROM PartidaServicio p WHERE p.cantidadTotal = :cantidadTotal"),
-    @NamedQuery(name = "PartidaServicio.findByFolio", query = "SELECT p FROM PartidaServicio p WHERE p.constanciaServicio.folio = :folio")
-})
+@NamedQuery(name = "PartidaServicio.findAll", query = "SELECT p FROM PartidaServicio p")
+@NamedQuery(name = "PartidaServicio.findById", query = "SELECT p FROM PartidaServicio p WHERE p.id = :idPartida")
+@NamedQuery(name = "PartidaServicio.findByCantidadDeCobro", query = "SELECT p FROM PartidaServicio p WHERE p.unidadCobro = :cantidadDeCobro")
+@NamedQuery(name = "PartidaServicio.findByCantidadTotal", query = "SELECT p FROM PartidaServicio p WHERE p.cantidadTotal = :cantidadTotal")
+@NamedQuery(name = "PartidaServicio.findByFolio", query = "SELECT p FROM PartidaServicio p WHERE p.constanciaServicio.folio = :folio")
 public class PartidaServicio implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -35,13 +32,13 @@ public class PartidaServicio implements Serializable
     private Integer id;
     
     @Column(name = "CANTIDAD_DE_COBRO")
-    private BigDecimal cantidadDeCobro;
+    private BigDecimal cantidadCobro;
     
     @Column(name = "CANTIDAD_TOTAL")
     private Integer cantidadTotal;
     
     @JoinColumn(name = "FOLIO", referencedColumnName = "FOLIO")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private ConstanciaServicio constanciaServicio;
     
     @JoinColumn(name = "PRODUCTO_CVE", referencedColumnName = "PRODUCTO_CVE")
@@ -71,12 +68,12 @@ public class PartidaServicio implements Serializable
         this.id = id;
     }
 
-    public BigDecimal getCantidadDeCobro() {
-        return cantidadDeCobro;
+    public BigDecimal getCantidadCobro() {
+        return cantidadCobro;
     }
 
-    public void setCantidadDeCobro(BigDecimal cantidadDeCobro) {
-        this.cantidadDeCobro = cantidadDeCobro;
+    public void setCantidadCobro(BigDecimal cantidadCobro) {
+        this.cantidadCobro = cantidadCobro;
     }
 
     public Integer getCantidadTotal() {
@@ -121,9 +118,9 @@ public class PartidaServicio implements Serializable
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    	if(this.id == null)
+    		return System.identityHashCode(this);
+    	return Objects.hashCode(this.id);
     }
 
     @Override

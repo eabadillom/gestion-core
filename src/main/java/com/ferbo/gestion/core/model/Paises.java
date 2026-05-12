@@ -43,7 +43,7 @@ public class Paises implements Serializable
     private String clave;
     
     @OneToMany(mappedBy = "estadoPK.pais")
-    private List<Estado> estadosList;
+    private List<Estado> estados;
 
     public Paises() {
     }
@@ -81,12 +81,12 @@ public class Paises implements Serializable
         this.clave = clave;
     }
 
-    public List<Estado> getEstadoList() {
-        return estadosList;
+    public List<Estado> getEstados() {
+        return estados;
     }
 
-    public void setEstadoList(List<Estado> estadosList) {
-        this.estadosList = estadosList;
+    public void setEstados(List<Estado> estados) {
+        this.estados = estados;
     }
 
     @Override

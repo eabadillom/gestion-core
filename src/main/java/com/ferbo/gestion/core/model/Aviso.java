@@ -26,19 +26,6 @@ import javax.validation.constraints.Size;
 @NamedQueries({
         @NamedQuery(name = "Aviso.findAll", query = "SELECT a FROM Aviso a"),
         @NamedQuery(name = "Aviso.findById", query = "SELECT a FROM Aviso a WHERE a.id = :idAviso"),
-        @NamedQuery(name = "Aviso.findByPo", query = "SELECT a FROM Aviso a WHERE a.po = :po"),
-        @NamedQuery(name = "Aviso.findByPedimento", query = "SELECT a FROM Aviso a WHERE a.pedimento = :pedimento"),
-        @NamedQuery(name = "Aviso.findBySap", query = "SELECT a FROM Aviso a WHERE a.sap = :sap"),
-        @NamedQuery(name = "Aviso.findByLote", query = "SELECT a FROM Aviso a WHERE a.lote = :lote"),
-        @NamedQuery(name = "Aviso.findByCaducidad", query = "SELECT a FROM Aviso a WHERE a.caducidad = :caducidad"),
-        @NamedQuery(name = "Aviso.findByTarima", query = "SELECT a FROM Aviso a WHERE a.tarima = :tarima"),
-        @NamedQuery(name = "Aviso.findByOtro", query = "SELECT a FROM Aviso a WHERE a.otro = :otro"),
-        @NamedQuery(name = "Aviso.findByTemp", query = "SELECT a FROM Aviso a WHERE a.temp = :temp"),
-        @NamedQuery(name = "Aviso.findByoFecha", query = "SELECT a FROM Aviso a WHERE a.fecha = :fecha"),
-        @NamedQuery(name = "Aviso.findByObservaciones", query = "SELECT a FROM Aviso a WHERE a.observaciones = :observaciones"),
-        @NamedQuery(name = "Aviso.findByVigencia", query = "SELECT a FROM Aviso a WHERE a.vigencia = :vigencia"),
-        @NamedQuery(name = "Aviso.findByValSeg", query = "SELECT a FROM Aviso a WHERE a.valSeg = :valSeg"),
-        @NamedQuery(name = "Aviso.findByPlazo", query = "SELECT a FROM Aviso a WHERE a.plazo = :plazo"),
         @NamedQuery(name = "Aviso.findByTpFacturacion", query = "SELECT a FROM Aviso a WHERE a.tpFacturacion = :tpFacturacion"),
         @NamedQuery(name = "Aviso.findByCliente", query = "SELECT a FROM Aviso a WHERE a.cliente.id = :idCliente")
 })

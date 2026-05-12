@@ -5,24 +5,19 @@ import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "constancia_servicio_detalle")
-@NamedQueries({
-    @NamedQuery(name = "ConstanciaServicioDetalle.findAll", query = "SELECT c FROM ConstanciaServicioDetalle c"),
-    @NamedQuery(name = "ConstanciaServicioDetalle.findByConstanciaServicioDetalleCve", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.id = :idConstanciaSrvDet"),
-    @NamedQuery(name = "ConstanciaServicioDetalle.findByFolio", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.constanciaServicio.folio = :folio"),
-    @NamedQuery(name = "ConstanciaServicioDetalle.findByServicioCantidad", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.servicioCantidad = :servicioCantidad")
-})
+@NamedQuery(name = "ConstanciaServicioDetalle.findAll", query = "SELECT c FROM ConstanciaServicioDetalle c")
+@NamedQuery(name = "ConstanciaServicioDetalle.findByConstanciaServicioDetalleCve", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.id = :idConstanciaSrvDet")
+@NamedQuery(name = "ConstanciaServicioDetalle.findByFolio", query = "SELECT c FROM ConstanciaServicioDetalle c WHERE c.constancia.folio = :folio")
 public class ConstanciaServicioDetalle implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -34,11 +29,11 @@ public class ConstanciaServicioDetalle implements Serializable
     private Integer id;
     
     @Column(name = "SERVICIO_CANTIDAD")
-    private BigDecimal servicioCantidad;
+    private BigDecimal cantidad;
     
     @JoinColumn(name = "FOLIO", referencedColumnName = "FOLIO")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private ConstanciaServicio constanciaServicio;
+    @ManyToOne
+    private ConstanciaServicio constancia;
     
     @JoinColumn(name = "SERVICIO_CVE", referencedColumnName = "SERVICIO_CVE")
     @ManyToOne(optional = false)
@@ -59,20 +54,20 @@ public class ConstanciaServicioDetalle implements Serializable
         this.id = id;
     }
 
-    public BigDecimal getServicioCantidad() {
-        return servicioCantidad;
+    public BigDecimal getCantidad() {
+        return cantidad;
     }
 
-    public void setServicioCantidad(BigDecimal servicioCantidad) {
-        this.servicioCantidad = servicioCantidad;
+    public void setCantidad(BigDecimal cantidad) {
+        this.cantidad = cantidad;
     }
 
     public ConstanciaServicio getConstanciaServicio() {
-        return constanciaServicio;
+        return constancia;
     }
 
     public void setConstanciaServicio(ConstanciaServicio constanciaServicio) {
-        this.constanciaServicio = constanciaServicio;
+        this.constancia = constanciaServicio;
     }
 
     public Servicio getServicio() {

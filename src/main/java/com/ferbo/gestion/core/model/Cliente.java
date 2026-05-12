@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -24,16 +23,8 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cliente")
-@NamedQueries({
-    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c ORDER BY c.nombre"),
-    @NamedQuery(name = "Cliente.findById", query = "SELECT c FROM Cliente c WHERE c.id = :idCliente"),
-    @NamedQuery(name = "Cliente.findByNombre", query = "SELECT c FROM Cliente c WHERE c.nombre = :cteNombre"),
-    @NamedQuery(name = "Cliente.findByRfc", query = "SELECT c FROM Cliente c  WHERE c.rfc = :rfcCliente"),
-    @NamedQuery(name = "Cliente.findByNumeroCte", query = "SELECT c FROM Cliente c  WHERE c.numeroCte = :numeroCte"),
-    @NamedQuery(name = "Cliente.findByMail", query = "SELECT c FROM Cliente c WHERE c.mail = :mail"),
-    @NamedQuery(name = "Cliente.findByHabilitado", query = "SELECT c FROM Cliente c  WHERE c.habilitado = :habilitado ORDER BY c.nombre"),
-    @NamedQuery(name = "Cliente.findByCodUnico", query = "SELECT c FROM Cliente c WHERE c.codUnico = :codUnico")
-})
+@NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c ORDER BY c.nombre")
+@NamedQuery(name = "Cliente.findByCodigoUnico", query = "SELECT c FROM Cliente c WHERE c.codigoUnico = :codigoUnico")
 public class Cliente implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -73,7 +64,7 @@ public class Cliente implements Serializable
 
     @Size(max = 3)
     @Column(name = "COD_UNICO")
-    private String codUnico;
+    private String codigoUnico;
 
     @Size(min = 1, max = 1)
     @Column(name = "tp_persona")
@@ -111,7 +102,7 @@ public class Cliente implements Serializable
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY, orphanRemoval = true)
     private CandadoSalida candadoSalida;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "serieConstanciaPK.cliente", orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "key.cliente", orphanRemoval = true)
     private List<SerieConstancia> serieConstanciaList;
 
     public Cliente() {
@@ -216,15 +207,15 @@ public class Cliente implements Serializable
         this.habilitado = habilitado;
     }
 
-    public String getCodUnico() {
-        return codUnico;
+    public String getCodigoUnico() {
+        return codigoUnico;
     }
 
-    public void setCodUnico(String codUnico) {
-        if (codUnico != null) {
-            codUnico = codUnico.trim();
+    public void setCodigoUnico(String codigoUnico) {
+        if (codigoUnico != null) {
+            codigoUnico = codigoUnico.trim();
         }
-        this.codUnico = codUnico;
+        this.codigoUnico = codigoUnico;
     }
 
     public List<ClienteDomicilio> getClienteDomiciliosList() {
@@ -320,11 +311,11 @@ public class Cliente implements Serializable
             this.serieConstanciaList = new ArrayList<SerieConstancia>();
         }
 
-        if (serie.getSerieConstanciaPK() == null) {
-            serie.setSerieConstanciaPK(new SerieConstanciaPK());
+        if (serie.getKey() == null) {
+            serie.setKey(new SerieConstanciaPK());
         }
 
-        serie.getSerieConstanciaPK().setCliente(this);
+        serie.getKey().setCliente(this);
 
         this.serieConstanciaList.add(serie);
     }

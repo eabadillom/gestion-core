@@ -23,7 +23,7 @@ import javax.validation.constraints.Null;
     @NamedQuery(name = "PartidaAfectada.findById", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.id= :idPartidaAfectada"),
     @NamedQuery(name = "PartidaAfectada.findByTraspaso", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.traspaso = :traspaso"),
     @NamedQuery(name = "PartidaAfectada.findByPartida", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.partida = :partida"),
-    @NamedQuery(name = "PartidaAfectada.findByPartidaTraspaso", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.partidaTraspaso = :partidaTraspaso")
+    @NamedQuery(name = "PartidaAfectada.findByPartidaTraspaso", query = "SELECT pa FROM PartidaAfectada pa WHERE pa.traspasoPartida = :partidaTraspaso")
 })
 public class PartidaAfectada implements Serializable 
 {
@@ -46,15 +46,15 @@ public class PartidaAfectada implements Serializable
 
     @OneToOne(optional = false)
     @JoinColumn(name = "PARTIDA_TRASPASO", referencedColumnName = "id")
-    private TraspasoPartida partidaTraspaso;
+    private TraspasoPartida traspasoPartida;
 
     public PartidaAfectada() {
     }
 
-    public PartidaAfectada(String traspaso, Partida partida, TraspasoPartida partidaTraspaso) {
+    public PartidaAfectada(String traspaso, Partida partida, TraspasoPartida traspasoPartida) {
         this.traspaso = traspaso;
         this.partida = partida;
-        this.partidaTraspaso = partidaTraspaso;
+        this.traspasoPartida = traspasoPartida;
     }
 
     public String getTraspaso() {
@@ -73,12 +73,12 @@ public class PartidaAfectada implements Serializable
         this.partida = partida;
     }
 
-    public TraspasoPartida getPartidaTraspaso() {
-        return partidaTraspaso;
+    public TraspasoPartida getTraspasoPartida() {
+        return traspasoPartida;
     }
 
-    public void setPartidatraspaso(TraspasoPartida partidaTraspaso) {
-        this.partidaTraspaso = partidaTraspaso;
+    public void setTraspasoPartida(TraspasoPartida traspasoPartida) {
+        this.traspasoPartida = traspasoPartida;
     }
 
     public Integer getId() {
@@ -91,7 +91,7 @@ public class PartidaAfectada implements Serializable
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, partida, partidaTraspaso, traspaso);
+        return Objects.hash(id, partida, traspasoPartida, traspaso);
     }
 
     @Override
@@ -107,13 +107,13 @@ public class PartidaAfectada implements Serializable
         }
         PartidaAfectada other = (PartidaAfectada) obj;
         return Objects.equals(id, other.id) && Objects.equals(partida, other.partida)
-                && Objects.equals(partidaTraspaso, other.partidaTraspaso) && Objects.equals(traspaso, other.traspaso);
+                && Objects.equals(traspasoPartida, other.traspasoPartida) && Objects.equals(traspaso, other.traspaso);
     }
     
     @Override
     public String toString() {
         return "com.ferbo.gestion.core.model.PartidaAfectada [id=" + id + ", traspaso=" + traspaso + ", partida=" + partida + ", partidatraspaso="
-                + partidaTraspaso + "]";
+                + traspasoPartida + "]";
     }
 
 }

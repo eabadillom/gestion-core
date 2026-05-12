@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -19,16 +18,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "serie_factura")
-@NamedQueries({
-    @NamedQuery(name = "SerieFactura.findAll", query = "SELECT s FROM SerieFactura s"),
-    @NamedQuery(name = "SerieFactura.findById", query = "SELECT s FROM SerieFactura s WHERE s.id = :idSerieFactura"),
-    @NamedQuery(name = "SerieFactura.findByFechaInicio", query = "SELECT s FROM SerieFactura s WHERE s.fechaInicio = :fechaInicio"),
-    @NamedQuery(name = "SerieFactura.findByNumeroInicial", query = "SELECT s FROM SerieFactura s WHERE s.numeroInicial = :numeroInicial"),
-    @NamedQuery(name = "SerieFactura.findByNumeroActual", query = "SELECT s FROM SerieFactura s WHERE s.numeroActual = :numeroActual"),
-    @NamedQuery(name = "SerieFactura.findByNumeroFinal", query = "SELECT s FROM SerieFactura s WHERE s.numeroFinal = :numeroFinal"),
-    @NamedQuery(name = "SerieFactura.findByNomSerie", query = "SELECT s FROM SerieFactura s WHERE s.nomSerie = :nomSerie"),
-    @NamedQuery(name = "SerieFactura.findByEmisor", query = "SELECT s FROM SerieFactura s WHERE s.statusSerie.id in (1,2) AND s.emisor.id = :idEmisor")
-})
+@NamedQuery(name = "SerieFactura.findByEmisor", query = "SELECT s FROM SerieFactura s WHERE s.status.id in (1,2) AND s.emisor.id = :idEmisor")
 public class SerieFactura implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -63,11 +53,11 @@ public class SerieFactura implements Serializable
     @NotNull
     @Size(min = 1, max = 5)
     @Column(name = "nom_serie")
-    private String nomSerie;
+    private String serie;
     
     @JoinColumn(name = "status_serie", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private StatusSerie statusSerie;
+    private StatusSerie status;
     
     @JoinColumn(name = "cd_emisor", referencedColumnName = "cd_emisor")
     @ManyToOne(optional = true)
@@ -80,13 +70,13 @@ public class SerieFactura implements Serializable
         this.id = id;
     }
 
-    public SerieFactura(Integer id, LocalDate fechaInicio, int numeroInicial, int numeroActual, int numeroFinal, String nomSerie) {
+    public SerieFactura(Integer id, LocalDate fechaInicio, int numeroInicial, int numeroActual, int numeroFinal, String serie) {
         this.id = id;
         this.fechaInicio = fechaInicio;
         this.numeroInicial = numeroInicial;
         this.numeroActual = numeroActual;
         this.numeroFinal = numeroFinal;
-        this.nomSerie = nomSerie;
+        this.serie = serie;
     }
 
     public Integer getId() {
@@ -129,20 +119,20 @@ public class SerieFactura implements Serializable
         this.numeroFinal = numeroFinal;
     }
 
-    public String getNomSerie() {
-        return nomSerie;
+    public String getSerie() {
+        return serie;
     }
 
-    public void setNomSerie(String nomSerie) {
-        this.nomSerie = nomSerie;
+    public void setSerie(String serie) {
+        this.serie = serie;
     }
 
-    public StatusSerie getStatusSerie() {
-        return statusSerie;
+    public StatusSerie getStatus() {
+        return status;
     }
 
-    public void setStatusSerie(StatusSerie statusSerie) {
-        this.statusSerie = statusSerie;
+    public void setStatus(StatusSerie status) {
+        this.status = status;
     }
     
     public Emisor getEmisor() {

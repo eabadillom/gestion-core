@@ -5,15 +5,10 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "nota_x_facturas")
-@NamedQueries({
-    @NamedQuery(name = "NotaPorFactura.findByAll", query = "SELECT nf FROM NotaPorFactura nf")
-})
 public class NotaPorFactura implements Serializable, Cloneable 
 {
     private static final long serialVersionUID = 1L;

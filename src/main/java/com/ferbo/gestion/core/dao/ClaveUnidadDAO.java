@@ -40,13 +40,5 @@ public class ClaveUnidadDAO extends BaseDAO<ClaveUnidad,String>
                 .getResultList();
         });
     }
-    
-    public List<ClaveUnidad> buscarTodos() 
-    {
-        return transactManager.executeRead(em -> 
-            em.createNamedQuery("ClaveUnidad.findAll", ClaveUnidad.class)
-                .getResultList()
-        );
-    }
-    
+
 }

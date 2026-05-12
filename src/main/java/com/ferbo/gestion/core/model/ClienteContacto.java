@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -20,18 +19,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cliente_contacto")
-@NamedQueries({
-    @NamedQuery(name = "ClienteContacto.findAll", query = "SELECT c FROM ClienteContacto c"),
-    @NamedQuery(name = "ClienteContacto.findByStHabilitado", query = "SELECT c FROM ClienteContacto c WHERE c.habilitado = :habilitado"),
-    @NamedQuery(name = "ClienteContacto.findByNbUsuario", query = "SELECT c FROM ClienteContacto c WHERE c.usuario = :usuario"),
-    @NamedQuery(name = "ClienteContacto.findByNbPassword", query = "SELECT c FROM ClienteContacto c WHERE c.password = :password"),
-    @NamedQuery(name = "ClienteContacto.findByStUsuario", query = "SELECT c FROM ClienteContacto c WHERE c.stUsuario = :stUsuario"),
-    @NamedQuery(name = "ClienteContacto.findByFhAlta", query = "SELECT c FROM ClienteContacto c WHERE c.alta = :alta"),
-    @NamedQuery(name = "ClienteContacto.findByFhCadPasswd", query = "SELECT c FROM ClienteContacto c WHERE c.cadPasswd = :cadPasswd"),
-    @NamedQuery(name = "ClienteContacto.findByFhUltAcceso", query = "SELECT c FROM ClienteContacto c WHERE c.ultAcceso = :ultAcceso"),
-    @NamedQuery(name = "ClienteContacto.findById", query = "SELECT c FROM ClienteContacto c WHERE c.id = :id"),
-    @NamedQuery(name = "ClienteContacto.findAllByIdCliente", query = "SELECT DISTINCT cc FROM ClienteContacto cc LEFT JOIN cc.contacto c LEFT JOIN c.medioCntList mc WHERE cc.cliente.id = :idCliente")
-})
+@NamedQuery(name = "ClienteContacto.findAllByIdCliente", query = "SELECT DISTINCT cc FROM ClienteContacto cc LEFT JOIN cc.contacto c LEFT JOIN c.mediosContacto mc WHERE cc.cliente.id = :idCliente")
 public class ClienteContacto implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -53,7 +41,7 @@ public class ClienteContacto implements Serializable
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "st_usuario")
-    private String stUsuario;
+    private String statusUsuario;
 
     @Basic(optional = false)
     @NotNull
@@ -98,7 +86,7 @@ public class ClienteContacto implements Serializable
     public ClienteContacto(Integer id, boolean habilitado, String stUsuario, LocalDate alta) {
         this.id = id;
         this.habilitado = habilitado;
-        this.stUsuario = stUsuario;
+        this.statusUsuario = stUsuario;
         this.alta = alta;
     }
 
@@ -126,12 +114,12 @@ public class ClienteContacto implements Serializable
         this.password = password;
     }
 
-    public String getStUsuario() {
-        return stUsuario;
+    public String getStatusUsuario() {
+        return statusUsuario;
     }
 
-    public void setStUsuario(String stUsuario) {
-        this.stUsuario = stUsuario;
+    public void setStatusUsuario(String stUsuario) {
+        this.statusUsuario = stUsuario;
     }
 
     public LocalDate getAlta() {
@@ -221,9 +209,8 @@ public class ClienteContacto implements Serializable
         return (id != null) ? id.hashCode() : System.identityHashCode(this);
     }
 
-    @Override
-    public String toString() {
-        return "com.ferbo.gestion.core.model.ClienteContacto[ id=" + id + " ]";
-    }
-
+	@Override
+	public String toString() {
+		return "ClienteContacto [id=" + id + "]";
+	}
 }

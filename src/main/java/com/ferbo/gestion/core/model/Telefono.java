@@ -11,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -20,12 +18,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "telefono")
-@NamedQueries({
-        @NamedQuery(name = "Telefono.findAll", query = "SELECT t FROM Telefono t"),
-        @NamedQuery(name = "Telefono.findById", query = "SELECT t FROM Telefono t WHERE t.id = :idTelefono"),
-        @NamedQuery(name = "Telefono.findByTelefono", query = "SELECT t FROM Telefono t WHERE t.telefono = :telefono"),
-        @NamedQuery(name = "Telefono.findByStPrincipal", query = "SELECT t FROM Telefono t WHERE t.principal = :principal")
-})
 public class Telefono implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -49,10 +41,10 @@ public class Telefono implements Serializable
     
     @JoinColumn(name = "tp_telefono", referencedColumnName = "tp_telefono")
     @ManyToOne(optional = false)
-    private TipoTelefono tpTelefono;
+    private TipoTelefono tipoTelefono;
     
     @OneToMany(mappedBy = "telefono")
-    private List<MedioCnt> medioCntList;
+    private List<MedioContacto> mediosContacto;
 
     public Telefono() {
     }
@@ -91,20 +83,20 @@ public class Telefono implements Serializable
         this.principal = principal;
     }
 
-    public TipoTelefono getTpTelefono() {
-        return tpTelefono;
+    public TipoTelefono getTipoTelefono() {
+        return tipoTelefono;
     }
 
-    public void setTpTelefono(TipoTelefono tpTelefono) {
-        this.tpTelefono = tpTelefono;
+    public void setTipoTelefono(TipoTelefono tipoTelefono) {
+        this.tipoTelefono = tipoTelefono;
     }
 
-    public List<MedioCnt> getMedioCntList() {
-        return medioCntList;
+    public List<MedioContacto> getMediosContacto() {
+        return mediosContacto;
     }
 
-    public void setMedioCntList(List<MedioCnt> medioCntList) {
-        this.medioCntList = medioCntList;
+    public void setMediosContacto(List<MedioContacto> mediosContacto) {
+        this.mediosContacto = mediosContacto;
     }
 
     @Override
@@ -124,7 +116,9 @@ public class Telefono implements Serializable
 
     @Override
     public int hashCode() {
-        return (id != null) ? id.hashCode() : System.identityHashCode(this);
+    	if(this.id == null)
+    		return System.identityHashCode(this);
+    	return Objects.hashCode(this.id);
     }
 
     @Override

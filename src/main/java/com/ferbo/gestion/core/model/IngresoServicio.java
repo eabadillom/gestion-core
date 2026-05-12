@@ -10,16 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "ingreso_servicio")
-@NamedQueries({
-    @NamedQuery(name = "IngresoServicio.findAll", query = "SELECT inS FROM IngresoServicio inS"),
-    @NamedQuery(name = "IngresoServicio.findByIngreso", query = "SELECT inS FROM IngresoServicio inS WHERE inS.ingreso.id = :idIngreso")
-})
 public class IngresoServicio implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -39,7 +33,7 @@ public class IngresoServicio implements Serializable
 
     @JoinColumn(name = "id_unidad", referencedColumnName = "UNIDAD_DE_MANEJO_CVE")
     @ManyToOne
-    private UnidadManejo unidadManejo;
+    private UnidadManejo unidad;
 
     @JoinColumn(name = "id_ingreso", referencedColumnName = "id_ingreso")
     @ManyToOne
@@ -69,12 +63,12 @@ public class IngresoServicio implements Serializable
         this.cantidad = cantidad;
     }
 
-    public UnidadManejo getUnidadManejo() {
-        return unidadManejo;
+    public UnidadManejo getUnidad() {
+        return unidad;
     }
 
-    public void setUnidadManejo(UnidadManejo unidadManejo) {
-        this.unidadManejo = unidadManejo;
+    public void setUnidad(UnidadManejo unidad) {
+        this.unidad = unidad;
     }
 
     public Ingreso getIngreso() {
@@ -88,7 +82,7 @@ public class IngresoServicio implements Serializable
     @Override
     public String toString() {
         return "com.ferbo.gestion.core.model.IngresoServicio [idIngresoServicio=" + id + ", servicio=" + servicio + ", cantidad="
-                + cantidad + ", unidadDeManejo=" + unidadManejo + ", ingreso=" + ingreso + "]";
+                + cantidad + ", unidadDeManejo=" + unidad + ", ingreso=" + ingreso + "]";
     }
 
 }

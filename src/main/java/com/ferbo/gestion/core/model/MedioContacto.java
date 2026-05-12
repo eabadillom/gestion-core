@@ -2,6 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -19,13 +19,8 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "medio_cnt")
-@NamedQueries({
-        @NamedQuery(name = "MedioCnt.findAll", query = "SELECT m FROM MedioCnt m"),
-        @NamedQuery(name = "MedioCnt.findById", query = "SELECT m FROM MedioCnt m WHERE m.id = :id"),
-        @NamedQuery(name = "MedioCnt.findByTpMedio", query = "SELECT m FROM MedioCnt m WHERE m.tpMedio = :tpMedio"),
-        @NamedQuery(name = "MedioCnt.findByStMedio", query = "SELECT m FROM MedioCnt m WHERE m.stMedio = :stMedio"),
-        @NamedQuery(name = "MedioCnt.findByContacto", query = "SELECT m FROM MedioCnt m WHERE m.contacto.id = :idContacto") })
-public class MedioCnt implements Serializable 
+@NamedQuery(name = "MedioContacto.findByContacto", query = "SELECT m FROM MedioContacto m WHERE m.contacto.id = :idContacto")
+public class MedioContacto implements Serializable 
 {
     private static final long serialVersionUID = 1L;
 
@@ -39,12 +34,12 @@ public class MedioCnt implements Serializable
     @NotNull
     @Size(min = 1, max = 1)
     @Column(name = "tp_medio")
-    private String tpMedio;
+    private String tipoMedio;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "st_medio")
-    private boolean stMedio;
+    private boolean status;
 
     @JoinColumn(name = "id_contacto", referencedColumnName = "id_contacto")
     @ManyToOne
@@ -58,17 +53,17 @@ public class MedioCnt implements Serializable
     @ManyToOne(cascade = CascadeType.ALL)
     private Telefono telefono;
     
-    public MedioCnt() {
+    public MedioContacto() {
     }
 
-    public MedioCnt(Integer id) {
+    public MedioContacto(Integer id) {
         this.id = id;
     }
 
-    public MedioCnt(Integer id, String tpMedio, boolean stMedio) {
+    public MedioContacto(Integer id, String tipoMedio, boolean stMedio) {
         this.id = id;
-        this.tpMedio = tpMedio;
-        this.stMedio = stMedio;
+        this.tipoMedio = tipoMedio;
+        this.status = stMedio;
     }
 
     public Integer getId() {
@@ -79,20 +74,20 @@ public class MedioCnt implements Serializable
         this.id = id;
     }
 
-    public String getTpMedio() {
-        return tpMedio;
+    public String getTipoMedio() {
+        return tipoMedio;
     }
 
-    public void setTpMedio(String tpMedio) {
-        this.tpMedio = tpMedio;
+    public void setTipoMedio(String tipoMedio) {
+        this.tipoMedio = tipoMedio;
     }
 
-    public boolean getStMedio() {
-        return stMedio;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setStMedio(boolean stMedio) {
-        this.stMedio = stMedio;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public Contacto getContacto() {
@@ -123,9 +118,9 @@ public class MedioCnt implements Serializable
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof MedioCnt))
+        if (!(o instanceof MedioContacto))
             return false;
-        MedioCnt that = (MedioCnt) o;
+        MedioContacto that = (MedioContacto) o;
 
         if (this.id != null && that.id != null) {
             return Objects.equals(this.id, that.id);

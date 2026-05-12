@@ -2,6 +2,7 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,23 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "servicio_constancia_ds")
-@NamedQueries({
-    @NamedQuery(name = "ServicioConstanciaDs.findAll", query = "SELECT s FROM ServicioConstanciaDs s"),
-    @NamedQuery(name = "ServicioConstanciaDs.findById", query = "SELECT s FROM ServicioConstanciaDs s WHERE s.id = :idServicioConstanciaDs"),
-    @NamedQuery(name = "ServicioConstanciaDs.findByDescripcion", query = "SELECT s FROM ServicioConstanciaDs s WHERE s.descripcion = :descripcion"),
-    @NamedQuery(name = "ServicioConstanciaDs.findByCosto", query = "SELECT s FROM ServicioConstanciaDs s WHERE s.costo = :costo"),
-    @NamedQuery(name = "ServicioConstanciaDs.findByTarifa", query = "SELECT s FROM ServicioConstanciaDs s WHERE s.tarifa = :tarifa"),
-    @NamedQuery(name = "ServicioConstanciaDs.findByCodigo", query = "SELECT s FROM ServicioConstanciaDs s WHERE s.codigo = :codigo"),
-    @NamedQuery(name = "ServicioConstanciaDs.findByUdCobro", query = "SELECT s FROM ServicioConstanciaDs s WHERE s.udCobro = :udCobro")
-})
 public class ServicioConstanciaDs implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -44,30 +34,30 @@ public class ServicioConstanciaDs implements Serializable
     private String descripcion;
 
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "COSTO")
-    private BigDecimal costo;
+    @Column(name = "cantidad")
+    private BigDecimal cantidad;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "TARIFA")
-    private BigDecimal tarifa;
+    private BigDecimal precioUnitario;
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "COSTO")
+    private BigDecimal subtotal;
+    
     @Size(max = 20)
     @Column(name = "codigo")
     private String codigo;
-
+    
     @Size(max = 10)
     @Column(name = "UD_COBRO")
     private String udCobro;
-
+    
     @Size(max = 5)
     @Column(name = "cd_unidad")
     private String cdUnidad;
-
-    @Basic(optional = false)
-    @Column(name = "cantidad")
-    private BigDecimal cantidad;
 
     @JoinColumn(name = "CONSTANCIA", referencedColumnName = "ID")
     @ManyToOne//modifica 1 junio
@@ -80,11 +70,11 @@ public class ServicioConstanciaDs implements Serializable
         this.id = id;
     }
 
-    public ServicioConstanciaDs(Integer id, String descripcion, BigDecimal costo, BigDecimal tarifa) {
+    public ServicioConstanciaDs(Integer id, String descripcion, BigDecimal costo, BigDecimal precioUnitario) {
         this.id = id;
         this.descripcion = descripcion;
-        this.costo = costo;
-        this.tarifa = tarifa;
+        this.subtotal = costo;
+        this.precioUnitario = precioUnitario;
     }
 
     public Integer getId() {
@@ -103,22 +93,22 @@ public class ServicioConstanciaDs implements Serializable
         this.descripcion = descripcion;
     }
 
-    public BigDecimal getCosto() {
-        return costo;
+    public BigDecimal getSubtotal() {
+        return subtotal;
     }
 
-    public void setCosto(BigDecimal costo) {
-        this.costo = costo;
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
     }
 
-    public BigDecimal getTarifa() {
-        return tarifa;
+    public BigDecimal getPrecioUnitario() {
+        return precioUnitario;
     }
 
-    public void setTarifa(BigDecimal tarifa) {
-        this.tarifa = tarifa;
+    public void setPrecioUnitario(BigDecimal precioUnitario) {
+        this.precioUnitario = precioUnitario;
     }
-
+    
     public String getCodigo() {
         return codigo;
     }
@@ -161,9 +151,9 @@ public class ServicioConstanciaDs implements Serializable
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        if(this.id == null)
+        	return System.identityHashCode(this);
+        return Objects.hashCode(this.id);
     }
 
     @Override

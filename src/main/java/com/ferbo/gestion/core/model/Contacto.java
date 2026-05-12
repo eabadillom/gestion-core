@@ -11,8 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -20,13 +18,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "contacto")
-@NamedQueries({
-    @NamedQuery(name = "Contacto.findAll", query = "SELECT c FROM Contacto c"),
-    @NamedQuery(name = "Contacto.findByIdContacto", query = "SELECT c FROM Contacto c WHERE c.id = :idContacto"),
-    @NamedQuery(name = "Contacto.findByNombre", query = "SELECT c FROM Contacto c WHERE c.nombre = :nombre"),
-    @NamedQuery(name = "Contacto.findByApellido1", query = "SELECT c FROM Contacto c WHERE c.apellido1 = :apellido1"),
-    @NamedQuery(name = "Contacto.findByApellido2", query = "SELECT c FROM Contacto c WHERE c.apellido2 = :apellido2")
-})
 public class Contacto implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -47,19 +38,19 @@ public class Contacto implements Serializable
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "nb_apellido_1")
-    private String apellido1;
+    private String primerApellido;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "nb_apellido_2")
-    private String apellido2;
+    private String segundoApellido;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "contacto", orphanRemoval = true)
     private List<ClienteContacto> clienteContactoList;
     
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "contacto", orphanRemoval = true)
-    private List<MedioCnt> medioCntList;
+    private List<MedioContacto> mediosContacto;
 
     public Contacto() {
     }
@@ -68,11 +59,11 @@ public class Contacto implements Serializable
         this.id = id;
     }
     
-    public Contacto(Integer id, String nombre, String apellido1, String apellido2) {
+    public Contacto(Integer id, String nombre, String primerApellido, String segundoApellido) {
         this.id = id;
         this.nombre = nombre;
-        this.apellido1 = apellido1;
-        this.apellido2 = apellido2;
+        this.primerApellido = primerApellido;
+        this.segundoApellido = segundoApellido;
     }
     
     public void add(ClienteContacto clienteContacto) {
@@ -89,18 +80,18 @@ public class Contacto implements Serializable
     	this.clienteContactoList.remove(clienteContacto);
     }
     
-    public void add(MedioCnt medioCnt) {
-    	if(this.medioCntList == null)
-    		this.medioCntList = new ArrayList<MedioCnt>();
+    public void add(MedioContacto medioCnt) {
+    	if(this.mediosContacto == null)
+    		this.mediosContacto = new ArrayList<MedioContacto>();
     	medioCnt.setContacto(this);
-    	this.medioCntList.add(medioCnt);
+    	this.mediosContacto.add(medioCnt);
     }
     
-    public void remove(MedioCnt medioCnt) {
-    	if(this.medioCntList == null)
+    public void remove(MedioContacto medioCnt) {
+    	if(this.mediosContacto == null)
     		return;
     	medioCnt.setContacto(null);
-    	this.medioCntList.remove(medioCnt);
+    	this.mediosContacto.remove(medioCnt);
     }
 
     public Integer getId() {
@@ -119,20 +110,20 @@ public class Contacto implements Serializable
         this.nombre = nombre;
     }
 
-    public String getApellido1() {
-        return apellido1;
+    public String getPrimerApellido() {
+        return primerApellido;
     }
 
-    public void setApellido1(String apellido1) {
-        this.apellido1 = apellido1;
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
     }
 
-    public String getApellido2() {
-        return apellido2;
+    public String getSegundoApellido() {
+        return segundoApellido;
     }
 
-    public void setApellido2(String apellido2) {
-        this.apellido2 = apellido2;
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido = segundoApellido;
     }
 
     public List<ClienteContacto> getClienteContactoList() {
@@ -143,12 +134,12 @@ public class Contacto implements Serializable
         this.clienteContactoList = clienteContactoList;
     }
     
-    public List<MedioCnt> getMedioCntList() {
-        return medioCntList;
+    public List<MedioContacto> getMediosContacto() {
+        return mediosContacto;
     }
 
-    public void setMedioCntList(List<MedioCnt> medioCntList) {
-        this.medioCntList = medioCntList;
+    public void setMediosContacto(List<MedioContacto> mediosContacto) {
+        this.mediosContacto = mediosContacto;
     }
 
     @Override 

@@ -8,20 +8,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cancela_nota_credito")
-@NamedQueries({
-    @NamedQuery(name = "CancelaNotaCredito.findAll", query = "SELECT c FROM CancelaNotaCredito c"),
-    @NamedQuery(name = "CancelaNotaCredito.findById", query = "SELECT c FROM CancelaNotaCredito c WHERE c.id = :id"),
-    @NamedQuery(name = "CancelaNotaCredito.findByDescripcion", query = "SELECT c FROM CancelaNotaCredito c WHERE c.descripcion = :descripcion")
-})
+@NamedQuery(name = "CancelaNotaCredito.findAll", query = "SELECT c FROM CancelaNotaCredito c")
+@NamedQuery(name = "CancelaNotaCredito.findById", query = "SELECT c FROM CancelaNotaCredito c WHERE c.id = :id")
 public class CancelaNotaCredito implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -39,7 +35,7 @@ public class CancelaNotaCredito implements Serializable
     private String descripcion;
     
     @JoinColumn(name = "NOTA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private NotaCredito nota;
 
     public CancelaNotaCredito() {

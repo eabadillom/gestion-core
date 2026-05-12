@@ -12,19 +12,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "cliente_domicilios")
-@NamedQueries({
-        @NamedQuery(name = "ClienteDomicilio.findAll", query = "SELECT c FROM ClienteDomicilio c"),
-        @NamedQuery(name = "ClienteDomicilio.findById", query = "SELECT c FROM ClienteDomicilio c WHERE c.id = :id"),
-        @NamedQuery(name = "ClienteDomicilio.findByCliente", query = "SELECT c FROM ClienteDomicilio c WHERE c.cliente.id = :idCliente"),
-        @NamedQuery(name = "ClienteDomicilio.findByClienteDomFiscal", query = "SELECT c FROM ClienteDomicilio c WHERE c.domicilio.tipoDomicilio.id = :idTipoDom AND c.cliente.id = :idCliente"),
-        @NamedQuery(name = "ClienteDomicilio.findByClienteTipoDomicilio", query = "SELECT c FROM ClienteDomicilio c WHERE c.cliente.id = :idCliente AND c.domicilio.tipoDomicilio.id = :idTipoDomicilio")
-})
+@NamedQuery(name = "ClienteDomicilio.findAll", query = "SELECT c FROM ClienteDomicilio c")
+@NamedQuery(name = "ClienteDomicilio.findById", query = "SELECT c FROM ClienteDomicilio c WHERE c.id = :id")
+@NamedQuery(name = "ClienteDomicilio.findByCliente", query = "SELECT c FROM ClienteDomicilio c WHERE c.cliente.id = :idCliente")
+@NamedQuery(name = "ClienteDomicilio.findByClienteDomFiscal", query = "SELECT c FROM ClienteDomicilio c WHERE c.domicilio.tipoDomicilio.id = :idTipoDom AND c.cliente.id = :idCliente")
+@NamedQuery(name = "ClienteDomicilio.findByClienteTipoDomicilio", query = "SELECT c FROM ClienteDomicilio c WHERE c.cliente.id = :idCliente AND c.domicilio.tipoDomicilio.id = :idTipoDomicilio")
 public class ClienteDomicilio implements Serializable 
 {
     private static final long serialVersionUID = 1L;

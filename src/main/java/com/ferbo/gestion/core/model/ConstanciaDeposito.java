@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,21 +22,8 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "constancia_de_deposito")
-@NamedQueries({
-    @NamedQuery(name = "ConstanciaDeposito.findAll", query = "SELECT c FROM ConstanciaDeposito c"),
-    @NamedQuery(name = "ConstanciaDeposito.findByFolio", query = "SELECT c FROM ConstanciaDeposito c WHERE c.folio = :folio"),
-    @NamedQuery(name = "ConstanciaDeposito.findById", query = "SELECT c FROM ConstanciaDeposito c WHERE c.cliente.id = :idCliente"),
-    @NamedQuery(name = "ConstanciaDeposito.findByIdAndPlanta", query = "SELECT DISTINCT (c) FROM ConstanciaDeposito c INNER JOIN c.partidaList p WHERE c.cliente.id = :idCliente and p.camara.planta.id = :idPlanta"),
-    @NamedQuery(name = "ConstanciaDeposito.findByFechaIngreso", query = "SELECT c FROM ConstanciaDeposito c WHERE c.fechaIngreso = :fechaIngreso"),
-    @NamedQuery(name = "ConstanciaDeposito.findByNombreTransportista", query = "SELECT c FROM ConstanciaDeposito c WHERE c.nombreTransportista = :nombreTransportista"),
-    @NamedQuery(name = "ConstanciaDeposito.findByPlacasTransporte", query = "SELECT c FROM ConstanciaDeposito c WHERE c.placasTransporte = :placasTransporte"),
-    @NamedQuery(name = "ConstanciaDeposito.findByObservaciones", query = "SELECT c FROM ConstanciaDeposito c WHERE c.observaciones = :observaciones"),
-    @NamedQuery(name = "ConstanciaDeposito.findByFolioCliente", query = "SELECT c FROM ConstanciaDeposito c WHERE c.folioCliente = :folioCliente"),
-    @NamedQuery(name = "ConstanciaDeposito.findByValorDeclarado", query = "SELECT c FROM ConstanciaDeposito c WHERE c.valorDeclarado = :valorDeclarado"),
-    @NamedQuery(name = "ConstanciaDeposito.findByFolioClientePeriodo", query = "SELECT c FROM ConstanciaDeposito c WHERE (c.fechaIngreso BETWEEN :fechaInicio AND :fechaFin) AND ((c.folioCliente = :folioCliente OR :folioCliente IS NULL) OR (c.cliente.id = :idCliente OR :idCliente IS NULL)\t) "),
-    @NamedQuery(name = "ConstanciaDeposito.findByTemperatura", query = "SELECT c FROM ConstanciaDeposito c WHERE c.temperatura = :temperatura"),
-    @NamedQuery(name = "ConstanciaDeposito.findByProducto", query = "SELECT distinct c from ConstanciaDeposito c INNER JOIN c.partidaList p INNER JOIN p.unidadProducto up INNER JOIN up.producto pr where pr.descripcion like :nombreProducto OR pr.numeroProd like :nombreProducto order by c.fechaIngreso DESC")
-})
+@NamedQuery(name = "ConstanciaDeposito.findByIdCliente", query = "SELECT c FROM ConstanciaDeposito c WHERE c.cliente.id = :idCliente")
+@NamedQuery(name = "ConstanciaDeposito.findByFolioCliente", query = "SELECT c FROM ConstanciaDeposito c WHERE c.folioCliente = :folioCliente")
 public class ConstanciaDeposito implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -46,7 +32,7 @@ public class ConstanciaDeposito implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "FOLIO")
-    private Integer folio;
+    private Integer id;
 
     @Column(name = "FECHA_INGRESO")
     private LocalDate fechaIngreso;
@@ -77,10 +63,10 @@ public class ConstanciaDeposito implements Serializable
     private String temperatura;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "constanciaDeposito")
-    private List<Partida> partidaList;
+    private List<Partida> partidas;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "constanciaDeposito")
-    private List<ConstanciaDepositoDetalle> constanciaDepositoDetalleList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "constancia")
+    private List<ConstanciaDepositoDetalle> servicios;
 
     @JoinColumn(name = "CTE_CVE", referencedColumnName = "CTE_CVE", nullable = false)
     @ManyToOne(optional = false)
@@ -94,27 +80,24 @@ public class ConstanciaDeposito implements Serializable
     @ManyToOne
     private EstadoConstancia status;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "constanciaDeposito")
-    private List<ConstanciaFactura> constanciaFacturaList;
-
     public ConstanciaDeposito() {
     }
 
     public ConstanciaDeposito(Integer folio) {
-        this.folio = folio;
+        this.id = folio;
     }
 
     public ConstanciaDeposito(Integer folio, String folioCliente) {
-        this.folio = folio;
+        this.id = folio;
         this.folioCliente = folioCliente;
     }
 
-    public Integer getFolio() {
-        return folio;
+    public Integer getId() {
+        return id;
     }
 
-    public void setFolio(Integer folio) {
-        this.folio = folio;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public LocalDate getFechaIngreso() {
@@ -173,25 +156,25 @@ public class ConstanciaDeposito implements Serializable
         this.temperatura = temperatura;
     }
 
-    public List<Partida> getPartidaList() {
-        return partidaList;
+    public List<Partida> getPartidas() {
+        return partidas;
     }
 
-    public void setPartidaList(List<Partida> partidaList) {//modificar para mappedby 
-        this.partidaList = partidaList;
-        for (Partida p : partidaList) {
+    public void setPartidas(List<Partida> partidas) {//modificar para mappedby 
+        this.partidas = partidas;
+        for (Partida p : partidas) {
             p.setConstanciaDeposito(this);
         }
     }
 
-    public List<ConstanciaDepositoDetalle> getConstanciaDepositoDetalleList() {
-        return constanciaDepositoDetalleList;
+    public List<ConstanciaDepositoDetalle> getServicios() {
+        return servicios;
     }
 
-    public void setConstanciaDepositoDetalleList(List<ConstanciaDepositoDetalle> constanciaDepositoDetalleList) {
-        this.constanciaDepositoDetalleList = constanciaDepositoDetalleList;
-        for (ConstanciaDepositoDetalle c : constanciaDepositoDetalleList) {
-            c.setConstanciaDeposito(this);
+    public void setServicios(List<ConstanciaDepositoDetalle> servicios) {
+        this.servicios = servicios;
+        for (ConstanciaDepositoDetalle servicio : servicios) {
+            servicio.setConstancia(this);
         }
     }
 
@@ -219,20 +202,12 @@ public class ConstanciaDeposito implements Serializable
         this.status = status;
     }
 
-    public List<ConstanciaFactura> getConstanciaFacturaList() {
-        return constanciaFacturaList;
-    }
-
-    public void setConstanciaFacturaList(List<ConstanciaFactura> constanciaFacturaList) {
-        this.constanciaFacturaList = constanciaFacturaList;
-    }
-
     @Override
     public int hashCode() {
-        if (this.folio == null) {
+        if (this.id == null) {
             return System.identityHashCode(this);
         }
-        return Objects.hash(this.folio);
+        return Objects.hash(this.id);
     }
 
     @Override
@@ -242,7 +217,7 @@ public class ConstanciaDeposito implements Serializable
             return false;
         }
         ConstanciaDeposito other = (ConstanciaDeposito) object;
-        if ((this.folio == null && other.folio != null) || (this.folio != null && !this.folio.equals(other.folio))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -250,7 +225,7 @@ public class ConstanciaDeposito implements Serializable
 
     @Override
     public String toString() {
-        return "com.ferbo.gestion.core.model.ConstanciaDeposito[ folio=" + folio + " ]";
+        return "com.ferbo.gestion.core.model.ConstanciaDeposito[ folio=" + id + " ]";
     }
 
 }

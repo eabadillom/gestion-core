@@ -1,11 +1,11 @@
 package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -13,12 +13,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "status_constancia_salida")
-@NamedQueries({
-    @NamedQuery(name = "StatusConstanciaSalida.findAll", query = "SELECT s FROM StatusConstanciaSalida s"),
-    @NamedQuery(name = "StatusConstanciaSalida.findById", query = "SELECT s FROM StatusConstanciaSalida s WHERE s.id = :idStConstanciaSalida"),
-    @NamedQuery(name = "StatusConstanciaSalida.findByNombre", query = "SELECT s FROM StatusConstanciaSalida s WHERE s.nombre = :nombre"),
-    @NamedQuery(name = "StatusConstanciaSalida.findByDescripcion", query = "SELECT s FROM StatusConstanciaSalida s WHERE s.descripcion = :descripcion")
-})
+@NamedQuery(name = "StatusConstanciaSalida.findAll", query = "SELECT s FROM StatusConstanciaSalida s")
 public class StatusConstanciaSalida implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -73,9 +68,9 @@ public class StatusConstanciaSalida implements Serializable
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        if(this.id == null)
+        	return System.identityHashCode(this);
+        return Objects.hashCode(this.id);
     }
 
     @Override

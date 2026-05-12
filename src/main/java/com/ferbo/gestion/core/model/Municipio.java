@@ -7,7 +7,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,15 +15,13 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "municipios")
-@NamedQueries({
-    @NamedQuery(name = "Municipio.findAll", query = "SELECT m FROM Municipio m"),
-    @NamedQuery(name = "Municipio.findByPais", query = "SELECT m FROM Municipio m WHERE m.municipioPK.estado.estadoPK.pais.id = :idPais"),
-    @NamedQuery(name = "Municipio.findByEstado", query = "SELECT m FROM Municipio m WHERE m.municipioPK.estado.estadoPK.id = :idEstado"),
-    @NamedQuery(name = "Municipio.findByMunicipio", query = "SELECT m FROM Municipio m WHERE m.municipioPK.id = :idMunicipio"),
-    @NamedQuery(name = "Municipio.findByDescripcion", query = "SELECT m FROM Municipio m WHERE m.descripcion = :descripcion"),
-    @NamedQuery(name = "Municipio.findByPaisEstado", query = "SELECT m FROM Municipio m WHERE m.municipioPK.estado.estadoPK.pais.id = :idPais AND m.municipioPK.estado.estadoPK.id = :idEstado"),
-    @NamedQuery(name = "Municipio.findByTodo", query = "SELECT m FROM Municipio m WHERE m.municipioPK.id = :idMunicipio AND m.municipioPK.estado.estadoPK.id = :idEstado AND m.municipioPK.estado.estadoPK.pais.id = :idPais")
-})
+@NamedQuery(name = "Municipio.findAll", query = "SELECT m FROM Municipio m")
+@NamedQuery(name = "Municipio.findByPais", query = "SELECT m FROM Municipio m WHERE m.municipioPK.estado.estadoPK.pais.id = :idPais")
+@NamedQuery(name = "Municipio.findByEstado", query = "SELECT m FROM Municipio m WHERE m.municipioPK.estado.estadoPK.id = :idEstado")
+@NamedQuery(name = "Municipio.findByMunicipio", query = "SELECT m FROM Municipio m WHERE m.municipioPK.id = :idMunicipio")
+@NamedQuery(name = "Municipio.findByDescripcion", query = "SELECT m FROM Municipio m WHERE m.descripcion = :descripcion")
+@NamedQuery(name = "Municipio.findByPaisEstado", query = "SELECT m FROM Municipio m WHERE m.municipioPK.estado.estadoPK.pais.id = :idPais AND m.municipioPK.estado.estadoPK.id = :idEstado")
+@NamedQuery(name = "Municipio.findByTodo", query = "SELECT m FROM Municipio m WHERE m.municipioPK.id = :idMunicipio AND m.municipioPK.estado.estadoPK.id = :idEstado AND m.municipioPK.estado.estadoPK.pais.id = :idPais")
 public class Municipio implements Serializable 
 {
     private static final long serialVersionUID = 1L;

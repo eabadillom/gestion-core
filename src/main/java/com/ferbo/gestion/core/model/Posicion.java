@@ -2,35 +2,22 @@ package com.ferbo.gestion.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "posicion")
-@NamedQueries({
-    @NamedQuery(name = "Posicion.findAll", query = "SELECT p FROM Posicion p"),
-    @NamedQuery(name = "Posicion.findByPosicion", query = "SELECT p FROM Posicion p WHERE p.id = :idPosicion"),
-    @NamedQuery(name = "Posicion.findByCamara", query = "SELECT p FROM Posicion p WHERE p.camara.id = :idCamara"),
-    @NamedQuery(name = "Posicion.findByPlantaCamara", query = "SELECT p FROM Posicion p WHERE p.planta.id = :idPlanta AND p.camara.id = :idCamara"),
-    @NamedQuery(name = "Posicion.findByCodPosicion", query = "SELECT p FROM Posicion p WHERE p.codPosicion = :codPosicion"),
-    @NamedQuery(name = "Posicion.findByDescPosicion", query = "SELECT p FROM Posicion p WHERE p.descPosicion = :descPosicion"),
-    @NamedQuery(name = "Posicion.findByTempIni", query = "SELECT p FROM Posicion p WHERE p.tempIni = :tempIni"),
-    @NamedQuery(name = "Posicion.findByTempFin", query = "SELECT p FROM Posicion p WHERE p.tempFin = :tempFin"),
-    @NamedQuery(name = "Posicion.findByHabilitada", query = "SELECT p FROM Posicion p WHERE p.habilitada = :habilitada")
-})
-public class Posicion implements Serializable 
+public class Posicion implements Serializable
 {
     private static final long serialVersionUID = 1L;
     
@@ -41,34 +28,34 @@ public class Posicion implements Serializable
     private Integer id;
 
     @JoinColumn(name = "id_planta", referencedColumnName = "PLANTA_CVE")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Planta planta;
 
     @JoinColumn(name = "id_camara", referencedColumnName = "CAMARA_CVE")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Camara camara;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "cod_posicion")
-    private String codPosicion;
+    private String codigo;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
     @Column(name = "desc_posicion")
-    private String descPosicion;
+    private String descripcion;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "temp_ini")
-    private BigDecimal tempIni;
+    private BigDecimal temperaturaInicial;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "temp_fin")
-    private BigDecimal tempFin;
+    private BigDecimal temperaturaFinal;
     
     @Basic(optional = false)
     @NotNull
@@ -82,14 +69,14 @@ public class Posicion implements Serializable
         this.id = id;
     }
 
-    public Posicion(Integer id, Planta planta, Camara camara, String codPosicion, String descPosicion, BigDecimal tempIni, BigDecimal tempFin, boolean habilitada) {
+    public Posicion(Integer id, Planta planta, Camara camara, String codigo, String descripcion, BigDecimal temperaturaInicial, BigDecimal temperaturaFinal, boolean habilitada) {
         this.id = id;
         this.planta = planta;
         this.camara = camara;
-        this.codPosicion = codPosicion;
-        this.descPosicion = descPosicion;
-        this.tempIni = tempIni;
-        this.tempFin = tempFin;
+        this.codigo = codigo;
+        this.descripcion = descripcion;
+        this.temperaturaInicial = temperaturaInicial;
+        this.temperaturaFinal = temperaturaFinal;
         this.habilitada = habilitada;
     }
 
@@ -117,36 +104,36 @@ public class Posicion implements Serializable
         this.camara = camara;
     }
 
-    public String getCodPosicion() {
-        return codPosicion;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCodPosicion(String codPosicion) {
-        this.codPosicion = codPosicion;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public String getDescPosicion() {
-        return descPosicion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescPosicion(String descPosicion) {
-        this.descPosicion = descPosicion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public BigDecimal getTempIni() {
-        return tempIni;
+    public BigDecimal getTemperaturaInicial() {
+        return temperaturaInicial;
     }
 
-    public void setTempIni(BigDecimal tempIni) {
-        this.tempIni = tempIni;
+    public void setTemperaturaInicial(BigDecimal temperaturaInicial) {
+        this.temperaturaInicial = temperaturaInicial;
     }
 
-    public BigDecimal getTempFin() {
-        return tempFin;
+    public BigDecimal getTemperaturaFinal() {
+        return temperaturaFinal;
     }
 
-    public void setTempFin(BigDecimal tempFin) {
-        this.tempFin = tempFin;
+    public void setTemperaturaFinal(BigDecimal temperaturaFinal) {
+        this.temperaturaFinal = temperaturaFinal;
     }
 
     public boolean getHabilitada() {
@@ -159,9 +146,9 @@ public class Posicion implements Serializable
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    	if(this.id == null)
+    		return System.identityHashCode(this);
+    	return Objects.hashCode(this.id);
     }
 
     @Override

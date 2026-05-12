@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -20,17 +19,15 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "pago")
-@NamedQueries({
-        @NamedQuery(name = "Pago.findAll", query = "SELECT p FROM Pago p"),
-        @NamedQuery(name = "Pago.findById", query = "SELECT p FROM Pago p WHERE p.id = :id"),
-        @NamedQuery(name = "Pago.findByMonto", query = "SELECT p FROM Pago p WHERE p.monto = :monto"),
-        @NamedQuery(name = "Pago.findByFecha", query = "SELECT p FROM Pago p WHERE p.fecha = :fecha"),
-        @NamedQuery(name = "Pago.findByReferencia", query = "SELECT p FROM Pago p WHERE p.referencia = :referencia"),
-        @NamedQuery(name = "Pago.findByCheque", query = "SELECT p FROM Pago p WHERE p.cheque = :cheque"),
-        @NamedQuery(name = "Pago.findByChequeDevuelto", query = "SELECT p FROM Pago p WHERE p.chequeDevuelto = :chequeDevuelto"),
-        @NamedQuery(name = "Pago.findByFacturaId", query = "SELECT p FROM Pago p WHERE p.factura.id = :facturaId"),
-        @NamedQuery(name = "Pago.findByClienteFechas", query = "SELECT p FROM Pago p WHERE (p.factura.cliente.id = :idCliente OR :idCliente IS NULL) AND (p.fecha BETWEEN :startDate AND :endDate)") 
-})
+@NamedQuery(name = "Pago.findAll", query = "SELECT p FROM Pago p")
+@NamedQuery(name = "Pago.findById", query = "SELECT p FROM Pago p WHERE p.id = :id")
+@NamedQuery(name = "Pago.findByMonto", query = "SELECT p FROM Pago p WHERE p.monto = :monto")
+@NamedQuery(name = "Pago.findByFecha", query = "SELECT p FROM Pago p WHERE p.fecha = :fecha")
+@NamedQuery(name = "Pago.findByReferencia", query = "SELECT p FROM Pago p WHERE p.referencia = :referencia")
+@NamedQuery(name = "Pago.findByCheque", query = "SELECT p FROM Pago p WHERE p.cheque = :cheque")
+@NamedQuery(name = "Pago.findByChequeDevuelto", query = "SELECT p FROM Pago p WHERE p.chequeDevuelto = :chequeDevuelto")
+@NamedQuery(name = "Pago.findByFacturaId", query = "SELECT p FROM Pago p WHERE p.factura.id = :facturaId")
+@NamedQuery(name = "Pago.findByClienteFechas", query = "SELECT p FROM Pago p WHERE (p.factura.cliente.id = :idCliente OR :idCliente IS NULL) AND (p.fecha BETWEEN :startDate AND :endDate)") 
 public class Pago implements Serializable 
 {
     private static final long serialVersionUID = 1L;
