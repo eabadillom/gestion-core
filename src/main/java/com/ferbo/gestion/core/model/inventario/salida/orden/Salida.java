@@ -81,7 +81,7 @@ public class Salida implements Serializable
     private List<SalidaDetalle> detalles;
     
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "salida")
-    private List<ServiciosSalida> servicios;
+    private List<SalidaServicio> servicios;
 
     public Salida() {
     }
@@ -190,11 +190,11 @@ public class Salida implements Serializable
         this.detalles = detalles;
     }
 
-    public List<ServiciosSalida> getServicios() {
+    public List<SalidaServicio> getServicios() {
         return servicios;
     }
 
-    public void setServicios(List<ServiciosSalida> listServiciosSalida) {
+    public void setServicios(List<SalidaServicio> listServiciosSalida) {
         this.servicios = listServiciosSalida;
     }
 

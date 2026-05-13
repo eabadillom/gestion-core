@@ -18,8 +18,8 @@ import com.ferbo.gestion.core.model.catalogo.servicio.UnidadManejo;
 
 @Entity
 @Table(name = "servicios_salida")
-@NamedQuery(name = "ServiciosSalida.findByFolioSalida", query = "SELECT ss FROM ServiciosSalida ss INNER JOIN ss.salida s WHERE s.folio = :folioSalida")
-public class ServiciosSalida implements Serializable
+@NamedQuery(name = "SalidaServicio.findByFolioSalida", query = "SELECT ss FROM SalidaServicio ss INNER JOIN ss.salida s WHERE s.folio = :folioSalida")
+public class SalidaServicio implements Serializable
 {
     private static final long serialVersionUID = 1L;
     
@@ -44,7 +44,7 @@ public class ServiciosSalida implements Serializable
     @Column(name = "nu_cantidad")
     private Integer cantidad;
 
-    public ServiciosSalida() {
+    public SalidaServicio() {
     }
 
     public Integer getId() {
@@ -106,7 +106,7 @@ public class ServiciosSalida implements Serializable
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ServiciosSalida other = (ServiciosSalida) obj;
+        final SalidaServicio other = (SalidaServicio) obj;
         if(this.id == null || other.id == null)
             return Objects.equals(System.identityHashCode(this), System.identityHashCode(other));
         
