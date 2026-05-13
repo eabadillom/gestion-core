@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
-public class FacturaMedioPagoPK implements Serializable 
+public class FacturaFormaPagoPK implements Serializable 
 {
     private static final long serialVersionUID = 1L;
 
@@ -23,10 +23,10 @@ public class FacturaMedioPagoPK implements Serializable
     @Column(name = "fmp_id")
     private int id;
 
-    public FacturaMedioPagoPK() {
+    public FacturaFormaPagoPK() {
     }
 
-    public FacturaMedioPagoPK(Factura factura, int id) {
+    public FacturaFormaPagoPK(Factura factura, int id) {
         this.factura = factura;
         this.id = id;
     }
@@ -63,13 +63,13 @@ public class FacturaMedioPagoPK implements Serializable
         if (getClass() != obj.getClass()) {
             return false;
         }
-        FacturaMedioPagoPK other = (FacturaMedioPagoPK) obj;
+        FacturaFormaPagoPK other = (FacturaFormaPagoPK) obj;
         return id == other.id && Objects.equals(factura, other.factura);
     }
 
     @Override
     public String toString() {
-        return "com.ferbo.gestion.core.model.FacturaMedioPagoPK [id=" + id + "]";
+        return "com.ferbo.gestion.core.model.FacturaFormaPagoPK [id=" + id + "]";
     }
 
 }

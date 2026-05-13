@@ -20,6 +20,7 @@ import javax.validation.constraints.Size;
 @NamedQuery(name = "Cheque.findByNumero", query = "SELECT c FROM Cheque c WHERE c.numero = :numero")
 @NamedQuery(name = "Cheque.findByBanco", query = "SELECT c FROM Cheque c WHERE c.banco = :banco")
 @NamedQuery(name = "Cheque.findByMonto", query = "SELECT c FROM Cheque c WHERE c.monto = :monto")
+@Deprecated
 public class Cheque implements Serializable 
 {
     private static final long serialVersionUID = 1L;

@@ -15,12 +15,12 @@ import com.ferbo.gestion.core.model.catalogo.sat.FormaPago;
 
 @Entity
 @Table(name = "factura_medio_pago")
-public class FacturaMedioPago implements Serializable 
+public class FacturaFormaPago implements Serializable 
 {
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
-    protected FacturaMedioPagoPK key;
+    protected FacturaFormaPagoPK key;
     
     @JoinColumn(name = "mp_id", referencedColumnName = "mp_id")
     @ManyToOne(optional = false)
@@ -41,28 +41,28 @@ public class FacturaMedioPago implements Serializable
     @Column(name = "fmp_referencia")
     private String referencia;
     
-    public FacturaMedioPago() {
+    public FacturaFormaPago() {
     }
 
-    public FacturaMedioPago(FacturaMedioPagoPK primaryKey) {
+    public FacturaFormaPago(FacturaFormaPagoPK primaryKey) {
         this.key = primaryKey;
     }
 
-    public FacturaMedioPago(FacturaMedioPagoPK primaryKey, String descripcion, int porcentaje) {
+    public FacturaFormaPago(FacturaFormaPagoPK primaryKey, String descripcion, int porcentaje) {
         this.key = primaryKey;
         this.descripcion = descripcion;
         this.porcentaje = porcentaje;
     }
 
-    public FacturaMedioPago(Factura idFactura, int fmpId) {
-        this.key = new FacturaMedioPagoPK(idFactura, fmpId);
+    public FacturaFormaPago(Factura idFactura, int fmpId) {
+        this.key = new FacturaFormaPagoPK(idFactura, fmpId);
     }
 	
-    public FacturaMedioPagoPK getFacturaMedioPagoPK() {
+    public FacturaFormaPagoPK getFacturaMedioPagoPK() {
         return key;
     }
 
-    public void setFacturaMedioPagoPK(FacturaMedioPagoPK facturaMedioPagoPK) {
+    public void setFacturaMedioPagoPK(FacturaFormaPagoPK facturaMedioPagoPK) {
         this.key = facturaMedioPagoPK;
     }
 
@@ -100,18 +100,18 @@ public class FacturaMedioPago implements Serializable
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (key != null ? key.hashCode() : 0);
-        return hash;
+    	if(this.key == null)
+    		return System.identityHashCode(this);
+    	return this.key.hashCode();
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof FacturaMedioPago)) {
+        if (!(object instanceof FacturaFormaPago)) {
             return false;
         }
-        FacturaMedioPago other = (FacturaMedioPago) object;
+        FacturaFormaPago other = (FacturaFormaPago) object;
         if ((this.key == null && other.key != null) || (this.key != null && !this.key.equals(other.key))) {
             return false;
         }
@@ -120,7 +120,7 @@ public class FacturaMedioPago implements Serializable
 
     @Override
     public String toString() {
-        return "com.ferbo.gestion.core.model.FacturaMedioPago[ facturaMedioPagoPK=" + key + " ]";
+        return "com.ferbo.gestion.core.model.FacturaFormaPago[ key=" + key + " ]";
     }
     
 }

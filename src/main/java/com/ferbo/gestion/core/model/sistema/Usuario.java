@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -43,8 +45,9 @@ public class Usuario implements Serializable
     @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "perfil")
-    private int perfil;
+    @ManyToOne
+    @JoinColumn(name = "perfil", referencedColumnName = "perfil.id")
+    private Perfil perfil;
 
     @Size(max = 50)
     @Column(name = "apellido_1")
@@ -87,7 +90,7 @@ public class Usuario implements Serializable
         this.id = idUsuario;
     }
 
-    public Usuario(Integer idUsuario, String usuario, String password, int perfil, String stUsuario, String numEmpleado) {
+    public Usuario(Integer idUsuario, String usuario, String password, Perfil perfil, String stUsuario, String numEmpleado) {
         this.id = idUsuario;
         this.usuario = usuario;
         this.password = password;
@@ -136,11 +139,11 @@ public class Usuario implements Serializable
         this.descripcion = descripcion;
     }
 
-    public int getPerfil() {
+    public Perfil getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(int perfil) {
+    public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
     }
 
