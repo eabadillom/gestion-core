@@ -32,6 +32,7 @@ import com.ferbo.gestion.core.model.facturacion.Factura;
     @NamedQuery(name = "ChequeDevuelto.findByReferencia", query = "SELECT c FROM ChequeDevuelto c WHERE c.referencia = :referencia"),
     @NamedQuery(name = "ChequeDevuelto.findByMotivo", query = "SELECT c FROM ChequeDevuelto c WHERE c.motivo = :motivo")
 })
+@Deprecated
 public class ChequeDevuelto implements Serializable 
 {
     private static final long serialVersionUID = 1L;

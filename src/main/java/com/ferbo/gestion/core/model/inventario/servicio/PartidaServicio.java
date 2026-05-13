@@ -42,7 +42,7 @@ public class PartidaServicio implements Serializable
     
     @JoinColumn(name = "FOLIO", referencedColumnName = "FOLIO")
     @ManyToOne
-    private ConstanciaServicio constanciaServicio;
+    private ConstanciaServicio constancia;
     
     @JoinColumn(name = "PRODUCTO_CVE", referencedColumnName = "PRODUCTO_CVE")
     @ManyToOne
@@ -87,12 +87,12 @@ public class PartidaServicio implements Serializable
         this.cantidadTotal = cantidadTotal;
     }
 
-    public ConstanciaServicio getConstanciaServicio() {
-        return constanciaServicio;
+    public ConstanciaServicio getConstancia() {
+        return constancia;
     }
 
-    public void setConstanciaServicio(ConstanciaServicio constanciaServicio) {
-        this.constanciaServicio = constanciaServicio;
+    public void setConstancia(ConstanciaServicio constancia) {
+        this.constancia = constancia;
     }
 
     public Producto getProducto() {
@@ -107,7 +107,7 @@ public class PartidaServicio implements Serializable
         return unidadManejo;
     }
 
-    public void setUnidadDeManejoCve(UnidadManejo unidadManejo) {
+    public void setUnidadManejo(UnidadManejo unidadManejo) {
         this.unidadManejo = unidadManejo;
     }
 
@@ -115,7 +115,7 @@ public class PartidaServicio implements Serializable
         return unidadCobro;
     }
 
-    public void setUnidadDeCobro(UnidadManejo unidadCobro) {
+    public void setUnidadCobro(UnidadManejo unidadCobro) {
         this.unidadCobro = unidadCobro;
     }
 

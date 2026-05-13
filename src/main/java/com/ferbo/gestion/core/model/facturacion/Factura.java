@@ -249,7 +249,7 @@ public class Factura implements Serializable
     private List<Pago> pagoList;
 
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "key.factura")
-    private List<FacturaMedioPago> facturaMedioPagoList;
+    private List<FacturaFormaPago> facturaMedioPagoList;
 
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "factura")
     private List<ServicioFactura> servicioFacturaList;
@@ -620,11 +620,11 @@ public class Factura implements Serializable
         this.pagoList = pagoList;
     }
 
-    public List<FacturaMedioPago> getFacturaMedioPagoList() {
+    public List<FacturaFormaPago> getFacturaMedioPagoList() {
         return facturaMedioPagoList;
     }
 
-    public void setFacturaMedioPagoList(List<FacturaMedioPago> facturaMedioPagoList) {
+    public void setFacturaMedioPagoList(List<FacturaFormaPago> facturaMedioPagoList) {
         this.facturaMedioPagoList = facturaMedioPagoList;
     }
 

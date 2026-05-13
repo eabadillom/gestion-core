@@ -8,11 +8,11 @@ import org.apache.logging.log4j.Logger;
 import com.ferbo.gestion.core.config.TransactionManager;
 import com.ferbo.gestion.core.model.catalogo.almacen.Posicion;
 
-public class PosicionCamaraDAO extends BaseDAO<Posicion, Integer>
+public class PosicionDAO extends BaseDAO<Posicion, Integer>
 {
-    private static Logger log = LogManager.getLogger(PosicionCamaraDAO.class);
+    private static Logger log = LogManager.getLogger(PosicionDAO.class);
 
-    public PosicionCamaraDAO(TransactionManager transactManager) {
+    public PosicionDAO(TransactionManager transactManager) {
         super(Posicion.class, transactManager);
     }
     
