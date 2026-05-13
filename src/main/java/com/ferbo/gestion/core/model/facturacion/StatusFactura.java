@@ -1,0 +1,105 @@
+package com.ferbo.gestion.core.model.facturacion;
+
+import java.io.Serializable;
+import java.util.Objects;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(name = "status_factura")
+@NamedQuery(name = "StatusFactura.findAll", query = "SELECT s FROM StatusFactura s")
+public class StatusFactura implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    public static final int STATUS_ERROR        = 0;
+    public static final int STATUS_POR_COBRAR   = 1;
+    public static final int STATUS_CANCELADA    = 2;
+    public static final int STATUS_PAGADA       = 3;
+    public static final int STATUS_PAGO_PARCIAL = 4;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "nombre")
+    private String nombre;
+    
+    @Size(max = 255)
+    @Column(name = "descripcion")
+    private String descripcion;
+
+    public StatusFactura() {
+    }
+
+    public StatusFactura(Integer id) {
+        this.id = id;
+    }
+
+    public StatusFactura(Integer id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @Override
+    public int hashCode() {
+        if(this.id == null)
+        	return System.identityHashCode(this);
+        return Objects.hashCode(this.id);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof StatusFactura)) {
+            return false;
+        }
+        StatusFactura other = (StatusFactura) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.ferbo.gestion.core.model.StatusFactura[ id=" + id + " ]";
+    }
+
+}
