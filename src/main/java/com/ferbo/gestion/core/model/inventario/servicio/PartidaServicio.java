@@ -23,7 +23,7 @@ import com.ferbo.gestion.core.model.catalogo.servicio.UnidadManejo;
 @NamedQuery(name = "PartidaServicio.findById", query = "SELECT p FROM PartidaServicio p WHERE p.id = :idPartida")
 @NamedQuery(name = "PartidaServicio.findByCantidadDeCobro", query = "SELECT p FROM PartidaServicio p WHERE p.unidadCobro = :cantidadDeCobro")
 @NamedQuery(name = "PartidaServicio.findByCantidadTotal", query = "SELECT p FROM PartidaServicio p WHERE p.cantidadTotal = :cantidadTotal")
-@NamedQuery(name = "PartidaServicio.findByFolio", query = "SELECT p FROM PartidaServicio p WHERE p.constanciaServicio.folio = :folio")
+@NamedQuery(name = "PartidaServicio.findByFolio", query = "SELECT p FROM PartidaServicio p WHERE p.constancia.folio = :folio")
 public class PartidaServicio implements Serializable 
 {
     private static final long serialVersionUID = 1L;
