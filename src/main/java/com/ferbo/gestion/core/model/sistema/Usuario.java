@@ -46,7 +46,7 @@ public class Usuario implements Serializable
     private String descripcion;
 
     @ManyToOne
-    @JoinColumn(name = "perfil", referencedColumnName = "perfil.id")
+    @JoinColumn(name = "perfil", referencedColumnName = "id")
     private Perfil perfil;
 
     @Size(max = 50)
