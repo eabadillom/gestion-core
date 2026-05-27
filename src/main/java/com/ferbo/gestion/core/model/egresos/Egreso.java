@@ -84,7 +84,7 @@ public class Egreso implements Serializable {
     private FormaPago formaPago;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cd_emisor", referencedColumnName = "cd_emsior", nullable = false)
+    @JoinColumn(name = "cd_emisor", referencedColumnName = "cd_emisor", nullable = false)
     private Emisor emisor;
 
     @OneToOne(mappedBy = "egreso")
