@@ -22,7 +22,7 @@ public class MedioContactoDAO extends BaseDAO<MedioContacto, Integer>
     {
         Integer idContacto = clienteContacto.getContacto().getId();
         return transactManager.executeRead(em -> 
-            em.createNamedQuery("MedioCnt.findByContacto", MedioContacto.class)
+            em.createNamedQuery("MedioContacto.findByContacto", MedioContacto.class)
                 .setParameter("idContacto", idContacto)
                 .getResultList()
         );

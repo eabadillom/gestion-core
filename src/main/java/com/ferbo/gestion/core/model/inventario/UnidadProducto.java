@@ -54,7 +54,7 @@ public class UnidadProducto implements Serializable {
         this.id = id;
     }
 
-    public UnidadManejo getUnidadeManejo() {
+    public UnidadManejo getUnidadManejo() {
         return unidadManejo;
     }
 

@@ -33,7 +33,7 @@ public class ClienteDAO extends BaseDAO<Cliente, Integer>
                         "INNER JOIN cl.candadoSalida cs \n" +
                         "INNER JOIN cl.clienteContactoList cc \n" +
                         "INNER JOIN cc.contacto c \n" +
-                        "INNER JOIN c.medioCntList mc \n" +
+                        "INNER JOIN c.mediosContacto mc \n" +
                         "LEFT JOIN mc.mail m \n" +
                         "LEFT JOIN mc.telefono t \n" +
                         "INNER JOIN cl.clienteDomiciliosList cd \n" +
