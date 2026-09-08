@@ -61,7 +61,7 @@ public class Salida implements Serializable
     @Column(name = "nb_nombre_transportista")
     private String nombreTransportista;
     
-    @Size(max = 10)
+    @Size(max = 200)
     @Column(name = "nb_observaciones")
     private String observaciones;
     
