@@ -7,10 +7,11 @@ Este proyecto sigue versionado semántico (SemVer) y el formato de [Keep a Chang
 ---
 ## [1.0.2] - 2026-09-14
 ### Added
-- Dentro del modelo de Ordenes de Salida, se modifica el atributo Observaciones para el ajuste de caracteres que recibe
-- Creación del archivo README.md
 - Creación del archivo CHANGELOG.md
 - Creación del archivo LICENSE
+
+### Change
+- Dentro del modelo de Ordenes de Salida, se modifica el atributo Observaciones para el ajuste de caracteres que recibe
 
 ## Nota
 Los cambios previos a esta versión (desde el inicio del proyecto) no están documentados por tratarse de la fase inicial de desarrollo.
