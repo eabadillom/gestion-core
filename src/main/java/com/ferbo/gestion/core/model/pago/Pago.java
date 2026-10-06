@@ -3,10 +3,12 @@ package com.ferbo.gestion.core.model.pago;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Objects;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,17 +52,13 @@ public class Pago implements Serializable
     @Column(name = "fecha")
     private LocalDate fecha;
     
+    @Basic(optional = true)
+    @Column(name = "tm_hora")
+    private LocalTime hora;
+    
     @Size(max = 20)
     @Column(name = "referencia")
     private String referencia;
-    
-    //El campo cheque se va a mostrar como "referencia" en la pantalla de usuario.
-    @Size(max = 10)
-    @Column(name = "cheque")
-    private String cheque; 
-    
-    @Column(name = "cheque_devuelto")
-    private Boolean chequeDevuelto;
     
     @Basic(optional = true)
     @JoinColumn(name = "banco", referencedColumnName = "id")
@@ -68,24 +66,62 @@ public class Pago implements Serializable
     private Banco banco;
     
     @JoinColumn(name = "factura", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Factura factura;
     
     @JoinColumn(name = "tipo", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private TipoPago tipo;
+    
+    @JoinColumn(name = "cd_comp_pago", referencedColumnName = "cd_comp_pago")
+    @ManyToOne(optional = true)
+    private ComplementoPago complementoPago;
+    
+    @Basic(optional = true)
+    @Column(name = "cd_forma_pago")
+    private String formaPago;
+    
+    @Basic(optional = true)
+    @Column(name = "nu_parcialidad")
+    @Size(max = 5)
+    private Integer parcialidad;
+    
+    @Override
+    public int hashCode() {
+    	if (this.id == null) {
+            return System.identityHashCode(this);
+        }
+        return Objects.hash(this.id);
+    }
 
+    @Override
+    public boolean equals(Object object) {
+    	if (this == object) {
+            return true;
+        }
+        if (object == null) {
+            return false;
+        }
+        if (getClass() != object.getClass()) {
+            return false;
+        }
+        final Pago other = (Pago) object;
+        if(this.id == null || other.id == null)
+            return Objects.equals(System.identityHashCode(this), System.identityHashCode(other));
+       
+        return Objects.equals(this.id, other.id);
+    }
+
+    @Override
+    public String toString() {
+        return "com.ferbo.gestion.core.model.Pago[ id=" + id + " ]";
+    }
+    
     public Pago() {
     }
 
     public Pago(Integer id) {
         this.id = id;
-    }
-
-    public Pago(Integer id, BigDecimal monto, LocalDate fecha) {
-        this.id = id;
-        this.monto = monto;
-        this.fecha = fecha;
     }
 
     public Integer getId() {
@@ -120,22 +156,6 @@ public class Pago implements Serializable
         this.referencia = referencia;
     }
 
-    public String getCheque() {
-        return cheque;
-    }
-
-    public void setCheque(String cheque) {
-        this.cheque = cheque;
-    }
-
-    public Boolean getChequeDevuelto() {
-        return chequeDevuelto;
-    }
-
-    public void setChequeDevuelto(Boolean chequeDevuelto) {
-        this.chequeDevuelto = chequeDevuelto;
-    }
-
     public Banco getBanco() {
         return banco;
     }
@@ -160,29 +180,35 @@ public class Pago implements Serializable
         this.tipo = tipo;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	public LocalTime getHora() {
+		return hora;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pago)) {
-            return false;
-        }
-        Pago other = (Pago) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	public void setHora(LocalTime hora) {
+		this.hora = hora;
+	}
 
-    @Override
-    public String toString() {
-        return "com.ferbo.gestion.core.model.Pago[ id=" + id + " ]";
-    }
+	public ComplementoPago getComplementoPago() {
+		return complementoPago;
+	}
 
+	public void setComplementoPago(ComplementoPago complementoPago) {
+		this.complementoPago = complementoPago;
+	}
+
+	public String getFormaPago() {
+		return formaPago;
+	}
+
+	public void setFormaPago(String formaPago) {
+		this.formaPago = formaPago;
+	}
+
+	public Integer getParcialidad() {
+		return parcialidad;
+	}
+
+	public void setParcialidad(Integer parcialidad) {
+		this.parcialidad = parcialidad;
+	}
 }
