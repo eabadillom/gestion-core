@@ -245,7 +245,7 @@ public class Factura implements Serializable
     private String lugarExpedicion;
 
     /* * * * * * * * * * * * * * * Otros atributos * * * * * * * * * * * * * * */
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "factura")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "factura")
     private List<Pago> pagoList;
 
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "key.factura")
