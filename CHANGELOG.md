@@ -7,7 +7,7 @@ Este proyecto sigue versionado semántico (SemVer) y el formato de [Keep a Chang
 ---
 ## [2.0.0] - 2026-10-08
 ### Changed
-- Se eliminaron las anotaciones `@Query` del model `Pago`, al considerarse innecesarias.
+- Se eliminaron las anotaciones `@NamedQuery` del model `Pago`, al considerarse innecesarias.
 
 ### Removed
 - Se eliminan los model `Cheque` y `Cheque devuelto` del proyecto, al considerarse innecesarios.
